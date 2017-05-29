@@ -9,8 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
@@ -44,8 +44,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
             e.printStackTrace();
         } finally {
             try {
-                prStatement.close();
-                connection.close();
+                if(prStatement != null){
+                    prStatement.close();
+                }
+                if(connection != null){
+                    connection.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -68,8 +72,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
             e.printStackTrace();
         } finally {
             try {
-                prStatement.close();
-                connection.close();
+                if(prStatement != null){
+                    prStatement.close();
+                }
+                if(connection != null){
+                    connection.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -91,8 +99,12 @@ public class DepartmentDaoImpl implements DepartmentDao {
             e.printStackTrace();
         } finally {
             try {
-                prStatement.close();
-                connection.close();
+                if(prStatement != null){
+                    prStatement.close();
+                }
+                if(connection != null){
+                    connection.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -113,11 +125,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
             prStatement.setInt(1, department.getId());
             prStatement.execute();
             resultSet = prStatement.getResultSet();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
                 int age = resultSet.getInt(3);
-                Date date = resultSet.getDate(4);
+                LocalDate date = resultSet.getObject(4, LocalDate.class);
                 Employee employee = new Employee(id, name, age, date);
                 employees.add(employee);
             }
@@ -126,8 +138,15 @@ public class DepartmentDaoImpl implements DepartmentDao {
             e.printStackTrace();
         } finally {
             try {
-                prStatement.close();
-                connection.close();
+                if(prStatement != null){
+                    prStatement.close();
+                }
+                if(connection != null){
+                    connection.close();
+                }
+                if(resultSet != null){
+                    resultSet.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }

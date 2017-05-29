@@ -1,6 +1,6 @@
 package entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author Arsalan
@@ -10,9 +10,9 @@ public class Employee {
     private int id;
     private String name;
     private int age;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
-    public Employee(int id, String name, int age, Date dateOfBirth) {
+    public Employee(int id, String name, int age, LocalDate dateOfBirth) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -43,11 +43,11 @@ public class Employee {
         this.age = age;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -73,13 +73,5 @@ public class Employee {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", dateOfBirth=" + dateOfBirth +
-                '}';
-    }
+
 }
