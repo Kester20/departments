@@ -4,6 +4,7 @@ import action.impl.CreateDepartmentAction;
 import action.impl.CreateEmployeeAction;
 import action.impl.DeleteDepartmentAction;
 import action.impl.DeleteEmployeeAction;
+import action.impl.ShowDepartmentsAction;
 import action.impl.UpdateDepartmentAction;
 import action.impl.UpdateEmployeeAction;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 public class ActionFactory {
 
     private static Map<String, Action> actions = new HashMap<String, Action>(){{
+        put("GET/getDepartments", new ShowDepartmentsAction());
         put("POST/createDepartment", new CreateDepartmentAction());
         put("POST/updateDepartment", new UpdateDepartmentAction());
         put("POST/deleteDepartment", new DeleteDepartmentAction());
@@ -26,6 +28,7 @@ public class ActionFactory {
     }};
 
     public static Action getAction(HttpServletRequest request) {
+        System.out.println(request.getMethod() + request.getAttribute("action"));
         return actions.get(request.getMethod() + request.getPathInfo());
     }
 }

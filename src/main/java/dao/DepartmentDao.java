@@ -16,6 +16,7 @@ public interface DepartmentDao {
 
     void deleteDepartment(Department department);
 
-    List<Employee> showEmployees(Department department);
+    List<Employee> getEmployees(Department department);
 
+    List<Department> getDepartments();
 }

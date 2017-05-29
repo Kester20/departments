@@ -4,6 +4,7 @@ import action.Action;
 import action.ActionFactory;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import java.io.IOException;
 /**
  * @author Arsalan
  */
+@WebServlet("/department_controller")
 public class DepartmentController extends HttpServlet{
 
     @Override
@@ -19,6 +21,10 @@ public class DepartmentController extends HttpServlet{
         try {
             Action action = ActionFactory.getAction(req);
             String view = action.execute(req, resp);
+            if(view != null){
+                System.out.println("!!!!!");
+                req.getRequestDispatcher("/WEB-INF/" + view + ".jsp").forward(req, resp);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

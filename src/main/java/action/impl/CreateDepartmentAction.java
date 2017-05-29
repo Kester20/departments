@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateDepartmentAction implements Action {
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String execute(HttpServletRequest request, HttpServletResponse response)  {
         return null;
     }
 }
