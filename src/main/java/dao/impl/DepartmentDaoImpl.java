@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
+import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
+import static util.Constants.QueryConstants.UPDATE_DEPARTMENT;
 
 /**
  * @author Arsalan
@@ -48,12 +50,49 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public void updateDepartment(Department department) {
+        String sql = UPDATE_DEPARTMENT;
+        Connection connection = null;
+        PreparedStatement prStatement = null;
 
+        try {
+            connection = dataSource.getConnection();
+            prStatement = connection.prepareStatement(sql);
+            prStatement.setString(1, department.getName());
+            prStatement.setInt(2, department.getId());
+            prStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void deleteDepartment(Department department) {
+        String sql = DELETE_DEPARTMENT;
+        Connection connection = null;
+        PreparedStatement prStatement = null;
 
+        try {
+            connection = dataSource.getConnection();
+            prStatement = connection.prepareStatement(sql);
+            prStatement.setInt(1, department.getId());
+            prStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

@@ -12,6 +12,13 @@ public class Employee {
     private int age;
     private Date dateOfBirth;
 
+    public Employee(int id, String name, int age, Date dateOfBirth) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public int getId() {
         return id;
     }
