@@ -15,7 +15,8 @@ import java.util.List;
 
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
 import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
-import static util.Constants.QueryConstants.SHOW_DEPARTMENT_EMPLOYEES;
+import static util.Constants.QueryConstants.GET_DEPARTMENTS;
+import static util.Constants.QueryConstants.GET_DEPARTMENT_EMPLOYEES;
 import static util.Constants.QueryConstants.UPDATE_DEPARTMENT;
 
 /**
@@ -113,7 +114,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public List<Employee> showEmployees(Department department) {
-        String sql = SHOW_DEPARTMENT_EMPLOYEES;
+        String sql = GET_DEPARTMENT_EMPLOYEES;
         Connection connection = null;
         PreparedStatement prStatement = null;
         ResultSet resultSet = null;
@@ -152,5 +153,45 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
         }
         return employees;
+    }
+
+    @Override
+    public List<Department> getDepartments() {
+        String sql = GET_DEPARTMENTS;
+        Connection connection = null;
+        PreparedStatement prStatement = null;
+        ResultSet resultSet = null;
+        List<Department> departments = new ArrayList<>();
+
+        try {
+            connection = dataSource.getConnection();
+            prStatement = connection.prepareStatement(sql);
+            prStatement.execute();
+            resultSet = prStatement.getResultSet();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                Department department = new Department(id, name);
+                departments.add(department);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(prStatement != null){
+                    prStatement.close();
+                }
+                if(connection != null){
+                    connection.close();
+                }
+                if(resultSet != null){
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return departments;
     }
 }

@@ -42,9 +42,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Employee> showEmployees(int id) {
+    public List<Employee> getEmployees(int id) {
         Department department = new Department();
         department.setId(id);
         return departmentDao.showEmployees(department);
+    }
+
+    @Override
+    public List<Department> getDepartments() {
+        return departmentDao.getDepartments();
     }
 }

@@ -10,21 +10,17 @@ import java.util.List;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.ServiceConstants.DEPARTMENTS;
-import static util.Constants.ServiceConstants.ID;
 
 /**
- * @author Arsalan
+ * @author Arsalan. Created on 29.05.2017.
  */
-public class DeleteDepartmentAction implements Action {
+public class GetAllDepartmentSAction implements Action {
 
     private DepartmentService departmentService;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
-        int id = Integer.parseInt(request.getParameter(ID));
-        System.out.println(id);
-        departmentService.deleteDepartment(id);
         List<Department> departments = departmentService.getDepartments();
         request.setAttribute(DEPARTMENTS, departments);
         return "WEB-INF\\" + DEPARTMENTS + ".jsp";

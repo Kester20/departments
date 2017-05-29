@@ -1,5 +1,6 @@
 package service;
 
+import model.Department;
 import model.Employee;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface DepartmentService {
 
     void deleteDepartment(int id);
 
-    List<Employee> showEmployees(int id);
+    List<Employee> getEmployees(int id);
+
+    List<Department> getDepartments();
 }

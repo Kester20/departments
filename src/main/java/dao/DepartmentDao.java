@@ -18,4 +18,5 @@ public interface DepartmentDao {
 
     List<Employee> showEmployees(Department department);
 
+    List<Department> getDepartments();
 }
