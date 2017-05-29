@@ -7,11 +7,15 @@ import entity.Employee;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
 import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
+import static util.Constants.QueryConstants.SHOW_DEPARTMENT_EMPLOYEES;
 import static util.Constants.QueryConstants.UPDATE_DEPARTMENT;
 
 /**
@@ -96,7 +100,38 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Employee> showEmployees() {
-        return null;
+    public List<Employee> showEmployees(Department department) {
+        String sql = SHOW_DEPARTMENT_EMPLOYEES;
+        Connection connection = null;
+        PreparedStatement prStatement = null;
+        ResultSet resultSet = null;
+        List<Employee> employees = new ArrayList<>();
+
+        try {
+            connection = dataSource.getConnection();
+            prStatement = connection.prepareStatement(sql);
+            prStatement.setInt(1, department.getId());
+            prStatement.execute();
+            resultSet = prStatement.getResultSet();
+            while(resultSet.next()){
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                int age = resultSet.getInt(3);
+                Date date = resultSet.getDate(4);
+                Employee employee = new Employee(id, name, age, date);
+                employees.add(employee);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                prStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return employees;
     }
 }
