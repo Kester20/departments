@@ -17,4 +17,12 @@ public class DaoFactory {
         this.departmentDao = new DepartmentDaoImpl(dataSource);
         this.employeeDao = new EmployeeDaoImpl(dataSource);
     }
+
+    public DepartmentDao getDepartmentDao() {
+        return departmentDao;
+    }
+
+    public EmployeeDao getEmployeeDao() {
+        return employeeDao;
+    }
 }

@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.EmployeeDao;
-import entity.Employee;
+import model.Employee;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

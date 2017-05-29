@@ -1,6 +1,6 @@
 package dao;
 
-import entity.Employee;
+import model.Employee;
 
 /**
  * @author Arsalan

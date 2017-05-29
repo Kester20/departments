@@ -1,8 +1,8 @@
 package dao.impl;
 
 import dao.DepartmentDao;
-import entity.Department;
-import entity.Employee;
+import model.Department;
+import model.Employee;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

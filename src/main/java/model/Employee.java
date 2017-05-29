@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 import java.time.LocalDate;
 
@@ -11,6 +11,10 @@ public class Employee {
     private String name;
     private int age;
     private LocalDate dateOfBirth;
+
+    public Employee(){
+
+    }
 
     public Employee(int id, String name, int age, LocalDate dateOfBirth) {
         this.id = id;
