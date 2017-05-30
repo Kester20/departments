@@ -23,7 +23,6 @@ public class DeleteDepartmentAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         int id = Integer.parseInt(request.getParameter(ID));
-        System.out.println(id);
         departmentService.deleteDepartment(id);
         List<Department> departments = departmentService.getDepartments();
         request.setAttribute(DEPARTMENTS, departments);
