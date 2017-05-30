@@ -15,6 +15,7 @@ import java.util.List;
 
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
 import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
+import static util.Constants.QueryConstants.FIND_DEPARTMENT;
 import static util.Constants.QueryConstants.GET_DEPARTMENTS;
 import static util.Constants.QueryConstants.GET_DEPARTMENT_EMPLOYEES;
 import static util.Constants.QueryConstants.UPDATE_DEPARTMENT;
@@ -193,5 +194,46 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
         }
         return departments;
+    }
+
+    @Override
+    public Department findOne(Integer id) {
+        String sql = FIND_DEPARTMENT;
+        Connection connection = null;
+        PreparedStatement prStatement = null;
+        ResultSet resultSet = null;
+        Department department = new Department();
+
+        try {
+            connection = dataSource.getConnection();
+            prStatement = connection.prepareStatement(sql);
+            prStatement.setInt(1, id);
+            prStatement.execute();
+            resultSet = prStatement.getResultSet();
+            if (resultSet.next()) {
+                int idDepartment = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                department.setId(idDepartment);
+                department.setName(name);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(prStatement != null){
+                    prStatement.close();
+                }
+                if(connection != null){
+                    connection.close();
+                }
+                if(resultSet != null){
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return department;
     }
 }

@@ -19,4 +19,6 @@ public interface DepartmentDao {
     List<Employee> getEmployees(Department department);
 
     List<Department> getDepartments();
+
+    Department findOne(Integer id);
 }

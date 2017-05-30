@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <!DOCTYPE html>
@@ -29,19 +29,19 @@
 
         <tr>
             <td>
-                ${department.id}
+                    ${department.id}
             </td>
 
             <td>
-                ${department.name}
+                    ${department.name}
             </td>
 
             <td>
-                <a href="department_controller?action=/getEditDepartmentPage&id=${department.id}&getPage=true}">Edit</a>
+                <a href="department_controller?action=/getPage&page=editDepartment&departmentId=${department.id}">Edit</a>
             </td>
 
             <td>
-                <a href="department_controller?action=/deleteDepartment&id=${department.id}">X</a>
+                <a href="department_controller?action=/deleteDepartment&departmentId=${department.id}">X</a>
             </td>
 
             <td>
@@ -50,6 +50,18 @@
         </tr>
 
     </c:forEach>
+
+    <tr>
+        <td>
+            <a href="javascript:history.back()">Go Back</a>
+        </td>
+
+        <td></td>
+
+        <td></td>
+
+        <td colspan="2"><a href="employee_controller?action=/getPage&page=createDepartment">Add new Department</a></td>
+    </tr>
 
 </table>
 </body>

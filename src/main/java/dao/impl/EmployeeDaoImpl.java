@@ -36,6 +36,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             prStatement.setString(1, employee.getName());
             prStatement.setInt(2, employee.getAge());
             prStatement.setObject(3, Date.valueOf(employee.getDateOfBirth()));
+            prStatement.setInt(4, employee.getDepartment().getId());
             prStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();

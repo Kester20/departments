@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<tg:departmentForm departmentId="${departmentId}" action="/editDepartment" button="Edit department"/>
+<tg:departmentForm departmentId="${departmentId}" action="/createDepartment" button="Add department"/>
 
 </body>
 </html>

@@ -11,6 +11,7 @@ public class Employee {
     private String name;
     private int age;
     private LocalDate dateOfBirth;
+    private Department department;
 
     public Employee(){
 
@@ -55,6 +56,14 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,7 +74,8 @@ public class Employee {
         if (id != employee.id) return false;
         if (age != employee.age) return false;
         if (!name.equals(employee.name)) return false;
-        return dateOfBirth.equals(employee.dateOfBirth);
+        if (!dateOfBirth.equals(employee.dateOfBirth)) return false;
+        return department.equals(employee.department);
     }
 
     @Override
@@ -74,6 +84,7 @@ public class Employee {
         result = 31 * result + name.hashCode();
         result = 31 * result + age;
         result = 31 * result + dateOfBirth.hashCode();
+        result = 31 * result + department.hashCode();
         return result;
     }
 
@@ -84,6 +95,7 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", dateOfBirth=" + dateOfBirth +
+                ", department=" + department +
                 '}';
     }
 }

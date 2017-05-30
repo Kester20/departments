@@ -1,4 +1,4 @@
-package action.impl;
+package action.impl.department;
 
 import action.Action;
 import action.ActionFactory;
@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.PATHWAYS.GET_ALL_DEPARTMENTS_PATH;
-import static util.Constants.ServiceConstants.ID;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
  * @author Arsalan
  */
-public class EditDepartmentAction implements Action {
+public class CreateDepartmentAction implements Action {
 
     private DepartmentService departmentService;
 
@@ -25,10 +24,8 @@ public class EditDepartmentAction implements Action {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
 
-        String idParameter = request.getParameter(ID);
-        int id = idParameter == null ? 0 : Integer.parseInt(idParameter);
         String newName = request.getParameter(NAME);
-        departmentService.updateDepartment(id, newName);
+        departmentService.createDepartment(newName);
         return ActionFactory.getActions().get(GET_ALL_DEPARTMENTS_PATH).execute(request, response);
     }
 }

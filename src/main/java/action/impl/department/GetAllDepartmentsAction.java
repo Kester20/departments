@@ -1,4 +1,4 @@
-package action.impl;
+package action.impl.department;
 
 import action.Action;
 import model.Department;
@@ -14,7 +14,7 @@ import static util.Constants.PATHWAYS.DEPARTMENTS;
 /**
  * @author Arsalan. Created on 29.05.2017.
  */
-public class GetAllDepartmentSAction implements Action {
+public class GetAllDepartmentsAction implements Action {
 
     private DepartmentService departmentService;
 
