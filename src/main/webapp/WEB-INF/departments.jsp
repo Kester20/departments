@@ -7,20 +7,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <title>Departments</title>
 </head>
 <body>
 
+<h2 align="center">Departments list</h2>
+
 <form id="departments" action="<c:url value='department_controller' />" method="post"></form>
 
-<table id="departmentTable" cellpadding="10" border="1" align="center">
+<table class="table" cellpadding="10" border="1" align="center">
 
     <th>Id</th>
     <th>Name</th>
     <th>Edit</th>
     <th>Delete</th>
+    <th>Employees</th>
 
 
     <c:forEach var="department" items="${departments}">
@@ -34,12 +36,16 @@
                 ${department.name}
             </td>
 
-            <td style="text-align:center;">
-                <a href="department_controller?action=/editDepartment}">Edit</a>
+            <td>
+                <a href="department_controller?action=/getEditDepartmentPage&id=${department.id}&getPage=true}">Edit</a>
             </td>
 
-            <td style="text-align:center;">
+            <td>
                 <a href="department_controller?action=/deleteDepartment&id=${department.id}">X</a>
+            </td>
+
+            <td>
+                <a href="department_controller?action=/getEmployees&departmentId=${department.id}">Employees</a>
             </td>
         </tr>
 

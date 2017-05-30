@@ -11,11 +11,12 @@
 </head>
 <body>
 
+<h2 align="center">Main page</h2>
 
 <form id="departments" action="<c:url value='department_controller' />" method="get"></form>
 
 <div style="text-align:center">
-    <input type="hidden" name="action" value="/showDepartments" form="departments"/>
+    <input type="hidden" name="action" value="/getDepartments" form="departments"/>
     <input type="submit" value="Show departments" form="departments" />
 </div>
 

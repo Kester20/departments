@@ -1,7 +1,5 @@
 package util;
 
-import java.time.LocalDate;
-
 /**
  * @author Arsalan
  */
@@ -33,8 +31,31 @@ public class Constants {
     }
 
     public static class ServiceConstants {
-        public static final String DEPARTMENTS = "departments";
         public static final String ACTION = "action";
+        public static final String DEPARTMENT_ID = "departmentId";
+        public static final String EMPLOYEE_ID = "employeeId";
         public static final String ID = "id";
+        public static final String NAME = "name";
+        public static final String AGE = "age";
+        public static final String DATE_OF_BIRTH = "dateOfBirth";
+        public static final String GET_PAGE = "getPage";
+    }
+
+    public static class PATHWAYS {
+        public static final String GET_ALL_DEPARTMENTS_PATH = "GET/getDepartments";
+        public static final String CREATE_DEPARTMENT_PATH = "POST/createDepartment";
+        public static final String EDIT_DEPARTMENT_PATH = "POST/editDepartment";
+        public static final String GET_EDIT_DEPARTMENT_PAGE_PATH = "GET/getEditDepartmentPage";
+        public static final String GET_EDIT_EMPLOYEE_PAGE_PATH = "GET/getEditEmployeePage";
+        public static final String DELETE_DEPARTMENT_PATH = "GET/deleteDepartment";
+        public static final String GET_ALL_EMPLOYEE_PATH = "GET/getEmployees";
+        public static final String CREATE_EMPLOYEE_PATH = "POST/createEmployee";
+        public static final String EDIT_EMPLOYEE_PATH = "POST/editEmployee";
+        public static final String DELETE_EMPLOYEE_PATH = "GET/deleteEmployee";
+
+        public static final String DEPARTMENTS = "departments";
+        public static final String EMPLOYEES = "employees";
+        public static final String EDIT_DEPARTMENT = "editDepartment";
+        public static final String EDIT_EMPLOYEE = "editEmployee";
     }
 }

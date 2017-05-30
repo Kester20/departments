@@ -130,7 +130,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
                 int age = resultSet.getInt(3);
-                LocalDate date = resultSet.getObject(4, LocalDate.class);
+                LocalDate date = resultSet.getDate(4).toLocalDate();
                 Employee employee = new Employee(id, name, age, date);
                 employees.add(employee);
             }

@@ -21,7 +21,6 @@ public class DepartmentController extends HttpServlet{
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Action action = ActionFactory.getAction(req);
-            System.out.println(action);
             String view = action.execute(req, resp);
             if(view != null){
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher(view);

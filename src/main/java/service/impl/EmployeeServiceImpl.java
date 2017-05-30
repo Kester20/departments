@@ -31,6 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void updateEmployee(int id, String name, int age, String date) {
         Employee employee = new Employee();
+        employee.setId(id);
         employee.setName(name);
         employee.setAge(age);
         LocalDate localDate = LocalDate.parse(date);
