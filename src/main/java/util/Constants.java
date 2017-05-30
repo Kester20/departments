@@ -18,7 +18,7 @@ public class Constants {
         public static final String GET_DEPARTMENT_EMPLOYEES = "SELECT employee.id, employee.name, employee.age, employee.date_of_birth from employee" +
                 " INNER JOIN department_employee ON employee.id = department_employee.employee_id " +
                 "WHERE department_employee.department_id = ?";
-        public static final String GET_DEPARTMENTS = "SELECT * from `department`";
+        public static final String GET_DEPARTMENTS = "SELECT * FROM `department`";
 
         public static final String UPDATE_EMPLOYEE = "UPDATE `employee` SET `name` = ? , `age` = ?, " +
                 "`date_of_birth` = ? WHERE `employee`.`id` = ? ";
@@ -34,5 +34,7 @@ public class Constants {
 
     public static class ServiceConstants {
         public static final String DEPARTMENTS = "departments";
+        public static final String ACTION = "action";
+        public static final String ID = "id";
     }
 }

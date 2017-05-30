@@ -77,5 +77,13 @@ public class Employee {
         return result;
     }
 
-
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
 }

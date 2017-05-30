@@ -113,7 +113,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Employee> getEmployees(Department department) {
+    public List<Employee> showEmployees(Department department) {
         String sql = GET_DEPARTMENT_EMPLOYEES;
         Connection connection = null;
         PreparedStatement prStatement = null;
