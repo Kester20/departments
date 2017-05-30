@@ -30,10 +30,10 @@ public class DeleteEmployeeAction implements Action {
         }
 
         String idParameter = request.getParameter(EMPLOYEE_ID);
-        int id = idParameter == null ? 0 : Integer.parseInt(idParameter);
+        Integer id = idParameter == null ? null : Integer.parseInt(idParameter);
 
         String depIdParameter = request.getParameter(DEPARTMENT_ID);
-        int departmentId = depIdParameter == null ? 0 : Integer.parseInt(depIdParameter);
+        Integer departmentId = depIdParameter == null ? null : Integer.parseInt(depIdParameter);
         request.setAttribute(DEPARTMENT_ID, departmentId);
 
         employeeService.deleteEmployee(id);

@@ -43,16 +43,10 @@ public class Constants {
 
     public static class PATHWAYS {
         public static final String GET_ALL_DEPARTMENTS_PATH = "/getDepartments";
-        public static final String CREATE_DEPARTMENT = "createDepartment";
-        public static final String EDIT_DEPARTMENT = "editDepartment";
-        public static final String CREATE_EMPLOYEE = "createEmployee";
-        public static final String EDIT_EMPLOYEE = "editEmployee";
-
         public static final String CREATE_DEPARTMENT_PATH = "/createDepartment";
         public static final String DELETE_DEPARTMENT_PATH = "/deleteDepartment";
         public static final String EDIT_DEPARTMENT_PATH = "/editDepartment";
 
-        public static final String GET_EDIT_EMPLOYEE_PAGE_PATH = "/getEditEmployeePage";
         public static final String GET_ALL_EMPLOYEE_PATH = "/getEmployees";
         public static final String CREATE_EMPLOYEE_PATH = "/createEmployee";
         public static final String EDIT_EMPLOYEE_PATH = "/editEmployee";

@@ -37,7 +37,7 @@
             </td>
 
             <td>
-                <a href="department_controller?action=/getPage&page=editDepartment&departmentId=${department.id}">Edit</a>
+                <a href="department_controller?action=/getPage&page=/editDepartment&departmentId=${department.id}">Edit</a>
             </td>
 
             <td>
@@ -60,7 +60,7 @@
 
         <td></td>
 
-        <td colspan="2"><a href="employee_controller?action=/getPage&page=createDepartment">Add new Department</a></td>
+        <td colspan="2"><a href="employee_controller?action=/getPage&page=/createDepartment">Add new Department</a></td>
     </tr>
 
 </table>

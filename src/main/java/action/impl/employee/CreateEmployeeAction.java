@@ -30,11 +30,11 @@ public class CreateEmployeeAction implements Action {
 
         String newName = request.getParameter(NAME);
         String ageParameter = request.getParameter(AGE);
-        int age = ageParameter == null ? 0 : Integer.parseInt(ageParameter);
+        Integer age = ageParameter == null ? null : Integer.parseInt(ageParameter);
         String newDateOfBirth = request.getParameter(DATE_OF_BIRTH);
 
         String depIdParameter = request.getParameter(DEPARTMENT_ID);
-        int departmentId = depIdParameter == null ? 0 : Integer.parseInt(depIdParameter);
+        Integer departmentId = depIdParameter == null ? null : Integer.parseInt(depIdParameter);
         request.setAttribute(DEPARTMENT_ID, departmentId);
 
         employeeService.createEmployee(newName, age, newDateOfBirth, departmentId);

@@ -2,20 +2,16 @@ package action.impl.employee;
 
 import action.Action;
 import action.ActionFactory;
-import service.DepartmentService;
 import service.EmployeeService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
-import static util.Constants.PATHWAYS.GET_ALL_DEPARTMENTS_PATH;
 import static util.Constants.PATHWAYS.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.AGE;
 import static util.Constants.ServiceConstants.DATE_OF_BIRTH;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
-import static util.Constants.ServiceConstants.ID;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
@@ -32,10 +28,10 @@ public class EditEmployeeAction implements Action {
         }
 
         String idParameter = request.getParameter(EMPLOYEE_ID);
-        int id = idParameter == null ? 0 : Integer.parseInt(idParameter);
+        Integer id = idParameter == null ? null : Integer.parseInt(idParameter);
         String newName = request.getParameter(NAME);
         String ageParameter = request.getParameter(AGE);
-        int age = ageParameter == null ? 0 : Integer.parseInt(ageParameter);
+        Integer age = ageParameter == null ? null : Integer.parseInt(ageParameter);
         String newDateOfBirth = request.getParameter(DATE_OF_BIRTH);
 
         employeeService.updateEmployee(id, newName, age, newDateOfBirth);
