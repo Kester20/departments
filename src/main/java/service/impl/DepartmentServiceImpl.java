@@ -20,18 +20,28 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void createDepartment(String name) {
-        Department department = new Department();
-        department.setName(name);
-        departmentDao.createDepartment(department);
+    public boolean createDepartment(String name) {
+        Department existDepartment = departmentDao.findOneByName(name);
+        if(existDepartment == null){
+            Department department = new Department();
+            department.setName(name);
+            departmentDao.createDepartment(department);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void updateDepartment(int id, String name) {
-        Department department = new Department();
-        department.setId(id);
-        department.setName(name);
-        departmentDao.updateDepartment(department);
+    public boolean updateDepartment(int id, String name) {
+        Department existDepartment = departmentDao.findOneByName(name);
+        if(existDepartment == null || existDepartment.getId() == id){
+            Department department = new Department();
+            department.setId(id);
+            department.setName(name);
+            departmentDao.updateDepartment(department);
+            return true;
+        }
+        return false;
     }
 
     @Override

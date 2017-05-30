@@ -9,21 +9,32 @@
 
 <form action="<c:url value='employee_controller' />" method="post">
 
-    <table class="table" cellpadding="10" border="1" align="center">
+    <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="name" placeholder="Name" required value="${name}">
             </td>
-
-            <td>
-                <input type="number" name="age" placeholder="Age">
-            </td>
-
-            <td>
-                <input type="text" name="dateOfBirth" placeholder="Date of Birth">
-            </td>
-
         </tr>
+        <tr>
+            <td>
+                <input type="number" name="age" placeholder="Age" required value="${age}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" name="dateOfBirth" placeholder="Date of Birth" required value="${dateOfBirth}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="email" name="email" placeholder="Email" required value="${errorInput}">
+            </td>
+        </tr>
+        <tr class="noBorder">
+            <td colspan="2">
+                <span class="errorText">${errorText}</span>
+            </td>
+        <tr>
 
         <tr>
             <td>

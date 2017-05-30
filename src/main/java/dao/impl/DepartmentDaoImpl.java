@@ -16,6 +16,7 @@ import java.util.List;
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
 import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT;
+import static util.Constants.QueryConstants.FIND_DEPARTMENT_BY_NAME;
 import static util.Constants.QueryConstants.GET_DEPARTMENTS;
 import static util.Constants.QueryConstants.GET_DEPARTMENT_EMPLOYEES;
 import static util.Constants.QueryConstants.UPDATE_DEPARTMENT;
@@ -132,7 +133,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 String name = resultSet.getString(2);
                 int age = resultSet.getInt(3);
                 LocalDate date = resultSet.getDate(4).toLocalDate();
-                Employee employee = new Employee(id, name, age, date);
+                String email = resultSet.getString(5);
+                Employee employee = new Employee(id, name, age, date, email);
                 employees.add(employee);
             }
 
@@ -213,6 +215,48 @@ public class DepartmentDaoImpl implements DepartmentDao {
             if (resultSet.next()) {
                 int idDepartment = resultSet.getInt(1);
                 String name = resultSet.getString(2);
+                department.setId(idDepartment);
+                department.setName(name);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(prStatement != null){
+                    prStatement.close();
+                }
+                if(connection != null){
+                    connection.close();
+                }
+                if(resultSet != null){
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return department;
+    }
+
+    @Override
+    public Department findOneByName(String departmentName) {
+        String sql = FIND_DEPARTMENT_BY_NAME;
+        Connection connection = null;
+        PreparedStatement prStatement = null;
+        ResultSet resultSet = null;
+        Department department = null;
+
+        try {
+            connection = dataSource.getConnection();
+            prStatement = connection.prepareStatement(sql);
+            prStatement.setString(1, departmentName);
+            prStatement.execute();
+            resultSet = prStatement.getResultSet();
+            if (resultSet.next()) {
+                int idDepartment = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                department = new Department();
                 department.setId(idDepartment);
                 department.setName(name);
             }

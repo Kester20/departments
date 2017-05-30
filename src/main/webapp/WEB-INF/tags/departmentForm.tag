@@ -9,16 +9,22 @@
 
 <form id="departments" action="<c:url value='department_controller' />" method="post">
 
-    <table class="table" cellpadding="10" border="1" align="center">
+    <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name">
+                <input type="text" name="name" placeholder="Name" required value="${errorInput}">
             </td>
 
             <td>
                 <input type="submit" value="${button}">
             </td>
         </tr>
+
+        <tr class="noBorder">
+            <td colspan="2">
+                <span class="errorText">${errorText}</span>
+            </td>
+        <tr>
     </table>
 
     <input type="hidden" name="departmentId" value="${departmentId}">

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.PATHWAYS.DEPARTMENTS;
+import static util.Constants.Pathways.DEPARTMENTS;
 
 /**
  * @author Arsalan. Created on 29.05.2017.

@@ -2,15 +2,17 @@ package action.impl;
 
 import action.Action;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static util.Constants.PATHWAYS.CREATE_DEPARTMENT_PATH;
-import static util.Constants.PATHWAYS.CREATE_EMPLOYEE_PATH;
-import static util.Constants.PATHWAYS.EDIT_DEPARTMENT_PATH;
-import static util.Constants.PATHWAYS.EDIT_EMPLOYEE_PATH;
+import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
+import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
+import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
+import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 import static util.Constants.ServiceConstants.PAGE;
@@ -27,9 +29,13 @@ public class PageFactory implements Action {
         put(EDIT_EMPLOYEE_PATH, new GetEditEmployeePageAction());
     }};
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = request.getParameter(PAGE);
         return pages.get(page).execute(request, response);
+    }
+
+    public static Map<String, Action> getPages() {
+        return pages;
     }
 
     private static class GetCreateDepartmentPageAction implements Action {

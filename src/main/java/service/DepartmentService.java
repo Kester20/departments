@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface DepartmentService {
 
-    void createDepartment(String name);
+    boolean createDepartment(String name);
 
-    void updateDepartment(int id, String name);
+    boolean updateDepartment(int id, String name);
 
     void deleteDepartment(int id);
 
