@@ -40,14 +40,14 @@ public class DepartmentAction implements Action {
 
         if (departmentId != null) {
             boolean departmentEdited = departmentService.updateDepartment(departmentId, newName);
-            if(sendError(departmentEdited, request, newName)){
+            if(hasError(departmentEdited, request, newName)){
                 Page page = PageFactory.getPage(EDIT_DEPARTMENT_PATH);
                 page.show(request, response);
                 return;
             }
         }else{
             boolean departmentAdded = departmentService.createDepartment(newName);
-            if(sendError(departmentAdded, request, newName)){
+            if(hasError(departmentAdded, request, newName)){
                 Page page = PageFactory.getPage(CREATE_DEPARTMENT_PATH);
                 page.show(request, response);
                 return;
@@ -57,7 +57,7 @@ public class DepartmentAction implements Action {
         action.execute(request, response);
     }
 
-    private boolean sendError(boolean criteria, HttpServletRequest request, String name) throws ServletException, IOException {
+    private boolean hasError(boolean criteria, HttpServletRequest request, String name) throws ServletException, IOException {
         if (!criteria){
             request.setAttribute(ERROR_INPUT, name);
             request.setAttribute(ERROR_TEXT, DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST);

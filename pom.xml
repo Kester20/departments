@@ -40,6 +40,11 @@
             <version>5.1.18</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.oval</groupId>
+            <artifactId>oval</artifactId>
+            <version>1.31</version>
+        </dependency>
 
     </dependencies>
     <build>

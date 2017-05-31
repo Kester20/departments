@@ -1,11 +1,19 @@
 package model;
 
+import net.sf.oval.configuration.annotation.IsInvariant;
+import net.sf.oval.constraint.CheckWith;
+import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotEmpty;
+import net.sf.oval.constraint.NotNull;
+import validator.DepartmentValidator;
+
 /**
  * @author Arsalan
  */
 public class Department {
 
     private Integer id;
+    @CheckWith(DepartmentValidator.class)
     private String name;
 
     public Department(){
@@ -25,6 +33,10 @@ public class Department {
         this.id = id;
     }
 
+    @IsInvariant
+    @NotNull
+    @NotEmpty
+    @Length(max = 30)
     public String getName() {
         return name;
     }
