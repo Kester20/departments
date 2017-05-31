@@ -2,7 +2,7 @@ package action.impl.department;
 
 import action.Action;
 import action.ActionFactory;
-import action.impl.PageFactory;
+import action.PageFactory;
 import service.DepartmentService;
 
 import javax.servlet.ServletException;

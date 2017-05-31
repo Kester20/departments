@@ -7,7 +7,7 @@
 
 <h2 align="center">Enter new values</h2>
 
-<form action="<c:url value='employee_controller' />" method="post">
+<form action="<c:url value='controller' />" method="post">
 
     <table class="table" align="center" cellpadding="10">
         <tr>

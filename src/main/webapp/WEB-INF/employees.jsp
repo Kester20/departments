@@ -40,11 +40,11 @@
             </td>
 
             <td>
-                <a href="employee_controller?action=/getPage&page=/editEmployee&employeeId=${employee.id}&departmentId=${departmentId}">Edit</a>
+                <a href="controller?action=/getPage&page=/editEmployee&employeeId=${employee.id}&departmentId=${departmentId}">Edit</a>
             </td>
 
             <td>
-                <a href="employee_controller?action=/deleteEmployee&employeeId=${employee.id}&departmentId=${departmentId}" class="x">X</a>
+                <a href="controller?action=/deleteEmployee&employeeId=${employee.id}&departmentId=${departmentId}" class="x">X</a>
             </td>
 
         </tr>
@@ -60,7 +60,7 @@
 
             <td colspan="3"></td>
 
-            <td colspan="2"><a href="employee_controller?action=/getPage&page=/createEmployee&departmentId=${departmentId}">Add new Employee</a></td>
+            <td colspan="2"><a href="controller?action=/getPage&page=/createEmployee&departmentId=${departmentId}">Add new Employee</a></td>
         </tr>
 
 

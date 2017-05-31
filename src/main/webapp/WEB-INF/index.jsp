@@ -14,7 +14,7 @@
 <h2 align="center">Main page</h2>
 
 <div style="text-align:center">
-    <a href="department_controller?action=/getDepartments">Show Departments</a>
+    <a href="controller?action=/getDepartments">Show Departments</a>
 </div>
 
 </body>

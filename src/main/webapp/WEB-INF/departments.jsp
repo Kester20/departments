@@ -14,8 +14,6 @@
 
 <h2 align="center">Departments list</h2>
 
-<form id="departments" action="<c:url value='department_controller' />" method="post"></form>
-
 <table class="table" cellpadding="10" border="1" align="center">
 
     <th>Id</th>
@@ -37,15 +35,15 @@
             </td>
 
             <td>
-                <a href="department_controller?action=/getPage&page=/editDepartment&departmentId=${department.id}">Edit</a>
+                <a href="controller?action=/getPage&page=/editDepartment&departmentId=${department.id}">Edit</a>
             </td>
 
             <td>
-                <a href="department_controller?action=/deleteDepartment&departmentId=${department.id}" class="x">X</a>
+                <a href="controller?action=/deleteDepartment&departmentId=${department.id}" class="x">X</a>
             </td>
 
             <td>
-                <a href="department_controller?action=/getEmployees&departmentId=${department.id}">Employees</a>
+                <a href="controller?action=/getEmployees&departmentId=${department.id}">Employees</a>
             </td>
         </tr>
 
@@ -58,7 +56,7 @@
 
         <td colspan="2"></td>
 
-        <td colspan="2"><a href="employee_controller?action=/getPage&page=/createDepartment">Add new Department</a></td>
+        <td colspan="2"><a href="controller?action=/getPage&page=/createDepartment">Add new Department</a></td>
     </tr>
 
 </table>

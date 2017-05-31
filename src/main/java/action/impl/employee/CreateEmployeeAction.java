@@ -2,7 +2,7 @@ package action.impl.employee;
 
 import action.Action;
 import action.ActionFactory;
-import action.impl.PageFactory;
+import action.PageFactory;
 import service.EmployeeService;
 
 import javax.servlet.ServletException;
@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
-import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
 import static util.Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST;
-import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.AGE;

@@ -14,8 +14,8 @@ import java.io.IOException;
 /**
  * @author Arsalan
  */
-@WebServlet("/employee_controller")
-public class EmployeeController extends HttpServlet {
+@WebServlet("/controller")
+public class Controller extends HttpServlet{
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

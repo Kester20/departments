@@ -1,6 +1,5 @@
 package action;
 
-import action.impl.PageFactory;
 import action.impl.department.CreateDepartmentAction;
 import action.impl.department.DeleteDepartmentAction;
 import action.impl.department.EditDepartmentAction;

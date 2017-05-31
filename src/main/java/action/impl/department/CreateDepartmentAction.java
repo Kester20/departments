@@ -2,10 +2,9 @@ package action.impl.department;
 
 import action.Action;
 import action.ActionFactory;
-import action.impl.PageFactory;
+import action.PageFactory;
 import service.DepartmentService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,6 @@ import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.GET_ALL_DEPARTMENTS_PATH;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
 import static util.Constants.ServiceConstants.ERROR_TEXT;
-import static util.Constants.ServiceConstants.GET_PAGE;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
