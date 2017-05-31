@@ -5,9 +5,9 @@ package service;
  */
 public interface EmployeeService {
 
-    void createEmployee(String name, int age, String date, int departmentId);
+    boolean createEmployee(String name, int age, String date, String email, int departmentId);
 
-    void updateEmployee(int id, String name, int age, String date);
+    boolean updateEmployee(int id, String name, int age, String date, String email);
 
     void deleteEmployee(int id);
 }

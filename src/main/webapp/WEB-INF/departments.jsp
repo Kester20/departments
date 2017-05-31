@@ -37,11 +37,11 @@
             </td>
 
             <td>
-                <a href="department_controller?action=/getPage&page=editDepartment&departmentId=${department.id}">Edit</a>
+                <a href="department_controller?action=/getPage&page=/editDepartment&departmentId=${department.id}">Edit</a>
             </td>
 
             <td>
-                <a href="department_controller?action=/deleteDepartment&departmentId=${department.id}">X</a>
+                <a href="department_controller?action=/deleteDepartment&departmentId=${department.id}" class="x">X</a>
             </td>
 
             <td>
@@ -56,11 +56,9 @@
             <a href="javascript:history.back()">Go Back</a>
         </td>
 
-        <td></td>
+        <td colspan="2"></td>
 
-        <td></td>
-
-        <td colspan="2"><a href="employee_controller?action=/getPage&page=createDepartment">Add new Department</a></td>
+        <td colspan="2"><a href="employee_controller?action=/getPage&page=/createDepartment">Add new Department</a></td>
     </tr>
 
 </table>

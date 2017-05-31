@@ -11,17 +11,19 @@ public class Employee {
     private String name;
     private int age;
     private LocalDate dateOfBirth;
+    private String email;
     private Department department;
 
     public Employee(){
 
     }
 
-    public Employee(int id, String name, int age, LocalDate dateOfBirth) {
+    public Employee(int id, String name, int age, LocalDate dateOfBirth, String email) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.dateOfBirth = dateOfBirth;
+        this.email = email;
     }
 
     public int getId() {
@@ -56,6 +58,14 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Department getDepartment() {
         return department;
     }
@@ -75,6 +85,7 @@ public class Employee {
         if (age != employee.age) return false;
         if (!name.equals(employee.name)) return false;
         if (!dateOfBirth.equals(employee.dateOfBirth)) return false;
+        if (!email.equals(employee.email)) return false;
         return department.equals(employee.department);
     }
 
@@ -84,6 +95,7 @@ public class Employee {
         result = 31 * result + name.hashCode();
         result = 31 * result + age;
         result = 31 * result + dateOfBirth.hashCode();
+        result = 31 * result + email.hashCode();
         result = 31 * result + department.hashCode();
         return result;
     }
@@ -95,6 +107,7 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", dateOfBirth=" + dateOfBirth +
+                ", email='" + email + '\'' +
                 ", department=" + department +
                 '}';
     }

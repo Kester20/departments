@@ -21,4 +21,6 @@ public interface DepartmentDao {
     List<Department> getDepartments();
 
     Department findOne(Integer id);
+
+    Department findOneByName(String name);
 }

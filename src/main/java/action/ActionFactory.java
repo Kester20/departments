@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import static util.Constants.PATHWAYS.CREATE_DEPARTMENT_PATH;
-import static util.Constants.PATHWAYS.CREATE_EMPLOYEE_PATH;
-import static util.Constants.PATHWAYS.DELETE_DEPARTMENT_PATH;
-import static util.Constants.PATHWAYS.DELETE_EMPLOYEE_PATH;
-import static util.Constants.PATHWAYS.EDIT_DEPARTMENT_PATH;
-import static util.Constants.PATHWAYS.EDIT_EMPLOYEE_PATH;
-import static util.Constants.PATHWAYS.GET_ALL_DEPARTMENTS_PATH;
-import static util.Constants.PATHWAYS.GET_ALL_EMPLOYEE_PATH;
+import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
+import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
+import static util.Constants.Pathways.DELETE_DEPARTMENT_PATH;
+import static util.Constants.Pathways.DELETE_EMPLOYEE_PATH;
+import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
+import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
+import static util.Constants.Pathways.GET_ALL_DEPARTMENTS_PATH;
+import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.ACTION;
 import static util.Constants.ServiceConstants.GET_PAGE;
 

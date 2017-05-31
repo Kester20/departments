@@ -16,9 +16,9 @@
     <th>Name</th>
     <th>Age</th>
     <th>Birthday</th>
+    <th>Email</th>
     <th>Edit</th>
     <th>Delete</th>
-
 
     <c:forEach var="employee" items="${employees}">
 
@@ -36,11 +36,15 @@
             </td>
 
             <td>
-                <a href="employee_controller?action=/getPage&page=editEmployee&employeeId=${employee.id}&departmentId=${departmentId}&getPage=true}">Edit</a>
+                    ${employee.email}
             </td>
 
             <td>
-                <a href="employee_controller?action=/deleteEmployee&employeeId=${employee.id}&departmentId=${departmentId}">X</a>
+                <a href="employee_controller?action=/getPage&page=/editEmployee&employeeId=${employee.id}&departmentId=${departmentId}">Edit</a>
+            </td>
+
+            <td>
+                <a href="employee_controller?action=/deleteEmployee&employeeId=${employee.id}&departmentId=${departmentId}" class="x">X</a>
             </td>
 
         </tr>
@@ -54,11 +58,9 @@
                 <a href="javascript:history.back()">Go Back</a>
             </td>
 
-            <td></td>
+            <td colspan="3"></td>
 
-            <td></td>
-
-            <td colspan="2"><a href="employee_controller?action=/getPage&page=createEmployee&departmentId=${departmentId}">Add new Employee</a></td>
+            <td colspan="2"><a href="employee_controller?action=/getPage&page=/createEmployee&departmentId=${departmentId}">Add new Employee</a></td>
         </tr>
 
 

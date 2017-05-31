@@ -1,3 +1,20 @@
-.table{
-    margin-top:100px;
+.table th, tr td {
+    border: 2px solid;
+}
+
+.table {
+    margin-top:70px;
+    text-align:center;
+}
+
+.noBorder td {
+    border: 0;
+}
+
+.errorText {
+    color:red;
+}
+
+.x{
+    color:red;
 }

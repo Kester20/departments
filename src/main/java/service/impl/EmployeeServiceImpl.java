@@ -23,26 +23,38 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void createEmployee(String name, int age, String date, int departmentId) {
-        Department department = departmentDao.findOne(departmentId);
-        Employee employee = new Employee();
-        employee.setName(name);
-        employee.setAge(age);
-        LocalDate localDate = LocalDate.parse(date);
-        employee.setDateOfBirth(localDate);
-        employee.setDepartment(department);
-        employeeDao.createEmployee(employee);
+    public boolean createEmployee(String name, int age, String date, String email, int departmentId) {
+        Employee existEmployee = employeeDao.findOneByEmail(email);
+        if(existEmployee == null){
+            Department department = departmentDao.findOne(departmentId);
+            Employee employee = new Employee();
+            employee.setName(name);
+            employee.setAge(age);
+            LocalDate localDate = LocalDate.parse(date);
+            employee.setDateOfBirth(localDate);
+            employee.setDepartment(department);
+            employee.setEmail(email);
+            employeeDao.createEmployee(employee);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void updateEmployee(int id, String name, int age, String date) {
-        Employee employee = new Employee();
-        employee.setId(id);
-        employee.setName(name);
-        employee.setAge(age);
-        LocalDate localDate = LocalDate.parse(date);
-        employee.setDateOfBirth(localDate);
-        employeeDao.updateEmployee(employee);
+    public boolean updateEmployee(int id, String name, int age, String date, String email) {
+        Employee existEmployee = employeeDao.findOneByEmail(email);
+        if(existEmployee == null || existEmployee.getId() == id){
+            Employee employee = new Employee();
+            employee.setId(id);
+            employee.setName(name);
+            employee.setAge(age);
+            LocalDate localDate = LocalDate.parse(date);
+            employee.setDateOfBirth(localDate);
+            employee.setEmail(email);
+            employeeDao.updateEmployee(employee);
+            return true;
+        }
+        return false;
     }
 
     @Override

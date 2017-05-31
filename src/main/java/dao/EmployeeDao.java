@@ -13,4 +13,6 @@ public interface EmployeeDao {
 
     void deleteEmployee(Employee employee);
 
+    Employee findOneByEmail(String email);
+
 }

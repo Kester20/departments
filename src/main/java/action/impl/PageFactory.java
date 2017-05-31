@@ -2,17 +2,17 @@ package action.impl;
 
 import action.Action;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static util.Constants.PATHWAYS.CREATE_DEPARTMENT;
-import static util.Constants.PATHWAYS.CREATE_DEPARTMENT_PATH;
-import static util.Constants.PATHWAYS.CREATE_EMPLOYEE;
-import static util.Constants.PATHWAYS.EDIT_DEPARTMENT;
-import static util.Constants.PATHWAYS.EDIT_DEPARTMENT_PATH;
-import static util.Constants.PATHWAYS.EDIT_EMPLOYEE;
+import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
+import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
+import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
+import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 import static util.Constants.ServiceConstants.PAGE;
@@ -23,15 +23,19 @@ import static util.Constants.ServiceConstants.PAGE;
 public class PageFactory implements Action {
 
     private static Map<String, Action> pages = new HashMap<String, Action>() {{
-        put(CREATE_DEPARTMENT, new GetCreateDepartmentPageAction());
-        put(EDIT_DEPARTMENT, new GetEditDepartmentPageAction());
-        put(CREATE_EMPLOYEE, new GetCreateEmployeePageAction());
-        put(EDIT_EMPLOYEE, new GetEditEmployeePageAction());
+        put(CREATE_DEPARTMENT_PATH, new GetCreateDepartmentPageAction());
+        put(EDIT_DEPARTMENT_PATH, new GetEditDepartmentPageAction());
+        put(CREATE_EMPLOYEE_PATH, new GetCreateEmployeePageAction());
+        put(EDIT_EMPLOYEE_PATH, new GetEditEmployeePageAction());
     }};
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = request.getParameter(PAGE);
         return pages.get(page).execute(request, response);
+    }
+
+    public static Map<String, Action> getPages() {
+        return pages;
     }
 
     private static class GetCreateDepartmentPageAction implements Action {
@@ -58,7 +62,7 @@ public class PageFactory implements Action {
             Integer departmentId = depIdParameter == null ? null : Integer.parseInt(depIdParameter);
 
             request.setAttribute(DEPARTMENT_ID, departmentId);
-            return "WEB-INF\\" + CREATE_EMPLOYEE + ".jsp";
+            return "WEB-INF\\" + CREATE_EMPLOYEE_PATH + ".jsp";
         }
     }
 
@@ -73,7 +77,7 @@ public class PageFactory implements Action {
 
             request.setAttribute(EMPLOYEE_ID, id);
             request.setAttribute(DEPARTMENT_ID, departmentId);
-            return "WEB-INF\\" + EDIT_EMPLOYEE + ".jsp";
+            return "WEB-INF\\" + EDIT_EMPLOYEE_PATH + ".jsp";
         }
     }
 
