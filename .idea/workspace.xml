@@ -2,35 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08044e3a-9729-4c97-8472-bcbc9a2476b7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/action/impl/PageFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/action/impl/department/CreateDepartmentAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/action/impl/department/EditDepartmentAction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/createDepartment.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/createEmployee.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/departmentForm.tag" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/CreateDepartmentAction.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/CreateEmployeeAction.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/EditDepartmentAction.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/GetEditDepartmentsPageAction.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/DeleteDepartmentAction.java" afterPath="$PROJECT_DIR$/src/main/java/action/impl/department/DeleteDepartmentAction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/DeleteEmployeeAction.java" afterPath="$PROJECT_DIR$/src/main/java/action/impl/employee/DeleteEmployeeAction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/EditEmployeeAction.java" afterPath="$PROJECT_DIR$/src/main/java/action/impl/employee/EditEmployeeAction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/GetAllDepartmentSAction.java" afterPath="$PROJECT_DIR$/src/main/java/action/impl/department/GetAllDepartmentsAction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/GetAllEmployeesAction.java" afterPath="$PROJECT_DIR$/src/main/java/action/impl/employee/GetAllEmployeesAction.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/action/impl/GetEditEmployeePageAction.java" afterPath="$PROJECT_DIR$/src/main/java/action/impl/employee/CreateEmployeeAction.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/action/ActionFactory.java" afterPath="$PROJECT_DIR$/src/main/java/action/ActionFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dao/DepartmentDao.java" afterPath="$PROJECT_DIR$/src/main/java/dao/DepartmentDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dao/impl/DepartmentDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/DepartmentDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/dao/impl/EmployeeDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/dao/impl/EmployeeDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/Employee.java" afterPath="$PROJECT_DIR$/src/main/java/model/Employee.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/service/EmployeeService.java" afterPath="$PROJECT_DIR$/src/main/java/service/EmployeeService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/service/impl/EmployeeServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/service/impl/EmployeeServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/util/Constants.java" afterPath="$PROJECT_DIR$/src/main/java/util/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/departments.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/departments.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/editDepartment.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/editDepartment.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/employees.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/employees.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/index.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -1095,7 +1067,7 @@
       <option name="presentableId" value="Default" />
       <updated>1496046086372</updated>
       <workItem from="1496046088632" duration="19345000" />
-      <workItem from="1496124661443" duration="32804000" />
+      <workItem from="1496124661443" duration="33490000" />
     </task>
     <task id="LOCAL-00001" summary="Added:&#10;- create department functionality">
       <created>1496052166675</created>
@@ -1153,11 +1125,18 @@
       <option name="project" value="LOCAL" />
       <updated>1496139969669</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Almost done except validation">
+      <created>1496162868503</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1496162868503</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52149000" />
+    <option name="totallyTimeSpent" value="52835000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1188,10 +1167,10 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3935282" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22894882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22894882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32985386" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1252,7 +1231,8 @@
     <MESSAGE value="Merge branch 'master' of https://git.aimprosoft.com/education/a.noormal&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/action/ActionFactory.java&#10;#&#9;src/main/java/action/impl/DeleteDepartmentAction.java&#10;#&#9;src/main/java/controller/DepartmentController.java&#10;#&#9;src/main/java/dao/impl/DepartmentDaoImpl.java&#10;#&#9;src/main/java/util/Constants.java&#10;#&#9;src/main/webapp/WEB-INF/departments.jsp&#10;#&#9;src/main/webapp/WEB-INF/index.jsp&#10;#&#9;src/main/webapp/WEB-INF/web.xml" />
     <MESSAGE value="Merge conflicts" />
     <MESSAGE value="Edit/Delete departments and employees in ui done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Edit/Delete departments and employees in ui done" />
+    <MESSAGE value="Almost done except validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Almost done except validation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1574,7 +1554,7 @@
         <state relative-caret-position="440">
           <caret line="22" column="44" lean-forward="true" selection-start-line="22" selection-start-column="44" selection-end-line="22" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
