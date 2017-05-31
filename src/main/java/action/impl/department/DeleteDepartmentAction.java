@@ -22,7 +22,7 @@ public class DeleteDepartmentAction implements Action {
     private DepartmentService departmentService;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
@@ -32,6 +32,6 @@ public class DeleteDepartmentAction implements Action {
         departmentService.deleteDepartment(departmentId);
 
         Action action = ActionFactory.getAction(GET_ALL_DEPARTMENTS_PATH);
-        return action.execute(request, response);
+        action.execute(request, response);
     }
 }

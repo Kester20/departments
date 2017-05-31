@@ -1,7 +1,8 @@
 package action.impl.employee;
 
 import action.Action;
-import action.PageFactory;
+import page.Page;
+import page.PageFactory;
 import model.Employee;
 import service.DepartmentService;
 
@@ -24,7 +25,7 @@ public class GetAllEmployeesAction implements Action {
     private DepartmentService departmentService;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
@@ -34,6 +35,8 @@ public class GetAllEmployeesAction implements Action {
         List<Employee> employees = departmentService.getEmployees(departmentId);
         request.setAttribute(DEPARTMENT_ID, departmentId);
         request.setAttribute(EMPLOYEES, employees);
-        return PageFactory.getPages().get(EMPLOYEES_PATH).execute(request, response);
+
+        Page page = PageFactory.getPage(EMPLOYEES_PATH);
+        page.show(request, response);
     }
 }

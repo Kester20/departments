@@ -1,5 +1,6 @@
 package action;
 
+import action.impl.GetPageAction;
 import action.impl.department.DeleteDepartmentAction;
 import action.impl.department.DepartmentAction;
 import action.impl.department.GetAllDepartmentsAction;
@@ -28,7 +29,7 @@ public class ActionFactory {
         put(DEPARTMENT_ACTION_PATH, new DepartmentAction());
         put(DELETE_DEPARTMENT_PATH, new DeleteDepartmentAction());
 
-        put(GET_PAGE, new PageFactory());
+        put(GET_PAGE, new GetPageAction());
 
         put(GET_ALL_EMPLOYEE_PATH, new GetAllEmployeesAction());
         put(EMPLOYEE_ACTION_PATH, new EmployeeAction());

@@ -1,7 +1,8 @@
 package action.impl.department;
 
 import action.Action;
-import action.PageFactory;
+import page.Page;
+import page.PageFactory;
 import model.Department;
 import service.DepartmentService;
 
@@ -23,12 +24,13 @@ public class GetAllDepartmentsAction implements Action {
     private DepartmentService departmentService;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
         List<Department> departments = departmentService.getDepartments();
         request.setAttribute(DEPARTMENTS, departments);
-        return PageFactory.getPages().get(DEPARTMENTS_PATH).execute(request, response);
+        Page page = PageFactory.getPage(DEPARTMENTS_PATH);
+        page.show(request, response);
     }
 }

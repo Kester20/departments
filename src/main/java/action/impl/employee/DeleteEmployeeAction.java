@@ -23,19 +23,20 @@ public class DeleteEmployeeAction implements Action {
     private EmployeeService employeeService;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(employeeService == null){
             this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
         }
 
         String idParameter = request.getParameter(EMPLOYEE_ID);
-        Integer id = idParameter == null ? null : Integer.parseInt(idParameter);
+        Integer employeeId = idParameter == null ? null : Integer.parseInt(idParameter);
 
         String depIdParameter = request.getParameter(DEPARTMENT_ID);
-        Integer departmentId = depIdParameter == null ? null : Integer.parseInt(depIdParameter);
+        Integer departmentId = depIdParameter == null || depIdParameter.equals("") ? null : Integer.parseInt(depIdParameter);
         request.setAttribute(DEPARTMENT_ID, departmentId);
 
-        employeeService.deleteEmployee(id);
-        return ActionFactory.getActions().get(GET_ALL_EMPLOYEE_PATH).execute(request, response);
+        employeeService.deleteEmployee(employeeId);
+        Action action = ActionFactory.getAction(GET_ALL_EMPLOYEE_PATH);
+        action.execute(request, response);
     }
 }

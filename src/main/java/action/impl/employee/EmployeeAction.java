@@ -2,7 +2,8 @@ package action.impl.employee;
 
 import action.Action;
 import action.ActionFactory;
-import action.PageFactory;
+import page.Page;
+import page.PageFactory;
 import service.EmployeeService;
 
 import javax.servlet.ServletException;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
-import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
 import static util.Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST;
 import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
 import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
@@ -34,7 +34,7 @@ public class EmployeeAction implements Action {
     private EmployeeService employeeService;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (employeeService == null) {
             this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
         }
@@ -43,29 +43,35 @@ public class EmployeeAction implements Action {
         Integer employeeId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
         String newName = request.getParameter(NAME);
         String ageParameter = request.getParameter(AGE);
-        Integer age = ageParameter == null ? null : Integer.parseInt(ageParameter);
+        Integer age = ageParameter == null || ageParameter.equals("") ? null : Integer.parseInt(ageParameter);
         String newDateOfBirth = request.getParameter(DATE_OF_BIRTH);
         String email = request.getParameter(EMAIL);
 
         if(employeeId != null){
             boolean employeeEdited = employeeService.updateEmployee(employeeId, newName, age, newDateOfBirth, email);
-            if(sendError(employeeEdited, request, newName, age, newDateOfBirth, email)){
-                return PageFactory.getPages().get(EDIT_EMPLOYEE_PATH).execute(request, response);
+            if(hasError(employeeEdited, request, newName, age, newDateOfBirth, email)){
+                Page page = PageFactory.getPage(EDIT_EMPLOYEE_PATH);
+                page.show(request, response);
+                return;
             }
         }else{
             String depIdParameter = request.getParameter(DEPARTMENT_ID);
-            Integer departmentId = depIdParameter == null ? null : Integer.parseInt(depIdParameter);
+            Integer departmentId = depIdParameter == null || depIdParameter.equals("") ? null : Integer.parseInt(depIdParameter);
             request.setAttribute(DEPARTMENT_ID, departmentId);
+
             boolean employeeCreated = employeeService.createEmployee(newName, age, newDateOfBirth, email, departmentId);
-            if(sendError(employeeCreated, request, newName, age, newDateOfBirth, email)){
-                return PageFactory.getPages().get(CREATE_EMPLOYEE_PATH).execute(request, response);
+            if(hasError(employeeCreated, request, newName, age, newDateOfBirth, email)){
+                Page page = PageFactory.getPage(CREATE_EMPLOYEE_PATH);
+                page.show(request, response);
+                return;
             }
         }
-        return ActionFactory.getActions().get(GET_ALL_EMPLOYEE_PATH).execute(request, response);
+        Action action = ActionFactory.getAction(GET_ALL_EMPLOYEE_PATH);
+        action.execute(request, response);
     }
 
-    private boolean sendError(boolean criteria, HttpServletRequest request, String name, Integer age,
-                              String dateOfBirth, String email) throws ServletException, IOException {
+    private boolean hasError(boolean criteria, HttpServletRequest request, String name, Integer age,
+                             String dateOfBirth, String email) throws ServletException, IOException {
         if (!criteria){
             request.setAttribute(ERROR_INPUT, email);
             request.setAttribute(NAME, name);

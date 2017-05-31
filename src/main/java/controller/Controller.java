@@ -26,11 +26,7 @@ public class Controller extends HttpServlet{
             String actionParameter = req.getParameter(ACTION);
             if(actionParameter != null){
                 Action action = ActionFactory.getAction(actionParameter);
-                String view = action.execute(req, resp);
-                if(view != null){
-                    RequestDispatcher requestDispatcher = req.getRequestDispatcher(view);
-                    requestDispatcher.forward(req, resp);
-                }
+                action.execute(req, resp);
             }else{
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher(ROOT_PATH);
                 requestDispatcher.forward(req, resp);

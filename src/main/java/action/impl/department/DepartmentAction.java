@@ -2,7 +2,8 @@ package action.impl.department;
 
 import action.Action;
 import action.ActionFactory;
-import action.PageFactory;
+import page.Page;
+import page.PageFactory;
 import service.DepartmentService;
 
 import javax.servlet.ServletException;
@@ -28,7 +29,7 @@ public class DepartmentAction implements Action {
     private DepartmentService departmentService;
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
@@ -40,15 +41,20 @@ public class DepartmentAction implements Action {
         if (departmentId != null) {
             boolean departmentEdited = departmentService.updateDepartment(departmentId, newName);
             if(sendError(departmentEdited, request, newName)){
-                return PageFactory.getPages().get(EDIT_DEPARTMENT_PATH).execute(request, response);
+                Page page = PageFactory.getPage(EDIT_DEPARTMENT_PATH);
+                page.show(request, response);
+                return;
             }
         }else{
             boolean departmentAdded = departmentService.createDepartment(newName);
             if(sendError(departmentAdded, request, newName)){
-                return PageFactory.getPages().get(CREATE_DEPARTMENT_PATH).execute(request, response);
+                Page page = PageFactory.getPage(CREATE_DEPARTMENT_PATH);
+                page.show(request, response);
+                return;
             }
         }
-        return ActionFactory.getActions().get(GET_ALL_DEPARTMENTS_PATH).execute(request, response);
+        Action action = ActionFactory.getAction(GET_ALL_DEPARTMENTS_PATH);
+        action.execute(request, response);
     }
 
     private boolean sendError(boolean criteria, HttpServletRequest request, String name) throws ServletException, IOException {

@@ -1,4 +1,4 @@
-package action;
+package page;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +8,8 @@ import java.io.IOException;
 /**
  * @author Arsalan
  */
-public interface Action {
+public interface Page {
 
-    void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
 }
