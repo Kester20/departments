@@ -43,21 +43,26 @@ public class Constants {
         public static final String PAGE = "page";
         public static final String ERROR_INPUT = "errorInput";
         public static final String ERROR_TEXT = "errorText";
+        public static final String DEPARTMENTS = "departments";
+        public static final String EMPLOYEES = "employees";
     }
 
     public static class Pathways {
+        public static final String ROOT_PATH = "/WEB-INF/index.jsp";
         public static final String GET_ALL_DEPARTMENTS_PATH = "/getDepartments";
+        public static final String DEPARTMENT_ACTION_PATH = "/departmentAction";
         public static final String CREATE_DEPARTMENT_PATH = "/createDepartment";
         public static final String DELETE_DEPARTMENT_PATH = "/deleteDepartment";
         public static final String EDIT_DEPARTMENT_PATH = "/editDepartment";
 
         public static final String GET_ALL_EMPLOYEE_PATH = "/getEmployees";
+        public static final String EMPLOYEE_ACTION_PATH = "/employeeAction";
         public static final String CREATE_EMPLOYEE_PATH = "/createEmployee";
         public static final String EDIT_EMPLOYEE_PATH = "/editEmployee";
         public static final String DELETE_EMPLOYEE_PATH = "/deleteEmployee";
 
-        public static final String DEPARTMENTS = "departments";
-        public static final String EMPLOYEES = "employees";
+        public static final String DEPARTMENTS_PATH = "/departments";
+        public static final String EMPLOYEES_PATH = "/employees";
     }
 
     public static class Messages {

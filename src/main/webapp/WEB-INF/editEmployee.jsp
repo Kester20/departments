@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<tg:employeeForm departmentId="${departmentId}" employeeId="${employeeId}" action="/editEmployee" button="Edit employee"/>
+<tg:employeeForm departmentId="${departmentId}" employeeId="${employeeId}" action="/employeeAction" button="Edit employee"/>
 
 </body>
 </html>

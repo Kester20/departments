@@ -7,9 +7,9 @@ import java.time.LocalDate;
  */
 public class Employee {
 
-    private int id;
+    private Integer id;
     private String name;
-    private int age;
+    private Integer age;
     private LocalDate dateOfBirth;
     private String email;
     private Department department;
@@ -18,7 +18,7 @@ public class Employee {
 
     }
 
-    public Employee(int id, String name, int age, LocalDate dateOfBirth, String email) {
+    public Employee(Integer id, String name, Integer age, LocalDate dateOfBirth, String email) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -26,11 +26,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,11 +42,11 @@ public class Employee {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

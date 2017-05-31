@@ -12,8 +12,9 @@ import java.io.IOException;
 import java.util.List;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Pathways.EMPLOYEES;
+import static util.Constants.Pathways.EMPLOYEES_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
+import static util.Constants.ServiceConstants.EMPLOYEES;
 
 /**
  * @author Arsalan
@@ -33,6 +34,6 @@ public class GetAllEmployeesAction implements Action {
         List<Employee> employees = departmentService.getEmployees(departmentId);
         request.setAttribute(DEPARTMENT_ID, departmentId);
         request.setAttribute(EMPLOYEES, employees);
-        return PageFactory.getPages().get(EMPLOYEES).execute(request, response);
+        return PageFactory.getPages().get(EMPLOYEES_PATH).execute(request, response);
     }
 }

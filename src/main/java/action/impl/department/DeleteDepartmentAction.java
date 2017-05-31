@@ -30,6 +30,8 @@ public class DeleteDepartmentAction implements Action {
         String idParameter = request.getParameter(DEPARTMENT_ID);
         Integer departmentId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
         departmentService.deleteDepartment(departmentId);
-        return ActionFactory.getActions().get(GET_ALL_DEPARTMENTS_PATH).execute(request, response);
+
+        Action action = ActionFactory.getAction(GET_ALL_DEPARTMENTS_PATH);
+        return action.execute(request, response);
     }
 }

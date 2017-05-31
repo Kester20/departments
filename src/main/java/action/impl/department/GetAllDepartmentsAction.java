@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Pathways.DEPARTMENTS;
+import static util.Constants.Pathways.DEPARTMENTS_PATH;
+import static util.Constants.ServiceConstants.DEPARTMENTS;
 
 /**
  * @author Arsalan. Created on 29.05.2017.
@@ -28,6 +29,6 @@ public class GetAllDepartmentsAction implements Action {
         }
         List<Department> departments = departmentService.getDepartments();
         request.setAttribute(DEPARTMENTS, departments);
-        return PageFactory.getPages().get(DEPARTMENTS).execute(request, response);
+        return PageFactory.getPages().get(DEPARTMENTS_PATH).execute(request, response);
     }
 }

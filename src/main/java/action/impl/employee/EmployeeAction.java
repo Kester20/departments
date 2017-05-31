@@ -12,13 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
+import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
 import static util.Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST;
 import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
+import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.AGE;
 import static util.Constants.ServiceConstants.DATE_OF_BIRTH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMAIL;
+import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
 import static util.Constants.ServiceConstants.ERROR_TEXT;
 import static util.Constants.ServiceConstants.NAME;
@@ -26,7 +29,7 @@ import static util.Constants.ServiceConstants.NAME;
 /**
  * @author Arsalan
  */
-public class CreateEmployeeAction implements Action {
+public class EmployeeAction implements Action {
 
     private EmployeeService employeeService;
 
@@ -36,31 +39,47 @@ public class CreateEmployeeAction implements Action {
             this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
         }
 
+        String idParameter = request.getParameter(EMPLOYEE_ID);
+        Integer employeeId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
         String newName = request.getParameter(NAME);
         String ageParameter = request.getParameter(AGE);
         Integer age = ageParameter == null ? null : Integer.parseInt(ageParameter);
         String newDateOfBirth = request.getParameter(DATE_OF_BIRTH);
         String email = request.getParameter(EMAIL);
 
-        String depIdParameter = request.getParameter(DEPARTMENT_ID);
-        Integer departmentId = depIdParameter == null ? null : Integer.parseInt(depIdParameter);
-        request.setAttribute(DEPARTMENT_ID, departmentId);
-
-        boolean employeeAdded = employeeService.createEmployee(newName, age, newDateOfBirth, email, departmentId);
-        if(!employeeAdded){
-            request.setAttribute(ERROR_INPUT, email);
-            request.setAttribute(NAME, newName);
-            request.setAttribute(AGE, age);
-            request.setAttribute(DATE_OF_BIRTH, newDateOfBirth);
-            request.setAttribute(ERROR_TEXT, EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST);
-            return PageFactory.getPages().get(CREATE_EMPLOYEE_PATH).execute(request, response);
+        if(employeeId != null){
+            boolean employeeEdited = employeeService.updateEmployee(employeeId, newName, age, newDateOfBirth, email);
+            if(sendError(employeeEdited, request, newName, age, newDateOfBirth, email)){
+                return PageFactory.getPages().get(EDIT_EMPLOYEE_PATH).execute(request, response);
+            }
         }else{
+            String depIdParameter = request.getParameter(DEPARTMENT_ID);
+            Integer departmentId = depIdParameter == null ? null : Integer.parseInt(depIdParameter);
+            request.setAttribute(DEPARTMENT_ID, departmentId);
+            boolean employeeCreated = employeeService.createEmployee(newName, age, newDateOfBirth, email, departmentId);
+            if(sendError(employeeCreated, request, newName, age, newDateOfBirth, email)){
+                return PageFactory.getPages().get(CREATE_EMPLOYEE_PATH).execute(request, response);
+            }
+        }
+        return ActionFactory.getActions().get(GET_ALL_EMPLOYEE_PATH).execute(request, response);
+    }
+
+    private boolean sendError(boolean criteria, HttpServletRequest request, String name, Integer age,
+                              String dateOfBirth, String email) throws ServletException, IOException {
+        if (!criteria){
+            request.setAttribute(ERROR_INPUT, email);
+            request.setAttribute(NAME, name);
+            request.setAttribute(AGE, age);
+            request.setAttribute(DATE_OF_BIRTH, dateOfBirth);
+            request.setAttribute(ERROR_TEXT, EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST);
+            return true;
+        }else {
             request.removeAttribute(ERROR_INPUT);
             request.removeAttribute(NAME);
             request.removeAttribute(AGE);
             request.removeAttribute(DATE_OF_BIRTH);
             request.removeAttribute(ERROR_TEXT);
         }
-        return ActionFactory.getActions().get(GET_ALL_EMPLOYEE_PATH).execute(request, response);
+        return false;
     }
 }

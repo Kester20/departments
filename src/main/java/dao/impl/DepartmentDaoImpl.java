@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,15 +163,15 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public List<Department> getDepartments() {
         String sql = GET_DEPARTMENTS;
         Connection connection = null;
-        PreparedStatement prStatement = null;
+        Statement statement = null;
         ResultSet resultSet = null;
         List<Department> departments = new ArrayList<>();
 
         try {
             connection = dataSource.getConnection();
-            prStatement = connection.prepareStatement(sql);
-            prStatement.execute();
-            resultSet = prStatement.getResultSet();
+            statement = connection.createStatement();
+            statement.execute(sql);
+            resultSet = statement.getResultSet();
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
@@ -182,8 +183,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
             e.printStackTrace();
         } finally {
             try {
-                if(prStatement != null){
-                    prStatement.close();
+                if(statement != null){
+                    statement.close();
                 }
                 if(connection != null){
                     connection.close();

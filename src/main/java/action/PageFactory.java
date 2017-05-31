@@ -9,10 +9,10 @@ import java.util.Map;
 
 import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
-import static util.Constants.Pathways.DEPARTMENTS;
+import static util.Constants.Pathways.DEPARTMENTS_PATH;
 import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
 import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
-import static util.Constants.Pathways.EMPLOYEES;
+import static util.Constants.Pathways.EMPLOYEES_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 import static util.Constants.ServiceConstants.PAGE;
@@ -27,8 +27,8 @@ public class PageFactory implements Action {
         put(EDIT_DEPARTMENT_PATH, new GetEditDepartmentPageAction());
         put(CREATE_EMPLOYEE_PATH, new GetCreateEmployeePageAction());
         put(EDIT_EMPLOYEE_PATH, new GetEditEmployeePageAction());
-        put(DEPARTMENTS, new GetAllDepartmentsPageAction());
-        put(EMPLOYEES, new GetAllEmployeePageAction());
+        put(DEPARTMENTS_PATH, new GetAllDepartmentsPageAction());
+        put(EMPLOYEES_PATH, new GetAllEmployeePageAction());
     }};
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +43,7 @@ public class PageFactory implements Action {
     private static class GetCreateDepartmentPageAction implements Action {
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) {
-            return "WEB-INF\\" + CREATE_DEPARTMENT_PATH + ".jsp";
+            return "WEB-INF" + CREATE_DEPARTMENT_PATH + ".jsp";
         }
     }
 
@@ -52,7 +52,7 @@ public class PageFactory implements Action {
         public String execute(HttpServletRequest request, HttpServletResponse response) {
             Integer departmentId = getItemId(request, DEPARTMENT_ID);
             request.setAttribute(DEPARTMENT_ID, departmentId);
-            return "WEB-INF\\" + EDIT_DEPARTMENT_PATH + ".jsp";
+            return "WEB-INF" + EDIT_DEPARTMENT_PATH + ".jsp";
         }
     }
 
@@ -61,7 +61,7 @@ public class PageFactory implements Action {
         public String execute(HttpServletRequest request, HttpServletResponse response) {
             Integer departmentId = getItemId(request, DEPARTMENT_ID);
             request.setAttribute(DEPARTMENT_ID, departmentId);
-            return "WEB-INF\\" + CREATE_EMPLOYEE_PATH + ".jsp";
+            return "WEB-INF" + CREATE_EMPLOYEE_PATH + ".jsp";
         }
     }
 
@@ -72,21 +72,21 @@ public class PageFactory implements Action {
             Integer departmentId = getItemId(request, DEPARTMENT_ID);
             request.setAttribute(EMPLOYEE_ID, employeeId);
             request.setAttribute(DEPARTMENT_ID, departmentId);
-            return "WEB-INF\\" + EDIT_EMPLOYEE_PATH + ".jsp";
+            return "WEB-INF" + EDIT_EMPLOYEE_PATH + ".jsp";
         }
     }
 
     private static class GetAllDepartmentsPageAction implements Action {
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            return "WEB-INF\\" + DEPARTMENTS + ".jsp";
+            return "WEB-INF" + DEPARTMENTS_PATH + ".jsp";
         }
     }
 
     private static class GetAllEmployeePageAction implements Action {
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            return "WEB-INF\\" + EMPLOYEES + ".jsp";
+            return "WEB-INF" + EMPLOYEES_PATH + ".jsp";
         }
     }
 
