@@ -41,8 +41,7 @@ public class Constants {
         public static final String DATE_OF_BIRTH = "dateOfBirth";
         public static final String GET_PAGE = "/getPage";
         public static final String PAGE = "page";
-        public static final String ERROR_INPUT = "errorInput";
-        public static final String ERROR_TEXT = "errorText";
+        public static final String ERROR_INPUT = "ErrorInput";
         public static final String DEPARTMENTS = "departments";
         public static final String EMPLOYEES = "employees";
     }

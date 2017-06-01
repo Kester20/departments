@@ -77,8 +77,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public List<Department> getDepartments() throws DaoException {
         String sql = GET_DEPARTMENTS;
         List<Department> departments = new ArrayList<>();
-        try(Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement()) {
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement()) {
             statement.execute(sql);
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
@@ -87,7 +87,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 Department department = new Department(id, name);
                 departments.add(department);
             }
-
         } catch (SQLException e) {
             throw new DaoException(CAN_NOT_GET_DEPARTMENTS);
         }
@@ -98,8 +97,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public Department findOne(Integer id) throws DaoException {
         String sql = FIND_DEPARTMENT;
         Department department = new Department();
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement prStatement = connection.prepareStatement(sql)) {
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(sql)) {
             prStatement.setInt(1, id);
             prStatement.execute();
             ResultSet resultSet = prStatement.getResultSet();
@@ -109,7 +108,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 department.setId(idDepartment);
                 department.setName(name);
             }
-
         } catch (SQLException e) {
             throw new DaoException(CAN_NOT_FIND_DEPARTMENT);
         }
@@ -120,9 +118,8 @@ public class DepartmentDaoImpl implements DepartmentDao {
     public Department findOneByName(String departmentName) throws DaoException {
         String sql = FIND_DEPARTMENT_BY_NAME;
         Department department = null;
-
         try (Connection connection = dataSource.getConnection();
-            PreparedStatement prStatement = connection.prepareStatement(sql)){
+             PreparedStatement prStatement = connection.prepareStatement(sql)) {
             prStatement.setString(1, departmentName);
             prStatement.execute();
             ResultSet resultSet = prStatement.getResultSet();
@@ -133,7 +130,6 @@ public class DepartmentDaoImpl implements DepartmentDao {
                 department.setId(idDepartment);
                 department.setName(name);
             }
-
         } catch (SQLException e) {
             throw new DaoException(CAN_NOT_FIND_DEPARTMENT);
         }

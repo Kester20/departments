@@ -1,11 +1,9 @@
 package model;
 
-import net.sf.oval.configuration.annotation.IsInvariant;
 import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
-import validator.DepartmentValidator;
 import validator.EmployeeValidator;
 
 import java.time.LocalDate;
@@ -34,6 +32,7 @@ public class Employee {
     @CheckWith(value = EmployeeValidator.class, message = EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
     @NotEmpty(message = MUST_NOT_BE_EMPTY)
     @NotNull(message = MUST_NOT_BE_EMPTY)
+    @Length(max = 30)
     private String email;
 
     private Department department;
@@ -81,11 +80,6 @@ public class Employee {
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
-
-    @NotNull
-    @NotEmpty
-    @Length(max = 30)
 
     public String getEmail() {
         return email;

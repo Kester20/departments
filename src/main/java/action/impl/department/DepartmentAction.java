@@ -16,13 +16,11 @@ import java.io.IOException;
 import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
 import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
 import static util.Constants.Pathways.GET_ALL_DEPARTMENTS_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
-import static util.Constants.ServiceConstants.ERROR_TEXT;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
@@ -41,54 +39,45 @@ public class DepartmentAction implements Action {
         String newName = request.getParameter(NAME);
         String idParameter = request.getParameter(DEPARTMENT_ID);
         Integer departmentId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
+        Department department = new Department();
+        department.setId(departmentId);
+        department.setName(newName);
 
-        if (departmentId != null) {
-            Department department = new Department();
-            department.setId(departmentId);
-            department.setName(newName);
+        try {
+            if (departmentId != null) {
+                try {
+                    departmentService.updateDepartment(department);
+                } catch (ValidationException e) {
+                    sendError(request, response, newName, EDIT_DEPARTMENT_PATH, e);
+                    return;
+                }
 
-            try {
-                departmentService.updateDepartment(department);
-                clearErrors(request);
-            } catch (ValidationException e) {
-                sendError(request, e);
-                Page page = PageFactory.getPage(EDIT_DEPARTMENT_PATH);
-                page.show(request, response);
-                return;
-            } catch (DaoException e) {
-                e.printStackTrace();
+            } else {
+                try {
+                    departmentService.createDepartment(department);
+                } catch (ValidationException e) {
+                    sendError(request, response, newName, CREATE_DEPARTMENT_PATH, e);
+                    return;
+                }
             }
-
-        } else {
-            Department department = new Department();
-            department.setName(newName);
-
-            try {
-                departmentService.createDepartment(department);
-            } catch (ValidationException e) {
-                sendError(request, e);
-                Page page = PageFactory.getPage(CREATE_DEPARTMENT_PATH);
-                page.show(request, response);
-                return;
-            } catch (DaoException e) {
-                e.printStackTrace();
-            }
+        } catch (DaoException e) {
+            e.printStackTrace();
         }
+
         Action action = ActionFactory.getAction(GET_ALL_DEPARTMENTS_PATH);
         action.execute(request, response);
     }
 
-    private void sendError(HttpServletRequest request, Exception exception) throws ServletException, IOException {
+    private void sendError(HttpServletRequest request, HttpServletResponse response, String name, String path,
+                           Exception exception) throws ServletException, IOException {
         ValidationException validationException = (ValidationException) exception;
         Map<String, String> errors = validationException.getErrorMap();
-        for (String errorField: errors.keySet()) {
+        for (String errorField : errors.keySet()) {
             String message = errors.get(errorField);
             request.setAttribute(errorField, message);
         }
-    }
-
-    private void clearErrors(HttpServletRequest request) {
-        request.removeAttribute(ERROR_INPUT);
-        request.removeAttribute(ERROR_TEXT);
+        request.setAttribute(NAME + ERROR_INPUT, name);
+        Page page = PageFactory.getPage(path);
+        page.show(request, response);
     }
 }

@@ -12,7 +12,7 @@
     <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name"  value="${errorInputName}">
+                <input type="text" name="name" placeholder="Name"  value="${nameErrorInput}">
             </td>
 
         </tr>
@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <td>
-                <input type="number" name="age" placeholder="Age"  value="${errorInputAge}">
+                <input type="number" name="age" placeholder="Age"  value="${ageErrorInput}">
             </td>
         </tr>
         <tr class="noBorder">
@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td>
-                <input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="${errorInputDate}">
+                <input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="${dateOfBirthErrorInput}">
             </td>
         </tr>
         <tr class="noBorder">
@@ -43,7 +43,7 @@
         </tr>
         <tr>
             <td>
-                <input type="email" name="email" placeholder="Email"  value="${errorInputEmail}">
+                <input type="email" name="email" placeholder="Email"  value="${emailErrorInput}">
             </td>
         </tr>
         <tr class="noBorder">

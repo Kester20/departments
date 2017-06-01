@@ -98,7 +98,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 String email = resultSet.getString(5);
                 employee = new Employee(id, name, age, date, email);
             }
-
         } catch (SQLException e) {
             throw new DaoException(CAN_NOT_FIND_EMPLOYEE);
         }

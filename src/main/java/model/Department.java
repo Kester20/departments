@@ -18,6 +18,7 @@ public class Department {
     @CheckWith(value = DepartmentValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
     @NotEmpty(message = MUST_NOT_BE_EMPTY)
     @NotNull(message = MUST_NOT_BE_EMPTY)
+    @Length(max = 30)
     private String name;
 
     public Department() {
@@ -37,9 +38,6 @@ public class Department {
         this.id = id;
     }
 
-
-    @NotEmpty
-    @Length(max = 30)
     public String getName() {
         return name;
     }

@@ -28,6 +28,7 @@ import static util.Constants.ServiceConstants.DATE_OF_BIRTH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMAIL;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
+import static util.Constants.ServiceConstants.ERROR_INPUT;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
@@ -54,67 +55,53 @@ public class EmployeeAction implements Action {
         Integer age = ageParameter == null || ageParameter.equals("") ? null : Integer.parseInt(ageParameter);
         String newDateOfBirth = request.getParameter(DATE_OF_BIRTH);
         String email = request.getParameter(EMAIL);
+        LocalDate localDate = LocalDate.parse(newDateOfBirth);
+        String depIdParameter = request.getParameter(DEPARTMENT_ID);
+        Integer departmentId = depIdParameter == null || depIdParameter.equals("") ? null : Integer.parseInt(depIdParameter);
+        request.setAttribute(DEPARTMENT_ID, departmentId);
 
-        if (employeeId != null) {
-            Employee employee = new Employee();
-            employee.setId(employeeId);
-            employee.setName(newName);
-            employee.setAge(age);
-            LocalDate localDate = LocalDate.parse(newDateOfBirth);
-            employee.setDateOfBirth(localDate);
-            employee.setEmail(email);
 
-            try {
-                employeeService.updateEmployee(employee);
-            } catch (ValidationException e) {
-                sendError(request, e);
-                Page page = PageFactory.getPage(EDIT_EMPLOYEE_PATH);
-                page.show(request, response);
-                return;
-            } catch (DaoException e) {
-                e.printStackTrace();
+        Employee employee = new Employee(employeeId, newName, age, localDate, email);
+
+        try {
+            if (employeeId != null) {
+                try {
+                    employeeService.updateEmployee(employee);
+                } catch (ValidationException e) {
+                    sendError(request, response, newName, age, newDateOfBirth, email, EDIT_EMPLOYEE_PATH, e);
+                    return;
+                }
+            } else {
+                try {
+                    Department department = departmentService.findOne(departmentId);
+                    employee.setDepartment(department);
+                    employeeService.createEmployee(employee);
+                } catch (ValidationException e) {
+                    sendError(request, response, newName, age, newDateOfBirth, email, CREATE_EMPLOYEE_PATH, e);
+                    return;
+                }
             }
-
-        } else {
-            String depIdParameter = request.getParameter(DEPARTMENT_ID);
-            Integer departmentId = depIdParameter == null || depIdParameter.equals("") ? null : Integer.parseInt(depIdParameter);
-            request.setAttribute(DEPARTMENT_ID, departmentId);
-
-            Department department = null;
-            try {
-                department = departmentService.findOne(departmentId);
-            } catch (DaoException e) {
-                e.printStackTrace();
-            }
-
-            Employee employee = new Employee();
-            employee.setName(newName);
-            employee.setAge(age);
-            LocalDate localDate = LocalDate.parse(newDateOfBirth);
-            employee.setDateOfBirth(localDate);
-            employee.setDepartment(department);
-            employee.setEmail(email);
-
-            try {
-                employeeService.createEmployee(employee);
-            } catch (ValidationException e) {
-                sendError(request, e);
-                Page page = PageFactory.getPage(CREATE_EMPLOYEE_PATH);
-                page.show(request, response);
-            } catch (DaoException e) {
-                e.printStackTrace();
-            }
+        } catch (DaoException e) {
+            e.printStackTrace();
         }
+
         Action action = ActionFactory.getAction(GET_ALL_EMPLOYEE_PATH);
         action.execute(request, response);
     }
 
-    private void sendError(HttpServletRequest request, Exception exception) throws ServletException, IOException {
+    private void sendError(HttpServletRequest request, HttpServletResponse response, String name, Integer age, String date,
+                           String email, String path, Exception exception) throws ServletException, IOException {
         ValidationException validationException = (ValidationException) exception;
         Map<String, String> errors = validationException.getErrorMap();
         for (String errorField : errors.keySet()) {
             String message = errors.get(errorField);
             request.setAttribute(errorField, message);
         }
+        request.setAttribute(NAME + ERROR_INPUT, name);
+        request.setAttribute(AGE + ERROR_INPUT, age);
+        request.setAttribute(DATE_OF_BIRTH + ERROR_INPUT, date);
+        request.setAttribute(EMAIL + ERROR_INPUT, email);
+        Page page = PageFactory.getPage(path);
+        page.show(request, response);
     }
 }
