@@ -14,6 +14,7 @@ import static util.Constants.Pathways.DEPARTMENTS_PATH;
 import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
 import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
 import static util.Constants.Pathways.EMPLOYEES_PATH;
+import static util.Constants.Pathways.ROOT_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 
@@ -23,19 +24,28 @@ import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 public class PageFactory {
 
     private static Map<String, Page> pages = new HashMap<String, Page>() {{
-        put(CREATE_DEPARTMENT_PATH, new GetCreateDepartmentPageAction());
-        put(EDIT_DEPARTMENT_PATH, new GetEditDepartmentPageAction());
-        put(CREATE_EMPLOYEE_PATH, new GetCreateEmployeePageAction());
-        put(EDIT_EMPLOYEE_PATH, new GetEditEmployeePageAction());
-        put(DEPARTMENTS_PATH, new GetAllDepartmentsPageAction());
-        put(EMPLOYEES_PATH, new GetAllEmployeePageAction());
+        put(ROOT_PATH, new RootPage());
+        put(CREATE_DEPARTMENT_PATH, new GetCreateDepartmentPage());
+        put(EDIT_DEPARTMENT_PATH, new GetEditDepartmentPage());
+        put(CREATE_EMPLOYEE_PATH, new GetCreateEmployeePage());
+        put(EDIT_EMPLOYEE_PATH, new GetEditEmployeePage());
+        put(DEPARTMENTS_PATH, new GetAllDepartmentsPage());
+        put(EMPLOYEES_PATH, new GetAllEmployeePage());
     }};
 
     public static Page getPage(String path) {
         return pages.get(path);
     }
 
-    private static class GetCreateDepartmentPageAction implements Page {
+    private static class RootPage implements Page {
+        @Override
+        public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String path = "WEB-INF" + ROOT_PATH + ".jsp";
+            forward(path, request, response);
+        }
+    }
+
+    private static class GetCreateDepartmentPage implements Page {
         @Override
         public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             String path = "WEB-INF" + CREATE_DEPARTMENT_PATH + ".jsp";
@@ -43,7 +53,7 @@ public class PageFactory {
         }
     }
 
-    private static class GetEditDepartmentPageAction implements Page {
+    private static class GetEditDepartmentPage implements Page {
         @Override
         public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             Integer departmentId = getItemId(request, DEPARTMENT_ID);
@@ -53,7 +63,7 @@ public class PageFactory {
         }
     }
 
-    private static class GetCreateEmployeePageAction implements Page {
+    private static class GetCreateEmployeePage implements Page {
         @Override
         public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             Integer departmentId = getItemId(request, DEPARTMENT_ID);
@@ -63,7 +73,7 @@ public class PageFactory {
         }
     }
 
-    private static class GetEditEmployeePageAction implements Page {
+    private static class GetEditEmployeePage implements Page {
         @Override
         public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             Integer employeeId = getItemId(request, EMPLOYEE_ID);
@@ -75,7 +85,7 @@ public class PageFactory {
         }
     }
 
-    private static class GetAllDepartmentsPageAction implements Page {
+    private static class GetAllDepartmentsPage implements Page {
         @Override
         public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             String path = "WEB-INF" + DEPARTMENTS_PATH + ".jsp";
@@ -83,7 +93,7 @@ public class PageFactory {
         }
     }
 
-    private static class GetAllEmployeePageAction implements Page {
+    private static class GetAllEmployeePage implements Page {
         @Override
         public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             String path = "WEB-INF" + EMPLOYEES_PATH + ".jsp";

@@ -12,11 +12,13 @@ public interface DepartmentService {
 
     boolean createDepartment(String name);
 
-    boolean updateDepartment(int id, String name);
+    boolean updateDepartment(Integer id, String name);
 
-    void deleteDepartment(int id);
+    void deleteDepartment(Integer id);
 
-    List<Employee> getEmployees(int id);
+    List<Employee> getEmployees(Integer id);
 
     List<Department> getDepartments();
+
+    boolean validateDepartment(Department department);
 }

@@ -1,5 +1,7 @@
 package model;
 
+import validator.UniqueEmployeeEmail;
+
 import java.time.LocalDate;
 
 /**
@@ -14,7 +16,7 @@ public class Employee {
     private String email;
     private Department department;
 
-    public Employee(){
+    public Employee() {
 
     }
 
@@ -58,6 +60,7 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @UniqueEmployeeEmail
     public String getEmail() {
         return email;
     }

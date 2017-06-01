@@ -1,5 +1,6 @@
 package dao;
 
+import exception.BusinessException;
 import model.Employee;
 
 /**
@@ -7,12 +8,12 @@ import model.Employee;
  */
 public interface EmployeeDao {
 
-    void createEmployee(Employee employee);
+    void createEmployee(Employee employee) throws BusinessException;
 
-    void updateEmployee(Employee employee);
+    void editEmployee(Employee employee) throws BusinessException;
 
-    void deleteEmployee(Employee employee);
+    void deleteEmployee(Employee employee) throws BusinessException;
 
-    Employee findOneByEmail(String email);
+    Employee findOneByEmail(String email) throws BusinessException;
 
 }

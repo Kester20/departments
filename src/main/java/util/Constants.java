@@ -48,7 +48,7 @@ public class Constants {
     }
 
     public static class Pathways {
-        public static final String ROOT_PATH = "/WEB-INF/index.jsp";
+        public static final String ROOT_PATH = "/index";
         public static final String GET_ALL_DEPARTMENTS_PATH = "/getDepartments";
         public static final String DEPARTMENT_ACTION_PATH = "/departmentAction";
         public static final String CREATE_DEPARTMENT_PATH = "/createDepartment";
@@ -68,5 +68,16 @@ public class Constants {
     public static class Messages {
         public static final String DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST = "Department with this name is already exist";
         public static final String EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST = "Employee with this email is already exist";
+        public static final String CAN_NOT_CREATE_DEPARTMENT = "Can't create department";
+        public static final String CAN_NOT_EDIT_DEPARTMENT = "Can't edit department";
+        public static final String CAN_NOT_DELETE_DEPARTMENT = "Can't delete department";
+        public static final String CAN_NOT_GET_DEPARTMENTS = "Can't get departments";
+        public static final String CAN_NOT_FIND_DEPARTMENT = "Can't find department";
+        public static final String CAN_NOT_CREATE_EMPLOYEE = "Can't create employee";
+        public static final String CAN_NOT_EDIT_EMPLOYEE = "Can't edit employee";
+        public static final String CAN_NOT_DELETE_EMPLOYEE = "Can't delete employee";
+        public static final String CAN_NOT_GET_EMPLOYEES = "Can't get employees";
+        public static final String CAN_NOT_FIND_EMPLOYEE = "Can't find employee";
+        public static final String CAN_NOT_CLOSE_RESOURCE = "Can't close resource";
     }
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import exception.BusinessException;
 import model.Department;
 import model.Employee;
 
@@ -10,17 +11,17 @@ import java.util.List;
  */
 public interface DepartmentDao {
 
-    void createDepartment(Department department);
+    void createDepartment(Department department) throws BusinessException;
 
-    void updateDepartment(Department department);
+    void editDepartment(Department department) throws BusinessException;
 
-    void deleteDepartment(Department department);
+    void deleteDepartment(Department department) throws BusinessException;
 
-    List<Employee> getEmployees(Department department);
+    List<Employee> getEmployees(Department department) throws BusinessException;
 
-    List<Department> getDepartments();
+    List<Department> getDepartments() throws BusinessException;
 
-    Department findOne(Integer id);
+    Department findOne(Integer id) throws BusinessException;
 
-    Department findOneByName(String name);
+    Department findOneByName(String name) throws BusinessException;
 }

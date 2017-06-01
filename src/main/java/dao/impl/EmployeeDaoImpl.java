@@ -1,7 +1,7 @@
 package dao.impl;
 
 import dao.EmployeeDao;
-import model.Department;
+import exception.BusinessException;
 import model.Employee;
 
 import javax.sql.DataSource;
@@ -12,9 +12,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import static util.Constants.Messages.CAN_NOT_CLOSE_RESOURCE;
+import static util.Constants.Messages.CAN_NOT_CREATE_EMPLOYEE;
+import static util.Constants.Messages.CAN_NOT_DELETE_EMPLOYEE;
+import static util.Constants.Messages.CAN_NOT_EDIT_EMPLOYEE;
+import static util.Constants.Messages.CAN_NOT_FIND_EMPLOYEE;
 import static util.Constants.QueryConstants.CREATE_EMPLOYEE;
 import static util.Constants.QueryConstants.DELETE_EMPLOYEE;
-import static util.Constants.QueryConstants.FIND_DEPARTMENT_BY_NAME;
 import static util.Constants.QueryConstants.FIND_EMPLOYEE_BY_EMAIL;
 import static util.Constants.QueryConstants.UPDATE_EMPLOYEE;
 
@@ -30,7 +34,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void createEmployee(Employee employee) {
+    public void createEmployee(Employee employee) throws BusinessException {
         String sql = CREATE_EMPLOYEE;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -45,7 +49,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             prStatement.setInt(5, employee.getDepartment().getId());
             prStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_CREATE_EMPLOYEE);
         } finally {
             try {
                 if (prStatement != null) {
@@ -55,13 +59,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
+    public void editEmployee(Employee employee) throws BusinessException {
         String sql = UPDATE_EMPLOYEE;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -76,7 +80,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             prStatement.setInt(5, employee.getId());
             prStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_EDIT_EMPLOYEE);
         } finally {
             try {
                 if (prStatement != null) {
@@ -86,13 +90,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
     }
 
     @Override
-    public void deleteEmployee(Employee employee) {
+    public void deleteEmployee(Employee employee) throws BusinessException {
         String sql = DELETE_EMPLOYEE;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -103,23 +107,23 @@ public class EmployeeDaoImpl implements EmployeeDao {
             prStatement.setInt(1, employee.getId());
             prStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_DELETE_EMPLOYEE);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
     }
 
     @Override
-    public Employee findOneByEmail(String employeeEmail) {
+    public Employee findOneByEmail(String employeeEmail) throws BusinessException {
         String sql = FIND_EMPLOYEE_BY_EMAIL;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -142,20 +146,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_FIND_EMPLOYEE);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
-                if(resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
         return employee;

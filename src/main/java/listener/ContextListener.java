@@ -24,10 +24,10 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         DataSource dataSource = initDataSource();
-        DaoFactory daoFactory = new DaoFactory(dataSource);
+        DaoFactory.initDaoFactory(dataSource);
         ServletContext servletContext = servletContextEvent.getServletContext();
-        servletContext.setAttribute(DEPARTMENT_SERVICE, new DepartmentServiceImpl(daoFactory));
-        servletContext.setAttribute(EMPLOYEE_SERVICE, new EmployeeServiceImpl(daoFactory));
+        servletContext.setAttribute(DEPARTMENT_SERVICE, new DepartmentServiceImpl());
+        servletContext.setAttribute(EMPLOYEE_SERVICE, new EmployeeServiceImpl());
     }
 
     @Override

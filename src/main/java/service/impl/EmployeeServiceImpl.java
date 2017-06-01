@@ -17,15 +17,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeDao employeeDao;
     private DepartmentDao departmentDao;
 
-    public EmployeeServiceImpl(DaoFactory daoFactory) {
-        this.employeeDao = daoFactory.getEmployeeDao();
-        this.departmentDao = daoFactory.getDepartmentDao();
+    public EmployeeServiceImpl() {
+        this.employeeDao = DaoFactory.getEmployeeDao();
+        this.departmentDao = DaoFactory.getDepartmentDao();
     }
 
     @Override
     public boolean createEmployee(String name, int age, String date, String email, int departmentId) {
         Employee existEmployee = employeeDao.findOneByEmail(email);
-        if(existEmployee == null){
+        if (existEmployee == null) {
             Department department = departmentDao.findOne(departmentId);
             Employee employee = new Employee();
             employee.setName(name);
@@ -43,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean updateEmployee(int id, String name, int age, String date, String email) {
         Employee existEmployee = employeeDao.findOneByEmail(email);
-        if(existEmployee == null || existEmployee.getId() == id){
+        if (existEmployee == null || existEmployee.getId() == id) {
             Employee employee = new Employee();
             employee.setId(id);
             employee.setName(name);
@@ -51,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             LocalDate localDate = LocalDate.parse(date);
             employee.setDateOfBirth(localDate);
             employee.setEmail(email);
-            employeeDao.updateEmployee(employee);
+            employeeDao.editEmployee(employee);
             return true;
         }
         return false;

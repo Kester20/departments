@@ -2,8 +2,9 @@ package controller;
 
 import action.Action;
 import action.ActionFactory;
+import page.Page;
+import page.PageFactory;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,18 +19,18 @@ import static util.Constants.ServiceConstants.ACTION;
  * @author Arsalan
  */
 @WebServlet({"/", "/controller"})
-public class Controller extends HttpServlet{
+public class Controller extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String actionParameter = req.getParameter(ACTION);
-            if(actionParameter != null){
+            if (actionParameter != null) {
                 Action action = ActionFactory.getAction(actionParameter);
                 action.execute(req, resp);
-            }else{
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher(ROOT_PATH);
-                requestDispatcher.forward(req, resp);
+            } else {
+                Page page = PageFactory.getPage(ROOT_PATH);
+                page.show(req, resp);
             }
         } catch (Exception e) {
             e.printStackTrace();

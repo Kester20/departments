@@ -7,7 +7,6 @@ import service.EmployeeService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
@@ -24,7 +23,7 @@ public class DeleteEmployeeAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(employeeService == null){
+        if (employeeService == null) {
             this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
         }
 

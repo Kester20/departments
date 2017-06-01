@@ -1,9 +1,9 @@
 package action.impl.employee;
 
 import action.Action;
+import model.Employee;
 import page.Page;
 import page.PageFactory;
-import model.Employee;
 import service.DepartmentService;
 
 import javax.servlet.ServletException;

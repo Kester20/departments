@@ -10,19 +10,19 @@ import javax.sql.DataSource;
  */
 public class DaoFactory {
 
-    private DepartmentDao departmentDao;
-    private EmployeeDao employeeDao;
+    private static DepartmentDao departmentDao;
+    private static EmployeeDao employeeDao;
 
-    public DaoFactory(DataSource dataSource) {
-        this.departmentDao = new DepartmentDaoImpl(dataSource);
-        this.employeeDao = new EmployeeDaoImpl(dataSource);
+    public static void initDaoFactory(DataSource dataSource) {
+        departmentDao = new DepartmentDaoImpl(dataSource);
+        employeeDao = new EmployeeDaoImpl(dataSource);
     }
 
-    public DepartmentDao getDepartmentDao() {
+    public static DepartmentDao getDepartmentDao() {
         return departmentDao;
     }
 
-    public EmployeeDao getEmployeeDao() {
+    public static EmployeeDao getEmployeeDao() {
         return employeeDao;
     }
 }

@@ -1,6 +1,7 @@
 package dao.impl;
 
 import dao.DepartmentDao;
+import exception.BusinessException;
 import model.Department;
 import model.Employee;
 
@@ -14,6 +15,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.Constants.Messages.CAN_NOT_CLOSE_RESOURCE;
+import static util.Constants.Messages.CAN_NOT_CREATE_DEPARTMENT;
+import static util.Constants.Messages.CAN_NOT_DELETE_DEPARTMENT;
+import static util.Constants.Messages.CAN_NOT_EDIT_DEPARTMENT;
+import static util.Constants.Messages.CAN_NOT_FIND_DEPARTMENT;
+import static util.Constants.Messages.CAN_NOT_GET_DEPARTMENTS;
+import static util.Constants.Messages.CAN_NOT_GET_EMPLOYEES;
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
 import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT;
@@ -34,7 +42,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public void createDepartment(Department department) {
+    public void createDepartment(Department department) throws BusinessException {
         String sql = CREATE_DEPARTMENT;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -45,23 +53,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
             prStatement.setString(1, department.getName());
             prStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_CREATE_DEPARTMENT);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
     }
 
     @Override
-    public void updateDepartment(Department department) {
+    public void editDepartment(Department department) throws BusinessException {
         String sql = UPDATE_DEPARTMENT;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -73,23 +81,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
             prStatement.setInt(2, department.getId());
             prStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_EDIT_DEPARTMENT);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
     }
 
     @Override
-    public void deleteDepartment(Department department) {
+    public void deleteDepartment(Department department) throws BusinessException {
         String sql = DELETE_DEPARTMENT;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -100,23 +108,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
             prStatement.setInt(1, department.getId());
             prStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_DELETE_DEPARTMENT);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
     }
 
     @Override
-    public List<Employee> getEmployees(Department department) {
+    public List<Employee> getEmployees(Department department) throws BusinessException {
         String sql = GET_DEPARTMENT_EMPLOYEES;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -140,27 +148,27 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_GET_EMPLOYEES);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
-                if(resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
         return employees;
     }
 
     @Override
-    public List<Department> getDepartments() {
+    public List<Department> getDepartments() throws BusinessException {
         String sql = GET_DEPARTMENTS;
         Connection connection = null;
         Statement statement = null;
@@ -180,27 +188,27 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_GET_DEPARTMENTS);
         } finally {
             try {
-                if(statement != null){
+                if (statement != null) {
                     statement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
-                if(resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
         return departments;
     }
 
     @Override
-    public Department findOne(Integer id) {
+    public Department findOne(Integer id) throws BusinessException {
         String sql = FIND_DEPARTMENT;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -221,27 +229,27 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_FIND_DEPARTMENT);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
-                if(resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
         return department;
     }
 
     @Override
-    public Department findOneByName(String departmentName) {
+    public Department findOneByName(String departmentName) throws BusinessException {
         String sql = FIND_DEPARTMENT_BY_NAME;
         Connection connection = null;
         PreparedStatement prStatement = null;
@@ -263,20 +271,20 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new BusinessException(CAN_NOT_FIND_DEPARTMENT);
         } finally {
             try {
-                if(prStatement != null){
+                if (prStatement != null) {
                     prStatement.close();
                 }
-                if(connection != null){
+                if (connection != null) {
                     connection.close();
                 }
-                if(resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
             }
         }
         return department;

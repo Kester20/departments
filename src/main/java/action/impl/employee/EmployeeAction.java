@@ -9,7 +9,6 @@ import service.EmployeeService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
@@ -47,20 +46,20 @@ public class EmployeeAction implements Action {
         String newDateOfBirth = request.getParameter(DATE_OF_BIRTH);
         String email = request.getParameter(EMAIL);
 
-        if(employeeId != null){
+        if (employeeId != null) {
             boolean employeeEdited = employeeService.updateEmployee(employeeId, newName, age, newDateOfBirth, email);
-            if(hasError(employeeEdited, request, newName, age, newDateOfBirth, email)){
+            if (hasError(employeeEdited, request, newName, age, newDateOfBirth, email)) {
                 Page page = PageFactory.getPage(EDIT_EMPLOYEE_PATH);
                 page.show(request, response);
                 return;
             }
-        }else{
+        } else {
             String depIdParameter = request.getParameter(DEPARTMENT_ID);
             Integer departmentId = depIdParameter == null || depIdParameter.equals("") ? null : Integer.parseInt(depIdParameter);
             request.setAttribute(DEPARTMENT_ID, departmentId);
 
             boolean employeeCreated = employeeService.createEmployee(newName, age, newDateOfBirth, email, departmentId);
-            if(hasError(employeeCreated, request, newName, age, newDateOfBirth, email)){
+            if (hasError(employeeCreated, request, newName, age, newDateOfBirth, email)) {
                 Page page = PageFactory.getPage(CREATE_EMPLOYEE_PATH);
                 page.show(request, response);
                 return;
@@ -72,14 +71,14 @@ public class EmployeeAction implements Action {
 
     private boolean hasError(boolean criteria, HttpServletRequest request, String name, Integer age,
                              String dateOfBirth, String email) throws ServletException, IOException {
-        if (!criteria){
+        if (!criteria) {
             request.setAttribute(ERROR_INPUT, email);
             request.setAttribute(NAME, name);
             request.setAttribute(AGE, age);
             request.setAttribute(DATE_OF_BIRTH, dateOfBirth);
             request.setAttribute(ERROR_TEXT, EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST);
             return true;
-        }else {
+        } else {
             request.removeAttribute(ERROR_INPUT);
             request.removeAttribute(NAME);
             request.removeAttribute(AGE);
