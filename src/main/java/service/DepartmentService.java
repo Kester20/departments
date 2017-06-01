@@ -1,7 +1,8 @@
 package service;
 
+import exception.DaoException;
+import exception.ValidationException;
 import model.Department;
-import model.Employee;
 
 import java.util.List;
 
@@ -10,15 +11,14 @@ import java.util.List;
  */
 public interface DepartmentService {
 
-    boolean createDepartment(String name);
+    void createDepartment(Department department) throws DaoException, ValidationException;
 
-    boolean updateDepartment(Integer id, String name);
+    void updateDepartment(Department department) throws DaoException, ValidationException;
 
-    void deleteDepartment(Integer id);
+    void deleteDepartment(Department department) throws DaoException;
 
-    List<Employee> getEmployees(Integer id);
+    List<Department> getDepartments() throws DaoException;
 
-    List<Department> getDepartments();
+    Department findOne(Integer departmentId) throws DaoException;
 
-    boolean validateDepartment(Department department);
 }

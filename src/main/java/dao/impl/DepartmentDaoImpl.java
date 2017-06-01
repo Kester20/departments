@@ -1,9 +1,8 @@
 package dao.impl;
 
 import dao.DepartmentDao;
-import exception.BusinessException;
+import exception.DaoException;
 import model.Department;
-import model.Employee;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -11,23 +10,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.Constants.Messages.CAN_NOT_CLOSE_RESOURCE;
 import static util.Constants.Messages.CAN_NOT_CREATE_DEPARTMENT;
 import static util.Constants.Messages.CAN_NOT_DELETE_DEPARTMENT;
 import static util.Constants.Messages.CAN_NOT_EDIT_DEPARTMENT;
 import static util.Constants.Messages.CAN_NOT_FIND_DEPARTMENT;
 import static util.Constants.Messages.CAN_NOT_GET_DEPARTMENTS;
-import static util.Constants.Messages.CAN_NOT_GET_EMPLOYEES;
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
 import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT_BY_NAME;
 import static util.Constants.QueryConstants.GET_DEPARTMENTS;
-import static util.Constants.QueryConstants.GET_DEPARTMENT_EMPLOYEES;
 import static util.Constants.QueryConstants.UPDATE_DEPARTMENT;
 
 /**
@@ -42,144 +37,50 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public void createDepartment(Department department) throws BusinessException {
+    public void createDepartment(Department department) throws DaoException {
         String sql = CREATE_DEPARTMENT;
-        Connection connection = null;
-        PreparedStatement prStatement = null;
-
-        try {
-            connection = dataSource.getConnection();
-            prStatement = connection.prepareStatement(sql);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(sql)) {
             prStatement.setString(1, department.getName());
             prStatement.execute();
         } catch (SQLException e) {
-            throw new BusinessException(CAN_NOT_CREATE_DEPARTMENT);
-        } finally {
-            try {
-                if (prStatement != null) {
-                    prStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
-            }
+            throw new DaoException(CAN_NOT_CREATE_DEPARTMENT);
         }
     }
 
     @Override
-    public void editDepartment(Department department) throws BusinessException {
+    public void editDepartment(Department department) throws DaoException {
         String sql = UPDATE_DEPARTMENT;
-        Connection connection = null;
-        PreparedStatement prStatement = null;
-
-        try {
-            connection = dataSource.getConnection();
-            prStatement = connection.prepareStatement(sql);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(sql)) {
             prStatement.setString(1, department.getName());
             prStatement.setInt(2, department.getId());
             prStatement.execute();
         } catch (SQLException e) {
-            throw new BusinessException(CAN_NOT_EDIT_DEPARTMENT);
-        } finally {
-            try {
-                if (prStatement != null) {
-                    prStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
-            }
+            throw new DaoException(CAN_NOT_EDIT_DEPARTMENT);
         }
     }
 
     @Override
-    public void deleteDepartment(Department department) throws BusinessException {
+    public void deleteDepartment(Department department) throws DaoException {
         String sql = DELETE_DEPARTMENT;
-        Connection connection = null;
-        PreparedStatement prStatement = null;
-
-        try {
-            connection = dataSource.getConnection();
-            prStatement = connection.prepareStatement(sql);
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(sql)) {
             prStatement.setInt(1, department.getId());
             prStatement.execute();
         } catch (SQLException e) {
-            throw new BusinessException(CAN_NOT_DELETE_DEPARTMENT);
-        } finally {
-            try {
-                if (prStatement != null) {
-                    prStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
-            }
+            throw new DaoException(CAN_NOT_DELETE_DEPARTMENT);
         }
     }
 
     @Override
-    public List<Employee> getEmployees(Department department) throws BusinessException {
-        String sql = GET_DEPARTMENT_EMPLOYEES;
-        Connection connection = null;
-        PreparedStatement prStatement = null;
-        ResultSet resultSet = null;
-        List<Employee> employees = new ArrayList<>();
-
-        try {
-            connection = dataSource.getConnection();
-            prStatement = connection.prepareStatement(sql);
-            prStatement.setInt(1, department.getId());
-            prStatement.execute();
-            resultSet = prStatement.getResultSet();
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
-                int age = resultSet.getInt(3);
-                LocalDate date = resultSet.getDate(4).toLocalDate();
-                String email = resultSet.getString(5);
-                Employee employee = new Employee(id, name, age, date, email);
-                employees.add(employee);
-            }
-
-        } catch (SQLException e) {
-            throw new BusinessException(CAN_NOT_GET_EMPLOYEES);
-        } finally {
-            try {
-                if (prStatement != null) {
-                    prStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
-            }
-        }
-        return employees;
-    }
-
-    @Override
-    public List<Department> getDepartments() throws BusinessException {
+    public List<Department> getDepartments() throws DaoException {
         String sql = GET_DEPARTMENTS;
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
         List<Department> departments = new ArrayList<>();
-
-        try {
-            connection = dataSource.getConnection();
-            statement = connection.createStatement();
+        try(Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement()) {
             statement.execute(sql);
-            resultSet = statement.getResultSet();
+            ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
@@ -188,39 +89,20 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
 
         } catch (SQLException e) {
-            throw new BusinessException(CAN_NOT_GET_DEPARTMENTS);
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
-            }
+            throw new DaoException(CAN_NOT_GET_DEPARTMENTS);
         }
         return departments;
     }
 
     @Override
-    public Department findOne(Integer id) throws BusinessException {
+    public Department findOne(Integer id) throws DaoException {
         String sql = FIND_DEPARTMENT;
-        Connection connection = null;
-        PreparedStatement prStatement = null;
-        ResultSet resultSet = null;
         Department department = new Department();
-
-        try {
-            connection = dataSource.getConnection();
-            prStatement = connection.prepareStatement(sql);
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement prStatement = connection.prepareStatement(sql)) {
             prStatement.setInt(1, id);
             prStatement.execute();
-            resultSet = prStatement.getResultSet();
+            ResultSet resultSet = prStatement.getResultSet();
             if (resultSet.next()) {
                 int idDepartment = resultSet.getInt(1);
                 String name = resultSet.getString(2);
@@ -229,39 +111,21 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
 
         } catch (SQLException e) {
-            throw new BusinessException(CAN_NOT_FIND_DEPARTMENT);
-        } finally {
-            try {
-                if (prStatement != null) {
-                    prStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
-            }
+            throw new DaoException(CAN_NOT_FIND_DEPARTMENT);
         }
         return department;
     }
 
     @Override
-    public Department findOneByName(String departmentName) throws BusinessException {
+    public Department findOneByName(String departmentName) throws DaoException {
         String sql = FIND_DEPARTMENT_BY_NAME;
-        Connection connection = null;
-        PreparedStatement prStatement = null;
-        ResultSet resultSet = null;
         Department department = null;
 
-        try {
-            connection = dataSource.getConnection();
-            prStatement = connection.prepareStatement(sql);
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement prStatement = connection.prepareStatement(sql)){
             prStatement.setString(1, departmentName);
             prStatement.execute();
-            resultSet = prStatement.getResultSet();
+            ResultSet resultSet = prStatement.getResultSet();
             if (resultSet.next()) {
                 int idDepartment = resultSet.getInt(1);
                 String name = resultSet.getString(2);
@@ -271,21 +135,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             }
 
         } catch (SQLException e) {
-            throw new BusinessException(CAN_NOT_FIND_DEPARTMENT);
-        } finally {
-            try {
-                if (prStatement != null) {
-                    prStatement.close();
-                }
-                if (connection != null) {
-                    connection.close();
-                }
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                throw new BusinessException(CAN_NOT_CLOSE_RESOURCE);
-            }
+            throw new DaoException(CAN_NOT_FIND_DEPARTMENT);
         }
         return department;
     }

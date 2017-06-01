@@ -78,6 +78,6 @@ public class Constants {
         public static final String CAN_NOT_DELETE_EMPLOYEE = "Can't delete employee";
         public static final String CAN_NOT_GET_EMPLOYEES = "Can't get employees";
         public static final String CAN_NOT_FIND_EMPLOYEE = "Can't find employee";
-        public static final String CAN_NOT_CLOSE_RESOURCE = "Can't close resource";
+        public static final String MUST_NOT_BE_EMPTY = "Must not be empty";
     }
 }

@@ -2,6 +2,8 @@ package action.impl.employee;
 
 import action.Action;
 import action.ActionFactory;
+import exception.DaoException;
+import model.Employee;
 import service.EmployeeService;
 
 import javax.servlet.ServletException;
@@ -34,7 +36,15 @@ public class DeleteEmployeeAction implements Action {
         Integer departmentId = depIdParameter == null || depIdParameter.equals("") ? null : Integer.parseInt(depIdParameter);
         request.setAttribute(DEPARTMENT_ID, departmentId);
 
-        employeeService.deleteEmployee(employeeId);
+        Employee employee = new Employee();
+        employee.setId(employeeId);
+
+        try {
+            employeeService.deleteEmployee(employee);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+
         Action action = ActionFactory.getAction(GET_ALL_EMPLOYEE_PATH);
         action.execute(request, response);
     }

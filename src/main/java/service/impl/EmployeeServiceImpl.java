@@ -1,13 +1,15 @@
 package service.impl;
 
 import dao.DaoFactory;
-import dao.DepartmentDao;
 import dao.EmployeeDao;
+import exception.DaoException;
+import exception.ValidationException;
 import model.Department;
 import model.Employee;
 import service.EmployeeService;
+import validator.CustomValidator;
 
-import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Arsalan
@@ -15,52 +17,32 @@ import java.time.LocalDate;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDao employeeDao;
-    private DepartmentDao departmentDao;
 
     public EmployeeServiceImpl() {
         this.employeeDao = DaoFactory.getEmployeeDao();
-        this.departmentDao = DaoFactory.getDepartmentDao();
     }
 
     @Override
-    public boolean createEmployee(String name, int age, String date, String email, int departmentId) {
-        Employee existEmployee = employeeDao.findOneByEmail(email);
-        if (existEmployee == null) {
-            Department department = departmentDao.findOne(departmentId);
-            Employee employee = new Employee();
-            employee.setName(name);
-            employee.setAge(age);
-            LocalDate localDate = LocalDate.parse(date);
-            employee.setDateOfBirth(localDate);
-            employee.setDepartment(department);
-            employee.setEmail(email);
-            employeeDao.createEmployee(employee);
-            return true;
-        }
-        return false;
+    public boolean createEmployee(Employee employee) throws DaoException, ValidationException {
+        CustomValidator.validate(employee);
+        employeeDao.createEmployee(employee);
+        return true;
     }
 
     @Override
-    public boolean updateEmployee(int id, String name, int age, String date, String email) {
-        Employee existEmployee = employeeDao.findOneByEmail(email);
-        if (existEmployee == null || existEmployee.getId() == id) {
-            Employee employee = new Employee();
-            employee.setId(id);
-            employee.setName(name);
-            employee.setAge(age);
-            LocalDate localDate = LocalDate.parse(date);
-            employee.setDateOfBirth(localDate);
-            employee.setEmail(email);
-            employeeDao.editEmployee(employee);
-            return true;
-        }
-        return false;
+    public boolean updateEmployee(Employee employee) throws DaoException, ValidationException {
+        CustomValidator.validate(employee);
+        employeeDao.editEmployee(employee);
+        return true;
     }
 
     @Override
-    public void deleteEmployee(int id) {
-        Employee employee = new Employee();
-        employee.setId(id);
+    public void deleteEmployee(Employee employee) throws DaoException {
         employeeDao.deleteEmployee(employee);
+    }
+
+    @Override
+    public List<Employee> getEmployeesFromDepartment(Department department) throws DaoException {
+        return employeeDao.getEmployeesFromDepartment(department);
     }
 }

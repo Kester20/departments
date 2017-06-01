@@ -2,6 +2,9 @@ package action.impl.department;
 
 import action.Action;
 import action.ActionFactory;
+import exception.DaoException;
+import exception.ValidationException;
+import model.Department;
 import page.Page;
 import page.PageFactory;
 import service.DepartmentService;
@@ -10,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
@@ -39,33 +43,52 @@ public class DepartmentAction implements Action {
         Integer departmentId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
 
         if (departmentId != null) {
-            boolean departmentEdited = departmentService.updateDepartment(departmentId, newName);
-            if (hasError(departmentEdited, request, newName)) {
+            Department department = new Department();
+            department.setId(departmentId);
+            department.setName(newName);
+
+            try {
+                departmentService.updateDepartment(department);
+                clearErrors(request);
+            } catch (ValidationException e) {
+                sendError(request, e);
                 Page page = PageFactory.getPage(EDIT_DEPARTMENT_PATH);
                 page.show(request, response);
                 return;
+            } catch (DaoException e) {
+                e.printStackTrace();
             }
+
         } else {
-            boolean departmentAdded = departmentService.createDepartment(newName);
-            if (hasError(departmentAdded, request, newName)) {
+            Department department = new Department();
+            department.setName(newName);
+
+            try {
+                departmentService.createDepartment(department);
+            } catch (ValidationException e) {
+                sendError(request, e);
                 Page page = PageFactory.getPage(CREATE_DEPARTMENT_PATH);
                 page.show(request, response);
                 return;
+            } catch (DaoException e) {
+                e.printStackTrace();
             }
         }
         Action action = ActionFactory.getAction(GET_ALL_DEPARTMENTS_PATH);
         action.execute(request, response);
     }
 
-    private boolean hasError(boolean criteria, HttpServletRequest request, String name) throws ServletException, IOException {
-        if (!criteria) {
-            request.setAttribute(ERROR_INPUT, name);
-            request.setAttribute(ERROR_TEXT, DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST);
-            return true;
-        } else {
-            request.removeAttribute(ERROR_INPUT);
-            request.removeAttribute(ERROR_TEXT);
+    private void sendError(HttpServletRequest request, Exception exception) throws ServletException, IOException {
+        ValidationException validationException = (ValidationException) exception;
+        Map<String, String> errors = validationException.getErrorMap();
+        for (String errorField: errors.keySet()) {
+            String message = errors.get(errorField);
+            request.setAttribute(errorField, message);
         }
-        return false;
+    }
+
+    private void clearErrors(HttpServletRequest request) {
+        request.removeAttribute(ERROR_INPUT);
+        request.removeAttribute(ERROR_TEXT);
     }
 }

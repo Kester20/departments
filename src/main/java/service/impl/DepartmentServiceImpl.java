@@ -2,10 +2,11 @@ package service.impl;
 
 import dao.DaoFactory;
 import dao.DepartmentDao;
+import exception.DaoException;
+import exception.ValidationException;
 import model.Department;
-import model.Employee;
 import service.DepartmentService;
-import validator.DepartmentValidator;
+import validator.CustomValidator;
 
 import java.util.List;
 
@@ -21,49 +22,29 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean createDepartment(String name) {
-        Department department = new Department();
-        department.setName(name);
-        if (validateDepartment(department)) {
-            departmentDao.createDepartment(department);
-            return true;
-        }
-        return false;
+    public void createDepartment(Department department) throws DaoException, ValidationException {
+        CustomValidator.validate(department);
+        departmentDao.createDepartment(department);
     }
 
     @Override
-    public boolean updateDepartment(Integer id, String name) {
-        Department department = new Department();
-        department.setId(id);
-        department.setName(name);
-        if (validateDepartment(department)) {
-            departmentDao.editDepartment(department);
-            return true;
-        }
-        return false;
+    public void updateDepartment(Department department) throws DaoException, ValidationException {
+        CustomValidator.validate(department);
+        departmentDao.editDepartment(department);
     }
 
     @Override
-    public void deleteDepartment(Integer id) {
-        Department department = new Department();
-        department.setId(id);
+    public void deleteDepartment(Department department) throws DaoException {
         departmentDao.deleteDepartment(department);
     }
 
     @Override
-    public List<Employee> getEmployees(Integer id) {
-        Department department = new Department();
-        department.setId(id);
-        return departmentDao.getEmployees(department);
+    public Department findOne(Integer departmentId) throws DaoException {
+        return departmentDao.findOne(departmentId);
     }
 
     @Override
-    public boolean validateDepartment(Department department) {
-        return DepartmentValidator.validate(department);
-    }
-
-    @Override
-    public List<Department> getDepartments() {
+    public List<Department> getDepartments() throws DaoException {
         return departmentDao.getDepartments();
     }
 }

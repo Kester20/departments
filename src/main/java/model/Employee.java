@@ -1,8 +1,17 @@
 package model;
 
-import validator.UniqueEmployeeEmail;
+import net.sf.oval.configuration.annotation.IsInvariant;
+import net.sf.oval.constraint.CheckWith;
+import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotEmpty;
+import net.sf.oval.constraint.NotNull;
+import validator.DepartmentValidator;
+import validator.EmployeeValidator;
 
 import java.time.LocalDate;
+
+import static util.Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST;
+import static util.Constants.Messages.MUST_NOT_BE_EMPTY;
 
 /**
  * @author Arsalan
@@ -10,10 +19,23 @@ import java.time.LocalDate;
 public class Employee {
 
     private Integer id;
+    @NotEmpty(message = MUST_NOT_BE_EMPTY)
+    @NotNull(message = MUST_NOT_BE_EMPTY)
     private String name;
+
+    @NotEmpty(message = MUST_NOT_BE_EMPTY)
+    @NotNull(message = MUST_NOT_BE_EMPTY)
     private Integer age;
+
+    @NotEmpty(message = MUST_NOT_BE_EMPTY)
+    @NotNull(message = MUST_NOT_BE_EMPTY)
     private LocalDate dateOfBirth;
+
+    @CheckWith(value = EmployeeValidator.class, message = EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
+    @NotEmpty(message = MUST_NOT_BE_EMPTY)
+    @NotNull(message = MUST_NOT_BE_EMPTY)
     private String email;
+
     private Department department;
 
     public Employee() {
@@ -60,7 +82,11 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @UniqueEmployeeEmail
+
+    @NotNull
+    @NotEmpty
+    @Length(max = 30)
+
     public String getEmail() {
         return email;
     }

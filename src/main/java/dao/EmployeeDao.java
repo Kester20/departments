@@ -1,19 +1,24 @@
 package dao;
 
-import exception.BusinessException;
+import exception.DaoException;
+import model.Department;
 import model.Employee;
+
+import java.util.List;
 
 /**
  * @author Arsalan
  */
 public interface EmployeeDao {
 
-    void createEmployee(Employee employee) throws BusinessException;
+    void createEmployee(Employee employee) throws DaoException;
 
-    void editEmployee(Employee employee) throws BusinessException;
+    void editEmployee(Employee employee) throws DaoException;
 
-    void deleteEmployee(Employee employee) throws BusinessException;
+    void deleteEmployee(Employee employee) throws DaoException;
 
-    Employee findOneByEmail(String email) throws BusinessException;
+    Employee findOneByEmail(String email) throws DaoException;
+
+    List<Employee> getEmployeesFromDepartment(Department department) throws DaoException;
 
 }

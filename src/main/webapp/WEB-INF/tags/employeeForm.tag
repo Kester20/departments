@@ -12,27 +12,43 @@
     <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name" required value="${name}">
+                <input type="text" name="name" placeholder="Name"  value="${errorInputName}">
+            </td>
+
+        </tr>
+        <tr class="noBorder">
+            <td colspan="2">
+                <span class="errorText">${name}</span>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="number" name="age" placeholder="Age" required value="${age}">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="text" name="dateOfBirth" placeholder="Date of Birth" required value="${dateOfBirth}">
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="email" name="email" placeholder="Email" required value="${errorInput}">
+                <input type="number" name="age" placeholder="Age"  value="${errorInputAge}">
             </td>
         </tr>
         <tr class="noBorder">
             <td colspan="2">
-                <span class="errorText">${errorText}</span>
+                <span class="errorText">${age}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="${errorInputDate}">
+            </td>
+        </tr>
+        <tr class="noBorder">
+            <td colspan="2">
+                <span class="errorText">${dateOfBirth}</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="email" name="email" placeholder="Email"  value="${errorInputEmail}">
+            </td>
+        </tr>
+        <tr class="noBorder">
+            <td colspan="2">
+                <span class="errorText">${email}</span>
             </td>
         <tr>
 

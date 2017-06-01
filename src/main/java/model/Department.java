@@ -1,10 +1,13 @@
 package model;
 
-import net.sf.oval.configuration.annotation.IsInvariant;
+import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
-import validator.UniqueDepartmentName;
+import validator.DepartmentValidator;
+
+import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
+import static util.Constants.Messages.MUST_NOT_BE_EMPTY;
 
 /**
  * @author Arsalan
@@ -12,6 +15,9 @@ import validator.UniqueDepartmentName;
 public class Department {
 
     private Integer id;
+    @CheckWith(value = DepartmentValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
+    @NotEmpty(message = MUST_NOT_BE_EMPTY)
+    @NotNull(message = MUST_NOT_BE_EMPTY)
     private String name;
 
     public Department() {
@@ -31,11 +37,9 @@ public class Department {
         this.id = id;
     }
 
-    @IsInvariant
-    @NotNull
+
     @NotEmpty
     @Length(max = 30)
-    @UniqueDepartmentName
     public String getName() {
         return name;
     }

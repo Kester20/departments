@@ -1,6 +1,7 @@
 package action.impl.department;
 
 import action.Action;
+import exception.DaoException;
 import model.Department;
 import page.Page;
 import page.PageFactory;
@@ -28,7 +29,14 @@ public class GetAllDepartmentsAction implements Action {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
-        List<Department> departments = departmentService.getDepartments();
+
+        List<Department> departments = null;
+        try {
+            departments = departmentService.getDepartments();
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+
         request.setAttribute(DEPARTMENTS, departments);
         Page page = PageFactory.getPage(DEPARTMENTS_PATH);
         page.show(request, response);

@@ -2,7 +2,10 @@ package action.impl.department;
 
 import action.Action;
 import action.ActionFactory;
+import exception.DaoException;
+import model.Department;
 import service.DepartmentService;
+import service.impl.DepartmentServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,7 @@ import static util.Constants.ServiceConstants.DEPARTMENT_ID;
  */
 public class DeleteDepartmentAction implements Action {
 
-    private DepartmentService departmentService;
+    private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +31,14 @@ public class DeleteDepartmentAction implements Action {
 
         String idParameter = request.getParameter(DEPARTMENT_ID);
         Integer departmentId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
-        departmentService.deleteDepartment(departmentId);
+        Department department = new Department();
+        department.setId(departmentId);
+
+        try {
+            departmentService.deleteDepartment(department);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
 
         Action action = ActionFactory.getAction(GET_ALL_DEPARTMENTS_PATH);
         action.execute(request, response);

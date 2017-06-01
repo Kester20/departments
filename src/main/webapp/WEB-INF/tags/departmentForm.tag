@@ -12,7 +12,7 @@
     <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name" required value="${errorInput}">
+                <input type="text" name="name" placeholder="Name" value="${errorInput}">
             </td>
 
             <td>
@@ -22,7 +22,7 @@
 
         <tr class="noBorder">
             <td colspan="2">
-                <span class="errorText">${errorText}</span>
+                <span class="errorText">${name}</span>
             </td>
         <tr>
     </table>
