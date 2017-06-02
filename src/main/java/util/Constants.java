@@ -62,6 +62,8 @@ public class Constants {
 
         public static final String DEPARTMENTS_PATH = "/departments";
         public static final String EMPLOYEES_PATH = "/employees";
+
+        public static final String ERROR_PAGE_PATH = "/errorPage";
     }
 
     public static class Messages {
@@ -78,5 +80,9 @@ public class Constants {
         public static final String CAN_NOT_GET_EMPLOYEES = "Can't get employees";
         public static final String CAN_NOT_FIND_EMPLOYEE = "Can't find employee";
         public static final String MUST_NOT_BE_EMPTY = "Must not be empty";
+        public static final String NOT_FOUND = "Not found";
+        public static final String SERVER_ERROR = "Server error";
+        public static final String ERROR_CODE = "errorCode";
+        public static final String ERROR_MESSAGE = "errorMessage";
     }
 }

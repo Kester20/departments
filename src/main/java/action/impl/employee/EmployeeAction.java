@@ -6,11 +6,10 @@ import exception.DaoException;
 import exception.ValidationException;
 import model.Department;
 import model.Employee;
-import page.Page;
-import page.PageFactory;
 import service.DepartmentService;
 import service.EmployeeService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +19,10 @@ import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
+import static util.Constants.Messages.ERROR_CODE;
 import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
 import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
+import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.AGE;
 import static util.Constants.ServiceConstants.DATE_OF_BIRTH;
@@ -82,11 +83,13 @@ public class EmployeeAction implements Action {
                 }
             }
         } catch (DaoException e) {
-            e.printStackTrace();
+            request.setAttribute(ERROR_CODE, 500);
+            Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
+            action.execute(request, response);
         }
 
-        Action action = ActionFactory.getAction(GET_ALL_EMPLOYEE_PATH);
-        action.execute(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(GET_ALL_EMPLOYEE_PATH);
+        requestDispatcher.forward(request, response);
     }
 
     private void sendError(HttpServletRequest request, HttpServletResponse response, String name, Integer age, String date,
@@ -101,7 +104,7 @@ public class EmployeeAction implements Action {
         request.setAttribute(AGE + ERROR_INPUT, age);
         request.setAttribute(DATE_OF_BIRTH + ERROR_INPUT, date);
         request.setAttribute(EMAIL + ERROR_INPUT, email);
-        Page page = PageFactory.getPage(path);
-        page.show(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+        requestDispatcher.forward(request, response);
     }
 }

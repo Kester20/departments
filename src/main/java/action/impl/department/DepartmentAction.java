@@ -5,10 +5,9 @@ import action.ActionFactory;
 import exception.DaoException;
 import exception.ValidationException;
 import model.Department;
-import page.Page;
-import page.PageFactory;
 import service.DepartmentService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +15,11 @@ import java.io.IOException;
 import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
+import static util.Constants.Messages.ERROR_CODE;
 import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
-import static util.Constants.Pathways.GET_ALL_DEPARTMENTS_PATH;
+import static util.Constants.Pathways.ERROR_PAGE_PATH;
+import static util.Constants.Pathways.ROOT_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
 import static util.Constants.ServiceConstants.NAME;
@@ -61,11 +62,12 @@ public class DepartmentAction implements Action {
                 }
             }
         } catch (DaoException e) {
-            e.printStackTrace();
+            request.setAttribute(ERROR_CODE, 500);
+            Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
+            action.execute(request, response);
         }
 
-        Action action = ActionFactory.getAction(GET_ALL_DEPARTMENTS_PATH);
-        action.execute(request, response);
+        response.sendRedirect(ROOT_PATH);
     }
 
     private void sendError(HttpServletRequest request, HttpServletResponse response, String name, String path,
@@ -77,7 +79,7 @@ public class DepartmentAction implements Action {
             request.setAttribute(errorField, message);
         }
         request.setAttribute(NAME + ERROR_INPUT, name);
-        Page page = PageFactory.getPage(path);
-        page.show(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+        requestDispatcher.forward(request, response);
     }
 }

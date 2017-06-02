@@ -6,12 +6,15 @@ import exception.DaoException;
 import model.Employee;
 import service.EmployeeService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
+import static util.Constants.Messages.ERROR_CODE;
+import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
@@ -42,10 +45,11 @@ public class DeleteEmployeeAction implements Action {
         try {
             employeeService.deleteEmployee(employee);
         } catch (DaoException e) {
-            e.printStackTrace();
+            request.setAttribute(ERROR_CODE, 500);
+            Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
+            action.execute(request, response);
         }
-
-        Action action = ActionFactory.getAction(GET_ALL_EMPLOYEE_PATH);
-        action.execute(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(GET_ALL_EMPLOYEE_PATH);
+        requestDispatcher.forward(request, response);
     }
 }

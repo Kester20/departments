@@ -1,5 +1,6 @@
 package action;
 
+import action.impl.GetErrorPageAction;
 import action.impl.GetItemPageAction;
 import action.impl.department.DeleteDepartmentAction;
 import action.impl.department.DepartmentAction;
@@ -19,6 +20,7 @@ import static util.Constants.Pathways.DEPARTMENT_ACTION_PATH;
 import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
 import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
 import static util.Constants.Pathways.EMPLOYEE_ACTION_PATH;
+import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.Pathways.ROOT_PATH;
 
@@ -40,6 +42,8 @@ public class ActionFactory {
         put(GET_ALL_EMPLOYEE_PATH, new GetAllEmployeesAction());
         put(EMPLOYEE_ACTION_PATH, new EmployeeAction());
         put(DELETE_EMPLOYEE_PATH, new DeleteEmployeeAction());
+
+        put(ERROR_PAGE_PATH, new GetErrorPageAction());
     }};
 
     public static Action getAction(String action) {
