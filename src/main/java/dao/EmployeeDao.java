@@ -11,14 +11,12 @@ import java.util.List;
  */
 public interface EmployeeDao {
 
-    void createEmployee(Employee employee) throws DaoException;
-
-    void editEmployee(Employee employee) throws DaoException;
+    void saveEmployee(Employee employee) throws DaoException;
 
     void deleteEmployee(Employee employee) throws DaoException;
 
     Employee findOneByEmail(String email) throws DaoException;
 
-    List<Employee> getEmployeesFromDepartment(Department department) throws DaoException;
+    List<Employee> getEmployeesFromDepartment(Integer departmentId) throws DaoException;
 
 }

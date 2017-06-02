@@ -12,11 +12,9 @@ import java.util.List;
  */
 public interface EmployeeService {
 
-    boolean createEmployee(Employee employee) throws DaoException, ValidationException;
-
-    boolean updateEmployee(Employee employee) throws DaoException, ValidationException;
+    boolean saveEmployee(Employee employee) throws DaoException, ValidationException;
 
     void deleteEmployee(Employee employee) throws DaoException;
 
-    List<Employee> getEmployeesFromDepartment(Department department) throws DaoException;
+    List<Employee> getEmployeesFromDepartment(Integer departmentId) throws DaoException;
 }

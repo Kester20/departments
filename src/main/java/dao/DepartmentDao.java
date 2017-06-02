@@ -10,9 +10,7 @@ import java.util.List;
  */
 public interface DepartmentDao {
 
-    void createDepartment(Department department) throws DaoException;
-
-    void editDepartment(Department department) throws DaoException;
+    void saveDepartment(Department department) throws DaoException;
 
     void deleteDepartment(Department department) throws DaoException;
 

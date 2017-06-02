@@ -11,9 +11,7 @@ import java.util.List;
  */
 public interface DepartmentService {
 
-    void createDepartment(Department department) throws DaoException, ValidationException;
-
-    void updateDepartment(Department department) throws DaoException, ValidationException;
+    void saveDepartment(Department department) throws DaoException, ValidationException;
 
     void deleteDepartment(Department department) throws DaoException;
 

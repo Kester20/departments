@@ -35,7 +35,7 @@ public class Employee {
     @Length(max = 30)
     private String email;
 
-    private Department department;
+    private Integer departmentId;
 
     public Employee() {
 
@@ -89,12 +89,12 @@ public class Employee {
         this.email = email;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Integer getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     @Override
@@ -104,22 +104,22 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        if (id != employee.id) return false;
-        if (age != employee.age) return false;
+        if (!id.equals(employee.id)) return false;
         if (!name.equals(employee.name)) return false;
+        if (!age.equals(employee.age)) return false;
         if (!dateOfBirth.equals(employee.dateOfBirth)) return false;
         if (!email.equals(employee.email)) return false;
-        return department.equals(employee.department);
+        return departmentId.equals(employee.departmentId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + age;
+        result = 31 * result + age.hashCode();
         result = 31 * result + dateOfBirth.hashCode();
         result = 31 * result + email.hashCode();
-        result = 31 * result + department.hashCode();
+        result = 31 * result + departmentId.hashCode();
         return result;
     }
 
@@ -131,7 +131,7 @@ public class Employee {
                 ", age=" + age +
                 ", dateOfBirth=" + dateOfBirth +
                 ", email='" + email + '\'' +
-                ", department=" + department +
+                ", departmentId=" + departmentId +
                 '}';
     }
 }

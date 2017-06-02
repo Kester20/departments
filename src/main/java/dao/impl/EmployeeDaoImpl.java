@@ -38,34 +38,34 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void createEmployee(Employee employee) throws DaoException {
-        String sql = CREATE_EMPLOYEE;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(sql)) {
-            prStatement.setString(1, employee.getName());
-            prStatement.setInt(2, employee.getAge());
-            prStatement.setObject(3, Date.valueOf(employee.getDateOfBirth()));
-            prStatement.setString(4, employee.getEmail());
-            prStatement.setInt(5, employee.getDepartment().getId());
-            prStatement.execute();
-        } catch (SQLException e) {
-            throw new DaoException(CAN_NOT_CREATE_EMPLOYEE);
-        }
-    }
-
-    @Override
-    public void editEmployee(Employee employee) throws DaoException {
-        String sql = UPDATE_EMPLOYEE;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(sql)) {
-            prStatement.setString(1, employee.getName());
-            prStatement.setInt(2, employee.getAge());
-            prStatement.setObject(3, Date.valueOf(employee.getDateOfBirth()));
-            prStatement.setString(4, employee.getEmail());
-            prStatement.setInt(5, employee.getId());
-            prStatement.execute();
-        } catch (SQLException e) {
-            throw new DaoException(CAN_NOT_EDIT_EMPLOYEE);
+    public void saveEmployee(Employee employee) throws DaoException {
+        String sql;
+        if(employee.getId() == null){
+            sql = CREATE_EMPLOYEE;
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement prStatement = connection.prepareStatement(sql)) {
+                prStatement.setString(1, employee.getName());
+                prStatement.setInt(2, employee.getAge());
+                prStatement.setObject(3, Date.valueOf(employee.getDateOfBirth()));
+                prStatement.setString(4, employee.getEmail());
+                prStatement.setInt(5, employee.getDepartmentId());
+                prStatement.execute();
+            } catch (SQLException e) {
+                throw new DaoException(CAN_NOT_CREATE_EMPLOYEE);
+            }
+        }else{
+            sql = UPDATE_EMPLOYEE;
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement prStatement = connection.prepareStatement(sql)) {
+                prStatement.setString(1, employee.getName());
+                prStatement.setInt(2, employee.getAge());
+                prStatement.setObject(3, Date.valueOf(employee.getDateOfBirth()));
+                prStatement.setString(4, employee.getEmail());
+                prStatement.setInt(5, employee.getId());
+                prStatement.execute();
+            } catch (SQLException e) {
+                throw new DaoException(CAN_NOT_EDIT_EMPLOYEE);
+            }
         }
     }
 
@@ -105,12 +105,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getEmployeesFromDepartment(Department department) throws DaoException {
+    public List<Employee> getEmployeesFromDepartment(Integer departmentId) throws DaoException {
         String sql = GET_DEPARTMENT_EMPLOYEES;
         List<Employee> employees = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              PreparedStatement prStatement = connection.prepareStatement(sql)) {
-            prStatement.setInt(1, department.getId());
+            prStatement.setInt(1, departmentId);
             prStatement.execute();
             ResultSet resultSet = prStatement.getResultSet();
             while (resultSet.next()) {

@@ -23,16 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean createEmployee(Employee employee) throws DaoException, ValidationException {
+    public boolean saveEmployee(Employee employee) throws DaoException, ValidationException {
         CustomValidator.validate(employee);
-        employeeDao.createEmployee(employee);
-        return true;
-    }
-
-    @Override
-    public boolean updateEmployee(Employee employee) throws DaoException, ValidationException {
-        CustomValidator.validate(employee);
-        employeeDao.editEmployee(employee);
+        employeeDao.saveEmployee(employee);
         return true;
     }
 
@@ -42,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeesFromDepartment(Department department) throws DaoException {
-        return employeeDao.getEmployeesFromDepartment(department);
+    public List<Employee> getEmployeesFromDepartment(Integer departmentId) throws DaoException {
+        return employeeDao.getEmployeesFromDepartment(departmentId);
     }
 }

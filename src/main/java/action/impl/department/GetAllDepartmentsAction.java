@@ -1,7 +1,6 @@
 package action.impl.department;
 
 import action.Action;
-import action.ActionFactory;
 import exception.DaoException;
 import model.Department;
 import service.DepartmentService;
@@ -14,9 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Messages.EXCEPTION;
 import static util.Constants.Pathways.DEPARTMENTS_PATH;
-import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENTS;
 
 /**
@@ -27,20 +24,12 @@ public class GetAllDepartmentsAction implements Action {
     private DepartmentService departmentService;
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
 
-        List<Department> departments = null;
-        try {
-            departments = departmentService.getDepartments();
-        } catch (DaoException e) {
-            request.setAttribute(EXCEPTION, e);
-            Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
-            action.execute(request, response);
-        }
-
+        List<Department> departments = departmentService.getDepartments();
         request.setAttribute(DEPARTMENTS, departments);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF" + DEPARTMENTS_PATH + ".jsp");
         requestDispatcher.forward(request, response);

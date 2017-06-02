@@ -23,7 +23,7 @@ import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT_BY_NAME;
 import static util.Constants.QueryConstants.GET_DEPARTMENTS;
-import static util.Constants.QueryConstants.UPDATE_DEPARTMENT;
+import static util.Constants.QueryConstants.EDIT_DEPARTMENT;
 
 /**
  * @author Arsalan
@@ -37,27 +37,27 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public void createDepartment(Department department) throws DaoException {
-        String sql = CREATE_DEPARTMENT;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(sql)) {
-            prStatement.setString(1, department.getName());
-            prStatement.execute();
-        } catch (SQLException e) {
-            throw new DaoException(CAN_NOT_CREATE_DEPARTMENT);
-        }
-    }
-
-    @Override
-    public void editDepartment(Department department) throws DaoException {
-        String sql = UPDATE_DEPARTMENT;
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(sql)) {
-            prStatement.setString(1, department.getName());
-            prStatement.setInt(2, department.getId());
-            prStatement.execute();
-        } catch (SQLException e) {
-            throw new DaoException(CAN_NOT_EDIT_DEPARTMENT);
+    public void saveDepartment(Department department) throws DaoException {
+        String sql;
+        if(department.getId() == null){
+            sql = CREATE_DEPARTMENT;
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement prStatement = connection.prepareStatement(sql)) {
+                prStatement.setString(1, department.getName());
+                prStatement.execute();
+            } catch (SQLException e) {
+                throw new DaoException(CAN_NOT_CREATE_DEPARTMENT);
+            }
+        }else{
+            sql = EDIT_DEPARTMENT;
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement prStatement = connection.prepareStatement(sql)) {
+                prStatement.setString(1, department.getName());
+                prStatement.setInt(2, department.getId());
+                prStatement.execute();
+            } catch (SQLException e) {
+                throw new DaoException(CAN_NOT_EDIT_DEPARTMENT);
+            }
         }
     }
 

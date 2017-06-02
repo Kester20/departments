@@ -1,11 +1,11 @@
 package action.impl.department;
 
 import action.Action;
-import action.ActionFactory;
 import exception.DaoException;
 import model.Department;
 import service.DepartmentService;
 import service.impl.DepartmentServiceImpl;
+import util.FormatUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Messages.EXCEPTION;
-import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.Pathways.ROOT_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 
@@ -26,23 +24,21 @@ public class DeleteDepartmentAction implements Action {
     private DepartmentService departmentService = new DepartmentServiceImpl();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
 
+        Department department = getDepartmentFromRequest(request);
+        departmentService.deleteDepartment(department);
+        response.sendRedirect(ROOT_PATH);
+    }
+
+    private Department getDepartmentFromRequest(HttpServletRequest request) {
         String idParameter = request.getParameter(DEPARTMENT_ID);
-        Integer departmentId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
+        Integer departmentId = FormatUtils.getIntFromString(idParameter);
         Department department = new Department();
         department.setId(departmentId);
-
-        try {
-            departmentService.deleteDepartment(department);
-        } catch (DaoException e) {
-            request.setAttribute(EXCEPTION, e);
-            Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
-            action.execute(request, response);
-        }
-        response.sendRedirect(ROOT_PATH);
+        return department;
     }
 }

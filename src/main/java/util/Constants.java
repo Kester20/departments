@@ -11,7 +11,7 @@ public class Constants {
 
     public static class QueryConstants {
         public static final String CREATE_DEPARTMENT = "INSERT INTO `department` (`id`, `name`) VALUES (NULL, ?)";
-        public static final String UPDATE_DEPARTMENT = "UPDATE `department` SET `name` = ? WHERE `department`.`id` = ? ";
+        public static final String EDIT_DEPARTMENT = "UPDATE `department` SET `name` = ? WHERE `department`.`id` = ? ";
         public static final String DELETE_DEPARTMENT = "DELETE FROM `department` WHERE `department`.`id` = ? ";
         public static final String GET_DEPARTMENT_EMPLOYEES = "SELECT * FROM employee WHERE employee.department = ?";
         public static final String GET_DEPARTMENTS = "SELECT * FROM `department`";
@@ -32,15 +32,12 @@ public class Constants {
     }
 
     public static class ServiceConstants {
-        public static final String ACTION = "action";
         public static final String DEPARTMENT_ID = "departmentId";
         public static final String EMPLOYEE_ID = "employeeId";
         public static final String EMAIL = "email";
         public static final String NAME = "name";
         public static final String AGE = "age";
         public static final String DATE_OF_BIRTH = "dateOfBirth";
-        public static final String GET_PAGE = "/getPage";
-        public static final String PAGE = "page";
         public static final String ERROR_INPUT = "ErrorInput";
         public static final String DEPARTMENTS = "departments";
         public static final String EMPLOYEES = "employees";
@@ -48,7 +45,6 @@ public class Constants {
 
     public static class Pathways {
         public static final String ROOT_PATH = "/";
-        public static final String GET_ALL_DEPARTMENTS_PATH = "/";
         public static final String DEPARTMENT_ACTION_PATH = "/departmentAction";
         public static final String CREATE_DEPARTMENT_PATH = "/createDepartment";
         public static final String DELETE_DEPARTMENT_PATH = "/deleteDepartment";

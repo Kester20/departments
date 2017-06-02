@@ -1,11 +1,11 @@
 package action.impl.department;
 
 import action.Action;
-import action.ActionFactory;
 import exception.DaoException;
 import exception.ValidationException;
 import model.Department;
 import service.DepartmentService;
+import util.FormatUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,10 +15,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Messages.EXCEPTION;
 import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
-import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.Pathways.ROOT_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
@@ -32,42 +30,41 @@ public class DepartmentAction implements Action {
     private DepartmentService departmentService;
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
         if (departmentService == null) {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
 
+        Department department = getDepartmentFromRequest(request);
+
+        if (department.getId() != null) {
+            try {
+                departmentService.saveDepartment(department);
+            } catch (ValidationException e) {
+                String wrongName = department.getName();
+                sendError(request, response, wrongName, EDIT_DEPARTMENT_PATH, e);
+                return;
+            }
+        } else {
+            try {
+                departmentService.saveDepartment(department);
+            } catch (ValidationException e) {
+                String wrongName = department.getName();
+                sendError(request, response, wrongName, CREATE_DEPARTMENT_PATH, e);
+                return;
+            }
+        }
+        response.sendRedirect(ROOT_PATH);
+    }
+
+    private Department getDepartmentFromRequest(HttpServletRequest request) {
         String newName = request.getParameter(NAME);
         String idParameter = request.getParameter(DEPARTMENT_ID);
-        Integer departmentId = idParameter == null || idParameter.equals("") ? null : Integer.parseInt(idParameter);
+        Integer departmentId = FormatUtils.getIntFromString(idParameter);
         Department department = new Department();
         department.setId(departmentId);
         department.setName(newName);
-
-        try {
-            if (departmentId != null) {
-                try {
-                    departmentService.updateDepartment(department);
-                } catch (ValidationException e) {
-                    sendError(request, response, newName, EDIT_DEPARTMENT_PATH, e);
-                    return;
-                }
-
-            } else {
-                try {
-                    departmentService.createDepartment(department);
-                } catch (ValidationException e) {
-                    sendError(request, response, newName, CREATE_DEPARTMENT_PATH, e);
-                    return;
-                }
-            }
-        } catch (DaoException e) {
-            request.setAttribute(EXCEPTION, e);
-            Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
-            action.execute(request, response);
-        }
-
-        response.sendRedirect(ROOT_PATH);
+        return department;
     }
 
     private void sendError(HttpServletRequest request, HttpServletResponse response, String name, String path,

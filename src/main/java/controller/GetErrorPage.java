@@ -1,6 +1,4 @@
-package action.impl;
-
-import action.Action;
+package controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,15 +18,14 @@ import static util.Constants.Pathways.ERROR_PAGE_PATH;
 /**
  * @author Arsalan
  */
-public class GetErrorPageAction implements Action {
+public class GetErrorPage {
 
     private static Map<String, Integer> errors = new HashMap<String, Integer>() {{
         put(NOT_FOUND, 404);
         put(SERVER_ERROR, 500);
     }};
 
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static void proceed(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Exception exception = (Exception) request.getAttribute(EXCEPTION);
         String errorMessage = exception.getMessage();
         Integer errorCode = errors.get(errorMessage);

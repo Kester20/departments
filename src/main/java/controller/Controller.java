@@ -2,7 +2,7 @@ package controller;
 
 import action.Action;
 import action.ActionFactory;
-import exception.NotFoundException;
+import exception.DaoException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.Messages.EXCEPTION;
-import static util.Constants.Messages.NOT_FOUND;
 import static util.Constants.Pathways.ERROR_PAGE_PATH;
 
 /**
@@ -22,19 +21,17 @@ import static util.Constants.Pathways.ERROR_PAGE_PATH;
 public class Controller extends HttpServlet {
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uri = req.getRequestURI();
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String uri = request.getRequestURI();
         Action action = ActionFactory.getAction(uri);
-        if (action != null) {
-            action.execute(req, resp);
-        } else {
-            try {
-                throw new NotFoundException(NOT_FOUND);
-            } catch (NotFoundException e) {
-                req.setAttribute(EXCEPTION, e);
-                Action errorAction = ActionFactory.getAction(ERROR_PAGE_PATH);
-                errorAction.execute(req, resp);
-            }
+        if (action == null) {
+            action = ActionFactory.getDefaultAction();
+        }
+        try {
+            action.execute(request, response);
+        } catch (DaoException e) {
+            request.setAttribute(EXCEPTION, e);
+            GetErrorPage.proceed(request, response);
         }
     }
 }

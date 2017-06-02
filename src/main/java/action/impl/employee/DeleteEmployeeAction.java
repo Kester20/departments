@@ -1,20 +1,17 @@
 package action.impl.employee;
 
 import action.Action;
-import action.ActionFactory;
 import exception.DaoException;
 import model.Employee;
 import service.EmployeeService;
+import util.FormatUtils;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
-import static util.Constants.Messages.EXCEPTION;
-import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
@@ -27,29 +24,28 @@ public class DeleteEmployeeAction implements Action {
     private EmployeeService employeeService;
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
         if (employeeService == null) {
             this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
         }
 
+        Integer departmentId = getDepartmentIdFromRequest(request);
+        Employee employee = getEmployeeFromRequest(request);
+        employeeService.deleteEmployee(employee);
+
+        response.sendRedirect(GET_ALL_EMPLOYEE_PATH + "?departmentId=" + departmentId);
+    }
+
+    private Employee getEmployeeFromRequest(HttpServletRequest request) {
         String idParameter = request.getParameter(EMPLOYEE_ID);
-        Integer employeeId = idParameter == null ? null : Integer.parseInt(idParameter);
-
-        String depIdParameter = request.getParameter(DEPARTMENT_ID);
-        Integer departmentId = depIdParameter == null || depIdParameter.equals("") ? null : Integer.parseInt(depIdParameter);
-        request.setAttribute(DEPARTMENT_ID, departmentId);
-
+        Integer employeeId = FormatUtils.getIntFromString(idParameter);
         Employee employee = new Employee();
         employee.setId(employeeId);
+        return employee;
+    }
 
-        try {
-            employeeService.deleteEmployee(employee);
-        } catch (DaoException e) {
-            request.setAttribute(EXCEPTION, e);
-            Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
-            action.execute(request, response);
-        }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(GET_ALL_EMPLOYEE_PATH);
-        requestDispatcher.forward(request, response);
+    private Integer getDepartmentIdFromRequest(HttpServletRequest request) {
+        String depIdParameter = request.getParameter(DEPARTMENT_ID);
+        return FormatUtils.getIntFromString(depIdParameter);
     }
 }

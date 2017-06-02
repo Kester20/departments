@@ -22,15 +22,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void createDepartment(Department department) throws DaoException, ValidationException {
+    public void saveDepartment(Department department) throws DaoException, ValidationException {
         CustomValidator.validate(department);
-        departmentDao.createDepartment(department);
-    }
-
-    @Override
-    public void updateDepartment(Department department) throws DaoException, ValidationException {
-        CustomValidator.validate(department);
-        departmentDao.editDepartment(department);
+        departmentDao.saveDepartment(department);
     }
 
     @Override
