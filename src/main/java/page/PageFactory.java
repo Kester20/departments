@@ -24,53 +24,14 @@ import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 public class PageFactory {
 
     private static Map<String, Page> pages = new HashMap<String, Page>() {{
-        put(ROOT_PATH, new RootPage());
-        put(CREATE_DEPARTMENT_PATH, new GetCreateDepartmentPage());
-        put(EDIT_DEPARTMENT_PATH, new GetEditDepartmentPage());
-        put(CREATE_EMPLOYEE_PATH, new GetCreateEmployeePage());
-        put(EDIT_EMPLOYEE_PATH, new GetEditEmployeePage());
+
+
         put(DEPARTMENTS_PATH, new GetAllDepartmentsPage());
         put(EMPLOYEES_PATH, new GetAllEmployeePage());
     }};
 
     public static Page getPage(String path) {
         return pages.get(path);
-    }
-
-    private static class RootPage implements Page {
-        @Override
-        public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String path = "WEB-INF" + ROOT_PATH + ".jsp";
-            forward(path, request, response);
-        }
-    }
-
-    private static class GetCreateDepartmentPage implements Page {
-        @Override
-        public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            String path = "WEB-INF" + CREATE_DEPARTMENT_PATH + ".jsp";
-            forward(path, request, response);
-        }
-    }
-
-    private static class GetEditDepartmentPage implements Page {
-        @Override
-        public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            Integer departmentId = getItemId(request, DEPARTMENT_ID);
-            request.setAttribute(DEPARTMENT_ID, departmentId);
-            String path = "WEB-INF" + EDIT_DEPARTMENT_PATH + ".jsp";
-            forward(path, request, response);
-        }
-    }
-
-    private static class GetCreateEmployeePage implements Page {
-        @Override
-        public void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            Integer departmentId = getItemId(request, DEPARTMENT_ID);
-            request.setAttribute(DEPARTMENT_ID, departmentId);
-            String path = "WEB-INF" + CREATE_EMPLOYEE_PATH + ".jsp";
-            forward(path, request, response);
-        }
     }
 
     private static class GetEditEmployeePage implements Page {

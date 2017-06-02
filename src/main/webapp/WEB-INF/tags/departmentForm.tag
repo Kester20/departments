@@ -7,7 +7,7 @@
 <h2 align="center">Enter new value</h2>
 
 
-<form id="departments" action="<c:url value='controller' />" method="post">
+<form id="departments" action="<c:url value='${action}' />" method="post">
 
     <table class="table" align="center" cellpadding="10">
         <tr>
@@ -28,6 +28,5 @@
     </table>
 
     <input type="hidden" name="departmentId" value="${departmentId}">
-    <input type="hidden" name="action" value="${action}">
 
 </form>

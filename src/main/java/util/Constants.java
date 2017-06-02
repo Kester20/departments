@@ -47,8 +47,8 @@ public class Constants {
     }
 
     public static class Pathways {
-        public static final String ROOT_PATH = "/index";
-        public static final String GET_ALL_DEPARTMENTS_PATH = "/getDepartments";
+        public static final String ROOT_PATH = "/";
+        public static final String GET_ALL_DEPARTMENTS_PATH = "/";
         public static final String DEPARTMENT_ACTION_PATH = "/departmentAction";
         public static final String CREATE_DEPARTMENT_PATH = "/createDepartment";
         public static final String DELETE_DEPARTMENT_PATH = "/deleteDepartment";
