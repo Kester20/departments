@@ -22,17 +22,20 @@ import static util.Constants.ServiceConstants.EMPLOYEE_ID;
  */
 public class GetItemPageAction implements Action {
 
-    private GetItemPageAction(){};
-    private static  GetItemPageAction instance;
-    private static Map<String, String> paths = new HashMap<String, String>(){{
+    private GetItemPageAction() {
+    }
+
+    ;
+    private static GetItemPageAction instance;
+    private static Map<String, String> paths = new HashMap<String, String>() {{
         put(CREATE_DEPARTMENT_PATH, "WEB-INF" + CREATE_DEPARTMENT_PATH + ".jsp");
         put(EDIT_DEPARTMENT_PATH, "WEB-INF" + EDIT_DEPARTMENT_PATH + ".jsp");
         put(CREATE_EMPLOYEE_PATH, "WEB-INF" + CREATE_EMPLOYEE_PATH + ".jsp");
         put(EDIT_EMPLOYEE_PATH, "WEB-INF" + EDIT_EMPLOYEE_PATH + ".jsp");
     }};
 
-    public static GetItemPageAction getInstance(){
-        if(instance == null){
+    public static GetItemPageAction getInstance() {
+        if (instance == null) {
             instance = new GetItemPageAction();
         }
         return instance;

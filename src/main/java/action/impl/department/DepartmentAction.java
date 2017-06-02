@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Messages.ERROR_CODE;
+import static util.Constants.Messages.EXCEPTION;
 import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
 import static util.Constants.Pathways.ERROR_PAGE_PATH;
@@ -62,7 +62,7 @@ public class DepartmentAction implements Action {
                 }
             }
         } catch (DaoException e) {
-            request.setAttribute(ERROR_CODE, 500);
+            request.setAttribute(EXCEPTION, e);
             Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
             action.execute(request, response);
         }

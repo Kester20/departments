@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
-import static util.Constants.Messages.ERROR_CODE;
+import static util.Constants.Messages.EXCEPTION;
 import static util.Constants.Pathways.ERROR_PAGE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
@@ -45,7 +45,7 @@ public class DeleteEmployeeAction implements Action {
         try {
             employeeService.deleteEmployee(employee);
         } catch (DaoException e) {
-            request.setAttribute(ERROR_CODE, 500);
+            request.setAttribute(EXCEPTION, e);
             Action action = ActionFactory.getAction(ERROR_PAGE_PATH);
             action.execute(request, response);
         }
