@@ -27,6 +27,7 @@ import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMAIL;
 import static util.Constants.ServiceConstants.EMPLOYEE_ID;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
+import static util.Constants.ServiceConstants.ERROR_MAP;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
@@ -84,10 +85,7 @@ public class EmployeeAction implements Action {
                            String email, String path, Exception exception) throws ServletException, IOException {
         ValidationException validationException = (ValidationException) exception;
         Map<String, String> errors = validationException.getErrorMap();
-        for (String errorField : errors.keySet()) {
-            String message = errors.get(errorField);
-            request.setAttribute(errorField, message);
-        }
+        request.setAttribute(ERROR_MAP, errors);
         request.setAttribute(NAME + ERROR_INPUT, name);
         request.setAttribute(AGE + ERROR_INPUT, age);
         request.setAttribute(DATE_OF_BIRTH + ERROR_INPUT, date);

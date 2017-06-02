@@ -41,6 +41,7 @@ public class Constants {
         public static final String ERROR_INPUT = "ErrorInput";
         public static final String DEPARTMENTS = "departments";
         public static final String EMPLOYEES = "employees";
+        public static final String ERROR_MAP = "errorMap";
     }
 
     public static class Pathways {

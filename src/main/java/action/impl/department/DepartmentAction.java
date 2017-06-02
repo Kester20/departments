@@ -19,6 +19,7 @@ import static util.Constants.Pathways.ROOT_PATH;
 import static util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
+import static util.Constants.ServiceConstants.ERROR_MAP;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
@@ -60,10 +61,7 @@ public class DepartmentAction implements Action {
                            Exception exception) throws ServletException, IOException {
         ValidationException validationException = (ValidationException) exception;
         Map<String, String> errors = validationException.getErrorMap();
-        for (String errorField : errors.keySet()) {
-            String message = errors.get(errorField);
-            request.setAttribute(errorField, message);
-        }
+        request.setAttribute(ERROR_MAP, errors);
         request.setAttribute(NAME + ERROR_INPUT, name);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
         requestDispatcher.forward(request, response);

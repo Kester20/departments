@@ -30,7 +30,7 @@
 
         <tr class="noBorder">
             <td colspan="2">
-                <span class="errorText">${name}</span>
+                <span class="errorText">${errorMap['name']}</span>
             </td>
         <tr>
     </table>

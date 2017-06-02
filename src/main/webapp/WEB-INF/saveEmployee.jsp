@@ -25,7 +25,7 @@
         </tr>
         <tr class="noBorder">
             <td colspan="2">
-                <span class="errorText">${name}</span>
+                <span class="errorText">${errorMap['name']}</span>
             </td>
         </tr>
         <tr>
@@ -35,7 +35,7 @@
         </tr>
         <tr class="noBorder">
             <td colspan="2">
-                <span class="errorText">${age}</span>
+                <span class="errorText">${errorMap['age']}</span>
             </td>
         </tr>
         <tr>
@@ -45,7 +45,7 @@
         </tr>
         <tr class="noBorder">
             <td colspan="2">
-                <span class="errorText">${dateOfBirth}</span>
+                <span class="errorText">${errorMap['dateOfBirth']}</span>
             </td>
         </tr>
         <tr>
@@ -55,7 +55,7 @@
         </tr>
         <tr class="noBorder">
             <td colspan="2">
-                <span class="errorText">${email}</span>
+                <span class="errorText">${errorMap['email']}</span>
             </td>
         <tr>
 
