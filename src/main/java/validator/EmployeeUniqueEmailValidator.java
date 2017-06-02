@@ -9,7 +9,7 @@ import net.sf.oval.constraint.CheckWithCheck;
 /**
  * @author Arsalan
  */
-public class EmployeeValidator implements CheckWithCheck.SimpleCheck {
+public class EmployeeUniqueEmailValidator implements CheckWithCheck.SimpleCheck {
 
     private EmployeeDao employeeDao = DaoFactory.getEmployeeDao();
 

@@ -1,13 +1,21 @@
-<%@ tag isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ attribute name="departmentId" required="true"  %>
-<%@ attribute name="action" required="true"%>
-<%@ attribute name="button" required="true"  %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tg" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <title>Departments</title>
+</head>
+<body>
 
 <h2 align="center">Enter new value</h2>
 
 
-<form id="departments" action="<c:url value='${action}' />" method="post">
+<form id="departments" action="<c:url value='/departmentAction' />" method="post">
 
     <table class="table" align="center" cellpadding="10">
         <tr>
@@ -16,7 +24,7 @@
             </td>
 
             <td>
-                <input type="submit" value="${button}">
+                <input type="submit" value="Save">
             </td>
         </tr>
 
@@ -30,3 +38,6 @@
     <input type="hidden" name="departmentId" value="${departmentId}">
 
 </form>
+
+</body>
+</html>

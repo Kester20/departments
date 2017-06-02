@@ -2,7 +2,6 @@ package dao.impl;
 
 import dao.EmployeeDao;
 import exception.DaoException;
-import model.Department;
 import model.Employee;
 
 import javax.sql.DataSource;
@@ -24,7 +23,7 @@ import static util.Constants.QueryConstants.CREATE_EMPLOYEE;
 import static util.Constants.QueryConstants.DELETE_EMPLOYEE;
 import static util.Constants.QueryConstants.FIND_EMPLOYEE_BY_EMAIL;
 import static util.Constants.QueryConstants.GET_DEPARTMENT_EMPLOYEES;
-import static util.Constants.QueryConstants.UPDATE_EMPLOYEE;
+import static util.Constants.QueryConstants.EDIT_EMPLOYEE;
 
 /**
  * @author Arsalan
@@ -54,7 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 throw new DaoException(CAN_NOT_CREATE_EMPLOYEE);
             }
         }else{
-            sql = UPDATE_EMPLOYEE;
+            sql = EDIT_EMPLOYEE;
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement prStatement = connection.prepareStatement(sql)) {
                 prStatement.setString(1, employee.getName());

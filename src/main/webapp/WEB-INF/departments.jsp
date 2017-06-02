@@ -35,7 +35,7 @@
             </td>
 
             <td>
-                <a href="/editDepartment?departmentId=${department.id}">Edit</a>
+                <a href="/saveDepartment?departmentId=${department.id}">Edit</a>
             </td>
 
             <td>
@@ -56,7 +56,7 @@
 
         <td colspan="2"></td>
 
-        <td colspan="2"><a href="/createDepartment">Add new Department</a></td>
+        <td colspan="2"><a href="/saveDepartment">Add new Department</a></td>
     </tr>
 
 </table>

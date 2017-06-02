@@ -4,25 +4,23 @@ package action;
 import action.impl.department.DeleteDepartmentAction;
 import action.impl.department.DepartmentAction;
 import action.impl.department.GetAllDepartmentsAction;
-import action.impl.department.GetDepartmentPagesAction;
+import action.impl.department.GetDepartmentSavePageAction;
 import action.impl.employee.DeleteEmployeeAction;
 import action.impl.employee.EmployeeAction;
 import action.impl.employee.GetAllEmployeesAction;
-import action.impl.employee.GetEmployeePagesAction;
+import action.impl.employee.GetEmployeeSavePageAction;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
-import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
 import static util.Constants.Pathways.DELETE_DEPARTMENT_PATH;
 import static util.Constants.Pathways.DELETE_EMPLOYEE_PATH;
 import static util.Constants.Pathways.DEPARTMENT_ACTION_PATH;
-import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
-import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
 import static util.Constants.Pathways.EMPLOYEE_ACTION_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static util.Constants.Pathways.ROOT_PATH;
+import static util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
+import static util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 
 /**
  * @author Arsalan
@@ -36,10 +34,8 @@ public class ActionFactory {
         put(DEPARTMENT_ACTION_PATH, new DepartmentAction());
         put(DELETE_DEPARTMENT_PATH, new DeleteDepartmentAction());
 
-        put(CREATE_DEPARTMENT_PATH, GetDepartmentPagesAction.getInstance());
-        put(EDIT_DEPARTMENT_PATH, GetDepartmentPagesAction.getInstance());
-        put(CREATE_EMPLOYEE_PATH, GetEmployeePagesAction.getInstance());
-        put(EDIT_EMPLOYEE_PATH, GetEmployeePagesAction.getInstance());
+        put(SAVE_DEPARTMENT_PATH, new GetDepartmentSavePageAction());
+        put(SAVE_EMPLOYEE_PATH, new GetEmployeeSavePageAction());
 
         put(GET_ALL_EMPLOYEE_PATH, new GetAllEmployeesAction());
         put(EMPLOYEE_ACTION_PATH, new EmployeeAction());

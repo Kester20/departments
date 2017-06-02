@@ -18,7 +18,7 @@ public class Constants {
         public static final String FIND_DEPARTMENT = "SELECT * FROM `department` WHERE `department`.`id` = ?";
         public static final String FIND_DEPARTMENT_BY_NAME = "SELECT * FROM `department` WHERE `department`.`name` = ?";
 
-        public static final String UPDATE_EMPLOYEE = "UPDATE `employee` SET `name` = ? , `age` = ?, " +
+        public static final String EDIT_EMPLOYEE = "UPDATE `employee` SET `name` = ? , `age` = ?, " +
                 "`date_of_birth` = ?, `email` = ? WHERE `employee`.`id` = ? ";
         public static final String CREATE_EMPLOYEE = "INSERT INTO `employee` (`id`, `name`, `age`, `date_of_birth`, `email`, `department`) " +
                 "VALUES (NULL, ?, ?, ?, ?, ?)";
@@ -46,14 +46,12 @@ public class Constants {
     public static class Pathways {
         public static final String ROOT_PATH = "/";
         public static final String DEPARTMENT_ACTION_PATH = "/departmentAction";
-        public static final String CREATE_DEPARTMENT_PATH = "/createDepartment";
+        public static final String SAVE_DEPARTMENT_PATH = "/saveDepartment";
         public static final String DELETE_DEPARTMENT_PATH = "/deleteDepartment";
-        public static final String EDIT_DEPARTMENT_PATH = "/editDepartment";
 
         public static final String GET_ALL_EMPLOYEE_PATH = "/getEmployees";
         public static final String EMPLOYEE_ACTION_PATH = "/employeeAction";
-        public static final String CREATE_EMPLOYEE_PATH = "/createEmployee";
-        public static final String EDIT_EMPLOYEE_PATH = "/editEmployee";
+        public static final String SAVE_EMPLOYEE_PATH = "/saveEmployee";
         public static final String DELETE_EMPLOYEE_PATH = "/deleteEmployee";
 
         public static final String DEPARTMENTS_PATH = "/departments";

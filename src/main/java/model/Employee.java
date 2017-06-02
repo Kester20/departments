@@ -4,7 +4,7 @@ import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
-import validator.EmployeeValidator;
+import validator.EmployeeUniqueEmailValidator;
 
 import java.time.LocalDate;
 
@@ -29,7 +29,7 @@ public class Employee {
     @NotNull(message = MUST_NOT_BE_EMPTY)
     private LocalDate dateOfBirth;
 
-    @CheckWith(value = EmployeeValidator.class, message = EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
+    @CheckWith(value = EmployeeUniqueEmailValidator.class, message = EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
     @NotEmpty(message = MUST_NOT_BE_EMPTY)
     @NotNull(message = MUST_NOT_BE_EMPTY)
     @Length(max = 30)

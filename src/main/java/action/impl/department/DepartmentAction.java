@@ -15,9 +15,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static util.Constants.Pathways.CREATE_DEPARTMENT_PATH;
-import static util.Constants.Pathways.EDIT_DEPARTMENT_PATH;
 import static util.Constants.Pathways.ROOT_PATH;
+import static util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.ERROR_INPUT;
 import static util.Constants.ServiceConstants.NAME;
@@ -37,22 +36,12 @@ public class DepartmentAction implements Action {
 
         Department department = getDepartmentFromRequest(request);
 
-        if (department.getId() != null) {
-            try {
-                departmentService.saveDepartment(department);
-            } catch (ValidationException e) {
-                String wrongName = department.getName();
-                sendError(request, response, wrongName, EDIT_DEPARTMENT_PATH, e);
-                return;
-            }
-        } else {
-            try {
-                departmentService.saveDepartment(department);
-            } catch (ValidationException e) {
-                String wrongName = department.getName();
-                sendError(request, response, wrongName, CREATE_DEPARTMENT_PATH, e);
-                return;
-            }
+        try {
+            departmentService.saveDepartment(department);
+        } catch (ValidationException e) {
+            String wrongName = department.getName();
+            sendError(request, response, wrongName, SAVE_DEPARTMENT_PATH, e);
+            return;
         }
         response.sendRedirect(ROOT_PATH);
     }

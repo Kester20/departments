@@ -19,9 +19,8 @@ import java.util.Map;
 
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
-import static util.Constants.Pathways.CREATE_EMPLOYEE_PATH;
-import static util.Constants.Pathways.EDIT_EMPLOYEE_PATH;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
+import static util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 import static util.Constants.ServiceConstants.AGE;
 import static util.Constants.ServiceConstants.DATE_OF_BIRTH;
 import static util.Constants.ServiceConstants.DEPARTMENT_ID;
@@ -49,25 +48,15 @@ public class EmployeeAction implements Action {
 
         Integer departmentId = getDepartmentIdRequest(request);
         Employee employee = getEmployeeFromRequest(request);
+        Department department = departmentService.findOne(departmentId);
+        employee.setDepartmentId(department.getId());
 
-        if (employee.getId() != null) {
-            try {
-                employeeService.saveEmployee(employee);
-            } catch (ValidationException e) {
-                sendError(request, response, employee.getName(), employee.getAge(), String.valueOf(employee.getDateOfBirth()),
-                        employee.getEmail(), EDIT_EMPLOYEE_PATH, e);
-                return;
-            }
-        } else {
-            try {
-                Department department = departmentService.findOne(departmentId);
-                employee.setDepartmentId(department.getId());
-                employeeService.saveEmployee(employee);
-            } catch (ValidationException e) {
-                sendError(request, response, employee.getName(), employee.getAge(), String.valueOf(employee.getDateOfBirth()),
-                        employee.getEmail(), CREATE_EMPLOYEE_PATH, e);
-                return;
-            }
+        try {
+            employeeService.saveEmployee(employee);
+        } catch (ValidationException e) {
+            sendError(request, response, employee.getName(), employee.getAge(), String.valueOf(employee.getDateOfBirth()),
+                    employee.getEmail(), SAVE_EMPLOYEE_PATH, e);
+            return;
         }
 
         response.sendRedirect(GET_ALL_EMPLOYEE_PATH + "?departmentId=" + departmentId);

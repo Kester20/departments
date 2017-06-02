@@ -9,7 +9,7 @@ import net.sf.oval.constraint.CheckWithCheck;
 /**
  * @author Arsalan
  */
-public class DepartmentValidator implements CheckWithCheck.SimpleCheck {
+public class DepartmentUniqueNameValidator implements CheckWithCheck.SimpleCheck {
 
     private DepartmentDao departmentDao = DaoFactory.getDepartmentDao();
 

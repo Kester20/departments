@@ -4,7 +4,7 @@ import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
-import validator.DepartmentValidator;
+import validator.DepartmentUniqueNameValidator;
 
 import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
 import static util.Constants.Messages.MUST_NOT_BE_EMPTY;
@@ -15,7 +15,7 @@ import static util.Constants.Messages.MUST_NOT_BE_EMPTY;
 public class Department {
 
     private Integer id;
-    @CheckWith(value = DepartmentValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
+    @CheckWith(value = DepartmentUniqueNameValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
     @NotEmpty(message = MUST_NOT_BE_EMPTY)
     @NotNull(message = MUST_NOT_BE_EMPTY)
     @Length(max = 30)

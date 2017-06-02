@@ -40,7 +40,7 @@
             </td>
 
             <td>
-                <a href="/editEmployee?employeeId=${employee.id}&departmentId=${departmentId}">Edit</a>
+                <a href="/saveEmployee?employeeId=${employee.id}&departmentId=${departmentId}">Edit</a>
             </td>
 
             <td>
@@ -60,7 +60,7 @@
 
             <td colspan="3"></td>
 
-            <td colspan="2"><a href="/createEmployee?departmentId=${departmentId}">Add new Employee</a></td>
+            <td colspan="2"><a href="/saveEmployee?departmentId=${departmentId}">Add new Employee</a></td>
         </tr>
 
 
