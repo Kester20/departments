@@ -2,12 +2,12 @@ package action;
 
 
 import action.impl.department.DeleteDepartmentAction;
-import action.impl.department.DepartmentAction;
-import action.impl.department.GetAllDepartmentsAction;
+import action.impl.department.SaveDepartmentAction;
+import action.impl.department.GetAllDepartmentsPageAction;
 import action.impl.department.GetDepartmentSavePageAction;
 import action.impl.employee.DeleteEmployeeAction;
-import action.impl.employee.EmployeeAction;
-import action.impl.employee.GetAllEmployeesAction;
+import action.impl.employee.SaveEmployeeAction;
+import action.impl.employee.GetAllEmployeesPageAction;
 import action.impl.employee.GetEmployeeSavePageAction;
 
 import java.util.HashMap;
@@ -27,18 +27,18 @@ import static util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
  */
 public class ActionFactory {
 
-    private static Action defaultAction = new GetAllDepartmentsAction();
+    private static Action defaultAction = new GetAllDepartmentsPageAction();
 
     private static Map<String, Action> actions = new HashMap<String, Action>() {{
         put(ROOT_PATH, defaultAction);
-        put(DEPARTMENT_ACTION_PATH, new DepartmentAction());
+        put(DEPARTMENT_ACTION_PATH, new SaveDepartmentAction());
         put(DELETE_DEPARTMENT_PATH, new DeleteDepartmentAction());
 
         put(SAVE_DEPARTMENT_PATH, new GetDepartmentSavePageAction());
         put(SAVE_EMPLOYEE_PATH, new GetEmployeeSavePageAction());
 
-        put(GET_ALL_EMPLOYEE_PATH, new GetAllEmployeesAction());
-        put(EMPLOYEE_ACTION_PATH, new EmployeeAction());
+        put(GET_ALL_EMPLOYEE_PATH, new GetAllEmployeesPageAction());
+        put(EMPLOYEE_ACTION_PATH, new SaveEmployeeAction());
         put(DELETE_EMPLOYEE_PATH, new DeleteEmployeeAction());
     }};
 

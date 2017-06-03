@@ -19,7 +19,7 @@ import static util.Constants.ServiceConstants.DEPARTMENTS;
 /**
  * @author Arsalan. Created on 29.05.2017.
  */
-public class GetAllDepartmentsAction implements Action {
+public class GetAllDepartmentsPageAction implements Action {
 
     private DepartmentService departmentService;
 
@@ -29,7 +29,7 @@ public class GetAllDepartmentsAction implements Action {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
 
-        List<Department> departments = departmentService.getDepartments();
+        List<Department> departments = departmentService.findDepartments();
         request.setAttribute(DEPARTMENTS, departments);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF" + DEPARTMENTS_PATH + ".jsp");
         requestDispatcher.forward(request, response);

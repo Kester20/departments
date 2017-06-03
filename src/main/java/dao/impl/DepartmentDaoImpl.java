@@ -74,7 +74,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     }
 
     @Override
-    public List<Department> getDepartments() throws DaoException {
+    public List<Department> findDepartments() throws DaoException {
         String sql = GET_DEPARTMENTS;
         List<Department> departments = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();

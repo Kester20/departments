@@ -33,7 +33,7 @@ import static util.Constants.ServiceConstants.NAME;
 /**
  * @author Arsalan
  */
-public class EmployeeAction implements Action {
+public class SaveEmployeeAction implements Action {
 
     private EmployeeService employeeService;
     private DepartmentService departmentService;
@@ -47,7 +47,7 @@ public class EmployeeAction implements Action {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
 
-        Integer departmentId = getDepartmentIdRequest(request);
+        Integer departmentId = getDepartmentIdFromRequest(request);
         Employee employee = getEmployeeFromRequest(request);
         Department department = departmentService.findOne(departmentId);
         employee.setDepartmentId(department.getId());
@@ -63,7 +63,7 @@ public class EmployeeAction implements Action {
         response.sendRedirect(GET_ALL_EMPLOYEE_PATH + "?departmentId=" + departmentId);
     }
 
-    private Integer getDepartmentIdRequest(HttpServletRequest request) {
+    private Integer getDepartmentIdFromRequest(HttpServletRequest request) {
         String depIdParameter = request.getParameter(DEPARTMENT_ID);
         return FormatUtils.getIntFromString(depIdParameter);
     }
@@ -76,7 +76,7 @@ public class EmployeeAction implements Action {
         Integer age = FormatUtils.getIntFromString(ageParameter);
         String newDateOfBirth = request.getParameter(DATE_OF_BIRTH);
         String email = request.getParameter(EMAIL);
-        LocalDate localDate = LocalDate.parse(newDateOfBirth);
+        LocalDate localDate = FormatUtils.getDateFromString(newDateOfBirth);
         Employee employee = new Employee(employeeId, newName, age, localDate, email);
         return employee;
     }

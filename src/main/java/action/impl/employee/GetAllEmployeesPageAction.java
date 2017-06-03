@@ -2,7 +2,6 @@ package action.impl.employee;
 
 import action.Action;
 import exception.DaoException;
-import model.Department;
 import model.Employee;
 import service.EmployeeService;
 import util.FormatUtils;
@@ -22,7 +21,7 @@ import static util.Constants.ServiceConstants.EMPLOYEES;
 /**
  * @author Arsalan
  */
-public class GetAllEmployeesAction implements Action {
+public class GetAllEmployeesPageAction implements Action {
 
     private EmployeeService employeeService;
 
@@ -33,7 +32,7 @@ public class GetAllEmployeesAction implements Action {
         }
 
         Integer departmentId = getDepartmentIdFromRequest(request);
-        List<Employee> employees = employeeService.getEmployeesFromDepartment(departmentId);
+        List<Employee> employees = employeeService.findEmployeesByDepartment(departmentId);
         request.setAttribute(DEPARTMENT_ID, departmentId);
         request.setAttribute(EMPLOYEES, employees);
 

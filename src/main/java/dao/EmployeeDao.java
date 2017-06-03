@@ -17,6 +17,6 @@ public interface EmployeeDao {
 
     Employee findOneByEmail(String email) throws DaoException;
 
-    List<Employee> getEmployeesFromDepartment(Integer departmentId) throws DaoException;
+    List<Employee> findEmployeesByDepartment(Integer departmentId) throws DaoException;
 
 }

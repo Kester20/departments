@@ -104,7 +104,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getEmployeesFromDepartment(Integer departmentId) throws DaoException {
+    public List<Employee> findEmployeesByDepartment(Integer departmentId) throws DaoException {
         String sql = GET_DEPARTMENT_EMPLOYEES;
         List<Employee> employees = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();

@@ -15,7 +15,7 @@ public interface DepartmentService {
 
     void deleteDepartment(Department department) throws DaoException;
 
-    List<Department> getDepartments() throws DaoException;
+    List<Department> findDepartments() throws DaoException;
 
     Department findOne(Integer departmentId) throws DaoException;
 

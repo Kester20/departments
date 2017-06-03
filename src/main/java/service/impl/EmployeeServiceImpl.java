@@ -4,7 +4,6 @@ import dao.DaoFactory;
 import dao.EmployeeDao;
 import exception.DaoException;
 import exception.ValidationException;
-import model.Department;
 import model.Employee;
 import service.EmployeeService;
 import validator.CustomValidator;
@@ -35,7 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployeesFromDepartment(Integer departmentId) throws DaoException {
-        return employeeDao.getEmployeesFromDepartment(departmentId);
+    public List<Employee> findEmployeesByDepartment(Integer departmentId) throws DaoException {
+        return employeeDao.findEmployeesByDepartment(departmentId);
     }
 }

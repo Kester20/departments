@@ -25,7 +25,7 @@ import static util.Constants.ServiceConstants.NAME;
 /**
  * @author Arsalan
  */
-public class DepartmentAction implements Action {
+public class SaveDepartmentAction implements Action {
 
     private DepartmentService departmentService;
 

@@ -38,7 +38,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> getDepartments() throws DaoException {
-        return departmentDao.getDepartments();
+    public List<Department> findDepartments() throws DaoException {
+        return departmentDao.findDepartments();
     }
 }
