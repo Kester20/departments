@@ -21,9 +21,9 @@ import static util.Constants.Messages.CAN_NOT_FIND_EMPLOYEE;
 import static util.Constants.Messages.CAN_NOT_GET_EMPLOYEES;
 import static util.Constants.QueryConstants.CREATE_EMPLOYEE;
 import static util.Constants.QueryConstants.DELETE_EMPLOYEE;
+import static util.Constants.QueryConstants.EDIT_EMPLOYEE;
 import static util.Constants.QueryConstants.FIND_EMPLOYEE_BY_EMAIL;
 import static util.Constants.QueryConstants.GET_DEPARTMENT_EMPLOYEES;
-import static util.Constants.QueryConstants.EDIT_EMPLOYEE;
 
 /**
  * @author Arsalan
@@ -39,7 +39,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public void saveEmployee(Employee employee) throws DaoException {
         String sql;
-        if(employee.getId() == null){
+        if (employee.getId() == null) {
             sql = CREATE_EMPLOYEE;
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement prStatement = connection.prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             } catch (SQLException e) {
                 throw new DaoException(CAN_NOT_CREATE_EMPLOYEE);
             }
-        }else{
+        } else {
             sql = EDIT_EMPLOYEE;
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement prStatement = connection.prepareStatement(sql)) {

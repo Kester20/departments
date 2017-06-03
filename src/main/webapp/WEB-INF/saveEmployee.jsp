@@ -19,7 +19,7 @@
     <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name"  value="${nameErrorInput}">
+                <input type="text" name="name" placeholder="Name"  value="${param.name}">
             </td>
 
         </tr>
@@ -30,7 +30,7 @@
         </tr>
         <tr>
             <td>
-                <input type="number" name="age" placeholder="Age"  value="${ageErrorInput}">
+                <input type="number" name="age" placeholder="Age"  value="${param.age}">
             </td>
         </tr>
         <tr class="noBorder">
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td>
-                <input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="${dateOfBirthErrorInput}">
+                <input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="${param.dateOfBirth}">
             </td>
         </tr>
         <tr class="noBorder">
@@ -50,7 +50,7 @@
         </tr>
         <tr>
             <td>
-                <input type="email" name="email" placeholder="Email"  value="${emailErrorInput}">
+                <input type="email" name="email" placeholder="Email"  value="${param.email}">
             </td>
         </tr>
         <tr class="noBorder">
@@ -67,8 +67,8 @@
 
     </table>
 
-    <input type="hidden" name="employeeId" value="${employeeId}">
-    <input type="hidden" name="departmentId" value="${departmentId}">
+    <input type="hidden" name="employeeId" value="${param.employeeId}">
+    <input type="hidden" name="departmentId" value="${param.departmentId}">
 
 </form>
 

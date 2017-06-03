@@ -2,7 +2,6 @@ package service;
 
 import exception.DaoException;
 import exception.ValidationException;
-import model.Department;
 import model.Employee;
 
 import java.util.List;

@@ -11,7 +11,7 @@ public class FormatUtils {
         return param == null || param.equals("") ? null : Integer.parseInt(param);
     }
 
-    public static LocalDate getDateFromString(String param){
+    public static LocalDate getDateFromString(String param) {
         return param == null || param.equals("") ? null : LocalDate.parse(param);
     }
 }

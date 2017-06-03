@@ -20,7 +20,7 @@
     <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name" value="${nameErrorInput}">
+                <input type="text" name="name" placeholder="Name" value="${param.name}">
             </td>
 
             <td>
@@ -35,7 +35,7 @@
         <tr>
     </table>
 
-    <input type="hidden" name="departmentId" value="${departmentId}">
+    <input type="hidden" name="departmentId" value="${param.departmentId}">
 
 </form>
 

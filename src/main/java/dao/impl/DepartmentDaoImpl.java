@@ -20,10 +20,10 @@ import static util.Constants.Messages.CAN_NOT_FIND_DEPARTMENT;
 import static util.Constants.Messages.CAN_NOT_GET_DEPARTMENTS;
 import static util.Constants.QueryConstants.CREATE_DEPARTMENT;
 import static util.Constants.QueryConstants.DELETE_DEPARTMENT;
+import static util.Constants.QueryConstants.EDIT_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT;
 import static util.Constants.QueryConstants.FIND_DEPARTMENT_BY_NAME;
 import static util.Constants.QueryConstants.GET_DEPARTMENTS;
-import static util.Constants.QueryConstants.EDIT_DEPARTMENT;
 
 /**
  * @author Arsalan
@@ -39,7 +39,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public void saveDepartment(Department department) throws DaoException {
         String sql;
-        if(department.getId() == null){
+        if (department.getId() == null) {
             sql = CREATE_DEPARTMENT;
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement prStatement = connection.prepareStatement(sql)) {
@@ -48,7 +48,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
             } catch (SQLException e) {
                 throw new DaoException(CAN_NOT_CREATE_DEPARTMENT);
             }
-        }else{
+        } else {
             sql = EDIT_DEPARTMENT;
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement prStatement = connection.prepareStatement(sql)) {

@@ -1,10 +1,8 @@
 package action.impl.employee;
 
-import action.Action;
 import exception.DaoException;
 import model.Employee;
 import service.EmployeeService;
-import util.FormatUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,13 +13,12 @@ import java.util.List;
 
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
 import static util.Constants.Pathways.EMPLOYEES_PATH;
-import static util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static util.Constants.ServiceConstants.EMPLOYEES;
 
 /**
  * @author Arsalan
  */
-public class GetAllEmployeesPageAction implements Action {
+public class GetAllEmployeesPageAction extends EmployeeAction {
 
     private EmployeeService employeeService;
 
@@ -33,15 +30,9 @@ public class GetAllEmployeesPageAction implements Action {
 
         Integer departmentId = getDepartmentIdFromRequest(request);
         List<Employee> employees = employeeService.findEmployeesByDepartment(departmentId);
-        request.setAttribute(DEPARTMENT_ID, departmentId);
         request.setAttribute(EMPLOYEES, employees);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF" + EMPLOYEES_PATH + ".jsp");
         requestDispatcher.forward(request, response);
-    }
-
-    private Integer getDepartmentIdFromRequest(HttpServletRequest request) {
-        String idParameter = request.getParameter(DEPARTMENT_ID);
-        return FormatUtils.getIntFromString(idParameter);
     }
 }

@@ -1,6 +1,5 @@
 package action.impl.department;
 
-import action.Action;
 import exception.DaoException;
 import model.Department;
 import service.DepartmentService;
@@ -19,7 +18,7 @@ import static util.Constants.ServiceConstants.DEPARTMENTS;
 /**
  * @author Arsalan. Created on 29.05.2017.
  */
-public class GetAllDepartmentsPageAction implements Action {
+public class GetAllDepartmentsPageAction extends DepartmentAction {
 
     private DepartmentService departmentService;
 

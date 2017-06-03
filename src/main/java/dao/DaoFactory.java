@@ -13,7 +13,10 @@ public class DaoFactory {
     private static DepartmentDao departmentDao;
     private static EmployeeDao employeeDao;
 
-    private DaoFactory(){};
+    private DaoFactory() {
+    }
+
+    ;
 
     public static void initDaoFactory(DataSource dataSource) {
         departmentDao = new DepartmentDaoImpl(dataSource);

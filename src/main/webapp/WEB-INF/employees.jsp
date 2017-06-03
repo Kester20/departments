@@ -40,16 +40,14 @@
             </td>
 
             <td>
-                <a href="/saveEmployee?employeeId=${employee.id}&departmentId=${departmentId}">Edit</a>
+                <a href="/saveEmployee?employeeId=${employee.id}&departmentId=${param.departmentId}">Edit</a>
             </td>
 
             <td>
-                <a href="/deleteEmployee?employeeId=${employee.id}&departmentId=${departmentId}" class="x">X</a>
+                <a href="/deleteEmployee?employeeId=${employee.id}&departmentId=${param.departmentId}" class="x">X</a>
             </td>
 
         </tr>
-
-
 
     </c:forEach>
 
@@ -60,7 +58,7 @@
 
             <td colspan="3"></td>
 
-            <td colspan="2"><a href="/saveEmployee?departmentId=${departmentId}">Add new Employee</a></td>
+            <td colspan="2"><a href="/saveEmployee?departmentId=${param.departmentId}">Add new Employee</a></td>
         </tr>
 
 

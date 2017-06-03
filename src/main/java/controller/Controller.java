@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static util.Constants.Messages.EXCEPTION;
-import static util.Constants.Pathways.ERROR_PAGE_PATH;
 
 /**
  * @author Arsalan

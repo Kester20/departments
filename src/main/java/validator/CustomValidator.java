@@ -18,7 +18,8 @@ public class CustomValidator {
 
     private static Validator validator = new Validator();
 
-    private CustomValidator(){}
+    private CustomValidator() {
+    }
 
     public static void validate(Object object) throws ValidationException {
         List<ConstraintViolation> violations = validator.validate(object);

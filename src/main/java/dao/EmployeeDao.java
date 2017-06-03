@@ -1,7 +1,6 @@
 package dao;
 
 import exception.DaoException;
-import model.Department;
 import model.Employee;
 
 import java.util.List;
