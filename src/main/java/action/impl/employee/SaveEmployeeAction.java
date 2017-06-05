@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static action.ValidationErrorResponder.sendError;
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.ContextConstants.EMPLOYEE_SERVICE;
 import static util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
@@ -34,10 +35,10 @@ public class SaveEmployeeAction extends EmployeeAction {
             this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
         }
 
-        Integer departmentId = getDepartmentIdFromRequest(request);
+        Long departmentId = getDepartmentIdFromRequest(request);
         Employee employee = getEmployeeFromRequest(request);
         Department department = departmentService.findOne(departmentId);
-        employee.setDepartmentId(department.getId());
+        employee.setDepartment(department);
 
         try {
             employeeService.saveEmployee(employee);

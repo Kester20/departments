@@ -6,6 +6,8 @@ import exception.DaoException;
 import model.Department;
 import net.sf.oval.constraint.CheckWithCheck;
 
+import static util.Constants.ServiceConstants.NAME;
+
 /**
  * @author Arsalan
  */
@@ -20,7 +22,7 @@ public class DepartmentUniqueNameValidator implements CheckWithCheck.SimpleCheck
         Department existedDepartment = null;
 
         try {
-            existedDepartment = departmentDao.findOneByName(departmentName);
+            existedDepartment = departmentDao.findOneByCriteria(NAME, departmentName);
         } catch (DaoException e) {
             e.printStackTrace();
         }

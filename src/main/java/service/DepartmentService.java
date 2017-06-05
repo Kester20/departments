@@ -17,6 +17,6 @@ public interface DepartmentService {
 
     List<Department> findDepartments() throws DaoException;
 
-    Department findOne(Integer departmentId) throws DaoException;
+    Department findOne(Long departmentId) throws DaoException;
 
 }

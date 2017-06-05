@@ -7,6 +7,11 @@
     <version>1.0-SNAPSHOT</version>
     <name>departments Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
+    <properties>
+        <hibernate-version>5.0.1.Final</hibernate-version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -46,39 +51,17 @@
             <version>1.31</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-version}</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>departments</finalName>
 
         <plugins>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <url>http://localhost:8080/manager/text</url>
-                    <server>tomcat7-local</server>
-                    <path>/miniservlet</path>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>clean-undeploy</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>undeploy</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>package-deploy</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

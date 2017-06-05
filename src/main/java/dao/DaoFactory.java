@@ -1,9 +1,7 @@
 package dao;
 
-import dao.impl.DepartmentDaoImpl;
-import dao.impl.EmployeeDaoImpl;
-
-import javax.sql.DataSource;
+import model.Department;
+import model.Employee;
 
 /**
  * @author Arsalan
@@ -16,11 +14,9 @@ public class DaoFactory {
     private DaoFactory() {
     }
 
-    ;
-
-    public static void initDaoFactory(DataSource dataSource) {
-        departmentDao = new DepartmentDaoImpl(dataSource);
-        employeeDao = new EmployeeDaoImpl(dataSource);
+    public static void initDaoFactory() {
+        departmentDao = new DepartmentDao(Department.class);
+        employeeDao = new EmployeeDao(Employee.class);
     }
 
     public static DepartmentDao getDepartmentDao() {

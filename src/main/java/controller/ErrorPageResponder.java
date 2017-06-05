@@ -18,15 +18,15 @@ import static util.Constants.Pathways.ERROR_PAGE_PATH;
 /**
  * @author Arsalan
  */
-public class GetErrorPage {
+public class ErrorPageResponder {
 
     private static Map<String, Integer> errors = new HashMap<String, Integer>() {{
         put(NOT_FOUND, 404);
         put(SERVER_ERROR, 500);
     }};
 
-    public static void proceed(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Exception exception = (Exception) request.getAttribute(EXCEPTION);
+    public static void proceed(HttpServletRequest request, HttpServletResponse response, Exception exception)
+            throws ServletException, IOException {
         String errorMessage = exception.getMessage();
         Integer errorCode = errors.get(errorMessage);
         if (errorCode == null) {

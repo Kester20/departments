@@ -6,15 +6,27 @@ import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
 import validator.DepartmentUniqueNameValidator;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import static util.Constants.DbConstants.DEPARTMENT;
 import static util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
 import static util.Constants.Messages.MUST_NOT_BE_EMPTY;
+import static util.Constants.ServiceConstants.NAME;
 
 /**
  * @author Arsalan
  */
+@Entity
+@Table(name = DEPARTMENT)
 public class Department {
 
-    private Integer id;
+    private Long id;
     @CheckWith(value = DepartmentUniqueNameValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
     @NotEmpty(message = MUST_NOT_BE_EMPTY)
     @NotNull(message = MUST_NOT_BE_EMPTY)
@@ -25,19 +37,23 @@ public class Department {
 
     }
 
-    public Department(Integer id, String name) {
+    public Department(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = NAME)
     public String getName() {
         return name;
     }
@@ -53,13 +69,13 @@ public class Department {
 
         Department that = (Department) o;
 
-        if (id != that.id) return false;
+        if (!id.equals(that.id)) return false;
         return name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id.hashCode();
         result = 31 * result + name.hashCode();
         return result;
     }

@@ -6,6 +6,8 @@ import exception.DaoException;
 import model.Employee;
 import net.sf.oval.constraint.CheckWithCheck;
 
+import static util.Constants.ServiceConstants.EMAIL;
+
 /**
  * @author Arsalan
  */
@@ -20,7 +22,7 @@ public class EmployeeUniqueEmailValidator implements CheckWithCheck.SimpleCheck 
         Employee existedEmployee = null;
 
         try {
-            existedEmployee = employeeDao.findOneByEmail(email);
+            existedEmployee = employeeDao.findOneByCriteria(EMAIL, email);
         } catch (DaoException e) {
             e.printStackTrace();
         }

@@ -7,6 +7,8 @@ public class Constants {
 
     public static class DbConstants {
         public static final String DATA_SOURCE_LOOKUP = "java:comp/env/jdbc/departments";
+        public static final String DEPARTMENT = "department";
+        public static final String EMPLOYEE = "employee";
     }
 
     public static class QueryConstants {
@@ -38,10 +40,10 @@ public class Constants {
         public static final String NAME = "name";
         public static final String AGE = "age";
         public static final String DATE_OF_BIRTH = "dateOfBirth";
-        public static final String ERROR_INPUT = "ErrorInput";
         public static final String DEPARTMENTS = "departments";
         public static final String EMPLOYEES = "employees";
         public static final String ERROR_MAP = "errorMap";
+        public static final String DATE_FORMAT = "yyyy-MM-dd";
     }
 
     public static class Pathways {
@@ -64,12 +66,12 @@ public class Constants {
     public static class Messages {
         public static final String DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST = "Department with this name is already exist";
         public static final String EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST = "Employee with this email is already exist";
-        public static final String CAN_NOT_CREATE_DEPARTMENT = "Can't create department";
+        public static final String CAN_NOT_SAVE_DEPARTMENT = "Can't save department";
         public static final String CAN_NOT_EDIT_DEPARTMENT = "Can't edit department";
         public static final String CAN_NOT_DELETE_DEPARTMENT = "Can't delete department";
         public static final String CAN_NOT_GET_DEPARTMENTS = "Can't get departments";
         public static final String CAN_NOT_FIND_DEPARTMENT = "Can't find department";
-        public static final String CAN_NOT_CREATE_EMPLOYEE = "Can't create employee";
+        public static final String CAN_NOT_SAVE_EMPLOYEE = "Can't save employee";
         public static final String CAN_NOT_EDIT_EMPLOYEE = "Can't edit employee";
         public static final String CAN_NOT_DELETE_EMPLOYEE = "Can't delete employee";
         public static final String CAN_NOT_GET_EMPLOYEES = "Can't get employees";

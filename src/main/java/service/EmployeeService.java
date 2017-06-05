@@ -2,6 +2,7 @@ package service;
 
 import exception.DaoException;
 import exception.ValidationException;
+import model.Department;
 import model.Employee;
 
 import java.util.List;
@@ -11,9 +12,9 @@ import java.util.List;
  */
 public interface EmployeeService {
 
-    boolean saveEmployee(Employee employee) throws DaoException, ValidationException;
+    void saveEmployee(Employee employee) throws DaoException, ValidationException;
 
     void deleteEmployee(Employee employee) throws DaoException;
 
-    List<Employee> findEmployeesByDepartment(Integer departmentId) throws DaoException;
+    List<Employee> findEmployeesByDepartment(Department department) throws DaoException;
 }

@@ -1,6 +1,10 @@
 package util;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static util.Constants.ServiceConstants.DATE_FORMAT;
 
 /**
  * @author Arsalan
@@ -11,7 +15,17 @@ public class FormatUtils {
         return param == null || param.equals("") ? null : Integer.parseInt(param);
     }
 
-    public static LocalDate getDateFromString(String param) {
-        return param == null || param.equals("") ? null : LocalDate.parse(param);
+    public static Long getLongFromString(String param) {
+        return param == null || param.equals("") ? null : Long.parseLong(param);
+    }
+
+    public static Date getDateFromString(String param) {
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+        try {
+            return param == null || param.equals("") ? null : formatter.parse(param);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

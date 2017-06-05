@@ -1,22 +1,15 @@
 package dao;
 
+import dao.CrudDao;
 import exception.DaoException;
 import model.Department;
-
-import java.util.List;
 
 /**
  * @author Arsalan
  */
-public interface DepartmentDao {
+public class DepartmentDao extends CrudDao<Department> {
 
-    void saveDepartment(Department department) throws DaoException;
-
-    void deleteDepartment(Department department) throws DaoException;
-
-    List<Department> findDepartments() throws DaoException;
-
-    Department findOne(Integer id) throws DaoException;
-
-    Department findOneByName(String name) throws DaoException;
+    public DepartmentDao(Class<Department> type) {
+        super(type);
+    }
 }

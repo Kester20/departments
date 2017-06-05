@@ -1,7 +1,5 @@
-package action.impl;
+package action;
 
-import action.Action;
-import exception.DaoException;
 import exception.ValidationException;
 
 import javax.servlet.RequestDispatcher;
@@ -14,16 +12,11 @@ import java.util.Map;
 import static util.Constants.ServiceConstants.ERROR_MAP;
 
 /**
- * @author Arsalan. Created on 03.06.2017.
+ * @author Arsalan. Created on 04.06.2017.
  */
-public abstract class AbstractAction implements Action {
+public class ValidationErrorResponder {
 
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
-
-    }
-
-    protected void sendError(HttpServletRequest request, HttpServletResponse response, String path, Exception exception) throws ServletException, IOException {
+    public static void sendError(HttpServletRequest request, HttpServletResponse response, String path, Exception exception) throws ServletException, IOException {
         ValidationException validationException = (ValidationException) exception;
         Map<String, String> errors = validationException.getErrorMap();
         request.setAttribute(ERROR_MAP, errors);

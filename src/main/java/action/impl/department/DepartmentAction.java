@@ -1,6 +1,6 @@
 package action.impl.department;
 
-import action.impl.AbstractAction;
+import action.Action;
 import model.Department;
 import util.FormatUtils;
 
@@ -12,12 +12,12 @@ import static util.Constants.ServiceConstants.NAME;
 /**
  * @author Arsalan. Created on 03.06.2017.
  */
-public abstract class DepartmentAction extends AbstractAction {
+public abstract class DepartmentAction implements Action {
 
     Department getDepartmentFromRequest(HttpServletRequest request) {
         String newName = request.getParameter(NAME);
         String idParameter = request.getParameter(DEPARTMENT_ID);
-        Integer departmentId = FormatUtils.getIntFromString(idParameter);
+        Long departmentId = FormatUtils.getLongFromString(idParameter);
         Department department = new Department();
         department.setId(departmentId);
         department.setName(newName);

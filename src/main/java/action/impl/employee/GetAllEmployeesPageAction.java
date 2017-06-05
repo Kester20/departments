@@ -1,6 +1,7 @@
 package action.impl.employee;
 
 import exception.DaoException;
+import model.Department;
 import model.Employee;
 import service.EmployeeService;
 
@@ -28,8 +29,10 @@ public class GetAllEmployeesPageAction extends EmployeeAction {
             this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
         }
 
-        Integer departmentId = getDepartmentIdFromRequest(request);
-        List<Employee> employees = employeeService.findEmployeesByDepartment(departmentId);
+        Long departmentId = getDepartmentIdFromRequest(request);
+        Department department = new Department();
+        department.setId(departmentId);
+        List<Employee> employees = employeeService.findEmployeesByDepartment(department);
         request.setAttribute(EMPLOYEES, employees);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("WEB-INF" + EMPLOYEES_PATH + ".jsp");

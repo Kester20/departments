@@ -25,7 +25,7 @@ public class DeleteEmployeeAction extends EmployeeAction {
             this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
         }
 
-        Integer departmentId = getDepartmentIdFromRequest(request);
+        Long departmentId = getDepartmentIdFromRequest(request);
         Employee employee = getEmployeeFromRequest(request);
         employeeService.deleteEmployee(employee);
 

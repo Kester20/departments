@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static action.ValidationErrorResponder.sendError;
 import static util.Constants.ContextConstants.DEPARTMENT_SERVICE;
 import static util.Constants.Pathways.ROOT_PATH;
 import static util.Constants.Pathways.SAVE_DEPARTMENT_PATH;

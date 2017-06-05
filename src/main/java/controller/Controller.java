@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static util.Constants.Messages.EXCEPTION;
-
 /**
  * @author Arsalan
  */
@@ -29,8 +27,7 @@ public class Controller extends HttpServlet {
         try {
             action.execute(request, response);
         } catch (DaoException e) {
-            request.setAttribute(EXCEPTION, e);
-            GetErrorPage.proceed(request, response);
+            ErrorPageResponder.proceed(request, response, e);
         }
     }
 }

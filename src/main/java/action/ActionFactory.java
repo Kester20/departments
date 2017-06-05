@@ -49,8 +49,4 @@ public class ActionFactory {
     public static Action getAction(String action) {
         return actions.get(action);
     }
-
-    public static Map<String, Action> getActions() {
-        return actions;
-    }
 }

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private DepartmentDao departmentDao;
+    private DepartmentDao departmentDao = DaoFactory.getDepartmentDao();
 
     public DepartmentServiceImpl() {
         this.departmentDao = DaoFactory.getDepartmentDao();
@@ -24,21 +24,21 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public void saveDepartment(Department department) throws DaoException, ValidationException {
         CustomValidator.validate(department);
-        departmentDao.saveDepartment(department);
+        departmentDao.saveEntity(department);
     }
 
     @Override
     public void deleteDepartment(Department department) throws DaoException {
-        departmentDao.deleteDepartment(department);
+        departmentDao.deleteEntity(department);
     }
 
     @Override
-    public Department findOne(Integer departmentId) throws DaoException {
+    public Department findOne(Long departmentId) throws DaoException {
         return departmentDao.findOne(departmentId);
     }
 
     @Override
     public List<Department> findDepartments() throws DaoException {
-        return departmentDao.findDepartments();
+        return departmentDao.findAllEntities();
     }
 }
