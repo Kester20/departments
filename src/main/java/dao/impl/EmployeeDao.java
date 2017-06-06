@@ -1,6 +1,5 @@
-package dao;
+package dao.impl;
 
-import dao.CrudDao;
 import dao.HibernateSessionFactory;
 import exception.DaoException;
 import model.Department;

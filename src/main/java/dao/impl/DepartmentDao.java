@@ -1,7 +1,5 @@
-package dao;
+package dao.impl;
 
-import dao.CrudDao;
-import exception.DaoException;
 import model.Department;
 
 /**

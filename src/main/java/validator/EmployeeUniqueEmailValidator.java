@@ -1,7 +1,7 @@
 package validator;
 
 import dao.DaoFactory;
-import dao.EmployeeDao;
+import dao.impl.EmployeeDao;
 import exception.DaoException;
 import model.Employee;
 import net.sf.oval.constraint.CheckWithCheck;

@@ -1,7 +1,7 @@
 package service.impl;
 
 import dao.DaoFactory;
-import dao.DepartmentDao;
+import dao.impl.DepartmentDao;
 import exception.DaoException;
 import exception.ValidationException;
 import model.Department;

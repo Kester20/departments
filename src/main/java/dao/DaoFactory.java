@@ -1,5 +1,7 @@
 package dao;
 
+import dao.impl.DepartmentDao;
+import dao.impl.EmployeeDao;
 import model.Department;
 import model.Employee;
 

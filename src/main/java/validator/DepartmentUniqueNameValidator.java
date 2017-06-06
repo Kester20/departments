@@ -1,11 +1,12 @@
 package validator;
 
 import dao.DaoFactory;
-import dao.DepartmentDao;
+import dao.impl.DepartmentDao;
 import exception.DaoException;
 import model.Department;
 import net.sf.oval.constraint.CheckWithCheck;
 
+import static util.Constants.Messages.CAN_NOT_FIND_ENTITY;
 import static util.Constants.ServiceConstants.NAME;
 
 /**
@@ -23,7 +24,7 @@ public class DepartmentUniqueNameValidator implements CheckWithCheck.SimpleCheck
 
         try {
             existedDepartment = departmentDao.findOneByCriteria(NAME, departmentName);
-        } catch (DaoException e) {
+        } catch (DaoException e){
             e.printStackTrace();
         }
 
