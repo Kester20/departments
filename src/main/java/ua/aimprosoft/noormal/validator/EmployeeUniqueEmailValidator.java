@@ -1,7 +1,8 @@
 package ua.aimprosoft.noormal.validator;
 
 import net.sf.oval.constraint.CheckWithCheck;
-import ua.aimprosoft.noormal.dao.DaoFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.aimprosoft.noormal.dao.impl.EmployeeDao;
 import ua.aimprosoft.noormal.exception.DaoException;
 import ua.aimprosoft.noormal.model.Employee;
@@ -11,9 +12,11 @@ import static ua.aimprosoft.noormal.util.Constants.ServiceConstants.EMAIL;
 /**
  * @author Arsalan
  */
+@Component
 public class EmployeeUniqueEmailValidator implements CheckWithCheck.SimpleCheck {
 
-    private EmployeeDao employeeDao = DaoFactory.getEmployeeDao();
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Override
     public boolean isSatisfied(Object validatedObject, Object valueToValidate) {

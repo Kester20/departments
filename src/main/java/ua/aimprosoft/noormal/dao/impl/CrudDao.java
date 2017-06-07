@@ -8,6 +8,8 @@ import ua.aimprosoft.noormal.dao.Dao;
 import ua.aimprosoft.noormal.dao.HibernateSessionFactory;
 import ua.aimprosoft.noormal.exception.DaoException;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static ua.aimprosoft.noormal.util.Constants.Messages.CAN_NOT_DELETE_ENTITY;
@@ -20,10 +22,14 @@ import static ua.aimprosoft.noormal.util.Constants.Messages.CAN_NOT_SAVE_ENTITY;
  */
 public abstract class CrudDao<T> implements Dao<T> {
 
-    private final Class<T> type;
+    private final Class<T> type = initType();
 
-    public CrudDao(Class<T> type) {
-        this.type = type;
+    private Class<T> initType (){
+        Class clazz = getClass();
+        ParameterizedType genericSuperclass = (ParameterizedType) clazz.getGenericSuperclass();
+        Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();
+        Type actualTypeArgument = actualTypeArguments[0];
+        return (Class<T>) actualTypeArgument;
     }
 
     @Override

@@ -25,6 +25,7 @@
       <configuration process_explicitly_annotated="false">
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/ua/aimprosoft/noormal/config/ApplicationConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/resources/spring.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -44,7 +45,7 @@
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: jstl:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.18" level="project" />
-    <orderEntry type="library" name="Maven: net.sf.oval:oval:1.31" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.oval:oval:1.87" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:5.0.1.Final" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.3.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1.1" level="project" />
