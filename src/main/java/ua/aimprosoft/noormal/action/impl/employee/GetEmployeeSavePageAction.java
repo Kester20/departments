@@ -14,7 +14,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 /**
  * @author Arsalan
  */
-@Controller("getEmployeeSavePageAction")
+@Controller("/saveEmployee")
 public class GetEmployeeSavePageAction extends EmployeeAction {
 
     @Override

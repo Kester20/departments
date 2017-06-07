@@ -16,7 +16,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.GET_ALL_EMPLOYEE_PAT
 /**
  * @author Arsalan
  */
-@Controller("deleteEmployeeAction")
+@Controller("/deleteEmployee")
 public class DeleteEmployeeAction extends EmployeeAction {
 
     private EmployeeService employeeService;

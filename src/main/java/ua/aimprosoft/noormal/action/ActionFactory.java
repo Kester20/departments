@@ -24,7 +24,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 @Component
 public class ActionFactory {
 
-    private Action defaultAction;
+    /*private Action defaultAction;
     private Action saveDepartmentAction;
     private Action deleteDepartmentAction;
     private Action getDepartmentSavePageAction;
@@ -76,5 +76,5 @@ public class ActionFactory {
 
     public Action getAction(String action) {
         return actions.get(action);
-    }
+    }*/
 }

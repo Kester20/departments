@@ -19,7 +19,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH
 /**
  * @author Arsalan
  */
-@Controller("saveDepartmentAction")
+@Controller("/departmentAction")
 public class SaveDepartmentAction extends DepartmentAction {
 
     private DepartmentService departmentService;
@@ -34,9 +34,9 @@ public class SaveDepartmentAction extends DepartmentAction {
         Department department = getDepartmentFromRequest(request);
         try {
             departmentService.saveDepartment(department);
+            response.sendRedirect(ROOT_PATH);
         } catch (ValidationException e) {
             sendError(request, response, SAVE_DEPARTMENT_PATH, e);
         }
-        response.sendRedirect(ROOT_PATH);
     }
 }

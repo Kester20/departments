@@ -13,7 +13,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH
 /**
  * @author Arsalan. Created on 02.06.2017.
  */
-@Controller("getDepartmentSavePageAction")
+@Controller("/saveDepartment")
 public class GetDepartmentSavePageAction extends DepartmentAction {
 
     @Override

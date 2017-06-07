@@ -16,7 +16,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.ROOT_PATH;
 /**
  * @author Arsalan
  */
-@Controller("deleteDepartmentAction")
+@Controller("/deleteDepartment")
 public class DeleteDepartmentAction extends DepartmentAction {
 
     private DepartmentService departmentService;

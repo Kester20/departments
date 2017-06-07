@@ -20,7 +20,7 @@ import static ua.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEES;
 /**
  * @author Arsalan
  */
-@Controller("getAllEmployeesPageAction")
+@Controller("/getEmployees")
 public class GetAllEmployeesPageAction extends EmployeeAction {
 
     private EmployeeService employeeService;

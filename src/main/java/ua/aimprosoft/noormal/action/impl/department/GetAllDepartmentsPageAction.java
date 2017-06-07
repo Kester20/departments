@@ -19,7 +19,7 @@ import static ua.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENTS;
 /**
  * @author Arsalan. Created on 29.05.2017.
  */
-@Controller("defaultAction")
+@Controller("/")
 public class GetAllDepartmentsPageAction extends DepartmentAction {
 
     private DepartmentService departmentService;
