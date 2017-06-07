@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author Arsalan
  */
-/*@Configuration
+@Configuration
 @ComponentScan("ua.aimprosoft.noormal")
 public class ApplicationConfig {
 
-}*/
+}

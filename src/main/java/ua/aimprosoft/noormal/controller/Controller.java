@@ -16,8 +16,8 @@ import java.io.IOException;
 /**
  * @author Arsalan
  */
-@org.springframework.stereotype.Controller
 @WebServlet("/")
+@Component
 public class Controller extends HttpServlet {
 
     private ActionFactory actionFactory;
