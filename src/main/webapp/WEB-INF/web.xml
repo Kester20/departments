@@ -23,7 +23,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>ua.aimprosoft.noormal.config.ApplicationConfig</param-value>
+        <param-value>com.aimprosoft.noormal.config.ApplicationConfig</param-value>
     </context-param>
 
     <servlet>

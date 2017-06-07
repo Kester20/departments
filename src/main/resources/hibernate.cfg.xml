@@ -9,7 +9,7 @@
         <property name="connection.username">root</property>
         <property name="connection.password"/>
 
-        <mapping class="ua.aimprosoft.noormal.model.Department"/>
-        <mapping class="ua.aimprosoft.noormal.model.Employee"/>
+        <mapping class="com.aimprosoft.noormal.model.Department"/>
+        <mapping class="com.aimprosoft.noormal.model.Employee"/>
     </session-factory>
 </hibernate-configuration>
