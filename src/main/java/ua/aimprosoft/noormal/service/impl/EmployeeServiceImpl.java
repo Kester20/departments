@@ -1,6 +1,7 @@
 package ua.aimprosoft.noormal.service.impl;
 
-import ua.aimprosoft.noormal.dao.DaoFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.aimprosoft.noormal.dao.impl.EmployeeDao;
 import ua.aimprosoft.noormal.exception.DaoException;
 import ua.aimprosoft.noormal.exception.ValidationException;
@@ -14,12 +15,14 @@ import java.util.List;
 /**
  * @author Arsalan
  */
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDao employeeDao = DaoFactory.getEmployeeDao();
+    private EmployeeDao employeeDao;
 
-    public EmployeeServiceImpl() {
-        this.employeeDao = DaoFactory.getEmployeeDao();
+    @Autowired
+    public EmployeeServiceImpl(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
     }
 
     @Override

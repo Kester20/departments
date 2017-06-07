@@ -1,6 +1,7 @@
 package ua.aimprosoft.noormal.service.impl;
 
-import ua.aimprosoft.noormal.dao.DaoFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.aimprosoft.noormal.dao.impl.DepartmentDao;
 import ua.aimprosoft.noormal.exception.DaoException;
 import ua.aimprosoft.noormal.exception.ValidationException;
@@ -13,12 +14,14 @@ import java.util.List;
 /**
  * @author Arsalan
  */
+@Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private DepartmentDao departmentDao = DaoFactory.getDepartmentDao();
+    private DepartmentDao departmentDao;
 
-    public DepartmentServiceImpl() {
-        this.departmentDao = DaoFactory.getDepartmentDao();
+    @Autowired
+    public DepartmentServiceImpl(DepartmentDao departmentDao) {
+        this.departmentDao = departmentDao;
     }
 
     @Override

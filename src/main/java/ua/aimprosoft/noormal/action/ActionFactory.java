@@ -1,16 +1,11 @@
 package ua.aimprosoft.noormal.action;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import ua.aimprosoft.noormal.action.impl.department.DeleteDepartmentAction;
-import ua.aimprosoft.noormal.action.impl.department.GetAllDepartmentsPageAction;
-import ua.aimprosoft.noormal.action.impl.department.GetDepartmentSavePageAction;
-import ua.aimprosoft.noormal.action.impl.department.SaveDepartmentAction;
-import ua.aimprosoft.noormal.action.impl.employee.DeleteEmployeeAction;
-import ua.aimprosoft.noormal.action.impl.employee.GetAllEmployeesPageAction;
-import ua.aimprosoft.noormal.action.impl.employee.GetEmployeeSavePageAction;
-import ua.aimprosoft.noormal.action.impl.employee.SaveEmployeeAction;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,26 +24,57 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 @Component
 public class ActionFactory {
 
-    private static Action defaultAction = new GetAllDepartmentsPageAction();
+    private Action defaultAction;
+    private Action saveDepartmentAction;
+    private Action deleteDepartmentAction;
+    private Action getDepartmentSavePageAction;
+    private Action getEmployeeSavePageAction;
+    private Action getAllEmployeesPageAction;
+    private Action saveEmployeeAction;
+    private Action deleteEmployeeAction;
 
-    private static Map<String, Action> actions = new HashMap<String, Action>() {{
-        put(ROOT_PATH, defaultAction);
-        put(DEPARTMENT_ACTION_PATH, new SaveDepartmentAction());
-        put(DELETE_DEPARTMENT_PATH, new DeleteDepartmentAction());
+    @Autowired
+    public ActionFactory(@Qualifier("defaultAction") Action defaultAction,
+                         @Qualifier("saveDepartmentAction") Action saveDepartmentAction,
+                         @Qualifier("deleteDepartmentAction") Action deleteDepartmentAction,
+                         @Qualifier("getDepartmentSavePageAction") Action getDepartmentSavePageAction,
+                         @Qualifier("getEmployeeSavePageAction") Action getEmployeeSavePageAction,
+                         @Qualifier("getAllEmployeesPageAction") Action getAllEmployeesPageAction,
+                         @Qualifier("saveEmployeeAction") Action saveEmployeeAction,
+                         @Qualifier("deleteEmployeeAction") Action deleteEmployeeAction) {
 
-        put(SAVE_DEPARTMENT_PATH, new GetDepartmentSavePageAction());
-        put(SAVE_EMPLOYEE_PATH, new GetEmployeeSavePageAction());
+        this.defaultAction = defaultAction;
+        this.saveDepartmentAction = saveDepartmentAction;
+        this.deleteDepartmentAction = deleteDepartmentAction;
+        this.getDepartmentSavePageAction = getDepartmentSavePageAction;
+        this.getEmployeeSavePageAction = getEmployeeSavePageAction;
+        this.getAllEmployeesPageAction = getAllEmployeesPageAction;
+        this.saveEmployeeAction = saveEmployeeAction;
+        this.deleteEmployeeAction = deleteEmployeeAction;
+    }
 
-        put(GET_ALL_EMPLOYEE_PATH, new GetAllEmployeesPageAction());
-        put(EMPLOYEE_ACTION_PATH, new SaveEmployeeAction());
-        put(DELETE_EMPLOYEE_PATH, new DeleteEmployeeAction());
-    }};
+    private Map<String, Action> actions;
 
-    public static Action getDefaultAction() {
+    @PostConstruct
+    private void init() {
+        actions = new HashMap<>();
+        actions.put(ROOT_PATH, defaultAction);
+        actions.put(DEPARTMENT_ACTION_PATH, saveDepartmentAction);
+        actions.put(DELETE_DEPARTMENT_PATH, deleteDepartmentAction);
+
+        actions.put(SAVE_DEPARTMENT_PATH, getDepartmentSavePageAction);
+        actions.put(SAVE_EMPLOYEE_PATH, getEmployeeSavePageAction);
+
+        actions.put(GET_ALL_EMPLOYEE_PATH, getAllEmployeesPageAction);
+        actions.put(EMPLOYEE_ACTION_PATH, saveEmployeeAction);
+        actions.put(DELETE_EMPLOYEE_PATH, deleteEmployeeAction);
+    }
+
+    public Action getDefaultAction() {
         return defaultAction;
     }
 
-    public static Action getAction(String action) {
+    public Action getAction(String action) {
         return actions.get(action);
     }
 }

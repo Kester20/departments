@@ -1,5 +1,7 @@
 package ua.aimprosoft.noormal.action.impl.employee;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ua.aimprosoft.noormal.exception.DaoException;
 import ua.aimprosoft.noormal.exception.ValidationException;
 import ua.aimprosoft.noormal.model.Department;
@@ -13,28 +15,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static ua.aimprosoft.noormal.action.ValidationErrorResponder.sendError;
-import static ua.aimprosoft.noormal.util.Constants.ContextConstants.DEPARTMENT_SERVICE;
-import static ua.aimprosoft.noormal.util.Constants.ContextConstants.EMPLOYEE_SERVICE;
 import static ua.aimprosoft.noormal.util.Constants.Pathways.GET_ALL_EMPLOYEE_PATH;
 import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 
 /**
  * @author Arsalan
  */
+@Controller("saveEmployeeAction")
 public class SaveEmployeeAction extends EmployeeAction {
 
     private EmployeeService employeeService;
     private DepartmentService departmentService;
 
+    @Autowired
+    public SaveEmployeeAction(EmployeeService employeeService, DepartmentService departmentService) {
+        this.employeeService = employeeService;
+        this.departmentService = departmentService;
+    }
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
-        if (employeeService == null) {
-            this.employeeService = (EmployeeService) request.getServletContext().getAttribute(EMPLOYEE_SERVICE);
-        }
-        if (departmentService == null) {
-            this.departmentService = (DepartmentService) request.getServletContext().getAttribute(DEPARTMENT_SERVICE);
-        }
-
         Long departmentId = getDepartmentIdFromRequest(request);
         Employee employee = getEmployeeFromRequest(request);
         Department department = departmentService.findOne(departmentId);

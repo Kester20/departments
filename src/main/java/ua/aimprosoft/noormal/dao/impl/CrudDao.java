@@ -1,12 +1,12 @@
 package ua.aimprosoft.noormal.dao.impl;
 
-import ua.aimprosoft.noormal.dao.Dao;
-import ua.aimprosoft.noormal.dao.HibernateSessionFactory;
-import ua.aimprosoft.noormal.exception.DaoException;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import ua.aimprosoft.noormal.dao.Dao;
+import ua.aimprosoft.noormal.dao.HibernateSessionFactory;
+import ua.aimprosoft.noormal.exception.DaoException;
 
 import java.util.List;
 
@@ -74,7 +74,7 @@ public abstract class CrudDao<T> implements Dao<T> {
             Criteria criteria = session.createCriteria(type);
             return (T) criteria.add(Restrictions.eq(criteriaName, criteriaValue))
                     .uniqueResult();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new DaoException(CAN_NOT_FIND_ENTITY);
         }
     }

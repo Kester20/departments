@@ -1,5 +1,7 @@
 package ua.aimprosoft.noormal.action.impl.department;
 
+import org.springframework.stereotype.Controller;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH
 /**
  * @author Arsalan. Created on 02.06.2017.
  */
+@Controller("getDepartmentSavePageAction")
 public class GetDepartmentSavePageAction extends DepartmentAction {
 
     @Override

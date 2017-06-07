@@ -1,10 +1,10 @@
 package ua.aimprosoft.noormal.validator;
 
+import net.sf.oval.constraint.CheckWithCheck;
 import ua.aimprosoft.noormal.dao.DaoFactory;
 import ua.aimprosoft.noormal.dao.impl.EmployeeDao;
 import ua.aimprosoft.noormal.exception.DaoException;
 import ua.aimprosoft.noormal.model.Employee;
-import net.sf.oval.constraint.CheckWithCheck;
 
 import static ua.aimprosoft.noormal.util.Constants.ServiceConstants.EMAIL;
 

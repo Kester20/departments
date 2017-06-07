@@ -1,10 +1,10 @@
 package ua.aimprosoft.noormal.validator;
 
-import ua.aimprosoft.noormal.exception.ValidationException;
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
 import net.sf.oval.context.FieldContext;
 import net.sf.oval.context.OValContext;
+import ua.aimprosoft.noormal.exception.ValidationException;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

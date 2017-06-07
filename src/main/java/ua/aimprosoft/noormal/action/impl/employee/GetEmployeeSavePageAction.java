@@ -1,5 +1,6 @@
 package ua.aimprosoft.noormal.action.impl.employee;
 
+import org.springframework.stereotype.Controller;
 import ua.aimprosoft.noormal.exception.DaoException;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import static ua.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 /**
  * @author Arsalan
  */
+@Controller("getEmployeeSavePageAction")
 public class GetEmployeeSavePageAction extends EmployeeAction {
 
     @Override

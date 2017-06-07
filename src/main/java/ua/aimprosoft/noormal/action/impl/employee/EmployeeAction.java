@@ -1,14 +1,10 @@
 package ua.aimprosoft.noormal.action.impl.employee;
 
 import ua.aimprosoft.noormal.action.Action;
-import ua.aimprosoft.noormal.exception.DaoException;
 import ua.aimprosoft.noormal.model.Employee;
 import ua.aimprosoft.noormal.util.FormatUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 
 import static ua.aimprosoft.noormal.util.Constants.ServiceConstants.AGE;
@@ -22,11 +18,6 @@ import static ua.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
  * @author Arsalan. Created on 03.06.2017.
  */
 public abstract class EmployeeAction implements Action {
-
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
-
-    }
 
     Long getDepartmentIdFromRequest(HttpServletRequest request) {
         String depIdParameter = request.getParameter(DEPARTMENT_ID);

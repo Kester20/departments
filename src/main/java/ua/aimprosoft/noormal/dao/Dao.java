@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Arsalan
  */
-public interface Dao<T>  {
+public interface Dao<T> {
 
     void saveEntity(T entity) throws DaoException;
 

@@ -10,11 +10,6 @@ public class Constants {
         public static final String EMPLOYEE = "employee";
     }
 
-    public static class ContextConstants {
-        public static final String DEPARTMENT_SERVICE = "departmentService";
-        public static final String EMPLOYEE_SERVICE = "employeeService";
-    }
-
     public static class ServiceConstants {
         public static final String DEPARTMENT_ID = "departmentId";
         public static final String EMPLOYEE_ID = "employeeId";
@@ -57,6 +52,5 @@ public class Constants {
         public static final String SERVER_ERROR = "Server error";
         public static final String ERROR_CODE = "errorCode";
         public static final String ERROR_MESSAGE = "errorMessage";
-        public static final String EXCEPTION = "ua/aimprosoft/noormal/exception";
     }
 }
