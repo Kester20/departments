@@ -38,13 +38,15 @@ public class ContextListener implements ServletContextListener {
         servletContext.setAttribute(DEPARTMENT_SERVICE, new DepartmentServiceImpl());
         servletContext.setAttribute(EMPLOYEE_SERVICE, new EmployeeServiceImpl());
 
-        /*servletContext.setInitParameter ( "contextClass",
+        servletContext.setInitParameter ( "contextClass",
                 "org.springframework.web.context.support.AnnotationConfigWebApplicationContext");
-        servletContext.setInitParameter ( "contextConfigLocation", "ua.aimprosoft.noormal");*/
+        servletContext.setInitParameter ( "contextConfigLocation", "ua.aimprosoft.noormal");
 
-        /*WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+        //WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        AutowireCapableBeanFactory acbf = applicationContext.getAutowireCapableBeanFactory();*/
+        ActionFactory actionFactory = applicationContext.getBean(ActionFactory.class);
+        servletContext.setAttribute("a", actionFactory);
+        //AutowireCapableBeanFactory acbf = applicationContext.getAutowireCapableBeanFactory();
 
         /*Controller controller = new Controller();
         acbf.autowireBean(controller);*/

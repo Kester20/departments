@@ -17,18 +17,11 @@ import java.io.IOException;
  * @author Arsalan
  */
 @WebServlet("/")
-@Component
 public class Controller extends HttpServlet {
-
-    private ActionFactory actionFactory;
-
-    @Autowired
-    public Controller(ActionFactory actionFactory) {
-        this.actionFactory = actionFactory;
-    }
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ActionFactory actionFactory = (ActionFactory) request.getServletContext().getAttribute("a");
         String uri = request.getRequestURI();
         Action action = actionFactory.getAction(uri);
         if (action == null) {
