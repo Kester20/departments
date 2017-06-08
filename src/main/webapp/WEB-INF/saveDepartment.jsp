@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
     <title>Departments</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 <h2 align="center">Enter new value</h2>
 
 
-<form id="departments" action="<c:url value='/departmentAction' />" method="post">
+<form id="departments" action="<c:url value='/department/save' />" method="post">
 
     <table class="table" align="center" cellpadding="10">
         <tr>

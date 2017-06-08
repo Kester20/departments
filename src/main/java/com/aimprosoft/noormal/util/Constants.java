@@ -21,6 +21,8 @@ public class Constants {
         public static final String EMPLOYEES = "employees";
         public static final String ERROR_MAP = "errorMap";
         public static final String DATE_FORMAT = "yyyy-MM-dd";
+        public static final String EXCEPTION = "exception";
+        public static final String PATH = "path";
     }
 
     public static class Pathways {
@@ -29,7 +31,7 @@ public class Constants {
         public static final String SAVE_DEPARTMENT_PATH = "/saveDepartment";
         public static final String DELETE_DEPARTMENT_PATH = "/deleteDepartment";
 
-        public static final String GET_ALL_EMPLOYEE_PATH = "/getEmployees";
+        public static final String GET_EMPLOYEES_BY_DEPARTMENT = "/employee/getByDepartment";
         public static final String EMPLOYEE_ACTION_PATH = "/employeeAction";
         public static final String SAVE_EMPLOYEE_PATH = "/saveEmployee";
         public static final String DELETE_EMPLOYEE_PATH = "/deleteEmployee";

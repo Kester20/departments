@@ -7,14 +7,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
     <title>Employee</title>
 </head>
 <body>
 
 <h2 align="center">Enter new values</h2>
 
-<form action="<c:url value='/employeeAction' />" method="post">
+<form action="<c:url value='/employee/save' />" method="post">
 
     <table class="table" align="center" cellpadding="10">
         <tr>
