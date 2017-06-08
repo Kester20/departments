@@ -70,8 +70,7 @@ public class EmployeeController {
         Department department = departmentService.findOne(departmentId);
         employee.setDepartment(department);
         employeeService.saveEmployee(employee);
-        String res = "redirect:" + GET_EMPLOYEES_BY_DEPARTMENT + "?departmentId=" + departmentId;
-        return res;
+        return "redirect:" + GET_EMPLOYEES_BY_DEPARTMENT + "?departmentId=" + departmentId;
     }
 
     @RequestMapping("/delete")
