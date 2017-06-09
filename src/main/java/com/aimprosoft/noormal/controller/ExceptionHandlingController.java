@@ -1,6 +1,7 @@
 package com.aimprosoft.noormal.controller;
 
 import com.aimprosoft.noormal.exception.ValidationException;
+import com.aimprosoft.noormal.model.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,7 @@ import static com.aimprosoft.noormal.util.Constants.Messages.ERROR_MESSAGE;
 import static com.aimprosoft.noormal.util.Constants.Pathways.ERROR_PAGE_PATH;
 import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
 import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
+import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_FORM;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 
 /**
@@ -23,10 +25,16 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 @ControllerAdvice
 public class ExceptionHandlingController {
 
-    private Map<String, String> paths = new HashMap<String, String>() {{
-        put("/department/save", SAVE_DEPARTMENT_PATH);
-        put("/employee/save", SAVE_EMPLOYEE_PATH);
+    private Map<String, ModelAndView> paths = new HashMap<String, ModelAndView>() {{
+        put("/department/save", new ModelAndView(SAVE_DEPARTMENT_PATH));
+        put("/employee/save", initEmployeeSavePage());
     }};
+
+    private ModelAndView initEmployeeSavePage(){
+        ModelAndView modelAndView = new ModelAndView(SAVE_EMPLOYEE_PATH);
+        modelAndView.addObject(EMPLOYEE_FORM, new Employee());
+        return modelAndView;
+    }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
@@ -42,10 +50,9 @@ public class ExceptionHandlingController {
     @ExceptionHandler(ValidationException.class)
     public ModelAndView handleError(HttpServletRequest request, ValidationException exception) {
         String uri = request.getRequestURI();
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = paths.get(uri);
         Map<String, String> errors = exception.getErrorMap();
         modelAndView.addObject(ERROR_MAP, errors);
-        modelAndView.setViewName(paths.get(uri));
         return modelAndView;
     }
 }

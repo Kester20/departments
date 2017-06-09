@@ -31,7 +31,7 @@ public class DepartmentUniqueNameValidator implements CheckWithCheck.SimpleCheck
         }
 
         if (existedDepartment != null && existedDepartment.getName().equals(departmentName) &&
-                existedDepartment.getId() != department.getId()) {
+                existedDepartment.getDepartmentId() != department.getDepartmentId()) {
             return false;
         }
         return true;

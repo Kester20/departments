@@ -40,11 +40,11 @@
             </td>
 
             <td>
-                <a href="/employee/save?employeeId=${employee.id}&departmentId=${param.departmentId}">Edit</a>
+                <a href="/employee/save?employeeId=${employee.employeeId}&departmentId=${param.departmentId}">Edit</a>
             </td>
 
             <td>
-                <a href="/employee/delete?employeeId=${employee.id}&departmentId=${param.departmentId}" class="x">X</a>
+                <a href="/employee/delete?employeeId=${employee.employeeId}&departmentId=${param.departmentId}" class="x">X</a>
             </td>
 
         </tr>

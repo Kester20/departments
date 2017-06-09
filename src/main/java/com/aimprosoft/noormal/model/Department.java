@@ -26,30 +26,21 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 @Table(name = DEPARTMENT)
 public class Department {
 
-    private Long id;
+    private Long departmentId;
     @CheckWith(value = DepartmentUniqueNameValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
     @NotEmpty(message = MUST_NOT_BE_EMPTY)
     @NotNull(message = MUST_NOT_BE_EMPTY)
     @Length(max = 30)
     private String name;
 
-    public Department() {
-
-    }
-
-    public Department(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
+    public Long getDepartmentId() {
+        return departmentId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDepartmentId(Long id) {
+        this.departmentId = id;
     }
 
     @Basic
@@ -69,13 +60,13 @@ public class Department {
 
         Department that = (Department) o;
 
-        if (!id.equals(that.id)) return false;
+        if (!departmentId.equals(that.departmentId)) return false;
         return name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = departmentId.hashCode();
         result = 31 * result + name.hashCode();
         return result;
     }
@@ -83,7 +74,7 @@ public class Department {
     @Override
     public String toString() {
         return "Department{" +
-                "id=" + id +
+                "id=" + departmentId +
                 ", name='" + name + '\'' +
                 '}';
     }

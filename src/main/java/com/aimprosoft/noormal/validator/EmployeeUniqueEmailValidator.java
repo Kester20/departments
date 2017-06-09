@@ -30,7 +30,7 @@ public class EmployeeUniqueEmailValidator implements CheckWithCheck.SimpleCheck 
         }
 
         if (existedEmployee != null && existedEmployee.getEmail().equals(email)
-                && existedEmployee.getId() != employee.getId()) {
+                && existedEmployee.getEmployeeId() != employee.getEmployeeId()) {
             return false;
         }
         return true;

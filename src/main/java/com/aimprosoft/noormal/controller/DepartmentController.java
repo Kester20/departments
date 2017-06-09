@@ -9,15 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 import static com.aimprosoft.noormal.util.Constants.Pathways.DEPARTMENTS_PATH;
 import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENTS;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_ID;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 
 /**
  * @author Arsalan
@@ -46,30 +43,14 @@ public class DepartmentController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveDepartment(@RequestParam(NAME) String name,
-                                 @RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException, ValidationException {
-        Department department = createDepartment(name, departmentId);
+    public String saveDepartment(Department department) throws DaoException, ValidationException {
         departmentService.saveDepartment(department);
         return "redirect:/";
     }
 
     @RequestMapping("/delete")
-    public String deleteDepartment(@RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException {
-        Department department = createDepartment(departmentId);
+    public String deleteDepartment(Department department) throws DaoException {
         departmentService.deleteDepartment(department);
         return "redirect:/";
     }
-
-    private Department createDepartment(String name, Long departmentId) {
-        Department department = createDepartment(departmentId);
-        department.setName(name);
-        return department;
-    }
-
-    private Department createDepartment(Long departmentId) {
-        Department department = new Department();
-        department.setId(departmentId);
-        return department;
-    }
-
 }

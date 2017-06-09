@@ -2,6 +2,8 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="tg" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,12 +16,14 @@
 
 <h2 align="center">Enter new values</h2>
 
-<form action="<c:url value='/employee/save' />" method="post">
+<form:form action="/employee/save" method="post" modelAttribute="employeeForm">
 
     <table class="table" align="center" cellpadding="10">
         <tr>
             <td>
-                <input type="text" name="name" placeholder="Name"  value="${param.name}">
+                <spring:bind path="name">
+                    <input type="text" name="name" placeholder="Name"  value="${param.name}">
+                </spring:bind>
             </td>
 
         </tr>
@@ -30,7 +34,9 @@
         </tr>
         <tr>
             <td>
-                <input type="number" name="age" placeholder="Age"  value="${param.age}">
+                <spring:bind path="age">
+                    <input type="number" name="age" placeholder="Age"  value="${param.age}">
+                </spring:bind>
             </td>
         </tr>
         <tr class="noBorder">
@@ -40,7 +46,9 @@
         </tr>
         <tr>
             <td>
-                <input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="${param.dateOfBirth}">
+                <spring:bind path="dateOfBirth">
+                    <input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="${param.dateOfBirth}">
+                </spring:bind>
             </td>
         </tr>
         <tr class="noBorder">
@@ -50,7 +58,9 @@
         </tr>
         <tr>
             <td>
-                <input type="email" name="email" placeholder="Email"  value="${param.email}">
+                <spring:bind path="email">
+                    <input type="email" name="email" placeholder="Email"  value="${param.email}">
+                </spring:bind>
             </td>
         </tr>
         <tr class="noBorder">
@@ -70,7 +80,7 @@
     <input type="hidden" name="employeeId" value="${param.employeeId}">
     <input type="hidden" name="departmentId" value="${param.departmentId}">
 
-</form>
+</form:form>
 
 </body>
 </html>
