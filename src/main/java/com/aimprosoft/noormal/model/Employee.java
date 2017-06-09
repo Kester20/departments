@@ -6,6 +6,7 @@ import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -19,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+
+import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DATE_FORMAT;
 
 /**
  * @author Arsalan
@@ -38,6 +41,7 @@ public class Employee {
 
     @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @DateTimeFormat(pattern = DATE_FORMAT)
     private Date dateOfBirth;
 
     @CheckWith(value = EmployeeUniqueEmailValidator.class, message = Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
@@ -47,18 +51,6 @@ public class Employee {
     private String email;
 
     private Department department;
-
-    public Employee() {
-
-    }
-
-    public Employee(Long employeeId, String name, Integer age, Date dateOfBirth, String email) {
-        this.employeeId = employeeId;
-        this.name = name;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

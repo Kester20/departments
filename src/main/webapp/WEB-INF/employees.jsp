@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Employees</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
@@ -40,11 +40,11 @@
             </td>
 
             <td>
-                <a href="/saveEmployee?employeeId=${employee.employeeId}&departmentId=${param.departmentId}">Edit</a>
+                <a href="/employee/save?employeeId=${employee.employeeId}&departmentId=${param.departmentId}">Edit</a>
             </td>
 
             <td>
-                <a href="/deleteEmployee?employeeId=${employee.employeeId}&departmentId=${param.departmentId}" class="x">X</a>
+                <a href="/employee/delete?employeeId=${employee.employeeId}&departmentId=${param.departmentId}" class="x">X</a>
             </td>
 
         </tr>
@@ -58,7 +58,7 @@
 
             <td colspan="3"></td>
 
-            <td colspan="2"><a href="/saveEmployee?departmentId=${param.departmentId}">Add new Employee</a></td>
+            <td colspan="2"><a href="/employee/save?departmentId=${param.departmentId}">Add new Employee</a></td>
         </tr>
 
 

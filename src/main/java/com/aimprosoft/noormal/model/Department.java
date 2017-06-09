@@ -33,15 +33,6 @@ public class Department {
     @Length(max = 30)
     private String name;
 
-    public Department() {
-
-    }
-
-    public Department(Long departmentId, String name) {
-        this.departmentId = departmentId;
-        this.name = name;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getDepartmentId() {

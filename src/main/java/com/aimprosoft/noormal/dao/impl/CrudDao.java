@@ -20,7 +20,7 @@ public abstract class CrudDao<T> implements Dao<T> {
 
     private final Class<T> type = initType();
 
-    private Class<T> initType (){
+    private Class<T> initType() {
         Class clazz = getClass();
         ParameterizedType genericSuperclass = (ParameterizedType) clazz.getGenericSuperclass();
         Type[] actualTypeArguments = genericSuperclass.getActualTypeArguments();

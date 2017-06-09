@@ -1,7 +1,7 @@
 package com.aimprosoft.noormal.dao.impl;
 
-import org.springframework.stereotype.Repository;
 import com.aimprosoft.noormal.model.Department;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Arsalan

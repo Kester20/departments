@@ -17,8 +17,4 @@ public class ValidationException extends Exception {
     public Map<String, String> getErrorMap() {
         return errorMap;
     }
-
-    public void setErrorMap(Map<String, String> errorMap) {
-        this.errorMap = errorMap;
-    }
 }

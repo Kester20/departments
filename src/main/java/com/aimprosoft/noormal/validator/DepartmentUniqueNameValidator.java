@@ -1,11 +1,11 @@
 package com.aimprosoft.noormal.validator;
 
-import net.sf.oval.constraint.CheckWithCheck;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import com.aimprosoft.noormal.dao.impl.DepartmentDao;
 import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.model.Department;
+import net.sf.oval.constraint.CheckWithCheck;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 
