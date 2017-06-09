@@ -11,7 +11,9 @@ target/
 .springBeans
 
 ### IntelliJ IDEA ###
-.idea
 *.iws
 *.iml
 *.ipr
+src/main/webapp/META-INF/
+src/main/webapp/WEB-INF/tags/
+/.idea/
