@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.aimprosoft.noormal.util.Constants.Messages.ERROR_CODE;
 import static com.aimprosoft.noormal.util.Constants.Messages.ERROR_MESSAGE;
-import static com.aimprosoft.noormal.util.Constants.Messages.NOT_FOUND;
-import static com.aimprosoft.noormal.util.Constants.Messages.SERVER_ERROR;
 import static com.aimprosoft.noormal.util.Constants.Pathways.ERROR_PAGE_PATH;
 import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
+import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 
 /**
@@ -25,20 +23,16 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 @ControllerAdvice
 public class ExceptionHandlingController {
 
-    private Map<String, Integer> errors = new HashMap<String, Integer>() {{
-        put(NOT_FOUND, 404);
-        put(SERVER_ERROR, 500);
+    private Map<String, String> paths = new HashMap<String, String>(){{
+        put("/department/save", SAVE_DEPARTMENT_PATH);
+        put("/employee/save", SAVE_EMPLOYEE_PATH);
     }};
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ModelAndView sendError(Exception exception) {
+    public ModelAndView handleError(Exception exception) {
         String errorMessage = exception.getMessage();
-        Integer errorCode = errors.get(errorMessage);
-        if (errorCode == null) {
-            errorCode = 500;
-        }
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(ERROR_CODE, errorCode);
         modelAndView.addObject(ERROR_MESSAGE, errorMessage);
         modelAndView.setViewName(ERROR_PAGE_PATH);
         return modelAndView;
@@ -47,10 +41,11 @@ public class ExceptionHandlingController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ValidationException.class)
     public ModelAndView handleError(HttpServletRequest request, ValidationException exception) {
+        String uri = request.getRequestURI();
         ModelAndView modelAndView = new ModelAndView();
         Map<String, String> errors = exception.getErrorMap();
         modelAndView.addObject(ERROR_MAP, errors);
-        modelAndView.setViewName(SAVE_DEPARTMENT_PATH);
+        modelAndView.setViewName(paths.get(uri));
         return modelAndView;
     }
 }
