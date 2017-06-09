@@ -26,13 +26,10 @@ public class Constants {
 
     public static class Pathways {
         public static final String SAVE_DEPARTMENT_PATH = "/saveDepartment";
-
         public static final String GET_EMPLOYEES_BY_DEPARTMENT = "/employee/getByDepartment";
         public static final String SAVE_EMPLOYEE_PATH = "/saveEmployee";
-
         public static final String DEPARTMENTS_PATH = "/departments";
         public static final String EMPLOYEES_PATH = "/employees";
-
         public static final String ERROR_PAGE_PATH = "/errorPage";
     }
 
