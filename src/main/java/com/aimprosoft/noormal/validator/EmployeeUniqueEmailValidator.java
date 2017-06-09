@@ -2,11 +2,11 @@ package com.aimprosoft.noormal.validator;
 
 import com.aimprosoft.noormal.dao.impl.EmployeeDao;
 import com.aimprosoft.noormal.exception.DaoException;
+import com.aimprosoft.noormal.model.Employee;
 import com.aimprosoft.noormal.util.Constants;
 import net.sf.oval.constraint.CheckWithCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.aimprosoft.noormal.model.Employee;
 
 /**
  * @author Arsalan

@@ -1,13 +1,13 @@
 package com.aimprosoft.noormal.service.impl;
 
 import com.aimprosoft.noormal.dao.impl.DepartmentDao;
+import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
 import com.aimprosoft.noormal.model.Department;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.service.DepartmentService;
 import com.aimprosoft.noormal.validator.CustomValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

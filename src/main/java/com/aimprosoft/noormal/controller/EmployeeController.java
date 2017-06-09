@@ -64,7 +64,7 @@ public class EmployeeController {
                                @RequestParam(value = EMPLOYEE_ID, required = false) Long employeeId,
                                @RequestParam(NAME) String name,
                                @RequestParam(AGE) Integer age,
-                               @RequestParam(DATE_OF_BIRTH) @DateTimeFormat(pattern=DATE_FORMAT) Date dateOfBirth,
+                               @RequestParam(DATE_OF_BIRTH) @DateTimeFormat(pattern = DATE_FORMAT) Date dateOfBirth,
                                @RequestParam(EMAIL) String email) throws DaoException, ValidationException {
         Employee employee = createEmployee(employeeId, name, age, dateOfBirth, email);
         Department department = departmentService.findOne(departmentId);

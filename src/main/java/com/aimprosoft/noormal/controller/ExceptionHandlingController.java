@@ -23,7 +23,7 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 @ControllerAdvice
 public class ExceptionHandlingController {
 
-    private Map<String, String> paths = new HashMap<String, String>(){{
+    private Map<String, String> paths = new HashMap<String, String>() {{
         put("/department/save", SAVE_DEPARTMENT_PATH);
         put("/employee/save", SAVE_EMPLOYEE_PATH);
     }};
