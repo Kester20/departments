@@ -27,7 +27,7 @@ import java.util.Date;
 @Table(name = Constants.DbConstants.EMPLOYEE)
 public class Employee {
 
-    private Long id;
+    private Long employeeId;
     @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     private String name;
@@ -52,8 +52,8 @@ public class Employee {
 
     }
 
-    public Employee(Long id, String name, Integer age, Date dateOfBirth, String email) {
-        this.id = id;
+    public Employee(Long employeeId, String name, Integer age, Date dateOfBirth, String email) {
+        this.employeeId = employeeId;
         this.name = name;
         this.age = age;
         this.dateOfBirth = dateOfBirth;
@@ -62,12 +62,12 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmployeeId(Long id) {
+        this.employeeId = id;
     }
 
     @Basic
@@ -127,7 +127,7 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        if (!id.equals(employee.id)) return false;
+        if (!employeeId.equals(employee.employeeId)) return false;
         if (!name.equals(employee.name)) return false;
         if (!age.equals(employee.age)) return false;
         if (!dateOfBirth.equals(employee.dateOfBirth)) return false;
@@ -137,7 +137,7 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
+        int result = employeeId.hashCode();
         result = 31 * result + name.hashCode();
         result = 31 * result + age.hashCode();
         result = 31 * result + dateOfBirth.hashCode();
@@ -149,7 +149,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
+                "id=" + employeeId +
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", dateOfBirth=" + dateOfBirth +

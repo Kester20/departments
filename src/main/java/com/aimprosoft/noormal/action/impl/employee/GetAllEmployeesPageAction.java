@@ -34,7 +34,7 @@ public class GetAllEmployeesPageAction extends EmployeeAction {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DaoException {
         Long departmentId = getDepartmentIdFromRequest(request);
         Department department = new Department();
-        department.setId(departmentId);
+        department.setDepartmentId(departmentId);
         List<Employee> employees = employeeService.findEmployeesByDepartment(department);
         request.setAttribute(EMPLOYEES, employees);
 

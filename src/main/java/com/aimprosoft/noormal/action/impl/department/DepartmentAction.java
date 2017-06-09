@@ -19,7 +19,7 @@ public abstract class DepartmentAction implements Action {
         String idParameter = request.getParameter(DEPARTMENT_ID);
         Long departmentId = FormatUtils.getLongFromString(idParameter);
         Department department = new Department();
-        department.setId(departmentId);
+        department.setDepartmentId(departmentId);
         department.setName(newName);
         return department;
     }

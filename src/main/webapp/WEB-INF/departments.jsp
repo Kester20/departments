@@ -27,7 +27,7 @@
 
         <tr>
             <td>
-                    ${department.id}
+                    ${department.departmentId}
             </td>
 
             <td>
@@ -35,15 +35,15 @@
             </td>
 
             <td>
-                <a href="/saveDepartment?departmentId=${department.id}">Edit</a>
+                <a href="/saveDepartment?departmentId=${department.departmentId}">Edit</a>
             </td>
 
             <td>
-                <a href="/deleteDepartment?departmentId=${department.id}" class="x">X</a>
+                <a href="/deleteDepartment?departmentId=${department.departmentId}" class="x">X</a>
             </td>
 
             <td>
-                <a href="/getEmployees?departmentId=${department.id}">Employees</a>
+                <a href="/getEmployees?departmentId=${department.departmentId}">Employees</a>
             </td>
         </tr>
 

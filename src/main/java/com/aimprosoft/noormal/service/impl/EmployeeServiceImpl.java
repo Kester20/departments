@@ -9,6 +9,7 @@ import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.model.Employee;
 import com.aimprosoft.noormal.service.EmployeeService;
 import com.aimprosoft.noormal.validator.CustomValidator;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,12 +26,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employeeDao = employeeDao;
     }
 
+    @Transactional(rollbackFor = DaoException.class)
     @Override
     public void saveEmployee(Employee employee) throws DaoException, ValidationException {
         CustomValidator.validate(employee);
         employeeDao.saveEntity(employee);
     }
 
+    @Transactional(rollbackFor = DaoException.class)
     @Override
     public void deleteEmployee(Employee employee) throws DaoException {
         employeeDao.deleteEntity(employee);
