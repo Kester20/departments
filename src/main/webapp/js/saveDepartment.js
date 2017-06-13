@@ -31,6 +31,7 @@ function showSavePage(department) {
         var id = department.departmentId;
     } else {
         name = "";
+        id = null;
     }
     var page = "<h2 align='center'>Enter new value</h2>";
 
@@ -43,7 +44,7 @@ function showSavePage(department) {
     page += '<tr class="noBorder">' + '<td colspan="2"><span class="errorText"></span></td></tr>';
     page += "</table>";
 
-    page += '<input type="hidden" name="departmentId" value="' + id + '">';
+    page += '<input type="hidden" name="departmentId" value="' + +id + '">';
     $('#app').empty();
     $('#app').append(page);
 }
