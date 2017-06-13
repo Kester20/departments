@@ -5,7 +5,6 @@ function getSavePage(id) {
         dataType: "json",
         data: "departmentId=" + id,
         success: function (result) {
-            $('#app').empty();
             showSavePage(result);
         }
     });
@@ -45,6 +44,7 @@ function showSavePage(department) {
     page += "</table>";
 
     page += '<input type="hidden" name="departmentId" value="' + id + '">';
+    $('#app').empty();
     $('#app').append(page);
 }
 
