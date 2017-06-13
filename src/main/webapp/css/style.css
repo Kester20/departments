@@ -11,6 +11,10 @@
     border: 0;
 }
 
+tr.hide > td, td.hide{
+    border:0;
+}
+
 .errorText {
     color:red;
 }
