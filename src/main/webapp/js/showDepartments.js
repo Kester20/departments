@@ -18,7 +18,6 @@ function showDepartments(collection) {
         '<th>' + 'Delete' + '</th>' +
         '<th>' + 'Employees' + '</th>';
 
-    var Delete = '<a href="/department/delete?departmentId=${department.departmentId}" class="x">X</a>';
     var employees = '<a href="/employee/getByDepartment?departmentId=${department.departmentId}">Employees</a>';
 
     $.each(collection, function (index, department) {
@@ -26,7 +25,7 @@ function showDepartments(collection) {
             '<td>' + (index + 1) + '</td>' +
             '<td>' + department.name + '</td>' +
             '<td>' + '<a href="" onclick="getSavePage(' + department.departmentId + ');return false;">Edit</a>' + '</td>' +
-            '<td>' + Delete + '</td>' +
+            '<td>' + '<a href="" onclick="deleteDepartment(' + department.departmentId + ');return false;" class="x">X</a>' + '</td>' +
             '<td>' + employees + '</td>' +
             '</tr>';
     });

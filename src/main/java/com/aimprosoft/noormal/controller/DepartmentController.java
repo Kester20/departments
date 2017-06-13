@@ -12,11 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
+import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_ID;
 
 /**
  * @author Arsalan
@@ -39,14 +41,14 @@ public class DepartmentController {
 
     @ResponseBody
     @RequestMapping("/getAll")
-    public List<Department> getAllDepartments(ModelMap modelMap) throws DaoException, JsonProcessingException {
-        List<Department> departments = departmentService.findDepartments();
-        return departments;
+    public List<Department> getAllDepartments() throws DaoException, JsonProcessingException {
+        return departmentService.findDepartments();
     }
 
+    @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public String saveDepartment() {
-        return SAVE_DEPARTMENT_PATH;
+    public Department saveDepartment(@RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException {
+        return departmentService.findOne(departmentId);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
