@@ -41,6 +41,7 @@ function showEmployeeSavePage(employee, departmentId) {
 
     var page = "<h2 align='center'>Enter new values</h2>";
 
+    page += '<form name="form">';
     page += "<table class='table' align='center' cellpadding='10'>";
     page += '<tr>' +
                 '<td><input type="text" name="name" placeholder="Name"  value="'+ name +'"></td>' +
@@ -55,9 +56,10 @@ function showEmployeeSavePage(employee, departmentId) {
                 '<td><input type="email" name="email" placeholder="Email"  value="'+ email +'"></td>' +
             '</tr>';
     page += '<tr>' +
-                '<td><input type="submit" value="Save" onclick="saveEmployee()"></td>' +
+                '<td><input type="submit" value="Save" onclick="validate(`employee`)"></td>' +
             '</tr>';
-    page += "</table>";
+    page += '</table>';
+    page += '</form>';
 
     page += '<input type="hidden" name="employeeId" value="' + employeeId + '">';
     page += '<input type="hidden" name="departmentId" value="' + departmentId + '">';

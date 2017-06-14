@@ -1,7 +1,6 @@
 function getFormatDate(date){
-    var dd = date.getDate();
-    var mm = date.getMonth()+1; //January is 0!
-    var yyyy = date.getFullYear();
-    var formatDate = yyyy + '-' + mm + '-' + dd;
-    return formatDate;
+    let dd = date.getDate();
+    let mm = date.getMonth() + 1;
+    let yyyy = date.getFullYear();
+    return yyyy + '-' + mm + '-' + dd;
 }

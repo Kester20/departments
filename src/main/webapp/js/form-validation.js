@@ -1,16 +1,26 @@
-$(function() {
-    $("form[name='departmentForm']").validate({
+function validate(item) {
+    $("form[name='form']").validate({
         rules: {
-            name: "required"
+            name: "required",
+            age: "required",
+            dateOfBirth: "required",
+            email: {
+                required: true,
+                email: true
+            }
         },
 
         messages: {
             name: "Please enter name"
         },
 
-        submitHandler: function(form) {
-            alert('ALERT');
-            saveDepartment();
+        submitHandler: function() {
+            if(item == "department"){
+                saveDepartment();
+            }else{
+                saveEmployee();
+            }
         }
     });
-});
+}
+

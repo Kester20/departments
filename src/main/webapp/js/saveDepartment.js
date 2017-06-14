@@ -31,12 +31,14 @@ function showDepartmentSavePage(department) {
 
     var page = "<h2 align='center'>Enter new value</h2>";
 
+    page += '<form name="form">';
     page += "<table class='table' align='center' cellpadding='10'>";
     page += '<tr>' +
                 '<td><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
-                '<td><button type="submit" onclick="saveDepartment()">Save</button></td>' +
+                '<td><button type="submit" onclick="validate(`department`)">Save</button></td>' +
             '</tr>';
     page += "</table>";
+    page += '</form>';
 
     page += '<input type="hidden" name="departmentId" value="' + id + '">';
 
