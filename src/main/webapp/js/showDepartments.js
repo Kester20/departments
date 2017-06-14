@@ -32,7 +32,7 @@ function showDepartments(collection) {
 
     table += '<tr>' +
         '<td>' + '<a href="javascript:history.back()">Go Back</a>' + '</td>' +
-        '<td colspan="2" class="hide"></td>' +
+        '<td colspan="2"></td>' +
         '<td colspan="2">' + '<a href="" onclick="showSavePage();return false;">Add new Department</a>' + '</td>' +
         '</tr>';
     table += "</table>";

@@ -13,11 +13,17 @@ function getSavePage(id) {
 function saveDepartment() {
     var name = $("input[name=name]").val();
     var id = $("input[name=departmentId]").val();
+    var params;
+    if ('undefined' == id) {
+        params = "name=" + name;
+    }else{
+        params = "name=" + name + "&departmentId=" + id;
+    }
     $.ajax({
         type: "POST",
         url: "/department/save",
         dataType: "html",
-        data: "name=" + name + "&departmentId=" + id,
+        data: params,
         success: function (result) {
             $('#app').empty();
             $('#app').append(result);
@@ -31,7 +37,6 @@ function showSavePage(department) {
         var id = department.departmentId;
     } else {
         name = "";
-        id = null;
     }
     var page = "<h2 align='center'>Enter new value</h2>";
 
@@ -44,7 +49,8 @@ function showSavePage(department) {
     page += '<tr class="noBorder">' + '<td colspan="2"><span class="errorText"></span></td></tr>';
     page += "</table>";
 
-    page += '<input type="hidden" name="departmentId" value="' + +id + '">';
+    page += '<input type="hidden" name="departmentId" value="' + id + '">';
+
     $('#app').empty();
     $('#app').append(page);
 }
