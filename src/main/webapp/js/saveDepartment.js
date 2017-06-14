@@ -30,13 +30,14 @@ function showDepartmentSavePage(department) {
     department != null ? (name = department.name, id = department.departmentId) : (name = "");
 
     var page = "<h2 align='center'>Enter new value</h2>";
+
     page += "<table class='table' align='center' cellpadding='10'>";
     page += '<tr>' +
                 '<td><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
-                '<td><input type="submit" value="Save" onclick="saveDepartment()"></td>' +
+                '<td><button type="submit" onclick="saveDepartment()">Save</button></td>' +
             '</tr>';
-    page += '<tr class="noBorder">' + '<td colspan="2"><span class="errorText"></span></td></tr>';
     page += "</table>";
+
     page += '<input type="hidden" name="departmentId" value="' + id + '">';
 
     app.empty();
