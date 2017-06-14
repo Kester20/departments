@@ -1,15 +1,3 @@
-function getEmployeeSavePage(id, departmentId) {
-    $.ajax({
-        type: "GET",
-        url: "/employee/save",
-        dataType: "json",
-        data: "employeeId=" + id,
-        success: function (result) {
-            showEmployeeSavePage(result, departmentId);
-        }
-    });
-}
-
 function saveEmployee() {
     var employeeId = $("input[name=employeeId]").val();
     var name = $("input[name=name]").val();
@@ -41,6 +29,30 @@ function saveEmployee() {
         success: function (result) {
             showEmployees(result);
         },
+    });
+}
+
+function deleteEmployee(employeeId, departmentId) {
+    $.ajax({
+        type: "POST",
+        url: "/employee/delete",
+        dataType: "json",
+        data: "employeeId=" + employeeId + "&departmentId=" + departmentId,
+        success: function (result) {
+            showEmployees(result);
+        }
+    });
+}
+
+function getEmployeeSavePage(id, departmentId) {
+    $.ajax({
+        type: "GET",
+        url: "/employee/save",
+        dataType: "json",
+        data: "employeeId=" + id,
+        success: function (result) {
+            showEmployeeSavePage(result, departmentId);
+        }
     });
 }
 
@@ -80,14 +92,3 @@ function showEmployeeSavePage(employee, departmentId) {
     $('#app').append(page);
 }
 
-function deleteEmployee(employeeId, departmentId) {
-    $.ajax({
-        type: "POST",
-        url: "/employee/delete",
-        dataType: "json",
-        data: "employeeId=" + employeeId + "&departmentId=" + departmentId,
-        success: function (result) {
-            showEmployees(result);
-        }
-    });
-}

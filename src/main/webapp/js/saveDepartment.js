@@ -1,15 +1,3 @@
-function getDepartmentSavePage(id) {
-    $.ajax({
-        type: "GET",
-        url: "/department/save",
-        dataType: "json",
-        data: "departmentId=" + id,
-        success: function (result) {
-            showDepartmentSavePage(result);
-        }
-    });
-}
-
 function saveDepartment() {
     var name = $("input[name=name]").val();
     var id = $("input[name=departmentId]").val();
@@ -24,6 +12,31 @@ function saveDepartment() {
             $('#app').empty();
             $('#app').append(result);
         },
+    });
+}
+
+function deleteDepartment(id) {
+    $.ajax({
+        type: "POST",
+        url: "/department/delete",
+        dataType: "html",
+        data: "departmentId=" + id,
+        success: function (result) {
+            $('#app').empty();
+            $('#app').append(result);
+        },
+    });
+}
+
+function getDepartmentSavePage(id) {
+    $.ajax({
+        type: "GET",
+        url: "/department/save",
+        dataType: "json",
+        data: "departmentId=" + id,
+        success: function (result) {
+            showDepartmentSavePage(result);
+        }
     });
 }
 
@@ -47,15 +60,3 @@ function showDepartmentSavePage(department) {
     $('#app').append(page);
 }
 
-function deleteDepartment(id) {
-    $.ajax({
-        type: "POST",
-        url: "/department/delete",
-        dataType: "html",
-        data: "departmentId=" + id,
-        success: function (result) {
-            $('#app').empty();
-            $('#app').append(result);
-        },
-    });
-}
