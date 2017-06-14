@@ -1,46 +1,31 @@
 function saveDepartment() {
-    var name = $("input[name=name]").val();
-    var id = $("input[name=departmentId]").val();
+    var app = $('#app');
+    var name = $('input[name=name]').val();
+    var id = $('input[name=departmentId]').val();
     var params;
     id == 'undefined' ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
-    $.ajax({
-        type: "POST",
-        url: "/department/save",
-        dataType: "html",
-        data: params,
-        success: function (result) {
-            $('#app').empty();
-            $('#app').append(result);
-        },
+    sendRequest("POST", "/department/save", "html", params, function (result) {
+        app.empty();
+        app.append(result);
     });
 }
 
 function deleteDepartment(id) {
-    $.ajax({
-        type: "POST",
-        url: "/department/delete",
-        dataType: "html",
-        data: "departmentId=" + id,
-        success: function (result) {
-            $('#app').empty();
-            $('#app').append(result);
-        },
+    var app = $('#app');
+    sendRequest("POST", "/department/delete", "html", "departmentId=" + id, function (result) {
+        app.empty();
+        app.append(result);
     });
 }
 
 function getDepartmentSavePage(id) {
-    $.ajax({
-        type: "GET",
-        url: "/department/save",
-        dataType: "json",
-        data: "departmentId=" + id,
-        success: function (result) {
-            showDepartmentSavePage(result);
-        }
+    sendRequest("GET", "/department/save", "json", "departmentId=" + id, function (result) {
+        showDepartmentSavePage(result);
     });
 }
 
 function showDepartmentSavePage(department) {
+    var app = $('#app');
     var name, id;
     department != null ? (name = department.name, id = department.departmentId) : (name = "");
 
@@ -50,13 +35,11 @@ function showDepartmentSavePage(department) {
                 '<td><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
                 '<td><input type="submit" value="Save" onclick="saveDepartment()"></td>' +
             '</tr>';
-
     page += '<tr class="noBorder">' + '<td colspan="2"><span class="errorText"></span></td></tr>';
     page += "</table>";
-
     page += '<input type="hidden" name="departmentId" value="' + id + '">';
 
-    $('#app').empty();
-    $('#app').append(page);
+    app.empty();
+    app.append(page);
 }
 

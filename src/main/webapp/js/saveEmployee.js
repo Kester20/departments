@@ -5,58 +5,32 @@ function saveEmployee() {
     var dateOfBirth = $("input[name=dateOfBirth]").val();
     var email = $("input[name=email]").val();
     var departmentId = $("input[name=departmentId]").val();
+    var params = "";
 
-    var params;
-    employeeId == 'undefined' ?
-            (params="name=" + name +
-            "&age=" + age +
-            "&dateOfBirth=" + dateOfBirth +
-            "&email=" + email +
-            "&departmentId=" + departmentId)
-            :
-            (params="employeeId=" + employeeId +
-            "&name=" + name +
-            "&age=" + age +
-            "&dateOfBirth=" + dateOfBirth +
-            "&email=" + email +
-            "&departmentId=" + departmentId);
+    if(employeeId != 'undefined'){
+        params="employeeId=" + employeeId + "&";
+    }
+    params+="name=" + name + "&age=" + age + "&dateOfBirth=" + dateOfBirth + "&email=" + email + "&departmentId=" + departmentId;
 
-    $.ajax({
-        type: "POST",
-        url: "/employee/save",
-        dataType: "json",
-        data: params,
-        success: function (result) {
-            showEmployees(result);
-        },
-    });
+    sendRequest("POST", "/employee/save", "json", params, function (result) {
+        showEmployees(result);
+    })
 }
 
 function deleteEmployee(employeeId, departmentId) {
-    $.ajax({
-        type: "POST",
-        url: "/employee/delete",
-        dataType: "json",
-        data: "employeeId=" + employeeId + "&departmentId=" + departmentId,
-        success: function (result) {
-            showEmployees(result);
-        }
-    });
+    sendRequest("POST", "/employee/delete", "json", "employeeId=" + employeeId + "&departmentId=" + departmentId, function (result) {
+        showEmployees(result);
+    })
 }
 
 function getEmployeeSavePage(id, departmentId) {
-    $.ajax({
-        type: "GET",
-        url: "/employee/save",
-        dataType: "json",
-        data: "employeeId=" + id,
-        success: function (result) {
-            showEmployeeSavePage(result, departmentId);
-        }
+    sendRequest("GET", "/employee/save", "json", "employeeId=" + id, function (result) {
+       showEmployeeSavePage(result, departmentId);
     });
 }
 
 function showEmployeeSavePage(employee, departmentId) {
+    var app = $('#app');
     var employeeId, name, age, birth, email;
     employee != null ? (
             employeeId = employee.employeeId,
@@ -88,7 +62,7 @@ function showEmployeeSavePage(employee, departmentId) {
     page += '<input type="hidden" name="employeeId" value="' + employeeId + '">';
     page += '<input type="hidden" name="departmentId" value="' + departmentId + '">';
 
-    $('#app').empty();
-    $('#app').append(page);
+    app.empty();
+    app.append(page);
 }
 

@@ -2,18 +2,13 @@ var departmentId;
 
 function getEmployees(id) {
     departmentId = id;
-    $.ajax({
-        type: "GET",
-        url: "/employee/getByDepartment",
-        data: "departmentId=" + id,
-        dataType: "json",
-        success: function (result) {
-            showEmployees(result);
-        }
+    sendRequest("GET", "/employee/getByDepartment", "json", "departmentId=" + id, function (result) {
+        showEmployees(result);
     });
 }
 
 function showEmployees(collection) {
+    var app = $('#app');
     var table = "<table>";
     table +=
         '<th>' + '#' + '</th>' +
@@ -49,6 +44,6 @@ function showEmployees(collection) {
     table += "</table>";
 
     table = $(table).attr({cellSpacing: 10, border: 1, align: 'center'}).addClass('table');
-    $('#app').empty();
-    $('#app').append(table);
+    app.empty();
+    app.append(table);
 }

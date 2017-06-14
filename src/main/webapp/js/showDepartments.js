@@ -1,15 +1,11 @@
 $( document ).ready(function() {
-    $.ajax({
-        type: "GET",
-        url: "/department/getAll",
-        dataType: "json",
-        success: function (result) {
-            showDepartments(result);
-        }
+    sendRequest("GET", "/department/getAll", "json", null, function (result) {
+        showDepartments(result);
     });
 });
 
 function showDepartments(collection) {
+    var app = $('#app');
     var table = "<table>";
     table +=
         '<th>' + '#' + '</th>' +
@@ -36,5 +32,5 @@ function showDepartments(collection) {
     table += "</table>";
 
     table = $(table).attr({cellSpacing: 10, border: 1, align: 'center'}).addClass('table');
-    $('#app').append(table);
+    app.append(table);
 }
