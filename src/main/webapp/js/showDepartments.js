@@ -18,22 +18,20 @@ function showDepartments(collection) {
         '<th>' + 'Delete' + '</th>' +
         '<th>' + 'Employees' + '</th>';
 
-    var employees = '<a href="/employee/getByDepartment?departmentId=${department.departmentId}">Employees</a>';
-
     $.each(collection, function (index, department) {
         table += '<tr>' +
             '<td>' + (index + 1) + '</td>' +
             '<td>' + department.name + '</td>' +
-            '<td>' + '<a href="" onclick="getSavePage(' + department.departmentId + ');return false;">Edit</a>' + '</td>' +
+            '<td>' + '<a href="" onclick="getDepartmentSavePage(' + department.departmentId + ');return false;">Edit</a>' + '</td>' +
             '<td>' + '<a href="" onclick="deleteDepartment(' + department.departmentId + ');return false;" class="x">X</a>' + '</td>' +
-            '<td>' + employees + '</td>' +
+            '<td>' + '<a href="" onclick="getEmployees(' + department.departmentId + '); return false;">Employees</a>' + '</td>' +
             '</tr>';
     });
 
     table += '<tr>' +
         '<td>' + '<a href="javascript:history.back()">Go Back</a>' + '</td>' +
         '<td colspan="2"></td>' +
-        '<td colspan="2">' + '<a href="" onclick="showSavePage();return false;">Add new Department</a>' + '</td>' +
+        '<td colspan="2">' + '<a href="" onclick="showDepartmentSavePage();return false;">Add new Department</a>' + '</td>' +
         '</tr>';
     table += "</table>";
 

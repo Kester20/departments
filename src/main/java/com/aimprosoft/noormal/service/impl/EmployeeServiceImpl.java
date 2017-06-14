@@ -43,4 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findEmployeesByDepartment(Department department) throws DaoException {
         return employeeDao.findEmployeesByDepartment(department);
     }
+
+    @Override
+    public Employee findOne(Long employeeId) throws DaoException {
+        return employeeDao.findOne(employeeId);
+    }
 }

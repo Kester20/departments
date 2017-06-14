@@ -8,6 +8,9 @@
     <script src="/js/jquery-3.2.1.js"></script>
     <script src="/js/showDepartments.js" type="text/javascript"></script>
     <script src="/js/saveDepartment.js" type="text/javascript"></script>
+    <script src="/js/showEmployees.js" type="text/javascript"></script>
+    <script src="/js/saveEmployee.js" type="text/javascript"></script>
+    <script src="/js/util.js" type="text/javascript"></script>
 </head>
 <body>
 

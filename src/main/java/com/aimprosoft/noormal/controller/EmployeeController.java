@@ -7,30 +7,17 @@ import com.aimprosoft.noormal.model.Employee;
 import com.aimprosoft.noormal.service.DepartmentService;
 import com.aimprosoft.noormal.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
 
-import static com.aimprosoft.noormal.util.Constants.Pathways.EMPLOYEES_PATH;
 import static com.aimprosoft.noormal.util.Constants.Pathways.GET_EMPLOYEES_BY_DEPARTMENT;
-import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.AGE;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DATE_FORMAT;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DATE_OF_BIRTH;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_ID;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMAIL;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEES;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_FORM;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_ID;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 
 /**
  * @author Arsalan
@@ -48,24 +35,23 @@ public class EmployeeController {
         this.departmentService = departmentService;
     }
 
+    @ResponseBody
     @RequestMapping("/getByDepartment")
-    public String getByDepartment(ModelMap modelMap, Department department) throws DaoException {
-        List<Employee> employees = employeeService.findEmployeesByDepartment(department);
-        modelMap.addAttribute(EMPLOYEES, employees);
-        return EMPLOYEES_PATH;
+    public List<Employee> getByDepartment(Department department) throws DaoException {
+        return employeeService.findEmployeesByDepartment(department);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public String saveEmployee(ModelMap modelMap) {
-        modelMap.addAttribute(EMPLOYEE_FORM, new Employee());
-        return SAVE_EMPLOYEE_PATH;
+    public Employee saveEmployee(@RequestParam(EMPLOYEE_ID) Long employeeId) throws DaoException {
+        return employeeService.findOne(employeeId);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveEmployee(@RequestParam(DEPARTMENT_ID) Long departmentId,
-                               @ModelAttribute(EMPLOYEE_FORM) Employee employee) throws DaoException, ValidationException {
+    public String saveEmployee(Employee employee,
+                               @RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException, ValidationException {
         Department department = departmentService.findOne(departmentId);
-        if(department != null){
+        if (department != null) {
             employee.setDepartment(department);
             employeeService.saveEmployee(employee);
         }
