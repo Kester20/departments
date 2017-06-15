@@ -29,14 +29,14 @@ function showDepartmentSavePage(department) {
     let name, id;
     department != null ? (name = department.name, id = department.departmentId) : (name = "");
 
-    let page = $('<h2</h2>').text('Enter new value').attr('align', 'center');
+    let page = $('<h2></h2>').text('Enter new value').attr('align', 'center');
 
     let form = $('<form></form>').attr('name', 'form');
     let table = $('<table></table>').addClass('table').attr({align:'center', cellpadding: 10});
     table.append('<tr>' +
-                '<td><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
-                '<td><button type="submit" onclick="validate(`department`)">Save</button></td>' +
-            '</tr>');
+                    '<td><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
+                    '<td><button type="submit" onclick="validate(`department`)">Save</button></td>' +
+                '</tr>');
     form.append(table);
 
     page.append(form);
