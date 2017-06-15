@@ -1,11 +1,11 @@
 function saveEmployee() {
-    var employeeId = $("input[name=employeeId]").val();
-    var name = $("input[name=name]").val();
-    var age = $("input[name=age]").val();
-    var dateOfBirth = $("input[name=dateOfBirth]").val();
-    var email = $("input[name=email]").val();
-    var departmentId = $("input[name=departmentId]").val();
-    var params = "";
+    let employeeId = $("input[name=employeeId]").val();
+    let name = $("input[name=name]").val();
+    let age = $("input[name=age]").val();
+    let dateOfBirth = $("input[name=dateOfBirth]").val();
+    let email = $("input[name=email]").val();
+    let departmentId = $("input[name=departmentId]").val();
+    let params = "";
 
     if(employeeId != 'undefined'){
         params="employeeId=" + employeeId + "&";
@@ -30,8 +30,8 @@ function getEmployeeSavePage(id, departmentId) {
 }
 
 function showEmployeeSavePage(employee, departmentId) {
-    var app = $('#app');
-    var employeeId, name, age, birth, email;
+    let app = $('#app');
+    let employeeId, name, age, birth, email;
     employee != null ? (
             employeeId = employee.employeeId,
             name = employee.name,
@@ -39,30 +39,31 @@ function showEmployeeSavePage(employee, departmentId) {
             birth = getFormatDate(new Date(employee.dateOfBirth)),
             email = employee.email) : (name = "", age = "", birth = "", email = "");
 
-    var page = "<h2 align='center'>Enter new values</h2>";
+    let page = $('<h2></h2>').text('Enter new values').attr('align', 'center');
 
-    page += '<form name="form">';
-    page += "<table class='table' align='center' cellpadding='10'>";
-    page += '<tr>' +
-                '<td><input type="text" name="name" placeholder="Name"  value="'+ name +'"></td>' +
-            '</tr>';
-    page += '<tr>' +
-                '<td><input type="number" name="age" placeholder="Age"  value="'+ age +'"></td>' +
-            '</tr>';
-    page += '<tr>' +
-                '<td><input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="'+ birth +'"></td>' +
-            '</tr>';
-    page += '<tr>' +
-                '<td><input type="email" name="email" placeholder="Email"  value="'+ email +'"></td>' +
-            '</tr>';
-    page += '<tr>' +
-                '<td><input type="submit" value="Save" onclick="validate(`employee`)"></td>' +
-            '</tr>';
-    page += '</table>';
-    page += '</form>';
+    let form = $('<form></form>').attr('name', 'form');
+    let table = $('<table></table>').addClass('table').attr({align: 'center', cellpadding: 10});
+    table.append('<tr>' +
+                    '<td><input type="text" name="name" placeholder="Name"  value="'+ name +'"></td>' +
+                '</tr>');
+    table.append('<tr>' +
+                    '<td><input type="number" name="age" placeholder="Age"  value="'+ age +'"></td>' +
+                '</tr>');
+    table.append('<tr>' +
+                    '<td><input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="'+ birth +'"></td>' +
+                '</tr>');
+    table.append('<tr>' +
+                    '<td><input type="email" name="email" placeholder="Email"  value="'+ email +'"></td>' +
+                '</tr>');
+    table.append('<tr>' +
+                    '<td><input type="submit" value="Save" onclick="validate(`employee`)"></td>' +
+                '</tr>');
 
-    page += '<input type="hidden" name="employeeId" value="' + employeeId + '">';
-    page += '<input type="hidden" name="departmentId" value="' + departmentId + '">';
+    form.append(table);
+    page.append(form);
+
+    page.append('<input type="hidden" name="employeeId" value="' + employeeId + '">');
+    page.append('<input type="hidden" name="departmentId" value="' + departmentId + '">');
 
     app.empty();
     app.append(page);

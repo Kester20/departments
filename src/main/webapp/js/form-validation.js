@@ -11,7 +11,13 @@ function validate(item) {
         },
 
         messages: {
-            name: "Please enter name"
+            name: "Please enter name",
+            age: "Please enter age",
+            dateOfBirth: "Please enter date of birth",
+            email: {
+                required: "Please enter email",
+                email: "Please enter valid email"
+            }
         },
 
         submitHandler: function() {

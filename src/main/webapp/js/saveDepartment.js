@@ -1,8 +1,8 @@
 function saveDepartment() {
-    var app = $('#app');
-    var name = $('input[name=name]').val();
-    var id = $('input[name=departmentId]').val();
-    var params;
+    let app = $('#app');
+    let name = $('input[name=name]').val();
+    let id = $('input[name=departmentId]').val();
+    let params;
     id == 'undefined' ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
     sendRequest("POST", "/department/save", "html", params, function (result) {
         app.empty();
@@ -11,7 +11,7 @@ function saveDepartment() {
 }
 
 function deleteDepartment(id) {
-    var app = $('#app');
+    let app = $('#app');
     sendRequest("POST", "/department/delete", "html", "departmentId=" + id, function (result) {
         app.empty();
         app.append(result);
@@ -25,22 +25,22 @@ function getDepartmentSavePage(id) {
 }
 
 function showDepartmentSavePage(department) {
-    var app = $('#app');
-    var name, id;
+    let app = $('#app');
+    let name, id;
     department != null ? (name = department.name, id = department.departmentId) : (name = "");
 
-    var page = "<h2 align='center'>Enter new value</h2>";
+    let page = $('<h2</h2>').text('Enter new value').attr('align', 'center');
 
-    page += '<form name="form">';
-    page += "<table class='table' align='center' cellpadding='10'>";
-    page += '<tr>' +
+    let form = $('<form></form>').attr('name', 'form');
+    let table = $('<table></table>').addClass('table').attr({align:'center', cellpadding: 10});
+    table.append('<tr>' +
                 '<td><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
                 '<td><button type="submit" onclick="validate(`department`)">Save</button></td>' +
-            '</tr>';
-    page += "</table>";
-    page += '</form>';
+            '</tr>');
+    form.append(table);
 
-    page += '<input type="hidden" name="departmentId" value="' + id + '">';
+    page.append(form);
+    page.append('<input type="hidden" name="departmentId" value="' + id + '">');
 
     app.empty();
     app.append(page);

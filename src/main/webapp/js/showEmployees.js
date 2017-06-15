@@ -1,4 +1,4 @@
-var departmentId;
+let departmentId;
 
 function getEmployees(id) {
     departmentId = id;
@@ -8,19 +8,19 @@ function getEmployees(id) {
 }
 
 function showEmployees(collection) {
-    var app = $('#app');
-    var table = "<table>";
-    table +=
-        '<th>' + '#' + '</th>' +
-        '<th>' + 'Name' + '</th>' +
-        '<th>' + 'Age' + '</th>' +
-        '<th>' + 'Birthday' + '</th>' +
-        '<th>' + 'Email' + '</th>' +
-        '<th>' + 'Edit' + '</th>' +
-        '<th>' + 'Delete' + '</th>';
+    let app = $('#app');
+    let table = $('<table></table>').addClass('table').attr({cellSpacing: 10, border: 1, align: 'center'});
+
+    table.append('<th>' + '#' + '</th>');
+    table.append('<th>' + 'Name' + '</th>');
+    table.append('<th>' + 'Age' + '</th>');
+    table.append('<th>' + 'Birthday' + '</th>');
+    table.append('<th>' + 'Email' + '</th>');
+    table.append('<th>' + 'Edit' + '</th>');
+    table.append('<th>' + 'Delete' + '</th>');
 
     $.each(collection, function (index, employee) {
-        table += '<tr>' +
+        table.append('<tr>' +
             '<td>' + (index + 1) + '</td>' +
             '<td>' + employee.name + '</td>' +
             '<td>' + employee.age + '</td>' +
@@ -33,17 +33,15 @@ function showEmployees(collection) {
             '<td>' + '<a href="" onclick="deleteEmployee(' + employee.employeeId + ', ' + departmentId +');' +
                 'return false;" class="x">X</a>' +
             '</td>' +
-            '</tr>';
+            '</tr>');
     });
 
-    table += '<tr>' +
+    table.append('<tr>' +
         '<td>' + '<a href="javascript:history.back()">Go Back</a>' + '</td>' +
         '<td colspan="3"></td>' +
         '<td colspan="3">' + '<a href="" onclick="showEmployeeSavePage(null, '+ departmentId +');return false;">Add new Employee</a>' + '</td>' +
-        '</tr>';
-    table += "</table>";
+        '</tr>');
 
-    table = $(table).attr({cellSpacing: 10, border: 1, align: 'center'}).addClass('table');
     app.empty();
     app.append(table);
 }
