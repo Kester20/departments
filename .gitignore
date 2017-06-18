@@ -15,3 +15,7 @@ target/
 *.iml
 *.ipr
 /.idea/
+src/main/webapp/js/jqueryValidation/
+
+src/main/webapp/js/bundle.js
+src/main/webapp/node_modules

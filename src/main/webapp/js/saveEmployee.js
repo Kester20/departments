@@ -1,4 +1,8 @@
-function saveEmployee() {
+import sendRequest from "./controller";
+import getFormatDate from "./util";
+import {showEmployees} from "./showEmployees";
+
+export default function saveEmployee() {
     let employeeId = $("input[name=employeeId]").val();
     let name = $("input[name=name]").val();
     let age = $("input[name=age]").val();
@@ -17,19 +21,19 @@ function saveEmployee() {
     })
 }
 
-function deleteEmployee(employeeId, departmentId) {
+export function deleteEmployee(employeeId, departmentId) {
     sendRequest("POST", "/employee/delete", "json", "employeeId=" + employeeId + "&departmentId=" + departmentId, function (result) {
         showEmployees(result);
     })
 }
 
-function getEmployeeSavePage(id, departmentId) {
+export function getEmployeeSavePage(id, departmentId) {
     sendRequest("GET", "/employee/save", "json", "employeeId=" + id, function (result) {
        showEmployeeSavePage(result, departmentId);
     });
 }
 
-function showEmployeeSavePage(employee, departmentId) {
+export function showEmployeeSavePage(employee, departmentId) {
     let app = $('#app');
     let employeeId, name, age, birth, email;
     employee != null ? (
@@ -44,20 +48,28 @@ function showEmployeeSavePage(employee, departmentId) {
     let form = $('<form></form>').attr('name', 'form');
     let table = $('<table></table>').addClass('table').attr({align: 'center', cellpadding: 10});
     table.append('<tr>' +
-                    '<td><input type="text" name="name" placeholder="Name"  value="'+ name +'"></td>' +
+                    '<td colspan="2"><input type="text" name="name" placeholder="Name"  value="'+ name +'"></td>' +
                 '</tr>');
     table.append('<tr>' +
-                    '<td><input type="number" name="age" placeholder="Age"  value="'+ age +'"></td>' +
+                    '<td colspan="2"><input type="number" name="age" placeholder="Age"  value="'+ age +'"></td>' +
                 '</tr>');
     table.append('<tr>' +
-                    '<td><input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="'+ birth +'"></td>' +
+                    '<td colspan="2"><input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="'+ birth +'"></td>' +
                 '</tr>');
     table.append('<tr>' +
-                    '<td><input type="email" name="email" placeholder="Email"  value="'+ email +'"></td>' +
+                    '<td colspan="2"><input type="email" name="email" placeholder="Email"  value="'+ email +'"></td>' +
                 '</tr>');
-    table.append('<tr>' +
-                    '<td><input type="submit" value="Save" onclick="validate(`employee`)"></td>' +
-                '</tr>');
+
+    let save = $('<button></button>').text('Save');
+    save.delegate(this, 'click', function () {
+        //validate(`employee`);
+        saveEmployee();
+        return false;
+    });
+
+    table.append($('<tr>')
+        .append($('<td>' + '<a href="javascript:history.back()">Go Back</a>' + '</td>'))
+        .append($('<td></td>').append(save)));
 
     form.append(table);
     page.append(form);

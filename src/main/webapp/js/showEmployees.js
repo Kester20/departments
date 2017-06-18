@@ -1,13 +1,19 @@
+import sendRequest from "./controller";
+import getFormatDate from "./util";
+import {getEmployeeSavePage} from "./saveEmployee";
+import {deleteEmployee} from "./saveEmployee";
+import {showEmployeeSavePage} from "./saveEmployee";
+
 let departmentId;
 
-function getEmployees(id) {
+export default function getEmployees(id) {
     departmentId = id;
     sendRequest("GET", "/employee/getByDepartment", "json", "departmentId=" + id, function (result) {
         showEmployees(result);
     });
 }
 
-function showEmployees(collection) {
+export function showEmployees(collection) {
     let app = $('#app');
     let table = $('<table></table>').addClass('table').attr({cellSpacing: 10, border: 1, align: 'center'});
 
@@ -20,27 +26,41 @@ function showEmployees(collection) {
     table.append('<th>' + 'Delete' + '</th>');
 
     $.each(collection, function (index, employee) {
-        table.append('<tr>' +
-            '<td>' + (index + 1) + '</td>' +
-            '<td>' + employee.name + '</td>' +
-            '<td>' + employee.age + '</td>' +
-            '<td>' + getFormatDate(new Date(employee.dateOfBirth)) + '</td>' +
-            '<td>' + employee.email + '</td>' +
-            '<td>' +
-                '<a href="" onclick="getEmployeeSavePage(' + employee.employeeId + ', ' + departmentId +');' +
-                'return false;">Edit</a>' +
-            '</td>' +
-            '<td>' + '<a href="" onclick="deleteEmployee(' + employee.employeeId + ', ' + departmentId +');' +
-                'return false;" class="x">X</a>' +
-            '</td>' +
-            '</tr>');
+        let tr = $('<tr></tr>');
+        tr.append($('<td></td>').text(index + 1));
+        tr.append($('<td></td>').text(employee.name));
+        tr.append($('<td></td>').text(employee.age));
+        tr.append($('<td></td>').text(getFormatDate(new Date(employee.dateOfBirth))));
+        tr.append($('<td></td>').text(employee.email));
+
+        let edit = $('<a></a>').text('Edit').addClass('edit').css( 'cursor', 'pointer' );
+        edit.delegate(this, 'click', function () {
+            getEmployeeSavePage(employee.employeeId, departmentId);
+            return false;
+        });
+        tr.append($('<td></td>').append(edit));
+
+        let deleteEmp = $('<a></a>').text('X').addClass('x').css( 'cursor', 'pointer' );;
+        deleteEmp.delegate(this, 'click', function () {
+            deleteEmployee(employee.employeeId, departmentId);
+            return false;
+        });
+        tr.append($('<td></td>').append(deleteEmp));
+
+        table.append(tr);
     });
 
-    table.append('<tr>' +
-        '<td>' + '<a href="javascript:history.back()">Go Back</a>' + '</td>' +
-        '<td colspan="3"></td>' +
-        '<td colspan="3">' + '<a href="" onclick="showEmployeeSavePage(null, '+ departmentId +');return false;">Add new Employee</a>' + '</td>' +
-        '</tr>');
+    let tr = $('<tr></tr>')
+        .append($('<td></td>').append('<a href="javascript:history.back()">Go Back</a>'))
+        .append('<td colspan="3"></td>');
+
+    let add = $('<a></a>').text('Add new Employee').addClass('add').css('cursor', 'pointer');
+    add.delegate(this, 'click', function () {
+        showEmployeeSavePage(null, departmentId);
+        return false;
+    });
+    tr.append($('<td colspan="3"></td>').append(add));
+    table.append(tr);
 
     app.empty();
     app.append(table);

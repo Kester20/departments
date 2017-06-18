@@ -1,4 +1,4 @@
-function sendRequest(method, url, dataType, data, success) {
+export default function sendRequest(method, url, dataType, data, success) {
     $.ajax({
         type: method,
         url: url,

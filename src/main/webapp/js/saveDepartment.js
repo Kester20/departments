@@ -1,4 +1,7 @@
-function saveDepartment() {
+import sendRequest from "./controller";
+import validate from "./form-validation";
+
+export default function saveDepartment() {
     let app = $('#app');
     let name = $('input[name=name]').val();
     let id = $('input[name=departmentId]').val();
@@ -10,7 +13,7 @@ function saveDepartment() {
     });
 }
 
-function deleteDepartment(id) {
+export function deleteDepartment(id) {
     let app = $('#app');
     sendRequest("POST", "/department/delete", "html", "departmentId=" + id, function (result) {
         app.empty();
@@ -18,13 +21,13 @@ function deleteDepartment(id) {
     });
 }
 
-function getDepartmentSavePage(id) {
+export function getDepartmentSavePage(id) {
     sendRequest("GET", "/department/save", "json", "departmentId=" + id, function (result) {
         showDepartmentSavePage(result);
     });
 }
 
-function showDepartmentSavePage(department) {
+export function showDepartmentSavePage(department) {
     let app = $('#app');
     let name, id;
     department != null ? (name = department.name, id = department.departmentId) : (name = "");
@@ -34,9 +37,19 @@ function showDepartmentSavePage(department) {
     let form = $('<form></form>').attr('name', 'form');
     let table = $('<table></table>').addClass('table').attr({align:'center', cellpadding: 10});
     table.append('<tr>' +
-                    '<td><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
-                    '<td><button type="submit" onclick="validate(`department`)">Save</button></td>' +
+                    '<td colspan="2"><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
                 '</tr>');
+
+    let save = $('<button></button>').text('Save');
+    save.delegate(this, 'click', function () {
+        //validate(`department`);
+        saveDepartment();
+        return false;
+    });
+
+    table.append($('<tr>')
+                .append($('<td>' + '<a href="javascript:history.back()">Go Back</a>' + '</td>'))
+                .append($('<td></td>').append(save)));
     form.append(table);
 
     page.append(form);

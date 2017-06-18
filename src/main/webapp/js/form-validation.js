@@ -1,4 +1,6 @@
-function validate(item) {
+import saveDepartment from "./saveDepartment";
+
+export default function validate(item) {
     $("form[name='form']").validate({
         rules: {
             name: "required",
