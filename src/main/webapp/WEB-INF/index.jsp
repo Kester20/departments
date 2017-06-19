@@ -4,7 +4,6 @@
 <html>
 <head>
     <title>Main page</title>
-    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
     <script src="/js/bundle.js"></script>
 </head>
 <body>
