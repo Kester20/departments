@@ -1,4 +1,5 @@
 import saveDepartment from "./saveDepartment";
+import saveEmployee from "./saveEmployee";
 
 export default function validate(item) {
     $("form[name='form']").validate({
@@ -23,9 +24,9 @@ export default function validate(item) {
         },
 
         submitHandler: function() {
-            if(item == "department"){
+            if(item == "department") {
                 saveDepartment();
-            }else{
+            }else {
                 saveEmployee();
             }
         }

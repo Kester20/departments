@@ -40,11 +40,9 @@ export function showDepartmentSavePage(department) {
                     '<td colspan="2"><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
                 '</tr>');
 
-    let save = $('<button></button>').text('Save');
+    let save = $('<button type="submit"></button>').text('Save');
     save.delegate(this, 'click', function () {
-        //validate(`department`);
-        saveDepartment();
-        return false;
+        validate(`department`);
     });
 
     table.append($('<tr>')

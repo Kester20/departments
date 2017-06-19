@@ -9,12 +9,14 @@
     "webpack": "^2.6.1"
   },
   "devDependencies": {
+    "imports-loader": "^0.7.1",
     "jquery": "^3.2.1",
-    "jquery-validation": "^1.16.0"
+    "jquery-validation": "^1.16.0",
+    "validation": "0.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules/.bin/webpack --config webpack.config.js"
+    "start": "node_modules/.bin/webpack --config webpack.config.js --watch"
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,8 @@
 import sendRequest from "./controller";
 import getFormatDate from "./util";
+import validate from "./form-validation";
 import {showEmployees} from "./showEmployees";
+
 
 export default function saveEmployee() {
     let employeeId = $("input[name=employeeId]").val();
@@ -60,11 +62,9 @@ export function showEmployeeSavePage(employee, departmentId) {
                     '<td colspan="2"><input type="email" name="email" placeholder="Email"  value="'+ email +'"></td>' +
                 '</tr>');
 
-    let save = $('<button></button>').text('Save');
+    let save = $('<button type="submit"></button>').text('Save');
     save.delegate(this, 'click', function () {
-        //validate(`employee`);
-        saveEmployee();
-        return false;
+        validate(`employee`);
     });
 
     table.append($('<tr>')

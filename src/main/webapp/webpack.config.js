@@ -1,15 +1,14 @@
-/**
- * Created by Arsalan on 17.06.2017.
- */
+"use strict";
+
 const path = require("path");
 let webpack = require("webpack");
 
 const PATHS = {
-    source: path.join(__dirname, '\\')
+    source: path.join(__dirname, '/')
 }
 
 module.exports = {
-    entry: PATHS.source + "js\\index.js",
+    entry: PATHS.source + "js/index.js",
     output: {
         path: PATHS.source + "js",
         filename: "bundle.js"
@@ -18,7 +17,9 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({
             $: "jquery",
-            jQuery: "jquery"
+            jQuery: "jquery",
+            'window.$': "jquery",
+            'window.jQuery': "jquery"
         })
-    ]
+    ],
 }
