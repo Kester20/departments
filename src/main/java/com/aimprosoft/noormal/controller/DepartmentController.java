@@ -54,12 +54,12 @@ public class DepartmentController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveDepartment(Department department) throws DaoException, ValidationException {
         departmentService.saveDepartment(department);
-        return "redirect:/";
+        return "redirect:/getAll";
     }
 
     @RequestMapping("/delete")
     public String deleteDepartment(Department department) throws DaoException {
         departmentService.deleteDepartment(department);
-        return "redirect:/";
+        return "redirect:/getAll";
     }
 }
