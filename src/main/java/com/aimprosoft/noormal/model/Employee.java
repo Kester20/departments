@@ -21,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
 
+import static com.aimprosoft.noormal.util.Constants.Messages.MUST_BE_LESS_THEN_30;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DATE_FORMAT;
 
 /**
@@ -33,6 +34,7 @@ public class Employee {
     private Long employeeId;
     @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @Length(max = 30, message = MUST_BE_LESS_THEN_30)
     private String name;
 
     @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
@@ -47,7 +49,7 @@ public class Employee {
     @CheckWith(value = EmployeeUniqueEmailValidator.class, message = Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
     @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
-    @Length(max = 30)
+    @Length(max = 30, message = MUST_BE_LESS_THEN_30)
     private String email;
 
     private Department department;

@@ -35,7 +35,10 @@ export default class EmployeeService {
                 },
                 function (result) {
                     let json_response = result.responseJSON;
-                    $("#error").text(json_response.email);
+                    $("#errorName").text(json_response.name);
+                    $("#errorAge").text(json_response.age);
+                    $("#errorDateOfBirth").text(json_response.dateOfBirth);
+                    $("#errorEmail").text(json_response.email);
                 })
         }
     }

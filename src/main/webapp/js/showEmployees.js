@@ -120,14 +120,32 @@ export default class EmployeePageRender {
             '<tr>' +
             '<td colspan="2"><input type="text" name="name" placeholder="Name"  value="' + name + '"></td>' +
             '</tr>');
+
+        table.append(
+            '<tr class="noBorder">' +
+            '<td colspan="2"><span id="errorName" class="errorText"></span> </td>' +
+            '</tr>');
+
         table.append(
             '<tr>' +
             '<td colspan="2"><input type="number" name="age" placeholder="Age"  value="' + age + '"></td>' +
             '</tr>');
+
+        table.append(
+            '<tr class="noBorder">' +
+            '<td colspan="2"><span id="errorAge" class="errorText"></span> </td>' +
+            '</tr>');
+
         table.append(
             '<tr>' +
             '<td colspan="2"><input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="' + birth + '"></td>' +
             '</tr>');
+
+        table.append(
+            '<tr class="noBorder">' +
+            '<td colspan="2"><span id="errorDateOfBirth" class="errorText"></span> </td>' +
+            '</tr>');
+
         table.append(
             '<tr>' +
             '<td colspan="2"><input type="email" name="email" placeholder="Email"  value="' + email + '"></td>' +
@@ -135,7 +153,7 @@ export default class EmployeePageRender {
 
         table.append(
             '<tr class="noBorder">' +
-            '<td colspan="2"><span id="error" class="errorText"></span> </td>' +
+            '<td colspan="2"><span id="errorEmail" class="errorText"></span> </td>' +
             '</tr>');
 
         let save = $('<button type="submit"></button>');

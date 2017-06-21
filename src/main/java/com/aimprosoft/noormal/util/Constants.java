@@ -42,5 +42,6 @@ public class Constants {
         public static final String CAN_NOT_FIND_ENTITY = "Can't find entity";
         public static final String MUST_NOT_BE_EMPTY = "Must not be empty";
         public static final String ERROR_MESSAGE = "errorMessage";
+        public static final String MUST_BE_LESS_THEN_30 = "Must be less then 30 characters";
     }
 }

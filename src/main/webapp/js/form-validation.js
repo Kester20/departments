@@ -26,9 +26,6 @@ export default class Validator {
                     email: "Please enter valid email"
                 }
             },
-
-            submitHandler: function () {
-            }
         });
 
         if (form.valid()) {
