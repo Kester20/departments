@@ -5,6 +5,7 @@ import com.aimprosoft.noormal.model.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,17 +26,6 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 @ControllerAdvice
 public class ExceptionHandlingController {
 
-    private Map<String, ModelAndView> paths = new HashMap<String, ModelAndView>() {{
-        put("/department/save", new ModelAndView(SAVE_DEPARTMENT_PATH));
-        put("/employee/save", initEmployeeSavePage());
-    }};
-
-    private ModelAndView initEmployeeSavePage(){
-        ModelAndView modelAndView = new ModelAndView(SAVE_EMPLOYEE_PATH);
-        modelAndView.addObject(EMPLOYEE_FORM, new Employee());
-        return modelAndView;
-    }
-
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ModelAndView handleError(Exception exception) {
@@ -46,13 +36,11 @@ public class ExceptionHandlingController {
         return modelAndView;
     }
 
+    @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ValidationException.class)
-    public ModelAndView handleError(HttpServletRequest request, ValidationException exception) {
-        String uri = request.getRequestURI();
-        ModelAndView modelAndView = paths.get(uri);
+    public Map<String, String> handleError(ValidationException exception) {
         Map<String, String> errors = exception.getErrorMap();
-        modelAndView.addObject(ERROR_MAP, errors);
-        return modelAndView;
+        return errors;
     }
 }

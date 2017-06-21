@@ -23,6 +23,9 @@ export default class DepartmentService {
             id == 'undefined' ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
             sendRequest("POST", "/department/save", "json", params, function (result) {
                 new DepartmentPageRender().showDepartments(result);
+            }, function (result) {
+                var json_response = result.responseJSON;
+                $("#error").text(json_response.name);
             });
         }
     }
@@ -65,8 +68,10 @@ export default class DepartmentService {
         save.addClass('event');
         save.attr('name', 'saveDepartment');
 
-        /*table.append($('<tr class="noBorder">')
-            //.append('<td colspan="2"><span class="errorText">${errorMap['name']}</span> </td>');*/
+        table.append(
+            '<tr class="noBorder">' +
+                '<td colspan="2"><span id="error" class="errorText"></span> </td>' +
+            '</tr>');
 
         table.append($('<tr>')
             .append($('<td>' + '<a href="javascript:history.back()">Go Back</a>' + '</td>'))
