@@ -1,13 +1,10 @@
-import DepartmentService from "./saveDepartment";
-import saveEmployee from "./saveEmployee";
-
 
 export default class Validator {
 
     constructor() {
     }
 
-    validate(item) {
+    validate() {
         let form = $("form[name='form']");
         form.validate({
             rules: {
@@ -35,11 +32,9 @@ export default class Validator {
         });
 
         if (form.valid()) {
-            if (item == "department") {
-                new DepartmentService().saveDepartment();
-            } else {
-                saveEmployee();
-            }
+            return true;
+        }else{
+            return false;
         }
     }
 }

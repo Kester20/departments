@@ -5,11 +5,8 @@ import com.aimprosoft.noormal.exception.ValidationException;
 import com.aimprosoft.noormal.model.Department;
 import com.aimprosoft.noormal.service.DepartmentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_DEPARTMENT_PATH;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_ID;
 
 /**
@@ -35,7 +31,7 @@ public class DepartmentController {
     }
 
     @RequestMapping
-    public String getRootPage(){
+    public String getRootPage() {
         return "/index";
     }
 
