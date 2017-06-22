@@ -11,6 +11,6 @@ tr.hide > td, td.hide{
     border:0;
 }
 
-.errorText {
+.error {
     color:red;
 }
