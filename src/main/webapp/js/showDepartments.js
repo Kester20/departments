@@ -96,7 +96,10 @@ export default class DepartmentPageRender {
         table.attr({align: 'center', cellpadding: 10});
         table.append(
             '<tr>' +
-            '<td colspan="2"><input class="mdl-textfield__input" type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
+            '<td colspan="2">' +
+            '<input class="mdl-textfield__input" type="text" name="name" placeholder="Name" value="' + name + '">' +
+            '<label id="name-error" class="error" for="name"></label>' +
+            '</td>' +
             '</tr>');
 
         let save = $('<button type="submit"></button>');
@@ -104,10 +107,10 @@ export default class DepartmentPageRender {
         save.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored');
         save.attr('name', 'saveDepartment');
 
-        table.append(
-            '<tr class="noBorder">' +
-            '<td colspan="2"><span id="error" class="errorText"></span> </td>' +
-            '</tr>');
+        /*table.append(
+            '<tr class="hide">' +
+            '<td colspan="2"><span id="error" class="error"></span> </td>' +
+            '</tr>');*/
 
         let back = $('<button></button>').on('click', function () {
             new DepartmentPageRender().getDepartments();

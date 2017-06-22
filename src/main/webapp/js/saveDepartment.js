@@ -26,8 +26,10 @@ export default class DepartmentService {
                     new DepartmentPageRender().showDepartments(result);
                 },
                 function (result) {
+                    let errorLabel = $('#name-error');
                     let json_response = result.responseJSON;
-                    $("#error").text(json_response.name);
+                    errorLabel.append(json_response.name);
+                    errorLabel.css('display', 'inline');
                 });
         }
     }
