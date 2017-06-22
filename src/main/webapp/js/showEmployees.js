@@ -80,7 +80,7 @@ export default class EmployeePageRender {
         add.css('cursor', 'pointer');
         add.val(departmentId);
         add.attr('name', 'showEmployeeSavePage');
-        tr.append($('<td colspan="3"></td>').append(add));
+        tr.append($('<td colspan="2"></td>').append(add));
 
         table.append(tr);
         app.append(table);
@@ -169,7 +169,7 @@ export default class EmployeePageRender {
         table
             .append($('<tr>')
                 .append($('<td></td>').append(back))
-                .append($('<td colspan="2"></td>').append(save)));
+                .append($('<td></td>').append(save)));
 
         form.append(table);
         page.append(form);

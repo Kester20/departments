@@ -28,9 +28,10 @@ export default class DepartmentPageRender {
 
         table.append('<th class="mdl-data-table__cell--non-numeric">' + '#' + '</th>');
         table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Name' + '</th>');
-        table.append('<th class="mdl-data-table__cell--non-numeric"> ' + 'Edit' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Edit' + '</th>');
         table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Delete' + '</th>');
         table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Employees' + '</th>');
+
 
         $.each(collection, function (index, department) {
             let tr = $('<tr></tr>');
@@ -44,17 +45,16 @@ export default class DepartmentPageRender {
             edit.attr('name', 'getDepartmentSavePage');
             tr.append($('<td></td>').append(edit));
 
-            let deleteDep = $('<a></a>');
+            let deleteDep = $('<button></button>');
             deleteDep.text('Delete');
             deleteDep.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect');
             deleteDep.val(department.departmentId);
             deleteDep.attr('name', 'deleteDepartment');
             tr.append($('<td align="center"></td>').append(deleteDep));
 
-            let employees = $('<a></a>');
+            let employees = $('<button></button>');
             employees.text('Employees');
             employees.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent');
-            employees.css('cursor', 'pointer');
             employees.val(department.departmentId);
             employees.attr('name', 'getEmployees');
             tr.append($('<td></td>').append(employees));
@@ -66,7 +66,6 @@ export default class DepartmentPageRender {
         let add = $('<button></button>');
         add.text('Add new Department');
         add.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored');
-        add.css('cursor', 'pointer');
         add.attr('name', 'showDepartmentSavePage');
         tr.append($('<td colspan="2"></td>').append(add));
         table.append(tr);
