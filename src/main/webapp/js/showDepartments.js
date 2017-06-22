@@ -20,41 +20,40 @@ export default class DepartmentPageRender {
 
     showDepartments(collection) {
         let app = $('#app');
+        app.empty();
 
-        app.append($('<h2></h2>').text('Departments').attr('align', 'center'));
+        app.append($('<h3></h3>').text('Departments').attr('align', 'center'));
 
-        let table = $('<table></table>').addClass('table').attr({cellSpacing: 15, border: 1, align: 'center'});
+        let table = $('<table></table>').addClass('mdl-data-table').attr({align: 'center'});
 
-        table.append('<th>' + '#' + '</th>');
-        table.append('<th>' + 'Name' + '</th>');
-        table.append('<th>' + 'Edit' + '</th>');
-        table.append('<th>' + 'Delete' + '</th>');
-        table.append('<th>' + 'Employees' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + '#' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Name' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric"> ' + 'Edit' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Delete' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Employees' + '</th>');
 
         $.each(collection, function (index, department) {
             let tr = $('<tr></tr>');
             tr.append($('<td></td>').text(index + 1));
             tr.append($('<td></td>').text(department.name));
 
-            let edit = $('<a></a>');
+            let edit = $('<button></button>');
             edit.text('Edit');
-            edit.addClass('edit event');
-            edit.css('cursor', 'pointer');
+            edit.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect');
             edit.val(department.departmentId);
             edit.attr('name', 'getDepartmentSavePage');
             tr.append($('<td></td>').append(edit));
 
             let deleteDep = $('<a></a>');
-            deleteDep.text('X');
-            deleteDep.addClass('x event');
-            deleteDep.css('cursor', 'pointer');
+            deleteDep.text('Delete');
+            deleteDep.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect');
             deleteDep.val(department.departmentId);
             deleteDep.attr('name', 'deleteDepartment');
-            tr.append($('<td></td>').append(deleteDep));
+            tr.append($('<td align="center"></td>').append(deleteDep));
 
             let employees = $('<a></a>');
             employees.text('Employees');
-            employees.addClass('emp event');
+            employees.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent');
             employees.css('cursor', 'pointer');
             employees.val(department.departmentId);
             employees.attr('name', 'getEmployees');
@@ -64,15 +63,14 @@ export default class DepartmentPageRender {
         });
 
         let tr = $('<tr></tr>').append('<td colspan="3" class="hide"></td>');
-        let add = $('<a></a>');
+        let add = $('<button></button>');
         add.text('Add new Department');
-        add.addClass('add event');
+        add.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored');
         add.css('cursor', 'pointer');
         add.attr('name', 'showDepartmentSavePage');
         tr.append($('<td colspan="2"></td>').append(add));
         table.append(tr);
 
-        app.empty();
         app.append(table);
     }
 
@@ -88,22 +86,23 @@ export default class DepartmentPageRender {
         let name, id;
         department != null ? (name = department.name, id = department.departmentId) : (name = "");
 
-        let page = $('<h2></h2>');
+        let page = $('<h3></h3>');
         page.text('Enter new value');
         page.attr('align', 'center');
 
         let form = $('<form></form>').attr('name', 'form');
         let table = $('<table></table>');
-        table.addClass('table');
+        table.css('margin-top', '100px');
+        table.addClass('mdl-data-table');
         table.attr({align: 'center', cellpadding: 10});
         table.append(
             '<tr>' +
-            '<td colspan="2"><input type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
+            '<td colspan="2"><input class="mdl-textfield__input" type="text" name="name" placeholder="Name" value="' + name + '"></td>' +
             '</tr>');
 
         let save = $('<button type="submit"></button>');
         save.text('Save');
-        save.addClass('event');
+        save.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored');
         save.attr('name', 'saveDepartment');
 
         table.append(
@@ -111,13 +110,13 @@ export default class DepartmentPageRender {
             '<td colspan="2"><span id="error" class="errorText"></span> </td>' +
             '</tr>');
 
-        let back = $('<a></a>').on('click', function () {
+        let back = $('<button></button>').on('click', function () {
             new DepartmentPageRender().getDepartments();
             return false;
         });
         back.text('Go back');
         back.css('cursor', 'pointer');
-        back.addClass('edit');
+        back.addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent');
 
         table.append($('<tr>')
             .append($('<td></td>').append(back))

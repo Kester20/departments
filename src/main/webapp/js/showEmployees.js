@@ -23,15 +23,19 @@ export default class EmployeePageRender {
 
     showEmployees(collection) {
         let app = $('#app');
-        let table = $('<table></table>').addClass('table').attr({cellSpacing: 10, border: 1, align: 'center'});
+        app.empty();
 
-        table.append('<th>' + '#' + '</th>');
-        table.append('<th>' + 'Name' + '</th>');
-        table.append('<th>' + 'Age' + '</th>');
-        table.append('<th>' + 'Birthday' + '</th>');
-        table.append('<th>' + 'Email' + '</th>');
-        table.append('<th>' + 'Edit' + '</th>');
-        table.append('<th>' + 'Delete' + '</th>');
+        app.append($('<h3></h3>').text('Employees').attr('align', 'center'));
+
+        let table = $('<table></table>').addClass('mdl-data-table').attr({align: 'center'});
+
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + '#' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Name' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Age' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Birthday' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Email' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Edit' + '</th>');
+        table.append('<th class="mdl-data-table__cell--non-numeric">' + 'Delete' + '</th>');
 
         $.each(collection, function (index, employee) {
             let tr = $('<tr></tr>');
@@ -41,19 +45,17 @@ export default class EmployeePageRender {
             tr.append($('<td></td>').text(getFormatDate(new Date(employee.dateOfBirth))));
             tr.append($('<td></td>').text(employee.email));
 
-            let edit = $('<a></a>');
+            let edit = $('<button></button>');
             edit.text('Edit');
-            edit.addClass('edit event');
-            edit.css( 'cursor', 'pointer' );
+            edit.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect');
             edit.val(employee.employeeId + "|" + departmentId);
             edit.attr('name', 'getEmployeeSavePage');
             tr.append($('<td></td>').append(edit));
 
 
-            let deleteEmp = $('<a></a>');
-            deleteEmp.text('X');
-            deleteEmp.addClass('x event');
-            deleteEmp.css( 'cursor', 'pointer' );
+            let deleteEmp = $('<button></button>');
+            deleteEmp.text('Delete');
+            deleteEmp.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect');
             deleteEmp.val(employee.employeeId + "|" + departmentId);
             deleteEmp.attr('name', 'deleteEmployee');
             tr.append($('<td></td>').append(deleteEmp));
@@ -62,28 +64,25 @@ export default class EmployeePageRender {
         });
 
 
-        let back = $('<a></a>').on('click', function () {
+        let back = $('<button></button>').on('click', function () {
             new DepartmentPageRender().getDepartments();
             return false;
         });
         back.text('Go back');
-        back.css('cursor', 'pointer');
-        back.addClass('edit');
+        back.addClass('mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent');
         let tr = $('<tr></tr>')
-            .append($('<td></td>').append(back))
+            .append($('<td colspan="2"></td>').append(back))
             .append('<td colspan="3"></td>');
 
-        let add = $('<a></a>');
+        let add = $('<button></button>');
         add.text('Add new Employee');
-        add.addClass('add event');
+        add.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored');
         add.css('cursor', 'pointer');
         add.val(departmentId);
         add.attr('name', 'showEmployeeSavePage');
         tr.append($('<td colspan="3"></td>').append(add));
 
         table.append(tr);
-
-        app.empty();
         app.append(table);
     }
 
@@ -109,16 +108,16 @@ export default class EmployeePageRender {
                 birth = getFormatDate(new Date(employee.dateOfBirth)),
                 email = employee.email) : (name = "", age = "", birth = "", email = "");
 
-        let page = $('<h2></h2>');
+        let page = $('<h3></h3>');
         page.text('Enter new values').attr('align', 'center');
 
         let form = $('<form></form>').attr('name', 'form');
-        let table = $('<table></table>');
+        let table = $('<table class="mdl-data-table"></table>');
         table.addClass('table');
         table.attr({align: 'center', cellpadding: 10});
         table.append(
             '<tr>' +
-            '<td colspan="2"><input type="text" name="name" placeholder="Name"  value="' + name + '"></td>' +
+            '<td colspan="2"><input class="mdl-textfield__input" type="text" name="name" placeholder="Name"  value="' + name + '"></td>' +
             '</tr>');
 
         table.append(
@@ -128,7 +127,7 @@ export default class EmployeePageRender {
 
         table.append(
             '<tr>' +
-            '<td colspan="2"><input type="number" name="age" placeholder="Age"  value="' + age + '"></td>' +
+            '<td colspan="2"><input class="mdl-textfield__input" type="number" name="age" placeholder="Age"  value="' + age + '"></td>' +
             '</tr>');
 
         table.append(
@@ -138,7 +137,7 @@ export default class EmployeePageRender {
 
         table.append(
             '<tr>' +
-            '<td colspan="2"><input type="text" name="dateOfBirth" placeholder="Date of Birth"  value="' + birth + '"></td>' +
+            '<td colspan="2"><input class="mdl-textfield__input" type="text" name="dateOfBirth" placeholder="Date of Birth"  value="' + birth + '"></td>' +
             '</tr>');
 
         table.append(
@@ -148,7 +147,7 @@ export default class EmployeePageRender {
 
         table.append(
             '<tr>' +
-            '<td colspan="2"><input type="email" name="email" placeholder="Email"  value="' + email + '"></td>' +
+            '<td colspan="2"><input class="mdl-textfield__input" type="email" name="email" placeholder="Email"  value="' + email + '"></td>' +
             '</tr>');
 
         table.append(
@@ -158,20 +157,19 @@ export default class EmployeePageRender {
 
         let save = $('<button type="submit"></button>');
         save.text('Save');
-        save.addClass('event');
+        save.addClass('event event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored');
         save.attr('name', 'saveEmployee');
 
-        let back = $('<a></a>');
+        let back = $('<button></button>');
         back.text('Go Back');
-        back.addClass('edit event');
-        back.css('cursor', 'pointer');
+        back.addClass('event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent');
         back.val(departmentId);
         back.attr('name', 'getEmployees');
 
         table
             .append($('<tr>')
                 .append($('<td></td>').append(back))
-                .append($('<td></td>').append(save)));
+                .append($('<td colspan="2"></td>').append(save)));
 
         form.append(table);
         page.append(form);

@@ -1,14 +1,6 @@
-.table th, tr td {
-    border: 2px solid;
-}
-
 .table {
     margin-top:70px;
     text-align:center;
-}
-
-.table input {
-    width: 300px;
 }
 
 .noBorder td {
@@ -21,20 +13,4 @@ tr.hide > td, td.hide{
 
 .errorText {
     color:red;
-}
-
-.x{
-    color:red;
-}
-
-.edit{
-    color:blue;
-}
-
-.emp{
-    color: limegreen;
-}
-
-.add {
-    color: darkviolet;
 }
