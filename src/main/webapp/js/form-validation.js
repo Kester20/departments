@@ -9,6 +9,17 @@ export default class Validator {
             },
             "Please enter a date in the format yyyy-dd-mm."
         );
+
+        $.validator.addMethod(
+            "notValidName",
+            function(value) {
+                if(value.match(/^(<script|<script>).*(\/>|<\/script>)$/)){
+                    return false;
+                }
+                return true;
+            },
+            "Please enter valid name."
+        );
     }
 
     validate() {
@@ -17,7 +28,8 @@ export default class Validator {
             rules: {
                 name: {
                     required: true,
-                    maxlength: 30
+                    maxlength: 30,
+                    notValidName: true
                 },
                 age: {
                     required: true,
