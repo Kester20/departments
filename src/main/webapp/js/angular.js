@@ -6,48 +6,40 @@ import departmentSave from "../departmentSave.html";
 
 let mainApp = angular.module('mainApp', ['ngRoute']);
 
-mainApp
-    .config(function ($routeProvider, $locationProvider) {
+mainApp.config(function ($routeProvider, $locationProvider) {
 
-        $routeProvider
-            .when('/', {
-                template: departments,
-                controller: 'departmentController'
-            })
+    $routeProvider
+        .when('/', {
+            template: departments,
+            controller: 'departmentController'
+        })
 
-            .when('/department/save', {
-                template: departmentSave,
-                controller: 'departmentController',
-                resolve: {
-                    function ($http) {
-                        let promise = $http.get('/department/save?departmentId=' + 9);
-                        promise.then(fulfilled, rejected);
-                        function fulfilled(response) {
-                            $scope.department = response.data;
-                            /*let angularElement = angular.element(departmentSave);
-                            let html = $compile(angularElement);
-                            angular.element('#app').empty();
-                            angular.element('#app').append(html($scope));*/
+        .when('/department/save', {
+            template: departmentSave,
+            controller: 'departmentSaveController',
+            resolve: {
+                "department": function($http) {
+                    return {
+                        promise: function () {
+                            return $http.get('/department/save?departmentId=' + 8)
                         }
-                    }
+                    };
                 }
-            })
+            }
+        });
 
-            .when('/about', {
-                templateUrl: 'pages/about.html',
-                controller: 'aboutController'
-            })
+    $locationProvider.html5Mode(true);
+});
 
-            .when('/contact', {
-                templateUrl: 'pages/contact.html',
-                controller: 'contactController'
-            });
 
-        $locationProvider.html5Mode(true);
+mainApp.controller('departmentSaveController', function ($scope, $http, department) {
+    department.promise().then(function(promise) {
+        $scope.department = promise.data;
     });
 
+});
 
-mainApp.controller('departmentController', function ($scope, $http, $compile) {
+mainApp.controller('departmentController', function ($scope, $http) {
 
     let promise = $http.get('/department/getAll');
     promise.then(fulfilled, rejected);
@@ -60,17 +52,5 @@ mainApp.controller('departmentController', function ($scope, $http, $compile) {
         console.error(error.status);
         console.error(error.statusText);
     }
-
-    /*$scope.getDepartmentSavePage = function (id) {
-        let promise = $http.get('/department/save?departmentId=' + id);
-        promise.then(fulfilled, rejected);
-        function fulfilled(response) {
-            $scope.department = response.data;
-            let angularElement = angular.element(departmentSave);
-            let html = $compile(angularElement);
-            angular.element('#app').empty();
-            angular.element('#app').append(html($scope));
-        }
-    }*/
 });
 
