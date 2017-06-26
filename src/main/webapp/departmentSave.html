@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Save Department</title>
+</head>
+<body ng-controller="departmentController">
+
+<h3 align="center">Enter new value</h3>
+
+<form name="form">
+
+    <table class="mdl-data-table" align="center" cellpadding="10">
+
+        <tr>
+            <td colspan="2">
+                <input class="mdl-textfield__input" type="text" name="name" placeholder="Name"
+                       value="{{department.name}}">
+                <label id="name-error" class="error" for="name"></label>
+            </td>
+        </tr>
+
+        <tr>
+            <td><a href="/"
+                   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
+            </td>
+            <td>
+                <button type="submit"
+                        class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    Save
+                </button>
+            </td>
+        </tr>
+
+    </table>
+
+</form>
+
+</body>
+</html>

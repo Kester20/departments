@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+</head>
+<body ng-controller="departmentController">
+
+<h3 align="center">Departments</h3>
+
+<table class="mdl-data-table" align="center">
+
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric">#</th>
+        <th class="mdl-data-table__cell--non-numeric">Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Edit</th>
+        <th class="mdl-data-table__cell--non-numeric">Delete</th>
+        <th class="mdl-data-table__cell--non-numeric">Employees</th>
+    </tr>
+
+    <tr ng-repeat="department in departments">
+        <td>{{$index + 1}}</td>
+        <td>{{department.name}}</td>
+        <td><a ng-href="department/save"
+               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
+        </td>
+        <td>
+            <button class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete</button>
+        </td>
+        <td>
+            <button class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Employees
+            </button>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3" class="hide"></td>
+        <td colspan="2">
+            <a ng-href="department/save"
+               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                Add new department
+            </a>
+        </td>
+    </tr>
+
+</table>
+
+</body>
+</html>
