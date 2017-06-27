@@ -21,7 +21,7 @@
     <tr ng-repeat="department in departments">
         <td>{{$index + 1}}</td>
         <td>{{department.name}}</td>
-        <td><a ng-href="department/save?departmentId={{department.departmentId}}"
+        <td><a ui-sref="departmentSave({departmentId: department.departmentId})"
                class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
         </td>
         <td>
@@ -39,7 +39,7 @@
     <tr>
         <td colspan="3" class="hide"></td>
         <td colspan="2">
-            <a ng-href="department/save"
+            <a ui-sref="departmentSave"
                class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                 Add new department
             </a>

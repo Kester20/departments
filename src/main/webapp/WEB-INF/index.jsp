@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <div ng-view ></div>
+    <div ui-view ></div>
 
 </body>
 </html>

@@ -1,26 +1,34 @@
-import "../pages/home.html";
-import "../pages/about.html";
-import "../pages/contact.html";
-import departments from "../departments.html";
-import departmentSave from "../departmentSave.html";
+import departments from "../templates/departments.html";
+import departmentSave from "../templates/departmentSave.html";
 
-let mainApp = angular.module('mainApp', ['ngRoute']);
+let mainApp = angular.module('mainApp', ['ui.router']);
 
-mainApp.config(function ($routeProvider, $locationProvider) {
+mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $routeProvider
-        .when('/', {
+    $urlRouterProvider.otherwise("/")
+
+    $stateProvider
+        .state('root', {
+            url: "/",
             template: departments,
-            controller: 'departmentController'
+            controller: 'departmentController',
+            resolve: {
+                'departments': function (departmentService) {
+                    return departmentService.getAllDepartments().then(function (response) {
+                        return response.data;
+                    });
+                }
+            }
         })
 
-        .when('/department/save/:departmentId?', {
+        .state('departmentSave', {
+            url: "/department/save/?departmentId",
             template: departmentSave,
             controller: 'departmentSaveController',
             resolve: {
-                'department': function (departmentService, $route) {
-                    if ($route.current.params.departmentId != null) {
-                        return departmentService.getDepartmentSavePage($route.current.params.departmentId).then(function (response) {
+                'department': function (departmentService, $stateParams) {
+                    if ($stateParams.departmentId != null) {
+                        return departmentService.getDepartmentSavePage($stateParams.departmentId).then(function (response) {
                             return response.data;
                         });
                     }
@@ -33,6 +41,11 @@ mainApp.config(function ($routeProvider, $locationProvider) {
 
 mainApp.service('departmentService', function ($http, $location) {
     return {
+
+        getAllDepartments: function () {
+            return $http.get('/department/getAll');
+        },
+
         getDepartmentSavePage: function (id) {
             return $http.get('/department/save?departmentId=' + id);
         },
@@ -61,6 +74,7 @@ mainApp.service('departmentService', function ($http, $location) {
 
 
 mainApp.controller('departmentSaveController', function ($scope, $http, $location, department, departmentService) {
+
     $scope.department = department;
 
     $scope.saveDepartment = function () {
@@ -72,19 +86,9 @@ mainApp.controller('departmentSaveController', function ($scope, $http, $locatio
     };
 });
 
-mainApp.controller('departmentController', function ($scope, $http, departmentService) {
+mainApp.controller('departmentController', function ($scope, $http, departments, departmentService) {
 
-    let promise = $http.get('/department/getAll');
-    promise.then(fulfilled, rejected);
-
-    function fulfilled(response) {
-        $scope.departments = response.data;
-    }
-
-    function rejected(error) {
-        console.error(error.status);
-        console.error(error.statusText);
-    }
+    $scope.departments = departments;
 
     $scope.deleteDepartment = function (id) {
         return departmentService.deleteDepartment($scope, id);
