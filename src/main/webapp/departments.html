@@ -21,11 +21,13 @@
     <tr ng-repeat="department in departments">
         <td>{{$index + 1}}</td>
         <td>{{department.name}}</td>
-        <td><a ng-href="department/save"
+        <td><a ng-href="department/save?departmentId={{department.departmentId}}"
                class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
         </td>
         <td>
-            <button class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete</button>
+            <button ng-click="deleteDepartment(department.departmentId)"
+                    class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
+            </button>
         </td>
         <td>
             <button class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">

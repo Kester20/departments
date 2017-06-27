@@ -5,6 +5,7 @@ import 'jquery-validation';
 import '../node_modules/angular/angular';
 import '../node_modules/angular-route/angular-route';
 import '../js/angular';
+import '../node_modules/angular-ui-router/release/angular-ui-router';
 import Dispatcher from './dispatcher';
 
 /*$( document ).ready(function() {
