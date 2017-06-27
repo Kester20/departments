@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="employeeSaveController">
+
+<h3 align="center">Enter new value</h3>
+
+<form name="form">
+
+    <table class="mdl-data-table" align="center" cellpadding="10">
+
+        <tr>
+            <td colspan="2"><input class="mdl-textfield__input" type="text" name="name" placeholder="Name"
+                                   value="{{employee.name}}"></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input class="mdl-textfield__input" type="number" name="age" placeholder="Age"
+                                   value="{{employee.age}}"></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input class="mdl-textfield__input" type="text" name="dateOfBirth"
+                                   placeholder="Date of Birth" value="{{employee.dateOfBirth | date:'yyyy-MM-dd'}}">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input class="mdl-textfield__input" type="email" name="email" placeholder="Email"
+                                   value="{{employee.email}}"></td>
+        </tr>
+
+        <tr>
+            <td>
+                <a ui-sref="employees({departmentId: departmentId})"
+                   class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Back
+                </a>
+            </td>
+            <td>
+                <a type="submit" ng-click="saveEmployee()"
+                   class="event event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    Save
+                </a>
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+<input type="hidden" name="employeeId" value="{{employee.employeeId}}">
+<input type="hidden" name="departmentId" value="{{departmentId}}">
+
+</body>
+</html>

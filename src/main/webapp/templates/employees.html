@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="employeeController">
+
+<h3 align="center">Employees</h3>
+
+<table class="mdl-data-table" align="center">
+
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric">#</th>
+        <th class="mdl-data-table__cell--non-numeric">Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Age</th>
+        <th class="mdl-data-table__cell--non-numeric">Birthday</th>
+        <th class="mdl-data-table__cell--non-numeric">Email</th>
+        <th class="mdl-data-table__cell--non-numeric">Edit</th>
+        <th class="mdl-data-table__cell--non-numeric">Delete</th>
+    </tr>
+
+    <tr ng-repeat="employee in employees">
+        <td>{{$index + 1}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.age}}</td>
+        <td>{{employee.dateOfBirth | date:'yyyy-MM-dd'}}</td>
+        <td>{{employee.email}}</td>
+        <td><a ui-sref="employeeSave({employeeId: employee.employeeId})"
+               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
+        </td>
+        <td>
+            <button ng-click="deleteEmployee(employee.employeeId, departmentId)"
+                    class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
+            </button>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2"><a ui-sref="root"
+                class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
+        </td>
+        <td colspan="3"></td>
+        <td colspan="2">
+            <a ui-sref="employeeSave"
+               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                Add new employee
+            </a>
+        </td>
+    </tr>
+
+</table>
+
+
+</body>
+</html>
