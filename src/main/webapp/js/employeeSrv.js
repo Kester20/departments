@@ -12,7 +12,7 @@ mainApp.service('employeeService', function ($http, $location, $state) {
             return $http.get('/employee/save?employeeId=' + id);
         },
 
-        saveEmployee: function (params, departmentId) {
+        saveEmployee: function (params, departmentId, $scope) {
             let promise = $http.post('/employee/save?' + params);
             promise.then(fulfilled, rejected);
 
@@ -23,6 +23,10 @@ mainApp.service('employeeService', function ($http, $location, $state) {
             function rejected(error) {
                 console.error(error.status);
                 console.error(error.statusText);
+                $scope.errorName = error.data.name;
+                $scope.errorAge = error.data.age;
+                $scope.errorDateOfBirth = error.data.dateOfBirth;
+                $scope.errorEmail = error.data.email;
             }
         },
 

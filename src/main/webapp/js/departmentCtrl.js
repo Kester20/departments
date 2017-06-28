@@ -5,12 +5,31 @@ mainApp.controller('departmentSaveController', function ($scope, department, dep
 
     $scope.department = department;
 
+    $scope.hasError = function(field, validation){
+        if(validation){
+            return ($scope.form[field].$dirty && $scope.form[field].$error[validation]);
+        }
+        return ($scope.form[field].$dirty && $scope.form[field].$invalid);
+    };
+
+    $scope.scriptPattern = (function() {
+        let regexp = /^(<script|<script>).*(\/>|<\/script>)$/;
+        return {
+            test: function(value) {
+                if(regexp.test(value)){
+                    return false;
+                }
+                return true;
+            }
+        };
+    })();
+
     $scope.saveDepartment = function () {
-        let name = $('input[name=name]').val();
-        let id = $('input[name=departmentId]').val();
+        let name = $scope.department.name;
+        let id = $scope.department.departmentId;
         let params;
-        id == 'undefined' ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
-        return departmentService.saveDepartment(params);
+        id == null ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
+        return departmentService.saveDepartment(params, $scope);
     };
 });
 

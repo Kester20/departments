@@ -14,23 +14,43 @@
 
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="text" name="name" placeholder="Name"
-                                   value="{{employee.name}}"></td>
+                                   ng-model="employee.name" ng-maxlength="30"
+                                   ng-required="true" ng-pattern="scriptPattern">
+                <span class="error" ng-show="hasError('name', 'maxlength')">Too long!</span>
+                <span class="error" ng-show="hasError('name', 'required')">Required!</span>
+                <span class="error" ng-show="hasError('name', 'pattern')">Please enter valid name!</span>
+                <label class="error">{{errorName}}</label>
+            </td>
         </tr>
 
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="number" name="age" placeholder="Age"
-                                   value="{{employee.age}}"></td>
+                                   ng-model="employee.age" ng-required="true" ng-maxlength="2">
+                <span class="error" ng-show="hasError('age', 'maxlength')">Too long!</span>
+                <span class="error" ng-show="hasError('age', 'required')">Required!</span>
+                <label class="error">{{errorAge}}</label>
+            </td>
         </tr>
 
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="text" name="dateOfBirth"
-                                   placeholder="Date of Birth" value="{{employee.dateOfBirth | date:'yyyy-MM-dd'}}">
+                                   ng-model="employee.dateOfBirth" date='yyyy-MM-dd'
+                                   placeholder="Date of Birth"
+                                   ng-required="true" ng-pattern="datePattern">
+                <span class="error" ng-show="hasError('dateOfBirth', 'required')">Required!</span>
+                <span class="error" ng-show="hasError('dateOfBirth', 'pattern')">Please enter a date in the format yyyy-dd-mm!</span>
+                <label class="error">{{errorDateOfBirth}}</label>
             </td>
         </tr>
 
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="email" name="email" placeholder="Email"
-                                   value="{{employee.email}}"></td>
+                                   ng-model="employee.email"
+                                   ng-required="true">
+                <span class="error" ng-show="hasError('email', 'required')">Required!</span>
+                <span class="error" ng-show="hasError('email', 'email')">Not valid email!</span>
+                <label class="error">{{errorEmail}}</label>
+            </td>
         </tr>
 
         <tr>
@@ -41,10 +61,10 @@
                 </a>
             </td>
             <td>
-                <a type="submit" ng-click="saveEmployee()"
-                   class="event event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                <button type="submit" ng-click="saveEmployee()" ng-disabled="form.$invalid"
+                        class="event event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                     Save
-                </a>
+                </button>
             </td>
         </tr>
 

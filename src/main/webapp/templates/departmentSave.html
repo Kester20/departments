@@ -15,8 +15,12 @@
         <tr>
             <td colspan="2">
                 <input class="mdl-textfield__input" type="text" name="name" placeholder="Name"
-                       value="{{department.name}}">
-                <label id="name-error" class="error" for="name"></label>
+                       ng-model="department.name" ng-maxlength="30" ng-required="true"
+                       ng-pattern="scriptPattern">
+                <span class="error" ng-show="hasError('name', 'maxlength')">Too long!</span>
+                <span class="error" ng-show="hasError('name', 'required')">Required!</span>
+                <span class="error" ng-show="hasError('name', 'pattern')">Please enter valid name!</span>
+                <label class="error">{{errorName}}</label>
             </td>
         </tr>
 
@@ -25,7 +29,7 @@
                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
             </td>
             <td>
-                <button type="submit" ng-click="saveDepartment()"
+                <button type="submit" ng-click="saveDepartment()" ng-disabled="form.$invalid"
                         class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                     Save
                 </button>

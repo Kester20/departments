@@ -1,24 +1,66 @@
 
 let mainApp = angular.module('mainApp');
 
-mainApp.controller('employeeSaveController', function ($scope, $http, $location, employee, employeeService) {
+mainApp.directive('date', function (dateFilter) {
+    return {
+        require:'ngModel',
+        link:function (scope, elm, attrs, ctrl) {
+
+            let dateFormat = attrs['date'] || 'yyyy-MM-dd';
+
+            ctrl.$formatters.unshift(function (modelValue) {
+                return dateFilter(modelValue, dateFormat);
+            });
+        }
+    };
+})
+
+mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http, $filter, employee, employeeService) {
 
     $scope.employee = employee;
 
+    $scope.hasError = function(field, validation){
+        if(validation){
+            return ($scope.form[field].$dirty && $scope.form[field].$error[validation]);
+        }
+        return ($scope.form[field].$dirty && $scope.form[field].$invalid);
+    };
+
+    $scope.datePattern = (function() {
+        let regexp = /^\d\d\d\d-\d\d?-\d\d$/;
+        return {
+            test: function(value) {
+                return regexp.test(value);
+            }
+        };
+    })();
+
+    $scope.scriptPattern = (function() {
+        let regexp = /^(<script|<script>).*(\/>|<\/script>)$/;
+        return {
+            test: function(value) {
+                if(regexp.test(value)){
+                    return false;
+                }
+                return true;
+            }
+        };
+    })();
+
     $scope.saveEmployee = function () {
-        let employeeId = $("input[name=employeeId]").val();
-        let name = $("input[name=name]").val();
-        let age = $("input[name=age]").val();
-        let dateOfBirth = $("input[name=dateOfBirth]").val();
-        let email = $("input[name=email]").val();
-        let departmentId = $("input[name=departmentId]").val();
+        let employeeId = $scope.employee.employeeId;
+        let name = $scope.employee.name;
+        let age = $scope.employee.age;
+        let dateOfBirth = $scope.employee.dateOfBirth;
+        let email = $scope.employee.email;
+        let departmentId = $rootScope.departmentId;
         let params = "";
 
-        if (employeeId != 'undefined') {
+        if (employeeId != null) {
             params = "employeeId=" + employeeId + "&";
         }
         params += "name=" + name + "&age=" + age + "&dateOfBirth=" + dateOfBirth + "&email=" + email + "&departmentId=" + departmentId;
-        return employeeService.saveEmployee(params, departmentId);
+        return employeeService.saveEmployee(params, departmentId, $scope);
     };
 });
 

@@ -12,7 +12,7 @@ mainApp.service('departmentService', function ($http, $state) {
             return $http.get('/department/save?departmentId=' + id);
         },
 
-        saveDepartment: function (params) {
+        saveDepartment: function (params, $scope) {
             let promise = $http.post('/department/save?' + params);
             promise.then(fulfilled, rejected);
 
@@ -23,6 +23,7 @@ mainApp.service('departmentService', function ($http, $state) {
             function rejected(error) {
                 console.error(error.status);
                 console.error(error.statusText);
+                $scope.errorName = error.data.name;
             }
         },
 
