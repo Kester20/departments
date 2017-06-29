@@ -28,8 +28,8 @@ mainApp.service('departmentService', function ($http, $state) {
         },
 
         deleteDepartment: function ($scope, id) {
-            $http.post('/department/delete?departmentId=' + id).then(function (response) {
-                $scope.departments = response.data;
+            $http.post('/department/delete?departmentId=' + id).then(function () {
+                $state.reload();
             });
         }
     };

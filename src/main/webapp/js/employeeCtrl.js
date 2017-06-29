@@ -13,7 +13,7 @@ mainApp.directive('date', function (dateFilter) {
             });
         }
     };
-})
+});
 
 mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http, $filter, employee, employeeService) {
 
@@ -51,7 +51,7 @@ mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http
         let employeeId = $scope.employee.employeeId;
         let name = $scope.employee.name;
         let age = $scope.employee.age;
-        let dateOfBirth = $scope.employee.dateOfBirth;
+        let dateOfBirth = $filter('date')($scope.employee.dateOfBirth, 'yyyy-MM-dd');
         let email = $scope.employee.email;
         let departmentId = $rootScope.departmentId;
         let params = "";

@@ -47,21 +47,21 @@ public class EmployeeController {
         return employeeService.findOne(employeeId);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveEmployee(Employee employee,
+    public void saveEmployee(Employee employee,
                                @RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException, ValidationException {
         Department department = departmentService.findOne(departmentId);
         if (department != null) {
             employee.setDepartment(department);
             employeeService.saveEmployee(employee);
         }
-        return "redirect:" + GET_EMPLOYEES_BY_DEPARTMENT + "?departmentId=" + departmentId;
     }
 
+    @ResponseBody
     @RequestMapping("/delete")
-    public String deleteEmployee(Employee employee,
+    public void deleteEmployee(Employee employee,
                                  @RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException {
         employeeService.deleteEmployee(employee);
-        return "redirect:" + GET_EMPLOYEES_BY_DEPARTMENT + "?departmentId=" + departmentId;
     }
 }

@@ -31,8 +31,8 @@ mainApp.service('employeeService', function ($http, $location, $state) {
         },
 
         deleteEmployee: function ($scope, employeeId, departmentId) {
-            $http.post('/employee/delete?employeeId=' + employeeId + '&departmentId=' + departmentId).then(function (response) {
-                $scope.employees = response.data;
+            $http.post('/employee/delete?employeeId=' + employeeId + '&departmentId=' + departmentId).then(function () {
+                $state.reload();
             });
         }
     };

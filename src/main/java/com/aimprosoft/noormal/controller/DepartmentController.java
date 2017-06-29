@@ -47,15 +47,15 @@ public class DepartmentController {
         return departmentService.findOne(departmentId);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveDepartment(Department department) throws DaoException, ValidationException {
+    public void saveDepartment(Department department) throws DaoException, ValidationException {
         departmentService.saveDepartment(department);
-        return "redirect:/getAll";
     }
 
+    @ResponseBody
     @RequestMapping("/delete")
-    public String deleteDepartment(Department department) throws DaoException {
+    public void deleteDepartment(Department department) throws DaoException {
         departmentService.deleteDepartment(department);
-        return "redirect:/getAll";
     }
 }
