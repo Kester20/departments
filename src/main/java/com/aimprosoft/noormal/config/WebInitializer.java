@@ -1,4 +1,4 @@
-package com.aimprosoft.noormal.config;
+/*package com.aimprosoft.noormal.config;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.WebApplicationContext;
@@ -13,9 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import java.util.EnumSet;
 
-/**
- * @author Arsalan
- */
+
 public class WebInitializer implements WebApplicationInitializer {
 
     public void onStartup(ServletContext container) throws ServletException {
@@ -45,4 +43,4 @@ public class WebInitializer implements WebApplicationInitializer {
         characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
     }
 
-}
+}*/

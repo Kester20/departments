@@ -10,8 +10,18 @@
 
     <properties>
         <hibernate-version>5.0.1.Final</hibernate-version>
-        <spring-version>4.3.8.RELEASE</spring-version>
-        <jackson-version>2.9.0.pr3</jackson-version>
+        <spring-version>3.0.7.RELEASE</spring-version>
+        <jackson-version>2.0.0</jackson-version>
+        <liferay.maven.plugin.version>6.2.10.16</liferay.maven.plugin.version>
+        <maven-war-plugin-version>2.6</maven-war-plugin-version>
+        <liferay.version>6.2.5</liferay.version>
+        <spring.version>3.0.7.RELEASE</spring.version>
+        <liferay.tomcat.dir>/home/user/IdeaProjects/liferay-portal-6.2-ce-ga5/tomcat-7.0.62</liferay.tomcat.dir>
+        <liferay.auto.deploy.dir>${liferay.tomcat.dir}/../deploy</liferay.auto.deploy.dir>
+        <liferay.app.server.deploy.dir>${liferay.tomcat.dir}/webapps</liferay.app.server.deploy.dir>
+        <liferay.app.server.lib.global.dir>${liferay.tomcat.dir}/lib/ext</liferay.app.server.lib.global.dir>
+        <liferay.app.server.portal.dir>${liferay.app.server.deploy.dir}/ROOT</liferay.app.server.portal.dir>
+        <guava.version>18.0</guava.version>
     </properties>
 
     <dependencies>
@@ -104,17 +114,96 @@
             <version>${jackson-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>portal-service</artifactId>
+            <version>${liferay.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>util-bridges</artifactId>
+            <version>${liferay.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>util-taglib</artifactId>
+            <version>${liferay.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.liferay.portal</groupId>
+            <artifactId>util-java</artifactId>
+            <version>${liferay.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>departments</finalName>
 
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.liferay.maven.plugins</groupId>
+                <artifactId>liferay-maven-plugin</artifactId>
+                <version>${liferay.maven.plugin.version}</version>
+                <configuration>
+                    <autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+                    <appServerDeployDir>${liferay.app.server.deploy.dir}</appServerDeployDir>
+                    <appServerLibGlobalDir>${liferay.app.server.lib.global.dir}</appServerLibGlobalDir>
+                    <appServerPortalDir>${liferay.app.server.portal.dir}</appServerPortalDir>
+                    <liferayVersion>${liferay.version}</liferayVersion>
+                    <pluginName>sales-portlet</pluginName>
+                    <pluginType>portlet</pluginType>
                 </configuration>
             </plugin>
 

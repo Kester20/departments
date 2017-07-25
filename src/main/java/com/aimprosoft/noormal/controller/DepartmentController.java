@@ -36,7 +36,7 @@ public class DepartmentController {
     }
 
     @ResponseBody
-    @RequestMapping("/getAll")
+    @RequestMapping(value = "/getAll")
     public List<Department> getAllDepartments() throws DaoException, JsonProcessingException {
         return departmentService.findDepartments();
     }
@@ -54,7 +54,7 @@ public class DepartmentController {
     }
 
     @ResponseBody
-    @RequestMapping("/delete")
+    @RequestMapping(value = "/delete")
     public void deleteDepartment(Department department) throws DaoException {
         departmentService.deleteDepartment(department);
     }

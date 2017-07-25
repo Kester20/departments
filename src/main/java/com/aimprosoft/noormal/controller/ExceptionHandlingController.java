@@ -1,4 +1,4 @@
-package com.aimprosoft.noormal.controller;
+/*package com.aimprosoft.noormal.controller;
 
 import com.aimprosoft.noormal.exception.ValidationException;
 import com.aimprosoft.noormal.model.Employee;
@@ -20,9 +20,7 @@ import static com.aimprosoft.noormal.util.Constants.Pathways.SAVE_EMPLOYEE_PATH;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_FORM;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 
-/**
- * @author Arsalan
- */
+
 @ControllerAdvice
 public class ExceptionHandlingController {
 
@@ -43,4 +41,4 @@ public class ExceptionHandlingController {
         Map<String, String> errors = exception.getErrorMap();
         return errors;
     }
-}
+}*/
