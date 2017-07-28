@@ -31,6 +31,16 @@ public class Constants {
         public static final String DEPARTMENTS_PATH = "/departments";
         public static final String EMPLOYEES_PATH = "/employees";
         public static final String ERROR_PAGE_PATH = "/errorPage";
+        public static final String INDEX_JSP = "index-jsp";
+    }
+
+    public static class Actions {
+        public static final String GET_ALL_DEPARTMENTS = "getAllDepartments";
+        public static final String DELETE_DEPARTMENT = "deleteDepartment";
+        public static final String SAVE_DEPARTMENT = "saveDepartment";
+        public static final String GET_ALL_EMPLOYEES = "getAllEmployees";
+        public static final String DELETE_EMPLOYEE = "deleteEmployee";
+        public static final String SAVE_EMPLOYEE = "saveEmployee";
     }
 
     public static class Messages {

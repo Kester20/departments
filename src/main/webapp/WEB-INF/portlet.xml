@@ -7,7 +7,11 @@
 	<portlet>
 		<portlet-name>test</portlet-name>
 		<display-name>Test</display-name>
-		<portlet-class>com.aimprosoft.noormal.controller.Servlet</portlet-class>
+		<portlet-class>com.aimprosoft.noormal.controller.Portlet</portlet-class>
+		<init-param>
+			<name>index-jsp</name>
+			<value>/WEB-INF/index.jsp</value>
+		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>

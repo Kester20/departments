@@ -22,8 +22,7 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_ID
 /**
  * @author Arsalan
  */
-@Controller
-@RequestMapping("/employee")
+
 public class EmployeeController {
 
     private EmployeeService employeeService;

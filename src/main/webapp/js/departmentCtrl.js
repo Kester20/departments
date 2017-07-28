@@ -1,7 +1,7 @@
 
 let mainApp = angular.module('mainApp');
 
-mainApp.controller('departmentSaveController', function ($scope, department, departmentService) {
+mainApp.controller('departmentSaveController', function ($scope, department, departmentService, config) {
 
     $scope.department = department;
 
@@ -28,7 +28,8 @@ mainApp.controller('departmentSaveController', function ($scope, department, dep
         let name = $scope.department.name;
         let id = $scope.department.departmentId;
         let params;
-        id == null ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
+        id == null ? (params = "&" + config.ns + "name=" + name) :
+            (params = "&" + config.ns + "name=" + name + "&" + config.ns + "departmentId=" + id);
         return departmentService.saveDepartment(params, $scope);
     };
 });

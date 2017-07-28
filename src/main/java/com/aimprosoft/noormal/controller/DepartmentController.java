@@ -19,8 +19,7 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_
 /**
  * @author Arsalan
  */
-@Controller
-@RequestMapping({"/", "/department"})
+
 public class DepartmentController {
 
     private DepartmentService departmentService;
@@ -30,10 +29,10 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @RequestMapping
+    /*@RequestMapping
     public String getRootPage() {
         return "/index";
-    }
+    }*/
 
     @ResponseBody
     @RequestMapping(value = "/getAll")

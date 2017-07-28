@@ -1,19 +1,19 @@
 
 let mainApp = angular.module('mainApp');
 
-mainApp.service('departmentService', function ($http, $state) {
+mainApp.service('departmentService', function ($http, $state, config) {
     return {
 
         getAllDepartments: function () {
-            return $http.get('/department/getAll');
+            return $http.get(config.getAllDepartments);
         },
 
         getDepartmentSavePage: function (id) {
-            return $http.get('/department/save?departmentId=' + id);
+            return $http.get(config.saveDepartment + '&' + config.ns +  'departmentId=' + id);
         },
 
         saveDepartment: function (params, $scope) {
-            let promise = $http.post('/department/save?' + params);
+            let promise = $http.post(config.saveDepartment + params);
             promise.then(fulfilled, rejected);
 
             function fulfilled() {
@@ -28,7 +28,7 @@ mainApp.service('departmentService', function ($http, $state) {
         },
 
         deleteDepartment: function ($scope, id) {
-            $http.post('/department/delete?departmentId=' + id).then(function () {
+            $http.post(config.deleteDepartment + '&' + config.ns + 'departmentId=' + id).then(function () {
                 $state.reload();
             });
         }
