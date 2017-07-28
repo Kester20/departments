@@ -3,6 +3,7 @@ package com.aimprosoft.noormal.controller;
 import com.aimprosoft.noormal.action.Action;
 import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
+import com.aimprosoft.noormal.util.ExceptionHandler;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import java.io.IOException;
+import java.text.ParseException;
 
 import static com.aimprosoft.noormal.util.Constants.Actions.GET_ALL_DEPARTMENTS;
 import static com.aimprosoft.noormal.util.Constants.Pathways.INDEX_JSP;
@@ -54,8 +56,8 @@ public class Portlet extends GenericPortlet {
         }
         try {
             action.execute(request, response);
-        } catch (ValidationException | DaoException e) {
-
+        } catch (DaoException | ParseException | ValidationException e) {
+            ExceptionHandler.handle(e, request, response);
         }
     }
 }

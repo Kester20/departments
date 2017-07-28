@@ -3,7 +3,7 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>test</portlet-name>
+		<portlet-name>departments</portlet-name>
 		<header-portlet-javascript>/js/bundle.js</header-portlet-javascript>
 	</portlet>
 	<role-mapper>

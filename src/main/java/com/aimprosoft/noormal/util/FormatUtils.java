@@ -1,6 +1,8 @@
 package com.aimprosoft.noormal.util;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Arsalan
@@ -15,7 +17,7 @@ public class FormatUtils {
         return param == null || param.equals("") ? null : Long.parseLong(param);
     }
 
-    public static LocalDate getDateFromString(String param) {
-        return param == null || param.equals("") ? null : LocalDate.parse(param);
+    public static Date getDateFromString(String param) throws ParseException {
+        return param == null || param.equals("") ? null : new SimpleDateFormat("yyyy-MM-dd").parse(param);
     }
 }

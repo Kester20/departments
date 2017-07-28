@@ -15,7 +15,7 @@ mainApp.directive('date', function (dateFilter) {
     };
 });
 
-mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http, $filter, employee, employeeService) {
+mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http, $filter, employee, employeeService, config) {
 
     $scope.employee = employee;
 
@@ -57,9 +57,14 @@ mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http
         let params = "";
 
         if (employeeId != null) {
-            params = "employeeId=" + employeeId + "&";
+            params = "&" + config.ns + "employeeId=" + employeeId;
         }
-        params += "name=" + name + "&age=" + age + "&dateOfBirth=" + dateOfBirth + "&email=" + email + "&departmentId=" + departmentId;
+        params +=
+            "&" + config.ns + "name=" + name +
+            "&" + config.ns + "age=" + age +
+            "&" + config.ns + "dateOfBirth=" + dateOfBirth +
+            "&" + config.ns + "email=" + email +
+            "&" + config.ns + "departmentId=" + departmentId;
         return employeeService.saveEmployee(params, departmentId, $scope);
     };
 });

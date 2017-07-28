@@ -16,7 +16,10 @@
         ns : '<portlet:namespace/>',
         getAllDepartments : '<portlet:resourceURL id="getAllDepartments"/>',
         saveDepartment : '<portlet:resourceURL id="saveDepartment"/>',
-        deleteDepartment : '<portlet:resourceURL id="deleteDepartment"/>'
+        deleteDepartment : '<portlet:resourceURL id="deleteDepartment"/>',
+        getAllEmployees : '<portlet:resourceURL id="getAllEmployees"/>',
+        saveEmployee : '<portlet:resourceURL id="saveEmployee"/>',
+        deleteEmployee : '<portlet:resourceURL id="deleteEmployee"/>'
     });
 </script>
 

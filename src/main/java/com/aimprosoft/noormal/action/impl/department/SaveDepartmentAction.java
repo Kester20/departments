@@ -38,13 +38,13 @@ public class SaveDepartmentAction implements Action {
         Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
         String name = request.getParameter(NAME);
 
-        if(departmentId != null && name == null){
+        if (departmentId != null && name == null) {
             PrintWriter writer = response.getWriter();
             JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
             Department department = departmentService.findOne(departmentId);
             String json = jsonSerializer.serialize(department);
             writer.write(json);
-        }else{
+        } else {
             Department department = new Department();
             department.setDepartmentId(departmentId);
             department.setName(name);

@@ -7,7 +7,6 @@ import com.aimprosoft.noormal.service.DepartmentService;
 import com.aimprosoft.noormal.util.FormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;

@@ -16,8 +16,8 @@ import javax.persistence.Table;
 
 import static com.aimprosoft.noormal.util.Constants.DbConstants.DEPARTMENT;
 import static com.aimprosoft.noormal.util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
-import static com.aimprosoft.noormal.util.Constants.Messages.MUST_NOT_BE_EMPTY;
 import static com.aimprosoft.noormal.util.Constants.Messages.MUST_BE_LESS_THEN_30;
+import static com.aimprosoft.noormal.util.Constants.Messages.MUST_NOT_BE_EMPTY;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 
 /**
@@ -31,7 +31,7 @@ public class Department {
     @CheckWith(value = DepartmentUniqueNameValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
     @NotEmpty(message = MUST_NOT_BE_EMPTY)
     @NotNull(message = MUST_NOT_BE_EMPTY)
-    @Length(max = 30,message = MUST_BE_LESS_THEN_30)
+    @Length(max = 30, message = MUST_BE_LESS_THEN_30)
     private String name;
 
     @Id

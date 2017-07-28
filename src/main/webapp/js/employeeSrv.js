@@ -1,19 +1,19 @@
 
 let mainApp = angular.module('mainApp');
 
-mainApp.service('employeeService', function ($http, $location, $state) {
+mainApp.service('employeeService', function ($http, $location, $state, config) {
     return {
 
         getByDepartment: function (id) {
-            return $http.get('/employee/getByDepartment?departmentId=' + id);
+            return $http.get(config.getAllEmployees + '&' + config.ns +  'departmentId=' + id);
         },
 
         getEmployeeSavePage: function (id) {
-            return $http.get('/employee/save?employeeId=' + id);
+            return $http.get(config.saveEmployee + '&' + config.ns + 'employeeId=' + id);
         },
 
         saveEmployee: function (params, departmentId, $scope) {
-            let promise = $http.post('/employee/save?' + params);
+            let promise = $http.post(config.saveEmployee + params);
             promise.then(fulfilled, rejected);
 
             function fulfilled() {
@@ -31,7 +31,10 @@ mainApp.service('employeeService', function ($http, $location, $state) {
         },
 
         deleteEmployee: function ($scope, employeeId, departmentId) {
-            $http.post('/employee/delete?employeeId=' + employeeId + '&departmentId=' + departmentId).then(function () {
+            $http.post(config.deleteEmployee +
+                '&' + config.ns +  'employeeId=' + employeeId +
+                '&' + config.ns + 'departmentId=' + departmentId)
+                .then(function () {
                 $state.reload();
             });
         }
