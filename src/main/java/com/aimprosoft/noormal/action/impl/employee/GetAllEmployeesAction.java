@@ -2,13 +2,14 @@ package com.aimprosoft.noormal.action.impl.employee;
 
 import com.aimprosoft.noormal.action.Action;
 import com.aimprosoft.noormal.exception.DaoException;
-import com.aimprosoft.noormal.model.Department;
-import com.aimprosoft.noormal.model.Employee;
-import com.aimprosoft.noormal.service.EmployeeService;
+import com.aimprosoft.noormal.servicebuilder.model.Department;
+import com.aimprosoft.noormal.servicebuilder.model.Employee;
+import com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl;
+import com.aimprosoft.noormal.servicebuilder.service.EmployeeLocalServiceUtil;
 import com.aimprosoft.noormal.util.FormatUtils;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONSerializer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.portlet.ResourceRequest;
@@ -26,21 +27,14 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_
 @Component(GET_ALL_EMPLOYEES)
 public class GetAllEmployeesAction implements Action {
 
-    private EmployeeService employeeService;
-
-    @Autowired
-    public GetAllEmployeesAction(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
-
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException {
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, SystemException {
         PrintWriter writer = response.getWriter();
         JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
-        Department department = new Department();
+        Department department = new DepartmentImpl();
         department.setDepartmentId(departmentId);
-        List<Employee> employees = employeeService.findEmployeesByDepartment(department);
+        List<Employee> employees = EmployeeLocalServiceUtil.findByDepartment(departmentId);
         String json = jsonSerializer.serialize(employees);
         writer.write(json);
     }

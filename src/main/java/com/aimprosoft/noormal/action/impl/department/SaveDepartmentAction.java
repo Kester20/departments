@@ -3,12 +3,14 @@ package com.aimprosoft.noormal.action.impl.department;
 import com.aimprosoft.noormal.action.Action;
 import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
-import com.aimprosoft.noormal.model.Department;
-import com.aimprosoft.noormal.service.DepartmentService;
+import com.aimprosoft.noormal.servicebuilder.model.Department;
+import com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl;
+import com.aimprosoft.noormal.servicebuilder.service.DepartmentLocalServiceUtil;
 import com.aimprosoft.noormal.util.FormatUtils;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONSerializer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.portlet.ResourceRequest;
@@ -26,29 +28,24 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 @Component(value = SAVE_DEPARTMENT)
 public class SaveDepartmentAction implements Action {
 
-    private DepartmentService departmentService;
-
-    @Autowired
-    public SaveDepartmentAction(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
-
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, ValidationException {
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, ValidationException, SystemException, PortalException {
         Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
         String name = request.getParameter(NAME);
 
         if (departmentId != null && name == null) {
             PrintWriter writer = response.getWriter();
             JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
-            Department department = departmentService.findOne(departmentId);
+            Department department = DepartmentLocalServiceUtil.getDepartment(departmentId);
             String json = jsonSerializer.serialize(department);
             writer.write(json);
         } else {
-            Department department = new Department();
-            department.setDepartmentId(departmentId);
+            Department department = new DepartmentImpl();
+            if(departmentId != null){
+                department.setDepartmentId(departmentId);
+            }
             department.setName(name);
-            departmentService.saveDepartment(department);
+            DepartmentLocalServiceUtil.updateDepartment(department);
         }
     }
 }

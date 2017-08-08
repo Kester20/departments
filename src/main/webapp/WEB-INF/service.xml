@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.0.0//EN"
+        "http://www.liferay.com/dtd/liferay-service-builder_6_0_0.dtd">
+
+<service-builder package-path="com.aimprosoft.noormal.servicebuilder">
+
+    <author>Arsalan</author>
+    <namespace>departments</namespace>
+
+    <entity name="Department" local-service="true" remote-service="false"
+            table="department"
+            data-source="anotherDataSource"
+            session-factory="anotherSessionFactory">
+        <column name="departmentId" type="long" primary="true" id-type="increment" />
+        <column name="name" type="String" />
+    </entity>
+
+    <entity name="Employee" local-service="true" remote-service="false"
+            table="employee"
+            data-source="anotherDataSource"
+            session-factory="anotherSessionFactory">
+        <column name="employeeId" type="long" primary="true" id-type="increment" />
+        <column name="name" type="String" convert-null="false" />
+        <column name="age" type="int" />
+        <column name="dateOfBirth" type="Date" />
+        <column name="email" type="String" convert-null="false" />
+
+        <column name="department" type="long" />
+        <finder name="department" return-type="Collection">
+            <finder-column name="department" />
+        </finder>
+    </entity>
+
+</service-builder>

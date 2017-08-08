@@ -2,11 +2,11 @@ package com.aimprosoft.noormal.action.impl.department;
 
 import com.aimprosoft.noormal.action.Action;
 import com.aimprosoft.noormal.exception.DaoException;
-import com.aimprosoft.noormal.model.Department;
-import com.aimprosoft.noormal.service.DepartmentService;
+import com.aimprosoft.noormal.servicebuilder.model.Department;
+import com.aimprosoft.noormal.servicebuilder.service.DepartmentLocalServiceUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONSerializer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.portlet.ResourceRequest;
@@ -23,18 +23,11 @@ import static com.aimprosoft.noormal.util.Constants.Actions.GET_ALL_DEPARTMENTS;
 @Component(value = GET_ALL_DEPARTMENTS)
 public class GetAllDepartmentsAction implements Action {
 
-    private DepartmentService departmentService;
-
-    @Autowired
-    public GetAllDepartmentsAction(DepartmentService departmentService) {
-        this.departmentService = departmentService;
-    }
-
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws DaoException, IOException {
+    public void execute(ResourceRequest request, ResourceResponse response) throws DaoException, IOException, SystemException {
         PrintWriter writer = response.getWriter();
         JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
-        List<Department> departments = departmentService.findDepartments();
+        List<Department> departments = DepartmentLocalServiceUtil.getDepartments(0, Integer.MAX_VALUE);
         String json = jsonSerializer.serialize(departments);
         writer.write(json);
     }

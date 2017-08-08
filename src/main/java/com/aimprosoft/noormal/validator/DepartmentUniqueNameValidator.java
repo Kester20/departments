@@ -1,3 +1,4 @@
+/*
 package com.aimprosoft.noormal.validator;
 
 import com.aimprosoft.noormal.dao.impl.DepartmentDao;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Component;
 
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 
+*/
 /**
  * @author Arsalan
- */
+ *//*
+
 @Component
 public class DepartmentUniqueNameValidator implements CheckWithCheck.SimpleCheck {
 
@@ -37,3 +40,4 @@ public class DepartmentUniqueNameValidator implements CheckWithCheck.SimpleCheck
         return true;
     }
 }
+*/

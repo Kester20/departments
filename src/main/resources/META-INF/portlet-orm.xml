@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentModelImpl">
+		<attributes>
+			<id name="departmentId" />
+			<basic name="name" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.aimprosoft.noormal.servicebuilder.model.impl.EmployeeModelImpl">
+		<attributes>
+			<id name="employeeId" />
+			<basic name="name" />
+			<basic name="age" />
+			<basic name="dateOfBirth">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="email" />
+			<basic name="department" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl" name="Department">
+		<table name="department" />
+		<attributes />
+	</entity>
+	<entity class="com.aimprosoft.noormal.servicebuilder.model.impl.EmployeeImpl" name="Employee">
+		<table name="employee" />
+		<attributes />
+	</entity>
+</entity-mappings>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.aimprosoft.noormal.servicebuilder.model.Department" />
+	<import class="com.aimprosoft.noormal.servicebuilder.model.Employee" />
+	<class name="com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl" table="department">
+		<cache usage="read-write" />
+		<id name="departmentId" type="long">
+			<generator class="increment" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.aimprosoft.noormal.servicebuilder.model.impl.EmployeeImpl" table="employee">
+		<cache usage="read-write" />
+		<id name="employeeId" type="long">
+			<generator class="increment" />
+		</id>
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="age" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="dateOfBirth" type="org.hibernate.type.TimestampType" />
+		<property name="email" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="department" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+</hibernate-mapping>

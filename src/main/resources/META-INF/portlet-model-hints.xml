@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.aimprosoft.noormal.servicebuilder.model.Department">
+		<field name="departmentId" type="long" />
+		<field name="name" type="String" />
+	</model>
+	<model name="com.aimprosoft.noormal.servicebuilder.model.Employee">
+		<field name="employeeId" type="long" />
+		<field name="name" type="String" />
+		<field name="age" type="int" />
+		<field name="dateOfBirth" type="Date" />
+		<field name="email" type="String" />
+		<field name="department" type="long" />
+	</model>
+</model-hints>

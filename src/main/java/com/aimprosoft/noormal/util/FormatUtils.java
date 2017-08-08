@@ -9,12 +9,12 @@ import java.util.Date;
  */
 public class FormatUtils {
 
-    public static Integer getIntFromString(String param) {
-        return param == null || param.equals("") ? null : Integer.parseInt(param);
+    public static int getIntFromString(String param) {
+        return param == null || param.equals("") ? 0 : Integer.parseInt(param);
     }
 
-    public static Long getLongFromString(String param) {
-        return param == null || param.equals("") ? null : Long.parseLong(param);
+    public static long getLongFromString(String param) {
+        return param == null || param.equals("") ? 0 : Long.parseLong(param);
     }
 
     public static Date getDateFromString(String param) throws ParseException {

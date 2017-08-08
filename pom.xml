@@ -56,7 +56,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate-version}</version>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -206,7 +206,7 @@
                     <appServerLibGlobalDir>${liferay.app.server.lib.global.dir}</appServerLibGlobalDir>
                     <appServerPortalDir>${liferay.app.server.portal.dir}</appServerPortalDir>
                     <liferayVersion>${liferay.version}</liferayVersion>
-                    <pluginName>sales-portlet</pluginName>
+                    <pluginName>departments</pluginName>
                     <pluginType>portlet</pluginType>
                 </configuration>
             </plugin>

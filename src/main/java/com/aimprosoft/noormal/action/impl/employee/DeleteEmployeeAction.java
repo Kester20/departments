@@ -2,11 +2,13 @@ package com.aimprosoft.noormal.action.impl.employee;
 
 import com.aimprosoft.noormal.action.Action;
 import com.aimprosoft.noormal.exception.DaoException;
-import com.aimprosoft.noormal.model.Department;
-import com.aimprosoft.noormal.model.Employee;
-import com.aimprosoft.noormal.service.EmployeeService;
+import com.aimprosoft.noormal.servicebuilder.model.Department;
+import com.aimprosoft.noormal.servicebuilder.model.Employee;
+import com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl;
+import com.aimprosoft.noormal.servicebuilder.model.impl.EmployeeImpl;
+import com.aimprosoft.noormal.servicebuilder.service.EmployeeLocalServiceUtil;
 import com.aimprosoft.noormal.util.FormatUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.liferay.portal.kernel.exception.SystemException;
 import org.springframework.stereotype.Component;
 
 import javax.portlet.ResourceRequest;
@@ -17,28 +19,24 @@ import static com.aimprosoft.noormal.util.Constants.Actions.DELETE_EMPLOYEE;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_ID;
 
+
 /**
  * @author Arsalan
  */
+
 @Component(DELETE_EMPLOYEE)
 public class DeleteEmployeeAction implements Action {
 
-    private EmployeeService employeeService;
-
-    @Autowired
-    public DeleteEmployeeAction(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
-
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException {
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, SystemException {
         Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
         Long employeeId = FormatUtils.getLongFromString(request.getParameter(EMPLOYEE_ID));
-        Department department = new Department();
+        Department department = new DepartmentImpl();
         department.setDepartmentId(departmentId);
-        Employee employee = new Employee();
+        Employee employee = new EmployeeImpl();
         employee.setEmployeeId(employeeId);
-        employee.setDepartment(department);
-        employeeService.deleteEmployee(employee);
+        employee.setDepartment(department.getDepartmentId());
+        EmployeeLocalServiceUtil.deleteEmployee(employee);
     }
 }
+
