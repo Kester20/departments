@@ -23,7 +23,7 @@ mainApp.service('departmentService', function ($http, $state, config) {
             function rejected(error) {
                 console.error(error.status);
                 console.error(error.statusText);
-                $scope.errorName = error.data.name;
+                $scope.errorName = error.data._name;
             }
         },
 

@@ -23,10 +23,10 @@ mainApp.service('employeeService', function ($http, $location, $state, config) {
             function rejected(error) {
                 console.error(error.status);
                 console.error(error.statusText);
-                $scope.errorName = error.data.name;
-                $scope.errorAge = error.data.age;
-                $scope.errorDateOfBirth = error.data.dateOfBirth;
-                $scope.errorEmail = error.data.email;
+                $scope.errorName = error.data._name;
+                $scope.errorAge = error.data._age;
+                $scope.errorDateOfBirth = error.data._dateOfBirth;
+                $scope.errorEmail = error.data._email;
             }
         },
 

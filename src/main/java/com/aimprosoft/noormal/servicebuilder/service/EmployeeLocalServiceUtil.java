@@ -1,6 +1,9 @@
 package com.aimprosoft.noormal.servicebuilder.service;
 
+import com.aimprosoft.noormal.exception.ValidationException;
+import com.aimprosoft.noormal.validator.CustomValidator;
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.InvokableLocalService;
 
@@ -236,7 +239,12 @@ public class EmployeeLocalServiceUtil {
     public static com.aimprosoft.noormal.servicebuilder.model.Employee updateEmployee(
         com.aimprosoft.noormal.servicebuilder.model.Employee employee)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getService().updateEmployee(employee);
+        try {
+            CustomValidator.validate(employee);
+            return getService().updateEmployee(employee);
+        } catch (ValidationException e) {
+            throw new SystemException(e);
+        }
     }
 
     /**
@@ -267,6 +275,13 @@ public class EmployeeLocalServiceUtil {
         long departmentId)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getService().findByDepartment(departmentId);
+    }
+
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee findByEmail(
+        java.lang.String email)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByEmail(email);
     }
 
     public static void clearService() {

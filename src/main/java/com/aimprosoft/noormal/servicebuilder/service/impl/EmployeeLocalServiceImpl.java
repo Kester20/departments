@@ -1,5 +1,6 @@
 package com.aimprosoft.noormal.servicebuilder.service.impl;
 
+import com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException;
 import com.aimprosoft.noormal.servicebuilder.model.Employee;
 import com.aimprosoft.noormal.servicebuilder.service.base.EmployeeLocalServiceBaseImpl;
 import com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeePersistenceImpl;
@@ -28,6 +29,10 @@ public class EmployeeLocalServiceImpl extends EmployeeLocalServiceBaseImpl {
      * Never reference this interface directly. Always use {@link com.aimprosoft.noormal.servicebuilder.service.EmployeeLocalServiceUtil} to access the employee local service.
      */
     public List<Employee> findByDepartment(long departmentId) throws SystemException {
-        return employeePersistence.findBydepartment(departmentId);
+        return employeePersistence.findByDepartment(departmentId);
+    }
+
+    public Employee findByEmail(String email) throws NoSuchEmployeeException, SystemException {
+        return employeePersistence.findByEmail(email);
     }
 }

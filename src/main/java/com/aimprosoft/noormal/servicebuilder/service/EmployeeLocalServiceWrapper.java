@@ -281,6 +281,14 @@ public class EmployeeLocalServiceWrapper implements EmployeeLocalService,
         return _employeeLocalService.findByDepartment(departmentId);
     }
 
+    @Override
+    public com.aimprosoft.noormal.servicebuilder.model.Employee findByEmail(
+        java.lang.String email)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _employeeLocalService.findByEmail(email);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

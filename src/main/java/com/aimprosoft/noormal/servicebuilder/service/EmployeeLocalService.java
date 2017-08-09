@@ -244,4 +244,9 @@ public interface EmployeeLocalService extends BaseLocalService,
     public java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findByDepartment(
         long departmentId)
         throws com.liferay.portal.kernel.exception.SystemException;
+
+    public com.aimprosoft.noormal.servicebuilder.model.Employee findByEmail(
+        java.lang.String email)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
+            com.liferay.portal.kernel.exception.SystemException;
 }

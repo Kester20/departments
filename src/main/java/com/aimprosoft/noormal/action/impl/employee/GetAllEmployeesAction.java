@@ -1,7 +1,6 @@
 package com.aimprosoft.noormal.action.impl.employee;
 
 import com.aimprosoft.noormal.action.Action;
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.Employee;
 import com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl;
@@ -28,7 +27,7 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_
 public class GetAllEmployeesAction implements Action {
 
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, SystemException {
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, SystemException {
         PrintWriter writer = response.getWriter();
         JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));

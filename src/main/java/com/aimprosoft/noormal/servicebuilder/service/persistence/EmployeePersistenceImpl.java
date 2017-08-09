@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnmodifiableList;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -72,7 +73,7 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
     public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_DEPARTMENT =
         new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
             EmployeeModelImpl.FINDER_CACHE_ENABLED, EmployeeImpl.class,
-            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findBydepartment",
+            FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByDepartment",
             new String[] {
                 Long.class.getName(),
                 
@@ -82,14 +83,26 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
     public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_DEPARTMENT =
         new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
             EmployeeModelImpl.FINDER_CACHE_ENABLED, EmployeeImpl.class,
-            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findBydepartment",
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByDepartment",
             new String[] { Long.class.getName() },
             EmployeeModelImpl.DEPARTMENT_COLUMN_BITMASK);
     public static final FinderPath FINDER_PATH_COUNT_BY_DEPARTMENT = new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
             EmployeeModelImpl.FINDER_CACHE_ENABLED, Long.class,
-            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBydepartment",
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByDepartment",
             new String[] { Long.class.getName() });
     private static final String _FINDER_COLUMN_DEPARTMENT_DEPARTMENT_2 = "employee.department = ?";
+    public static final FinderPath FINDER_PATH_FETCH_BY_EMAIL = new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
+            EmployeeModelImpl.FINDER_CACHE_ENABLED, EmployeeImpl.class,
+            FINDER_CLASS_NAME_ENTITY, "fetchByEmail",
+            new String[] { String.class.getName() },
+            EmployeeModelImpl.EMAIL_COLUMN_BITMASK);
+    public static final FinderPath FINDER_PATH_COUNT_BY_EMAIL = new FinderPath(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
+            EmployeeModelImpl.FINDER_CACHE_ENABLED, Long.class,
+            FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByEmail",
+            new String[] { String.class.getName() });
+    private static final String _FINDER_COLUMN_EMAIL_EMAIL_1 = "employee.email IS NULL";
+    private static final String _FINDER_COLUMN_EMAIL_EMAIL_2 = "employee.email = ?";
+    private static final String _FINDER_COLUMN_EMAIL_EMAIL_3 = "(employee.email IS NULL OR employee.email = '')";
     private static final String _SQL_SELECT_EMPLOYEE = "SELECT employee FROM Employee employee";
     private static final String _SQL_SELECT_EMPLOYEE_WHERE = "SELECT employee FROM Employee employee WHERE ";
     private static final String _SQL_COUNT_EMPLOYEE = "SELECT COUNT(employee) FROM Employee employee";
@@ -131,9 +144,9 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public List<Employee> findBydepartment(long department)
+    public List<Employee> findByDepartment(long department)
         throws SystemException {
-        return findBydepartment(department, QueryUtil.ALL_POS,
+        return findByDepartment(department, QueryUtil.ALL_POS,
             QueryUtil.ALL_POS, null);
     }
 
@@ -151,9 +164,9 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public List<Employee> findBydepartment(long department, int start, int end)
+    public List<Employee> findByDepartment(long department, int start, int end)
         throws SystemException {
-        return findBydepartment(department, start, end, null);
+        return findByDepartment(department, start, end, null);
     }
 
     /**
@@ -171,7 +184,7 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public List<Employee> findBydepartment(long department, int start, int end,
+    public List<Employee> findByDepartment(long department, int start, int end,
         OrderByComparator orderByComparator) throws SystemException {
         boolean pagination = true;
         FinderPath finderPath = null;
@@ -272,10 +285,10 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Employee findBydepartment_First(long department,
+    public Employee findByDepartment_First(long department,
         OrderByComparator orderByComparator)
         throws NoSuchEmployeeException, SystemException {
-        Employee employee = fetchBydepartment_First(department,
+        Employee employee = fetchByDepartment_First(department,
                 orderByComparator);
 
         if (employee != null) {
@@ -303,9 +316,9 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Employee fetchBydepartment_First(long department,
+    public Employee fetchByDepartment_First(long department,
         OrderByComparator orderByComparator) throws SystemException {
-        List<Employee> list = findBydepartment(department, 0, 1,
+        List<Employee> list = findByDepartment(department, 0, 1,
                 orderByComparator);
 
         if (!list.isEmpty()) {
@@ -325,10 +338,10 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Employee findBydepartment_Last(long department,
+    public Employee findByDepartment_Last(long department,
         OrderByComparator orderByComparator)
         throws NoSuchEmployeeException, SystemException {
-        Employee employee = fetchBydepartment_Last(department, orderByComparator);
+        Employee employee = fetchByDepartment_Last(department, orderByComparator);
 
         if (employee != null) {
             return employee;
@@ -355,15 +368,15 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Employee fetchBydepartment_Last(long department,
+    public Employee fetchByDepartment_Last(long department,
         OrderByComparator orderByComparator) throws SystemException {
-        int count = countBydepartment(department);
+        int count = countByDepartment(department);
 
         if (count == 0) {
             return null;
         }
 
-        List<Employee> list = findBydepartment(department, count - 1, count,
+        List<Employee> list = findByDepartment(department, count - 1, count,
                 orderByComparator);
 
         if (!list.isEmpty()) {
@@ -384,7 +397,7 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public Employee[] findBydepartment_PrevAndNext(long employeeId,
+    public Employee[] findByDepartment_PrevAndNext(long employeeId,
         long department, OrderByComparator orderByComparator)
         throws NoSuchEmployeeException, SystemException {
         Employee employee = findByPrimaryKey(employeeId);
@@ -396,12 +409,12 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 
             Employee[] array = new EmployeeImpl[3];
 
-            array[0] = getBydepartment_PrevAndNext(session, employee,
+            array[0] = getByDepartment_PrevAndNext(session, employee,
                     department, orderByComparator, true);
 
             array[1] = employee;
 
-            array[2] = getBydepartment_PrevAndNext(session, employee,
+            array[2] = getByDepartment_PrevAndNext(session, employee,
                     department, orderByComparator, false);
 
             return array;
@@ -412,7 +425,7 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
         }
     }
 
-    protected Employee getBydepartment_PrevAndNext(Session session,
+    protected Employee getByDepartment_PrevAndNext(Session session,
         Employee employee, long department,
         OrderByComparator orderByComparator, boolean previous) {
         StringBundler query = null;
@@ -515,8 +528,8 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public void removeBydepartment(long department) throws SystemException {
-        for (Employee employee : findBydepartment(department,
+    public void removeByDepartment(long department) throws SystemException {
+        for (Employee employee : findByDepartment(department,
                 QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
             remove(employee);
         }
@@ -530,7 +543,7 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
      * @throws SystemException if a system exception occurred
      */
     @Override
-    public int countBydepartment(long department) throws SystemException {
+    public int countByDepartment(long department) throws SystemException {
         FinderPath finderPath = FINDER_PATH_COUNT_BY_DEPARTMENT;
 
         Object[] finderArgs = new Object[] { department };
@@ -574,6 +587,231 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
     }
 
     /**
+     * Returns the employee where email = &#63; or throws a {@link com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException} if it could not be found.
+     *
+     * @param email the email
+     * @return the matching employee
+     * @throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException if a matching employee could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Employee findByEmail(String email)
+        throws NoSuchEmployeeException, SystemException {
+        Employee employee = fetchByEmail(email);
+
+        if (employee == null) {
+            StringBundler msg = new StringBundler(4);
+
+            msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+            msg.append("email=");
+            msg.append(email);
+
+            msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+            if (_log.isWarnEnabled()) {
+                _log.warn(msg.toString());
+            }
+
+            throw new NoSuchEmployeeException(msg.toString());
+        }
+
+        return employee;
+    }
+
+    /**
+     * Returns the employee where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+     *
+     * @param email the email
+     * @return the matching employee, or <code>null</code> if a matching employee could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Employee fetchByEmail(String email) throws SystemException {
+        return fetchByEmail(email, true);
+    }
+
+    /**
+     * Returns the employee where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+     *
+     * @param email the email
+     * @param retrieveFromCache whether to use the finder cache
+     * @return the matching employee, or <code>null</code> if a matching employee could not be found
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Employee fetchByEmail(String email, boolean retrieveFromCache)
+        throws SystemException {
+        Object[] finderArgs = new Object[] { email };
+
+        Object result = null;
+
+        if (retrieveFromCache) {
+            result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_EMAIL,
+                    finderArgs, this);
+        }
+
+        if (result instanceof Employee) {
+            Employee employee = (Employee) result;
+
+            if (!Validator.equals(email, employee.getEmail())) {
+                result = null;
+            }
+        }
+
+        if (result == null) {
+            StringBundler query = new StringBundler(3);
+
+            query.append(_SQL_SELECT_EMPLOYEE_WHERE);
+
+            boolean bindEmail = false;
+
+            if (email == null) {
+                query.append(_FINDER_COLUMN_EMAIL_EMAIL_1);
+            } else if (email.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_EMAIL_EMAIL_3);
+            } else {
+                bindEmail = true;
+
+                query.append(_FINDER_COLUMN_EMAIL_EMAIL_2);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindEmail) {
+                    qPos.add(email);
+                }
+
+                List<Employee> list = q.list();
+
+                if (list.isEmpty()) {
+                    FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_EMAIL,
+                        finderArgs, list);
+                } else {
+                    if ((list.size() > 1) && _log.isWarnEnabled()) {
+                        _log.warn(
+                            "EmployeePersistenceImpl.fetchByEmail(String, boolean) with parameters (" +
+                            StringUtil.merge(finderArgs) +
+                            ") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+                    }
+
+                    Employee employee = list.get(0);
+
+                    result = employee;
+
+                    cacheResult(employee);
+
+                    if ((employee.getEmail() == null) ||
+                            !employee.getEmail().equals(email)) {
+                        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_EMAIL,
+                            finderArgs, employee);
+                    }
+                }
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_EMAIL,
+                    finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        if (result instanceof List<?>) {
+            return null;
+        } else {
+            return (Employee) result;
+        }
+    }
+
+    /**
+     * Removes the employee where email = &#63; from the database.
+     *
+     * @param email the email
+     * @return the employee that was removed
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public Employee removeByEmail(String email)
+        throws NoSuchEmployeeException, SystemException {
+        Employee employee = findByEmail(email);
+
+        return remove(employee);
+    }
+
+    /**
+     * Returns the number of employees where email = &#63;.
+     *
+     * @param email the email
+     * @return the number of matching employees
+     * @throws SystemException if a system exception occurred
+     */
+    @Override
+    public int countByEmail(String email) throws SystemException {
+        FinderPath finderPath = FINDER_PATH_COUNT_BY_EMAIL;
+
+        Object[] finderArgs = new Object[] { email };
+
+        Long count = (Long) FinderCacheUtil.getResult(finderPath, finderArgs,
+                this);
+
+        if (count == null) {
+            StringBundler query = new StringBundler(2);
+
+            query.append(_SQL_COUNT_EMPLOYEE_WHERE);
+
+            boolean bindEmail = false;
+
+            if (email == null) {
+                query.append(_FINDER_COLUMN_EMAIL_EMAIL_1);
+            } else if (email.equals(StringPool.BLANK)) {
+                query.append(_FINDER_COLUMN_EMAIL_EMAIL_3);
+            } else {
+                bindEmail = true;
+
+                query.append(_FINDER_COLUMN_EMAIL_EMAIL_2);
+            }
+
+            String sql = query.toString();
+
+            Session session = null;
+
+            try {
+                session = openSession();
+
+                Query q = session.createQuery(sql);
+
+                QueryPos qPos = QueryPos.getInstance(q);
+
+                if (bindEmail) {
+                    qPos.add(email);
+                }
+
+                count = (Long) q.uniqueResult();
+
+                FinderCacheUtil.putResult(finderPath, finderArgs, count);
+            } catch (Exception e) {
+                FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+                throw processException(e);
+            } finally {
+                closeSession(session);
+            }
+        }
+
+        return count.intValue();
+    }
+
+    /**
      * Caches the employee in the entity cache if it is enabled.
      *
      * @param employee the employee
@@ -582,6 +820,9 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
     public void cacheResult(Employee employee) {
         EntityCacheUtil.putResult(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
             EmployeeImpl.class, employee.getPrimaryKey(), employee);
+
+        FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_EMAIL,
+            new Object[] { employee.getEmail() }, employee);
 
         employee.resetOriginalValues();
     }
@@ -638,6 +879,8 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
         FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+        clearUniqueFindersCache(employee);
     }
 
     @Override
@@ -648,6 +891,47 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
         for (Employee employee : employees) {
             EntityCacheUtil.removeResult(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
                 EmployeeImpl.class, employee.getPrimaryKey());
+
+            clearUniqueFindersCache(employee);
+        }
+    }
+
+    protected void cacheUniqueFindersCache(Employee employee) {
+        if (employee.isNew()) {
+            Object[] args = new Object[] { employee.getEmail() };
+
+            FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_EMAIL, args,
+                Long.valueOf(1));
+            FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_EMAIL, args, employee);
+        } else {
+            EmployeeModelImpl employeeModelImpl = (EmployeeModelImpl) employee;
+
+            if ((employeeModelImpl.getColumnBitmask() &
+                    FINDER_PATH_FETCH_BY_EMAIL.getColumnBitmask()) != 0) {
+                Object[] args = new Object[] { employee.getEmail() };
+
+                FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_EMAIL, args,
+                    Long.valueOf(1));
+                FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_EMAIL, args,
+                    employee);
+            }
+        }
+    }
+
+    protected void clearUniqueFindersCache(Employee employee) {
+        EmployeeModelImpl employeeModelImpl = (EmployeeModelImpl) employee;
+
+        Object[] args = new Object[] { employee.getEmail() };
+
+        FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_EMAIL, args);
+        FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_EMAIL, args);
+
+        if ((employeeModelImpl.getColumnBitmask() &
+                FINDER_PATH_FETCH_BY_EMAIL.getColumnBitmask()) != 0) {
+            args = new Object[] { employeeModelImpl.getOriginalEmail() };
+
+            FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_EMAIL, args);
+            FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_EMAIL, args);
         }
     }
 
@@ -805,6 +1089,9 @@ public class EmployeePersistenceImpl extends BasePersistenceImpl<Employee>
 
         EntityCacheUtil.putResult(EmployeeModelImpl.ENTITY_CACHE_ENABLED,
             EmployeeImpl.class, employee.getPrimaryKey(), employee);
+
+        clearUniqueFindersCache(employee);
+        cacheUniqueFindersCache(employee);
 
         return employee;
     }

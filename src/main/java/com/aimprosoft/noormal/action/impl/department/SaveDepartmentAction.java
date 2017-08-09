@@ -1,7 +1,6 @@
 package com.aimprosoft.noormal.action.impl.department;
 
 import com.aimprosoft.noormal.action.Action;
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl;
@@ -29,11 +28,11 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 public class SaveDepartmentAction implements Action {
 
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, ValidationException, SystemException, PortalException {
-        Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, ValidationException, SystemException, PortalException {
+        long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
         String name = request.getParameter(NAME);
 
-        if (departmentId != null && name == null) {
+        if (departmentId != 0 && name == null) {
             PrintWriter writer = response.getWriter();
             JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
             Department department = DepartmentLocalServiceUtil.getDepartment(departmentId);
@@ -41,7 +40,7 @@ public class SaveDepartmentAction implements Action {
             writer.write(json);
         } else {
             Department department = new DepartmentImpl();
-            if(departmentId != null){
+            if (departmentId != 0) {
                 department.setDepartmentId(departmentId);
             }
             department.setName(name);

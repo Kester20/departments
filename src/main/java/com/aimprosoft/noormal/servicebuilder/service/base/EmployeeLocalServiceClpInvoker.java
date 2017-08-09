@@ -47,6 +47,8 @@ public class EmployeeLocalServiceClpInvoker {
     private String[] _methodParameterTypes37;
     private String _methodName42;
     private String[] _methodParameterTypes42;
+    private String _methodName43;
+    private String[] _methodParameterTypes43;
 
     public EmployeeLocalServiceClpInvoker() {
         _methodName0 = "addEmployee";
@@ -142,6 +144,10 @@ public class EmployeeLocalServiceClpInvoker {
         _methodName42 = "findByDepartment";
 
         _methodParameterTypes42 = new String[] { "long" };
+
+        _methodName43 = "findByEmail";
+
+        _methodParameterTypes43 = new String[] { "java.lang.String" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -248,6 +254,11 @@ public class EmployeeLocalServiceClpInvoker {
         if (_methodName42.equals(name) &&
                 Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
             return EmployeeLocalServiceUtil.findByDepartment(((Long) arguments[0]).longValue());
+        }
+
+        if (_methodName43.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+            return EmployeeLocalServiceUtil.findByEmail((java.lang.String) arguments[0]);
         }
 
         throw new UnsupportedOperationException();

@@ -275,6 +275,14 @@ public class DepartmentLocalServiceWrapper implements DepartmentLocalService,
             arguments);
     }
 
+    @Override
+    public com.aimprosoft.noormal.servicebuilder.model.Department findByName(
+        java.lang.String name)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return _departmentLocalService.findByName(name);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

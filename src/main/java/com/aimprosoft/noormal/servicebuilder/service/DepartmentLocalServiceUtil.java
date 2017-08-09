@@ -1,6 +1,9 @@
 package com.aimprosoft.noormal.servicebuilder.service;
 
+import com.aimprosoft.noormal.exception.ValidationException;
+import com.aimprosoft.noormal.validator.CustomValidator;
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.InvokableLocalService;
 
@@ -236,7 +239,12 @@ public class DepartmentLocalServiceUtil {
     public static com.aimprosoft.noormal.servicebuilder.model.Department updateDepartment(
         com.aimprosoft.noormal.servicebuilder.model.Department department)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getService().updateDepartment(department);
+        try {
+            CustomValidator.validate(department);
+            return getService().updateDepartment(department);
+        } catch (ValidationException e) {
+            throw new SystemException(e);
+        }
     }
 
     /**
@@ -261,6 +269,13 @@ public class DepartmentLocalServiceUtil {
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable {
         return getService().invokeMethod(name, parameterTypes, arguments);
+    }
+
+    public static com.aimprosoft.noormal.servicebuilder.model.Department findByName(
+        java.lang.String name)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getService().findByName(name);
     }
 
     public static void clearService() {

@@ -240,4 +240,9 @@ public interface DepartmentLocalService extends BaseLocalService,
     public java.lang.Object invokeMethod(java.lang.String name,
         java.lang.String[] parameterTypes, java.lang.Object[] arguments)
         throws java.lang.Throwable;
+
+    public com.aimprosoft.noormal.servicebuilder.model.Department findByName(
+        java.lang.String name)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException,
+            com.liferay.portal.kernel.exception.SystemException;
 }

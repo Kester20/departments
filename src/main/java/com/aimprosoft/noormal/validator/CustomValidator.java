@@ -1,4 +1,4 @@
-/*package com.aimprosoft.noormal.validator;
+package com.aimprosoft.noormal.validator;
 
 import com.aimprosoft.noormal.exception.ValidationException;
 import net.sf.oval.ConstraintViolation;
@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-*//**
+/**
  * @author Arsalan
- *//*
+ */
 public class CustomValidator {
 
     private static Validator validator = initCustomValidator();
@@ -45,4 +45,4 @@ public class CustomValidator {
             }
         }
     }
-}*/
+}

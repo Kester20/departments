@@ -46,6 +46,8 @@ public class EmployeeLocalServiceClp implements EmployeeLocalService {
     private String[] _methodParameterTypes17;
     private String _methodName19;
     private String[] _methodParameterTypes19;
+    private String _methodName20;
+    private String[] _methodParameterTypes20;
 
     public EmployeeLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -143,6 +145,10 @@ public class EmployeeLocalServiceClp implements EmployeeLocalService {
         _methodName19 = "findByDepartment";
 
         _methodParameterTypes19 = new String[] { "long" };
+
+        _methodName20 = "findByEmail";
+
+        _methodParameterTypes20 = new String[] { "java.lang.String" };
     }
 
     @Override
@@ -684,5 +690,38 @@ public class EmployeeLocalServiceClp implements EmployeeLocalService {
         }
 
         return (java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public com.aimprosoft.noormal.servicebuilder.model.Employee findByEmail(
+        java.lang.String email)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
+            com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName20,
+                    _methodParameterTypes20,
+                    new Object[] { ClpSerializer.translateInput(email) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException) {
+                throw (com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException) t;
+            }
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (com.aimprosoft.noormal.servicebuilder.model.Employee) ClpSerializer.translateOutput(returnObj);
     }
 }

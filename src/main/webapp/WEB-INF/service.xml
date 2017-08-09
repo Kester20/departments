@@ -13,6 +13,10 @@
             session-factory="anotherSessionFactory">
         <column name="departmentId" type="long" primary="true" id-type="increment" />
         <column name="name" type="String" />
+
+        <finder name="Name" return-type="Department">
+            <finder-column name="name" />
+        </finder>
     </entity>
 
     <entity name="Employee" local-service="true" remote-service="false"
@@ -24,10 +28,14 @@
         <column name="age" type="int" />
         <column name="dateOfBirth" type="Date" />
         <column name="email" type="String" convert-null="false" />
-
         <column name="department" type="long" />
-        <finder name="department" return-type="Collection">
+
+        <finder name="Department" return-type="Collection">
             <finder-column name="department" />
+        </finder>
+
+        <finder name="Email" return-type="Employee">
+            <finder-column name="email" />
         </finder>
     </entity>
 

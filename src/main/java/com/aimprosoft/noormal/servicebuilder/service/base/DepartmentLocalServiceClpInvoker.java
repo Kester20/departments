@@ -45,6 +45,8 @@ public class DepartmentLocalServiceClpInvoker {
     private String[] _methodParameterTypes36;
     private String _methodName37;
     private String[] _methodParameterTypes37;
+    private String _methodName42;
+    private String[] _methodParameterTypes42;
 
     public DepartmentLocalServiceClpInvoker() {
         _methodName0 = "addDepartment";
@@ -136,6 +138,10 @@ public class DepartmentLocalServiceClpInvoker {
         _methodName37 = "setBeanIdentifier";
 
         _methodParameterTypes37 = new String[] { "java.lang.String" };
+
+        _methodName42 = "findByName";
+
+        _methodParameterTypes42 = new String[] { "java.lang.String" };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -237,6 +243,11 @@ public class DepartmentLocalServiceClpInvoker {
             DepartmentLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
+        }
+
+        if (_methodName42.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+            return DepartmentLocalServiceUtil.findByName((java.lang.String) arguments[0]);
         }
 
         throw new UnsupportedOperationException();

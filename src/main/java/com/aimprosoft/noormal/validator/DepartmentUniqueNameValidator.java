@@ -1,43 +1,34 @@
-/*
 package com.aimprosoft.noormal.validator;
 
-import com.aimprosoft.noormal.dao.impl.DepartmentDao;
-import com.aimprosoft.noormal.exception.DaoException;
-import com.aimprosoft.noormal.model.Department;
+import com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException;
+import com.aimprosoft.noormal.servicebuilder.model.Department;
+import com.aimprosoft.noormal.servicebuilder.service.DepartmentLocalServiceUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 import net.sf.oval.constraint.CheckWithCheck;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
-
-*/
 /**
  * @author Arsalan
- *//*
+ */
 
 @Component
 public class DepartmentUniqueNameValidator implements CheckWithCheck.SimpleCheck {
 
-    @Autowired
-    private DepartmentDao departmentDao;
-
     @Override
     public boolean isSatisfied(Object validatedObject, Object valueToValidate) {
+        boolean result;
         Department department = (Department) validatedObject;
         String departmentName = (String) valueToValidate;
-        Department existedDepartment = null;
-
+        Department existedDepartment;
         try {
-            existedDepartment = departmentDao.findOneByCriteria(NAME, departmentName);
-        } catch (DaoException e) {
-            e.printStackTrace();
+            existedDepartment = DepartmentLocalServiceUtil.findByName(departmentName);
+            result = existedDepartment.getDepartmentId() == department.getDepartmentId();
+        } catch (NoSuchDepartmentException e) {
+            result = true;
+        } catch (SystemException e) {
+            result = false;
         }
-
-        if (existedDepartment != null && existedDepartment.getName().equals(departmentName) &&
-                existedDepartment.getDepartmentId() != department.getDepartmentId()) {
-            return false;
-        }
-        return true;
+        return result;
     }
 }
-*/
+

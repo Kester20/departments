@@ -3,6 +3,8 @@ package com.aimprosoft.noormal.servicebuilder.model.impl;
 import com.aimprosoft.noormal.servicebuilder.model.Employee;
 import com.aimprosoft.noormal.servicebuilder.model.EmployeeModel;
 
+import com.aimprosoft.noormal.util.Constants;
+import com.aimprosoft.noormal.validator.EmployeeUniqueEmailValidator;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -13,6 +15,10 @@ import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
+import net.sf.oval.constraint.CheckWith;
+import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotEmpty;
+import net.sf.oval.constraint.NotNull;
 
 import java.io.Serializable;
 
@@ -21,6 +27,8 @@ import java.sql.Types;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.aimprosoft.noormal.util.Constants.Messages.MUST_BE_LESS_THEN_30;
 
 /**
  * The base model implementation for the Employee service. Represents a row in the &quot;employee&quot; database table, with each column mapped to a property of this class.
@@ -68,7 +76,8 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
                 "value.object.column.bitmask.enabled.com.aimprosoft.noormal.servicebuilder.model.Employee"),
             true);
     public static long DEPARTMENT_COLUMN_BITMASK = 1L;
-    public static long EMPLOYEEID_COLUMN_BITMASK = 2L;
+    public static long EMAIL_COLUMN_BITMASK = 2L;
+    public static long EMPLOYEEID_COLUMN_BITMASK = 4L;
     public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
                 "lock.expiration.time.com.aimprosoft.noormal.servicebuilder.model.Employee"));
     private static ClassLoader _classLoader = Employee.class.getClassLoader();
@@ -76,10 +85,25 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
             Employee.class
         };
     private long _employeeId;
+
+    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     private String _name;
+
+    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     private int _age;
+
+    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     private Date _dateOfBirth;
+
+    @CheckWith(value = EmployeeUniqueEmailValidator.class, message = Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
+    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @Length(max = 30, message = MUST_BE_LESS_THEN_30)
     private String _email;
+    private String _originalEmail;
     private long _department;
     private long _originalDepartment;
     private boolean _setOriginalDepartment;
@@ -219,7 +243,17 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 
     @Override
     public void setEmail(String email) {
+        _columnBitmask |= EMAIL_COLUMN_BITMASK;
+
+        if (_originalEmail == null) {
+            _originalEmail = _email;
+        }
+
         _email = email;
+    }
+
+    public String getOriginalEmail() {
+        return _originalEmail;
     }
 
     @Override
@@ -329,6 +363,8 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
     @Override
     public void resetOriginalValues() {
         EmployeeModelImpl employeeModelImpl = this;
+
+        employeeModelImpl._originalEmail = employeeModelImpl._email;
 
         employeeModelImpl._originalDepartment = employeeModelImpl._department;
 

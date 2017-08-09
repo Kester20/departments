@@ -21,8 +21,8 @@ public class ExceptionHandler {
         JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         String json;
 
-        if (exception instanceof ValidationException) {
-            ValidationException validationException = (ValidationException) exception;
+        if (exception.getCause() instanceof ValidationException) {
+            ValidationException validationException = (ValidationException) exception.getCause();
             response.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(HttpServletResponse.SC_BAD_REQUEST));
             Map<String, String> errors = validationException.getErrorMap();
             json = jsonSerializer.serialize(errors);
@@ -31,7 +31,6 @@ public class ExceptionHandler {
             String message = "INTERNAL SERVER ERROR!";
             json = jsonSerializer.serialize(message);
         }
-
         writer.write(json);
     }
 }

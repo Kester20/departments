@@ -1,7 +1,6 @@
 package com.aimprosoft.noormal.action.impl.employee;
 
 import com.aimprosoft.noormal.action.Action;
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.Employee;
 import com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl;
@@ -19,7 +18,6 @@ import static com.aimprosoft.noormal.util.Constants.Actions.DELETE_EMPLOYEE;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_ID;
 
-
 /**
  * @author Arsalan
  */
@@ -28,9 +26,9 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_ID
 public class DeleteEmployeeAction implements Action {
 
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, SystemException {
-        Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
-        Long employeeId = FormatUtils.getLongFromString(request.getParameter(EMPLOYEE_ID));
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, SystemException {
+        long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
+        long employeeId = FormatUtils.getLongFromString(request.getParameter(EMPLOYEE_ID));
         Department department = new DepartmentImpl();
         department.setDepartmentId(departmentId);
         Employee employee = new EmployeeImpl();

@@ -1,7 +1,6 @@
 package com.aimprosoft.noormal.action.impl.employee;
 
 import com.aimprosoft.noormal.action.Action;
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.Employee;
@@ -39,7 +38,7 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 public class SaveEmployeeAction implements Action {
 
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, ParseException, ValidationException, SystemException, PortalException {
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, ParseException, ValidationException, SystemException, PortalException {
         Employee employee = getEmployeeFromRequest(request);
         if (employee.getEmployeeId() != 0 && employee.getName() == null) {
             PrintWriter writer = response.getWriter();
@@ -52,7 +51,7 @@ public class SaveEmployeeAction implements Action {
         }
     }
 
-    private Employee getEmployeeFromRequest(ResourceRequest request) throws ParseException, DaoException, PortalException, SystemException {
+    private Employee getEmployeeFromRequest(ResourceRequest request) throws ParseException, PortalException, SystemException {
         Department department = getDepartmentFromRequest(request);
         Employee employee = new EmployeeImpl();
         long employeeId = FormatUtils.getLongFromString(request.getParameter(EMPLOYEE_ID));
@@ -65,13 +64,13 @@ public class SaveEmployeeAction implements Action {
         employee.setAge(age);
         employee.setDateOfBirth(date);
         employee.setEmail(email);
-        if(department != null){
+        if (department != null) {
             employee.setDepartment(department.getDepartmentId());
         }
         return employee;
     }
 
-    private Department getDepartmentFromRequest(ResourceRequest request) throws DaoException, SystemException, PortalException {
+    private Department getDepartmentFromRequest(ResourceRequest request) throws SystemException, PortalException {
         Department department = null;
         long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
         if (departmentId != 0) {

@@ -1,7 +1,6 @@
 package com.aimprosoft.noormal.action.impl.department;
 
 import com.aimprosoft.noormal.action.Action;
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl;
 import com.aimprosoft.noormal.servicebuilder.service.DepartmentLocalServiceUtil;
@@ -24,8 +23,8 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_
 public class DeleteDepartmentAction implements Action {
 
     @Override
-    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, DaoException, SystemException, PortalException {
-        Long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
+    public void execute(ResourceRequest request, ResourceResponse response) throws IOException, SystemException, PortalException {
+        long departmentId = FormatUtils.getLongFromString(request.getParameter(DEPARTMENT_ID));
         Department department = new DepartmentImpl();
         department.setDepartmentId(departmentId);
         DepartmentLocalServiceUtil.deleteDepartment(departmentId);

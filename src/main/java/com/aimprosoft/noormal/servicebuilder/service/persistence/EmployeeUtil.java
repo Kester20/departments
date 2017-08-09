@@ -104,10 +104,10 @@ public class EmployeeUtil {
     * @return the matching employees
     * @throws SystemException if a system exception occurred
     */
-    public static java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findBydepartment(
+    public static java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findByDepartment(
         long department)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().findBydepartment(department);
+        return getPersistence().findByDepartment(department);
     }
 
     /**
@@ -123,10 +123,10 @@ public class EmployeeUtil {
     * @return the range of matching employees
     * @throws SystemException if a system exception occurred
     */
-    public static java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findBydepartment(
+    public static java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findByDepartment(
         long department, int start, int end)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().findBydepartment(department, start, end);
+        return getPersistence().findByDepartment(department, start, end);
     }
 
     /**
@@ -143,12 +143,12 @@ public class EmployeeUtil {
     * @return the ordered range of matching employees
     * @throws SystemException if a system exception occurred
     */
-    public static java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findBydepartment(
+    public static java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findByDepartment(
         long department, int start, int end,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .findBydepartment(department, start, end, orderByComparator);
+                   .findByDepartment(department, start, end, orderByComparator);
     }
 
     /**
@@ -160,13 +160,13 @@ public class EmployeeUtil {
     * @throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException if a matching employee could not be found
     * @throws SystemException if a system exception occurred
     */
-    public static com.aimprosoft.noormal.servicebuilder.model.Employee findBydepartment_First(
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee findByDepartment_First(
         long department,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
             com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .findBydepartment_First(department, orderByComparator);
+                   .findByDepartment_First(department, orderByComparator);
     }
 
     /**
@@ -177,12 +177,12 @@ public class EmployeeUtil {
     * @return the first matching employee, or <code>null</code> if a matching employee could not be found
     * @throws SystemException if a system exception occurred
     */
-    public static com.aimprosoft.noormal.servicebuilder.model.Employee fetchBydepartment_First(
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee fetchByDepartment_First(
         long department,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .fetchBydepartment_First(department, orderByComparator);
+                   .fetchByDepartment_First(department, orderByComparator);
     }
 
     /**
@@ -194,13 +194,13 @@ public class EmployeeUtil {
     * @throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException if a matching employee could not be found
     * @throws SystemException if a system exception occurred
     */
-    public static com.aimprosoft.noormal.servicebuilder.model.Employee findBydepartment_Last(
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee findByDepartment_Last(
         long department,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
             com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .findBydepartment_Last(department, orderByComparator);
+                   .findByDepartment_Last(department, orderByComparator);
     }
 
     /**
@@ -211,12 +211,12 @@ public class EmployeeUtil {
     * @return the last matching employee, or <code>null</code> if a matching employee could not be found
     * @throws SystemException if a system exception occurred
     */
-    public static com.aimprosoft.noormal.servicebuilder.model.Employee fetchBydepartment_Last(
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee fetchByDepartment_Last(
         long department,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .fetchBydepartment_Last(department, orderByComparator);
+                   .fetchByDepartment_Last(department, orderByComparator);
     }
 
     /**
@@ -229,13 +229,13 @@ public class EmployeeUtil {
     * @throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException if a employee with the primary key could not be found
     * @throws SystemException if a system exception occurred
     */
-    public static com.aimprosoft.noormal.servicebuilder.model.Employee[] findBydepartment_PrevAndNext(
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee[] findByDepartment_PrevAndNext(
         long employeeId, long department,
         com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
         throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
             com.liferay.portal.kernel.exception.SystemException {
         return getPersistence()
-                   .findBydepartment_PrevAndNext(employeeId, department,
+                   .findByDepartment_PrevAndNext(employeeId, department,
             orderByComparator);
     }
 
@@ -245,9 +245,9 @@ public class EmployeeUtil {
     * @param department the department
     * @throws SystemException if a system exception occurred
     */
-    public static void removeBydepartment(long department)
+    public static void removeByDepartment(long department)
         throws com.liferay.portal.kernel.exception.SystemException {
-        getPersistence().removeBydepartment(department);
+        getPersistence().removeByDepartment(department);
     }
 
     /**
@@ -257,9 +257,77 @@ public class EmployeeUtil {
     * @return the number of matching employees
     * @throws SystemException if a system exception occurred
     */
-    public static int countBydepartment(long department)
+    public static int countByDepartment(long department)
         throws com.liferay.portal.kernel.exception.SystemException {
-        return getPersistence().countBydepartment(department);
+        return getPersistence().countByDepartment(department);
+    }
+
+    /**
+    * Returns the employee where email = &#63; or throws a {@link com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException} if it could not be found.
+    *
+    * @param email the email
+    * @return the matching employee
+    * @throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException if a matching employee could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee findByEmail(
+        java.lang.String email)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().findByEmail(email);
+    }
+
+    /**
+    * Returns the employee where email = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+    *
+    * @param email the email
+    * @return the matching employee, or <code>null</code> if a matching employee could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee fetchByEmail(
+        java.lang.String email)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByEmail(email);
+    }
+
+    /**
+    * Returns the employee where email = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+    *
+    * @param email the email
+    * @param retrieveFromCache whether to use the finder cache
+    * @return the matching employee, or <code>null</code> if a matching employee could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee fetchByEmail(
+        java.lang.String email, boolean retrieveFromCache)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().fetchByEmail(email, retrieveFromCache);
+    }
+
+    /**
+    * Removes the employee where email = &#63; from the database.
+    *
+    * @param email the email
+    * @return the employee that was removed
+    * @throws SystemException if a system exception occurred
+    */
+    public static com.aimprosoft.noormal.servicebuilder.model.Employee removeByEmail(
+        java.lang.String email)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
+            com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().removeByEmail(email);
+    }
+
+    /**
+    * Returns the number of employees where email = &#63;.
+    *
+    * @param email the email
+    * @return the number of matching employees
+    * @throws SystemException if a system exception occurred
+    */
+    public static int countByEmail(java.lang.String email)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return getPersistence().countByEmail(email);
     }
 
     /**

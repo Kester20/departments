@@ -1,6 +1,5 @@
 package com.aimprosoft.noormal.action;
 
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -15,5 +14,5 @@ import java.text.ParseException;
  */
 public interface Action {
 
-    void execute(ResourceRequest request, ResourceResponse response) throws DaoException, IOException, ValidationException, ParseException, SystemException, PortalException;
+    void execute(ResourceRequest request, ResourceResponse response) throws IOException, ValidationException, ParseException, SystemException, PortalException;
 }

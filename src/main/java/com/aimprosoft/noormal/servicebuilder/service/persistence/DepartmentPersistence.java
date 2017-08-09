@@ -24,6 +24,64 @@ public interface DepartmentPersistence extends BasePersistence<Department> {
      */
 
     /**
+    * Returns the department where name = &#63; or throws a {@link com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException} if it could not be found.
+    *
+    * @param name the name
+    * @return the matching department
+    * @throws com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException if a matching department could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.aimprosoft.noormal.servicebuilder.model.Department findByName(
+        java.lang.String name)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the department where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+    *
+    * @param name the name
+    * @return the matching department, or <code>null</code> if a matching department could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.aimprosoft.noormal.servicebuilder.model.Department fetchByName(
+        java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the department where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+    *
+    * @param name the name
+    * @param retrieveFromCache whether to use the finder cache
+    * @return the matching department, or <code>null</code> if a matching department could not be found
+    * @throws SystemException if a system exception occurred
+    */
+    public com.aimprosoft.noormal.servicebuilder.model.Department fetchByName(
+        java.lang.String name, boolean retrieveFromCache)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Removes the department where name = &#63; from the database.
+    *
+    * @param name the name
+    * @return the department that was removed
+    * @throws SystemException if a system exception occurred
+    */
+    public com.aimprosoft.noormal.servicebuilder.model.Department removeByName(
+        java.lang.String name)
+        throws com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException,
+            com.liferay.portal.kernel.exception.SystemException;
+
+    /**
+    * Returns the number of departments where name = &#63;.
+    *
+    * @param name the name
+    * @return the number of matching departments
+    * @throws SystemException if a system exception occurred
+    */
+    public int countByName(java.lang.String name)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    /**
     * Caches the department in the entity cache if it is enabled.
     *
     * @param department the department

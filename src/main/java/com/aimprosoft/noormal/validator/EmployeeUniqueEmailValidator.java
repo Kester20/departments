@@ -1,42 +1,34 @@
-/*
 package com.aimprosoft.noormal.validator;
 
-import com.aimprosoft.noormal.dao.impl.EmployeeDao;
-import com.aimprosoft.noormal.exception.DaoException;
-import com.aimprosoft.noormal.model.Employee;
-import com.aimprosoft.noormal.util.Constants;
+import com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException;
+import com.aimprosoft.noormal.servicebuilder.model.Employee;
+import com.aimprosoft.noormal.servicebuilder.service.EmployeeLocalServiceUtil;
+import com.liferay.portal.kernel.exception.SystemException;
 import net.sf.oval.constraint.CheckWithCheck;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-*/
 /**
  * @author Arsalan
- *//*
+ */
 
 @Component
 public class EmployeeUniqueEmailValidator implements CheckWithCheck.SimpleCheck {
 
-    @Autowired
-    private EmployeeDao employeeDao;
-
     @Override
     public boolean isSatisfied(Object validatedObject, Object valueToValidate) {
+        boolean result;
         Employee employee = (Employee) validatedObject;
         String email = (String) valueToValidate;
-        Employee existedEmployee = null;
-
+        Employee existedEmployee;
         try {
-            existedEmployee = employeeDao.findOneByCriteria(Constants.ServiceConstants.EMAIL, email);
-        } catch (DaoException e) {
-            e.printStackTrace();
+            existedEmployee = EmployeeLocalServiceUtil.findByEmail(email);
+            result = (existedEmployee.getEmployeeId() == employee.getEmployeeId());
+        } catch (NoSuchEmployeeException e) {
+            result = true;
+        } catch (SystemException e) {
+            result = false;
         }
-
-        if (existedEmployee != null && existedEmployee.getEmail().equals(email)
-                && existedEmployee.getEmployeeId() != employee.getEmployeeId()) {
-            return false;
-        }
-        return true;
+        return result;
     }
 }
-*/
+

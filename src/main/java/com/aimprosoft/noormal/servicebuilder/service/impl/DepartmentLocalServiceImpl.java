@@ -1,6 +1,9 @@
 package com.aimprosoft.noormal.servicebuilder.service.impl;
 
+import com.aimprosoft.noormal.servicebuilder.NoSuchDepartmentException;
+import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.service.base.DepartmentLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * The implementation of the department local service.
@@ -22,4 +25,7 @@ public class DepartmentLocalServiceImpl extends DepartmentLocalServiceBaseImpl {
      *
      * Never reference this interface directly. Always use {@link com.aimprosoft.noormal.servicebuilder.service.DepartmentLocalServiceUtil} to access the department local service.
      */
+    public Department findByName(String name) throws NoSuchDepartmentException, SystemException {
+        return departmentPersistence.findByName(name);
+    }
 }
