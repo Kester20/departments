@@ -29,7 +29,6 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMAIL;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_ID;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.NAME;
 
-
 /**
  * @author Arsalan
  */

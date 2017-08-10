@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Departments</title>
 </head>
-<body ng-controller="departmentController">
+<body>
 
 <h3 align="center">Departments</h3>
 
@@ -18,14 +18,14 @@
         <th class="mdl-data-table__cell--non-numeric">Employees</th>
     </tr>
 
-    <tr ng-repeat="department in departments">
+    <tr ng-repeat="department in dc.departments">
         <td>{{$index + 1}}</td>
         <td>{{department.name}}</td>
         <td><a ui-sref="departmentSave({departmentId: department.departmentId})"
                class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
         </td>
         <td>
-            <button ng-click="deleteDepartment(department.departmentId)"
+            <button ng-click="dc.deleteDepartment(department.departmentId)"
                     class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
             </button>
         </td>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Save Department</title>
 </head>
-<body ng-controller="departmentSaveController">
+<body>
 
 <h3 align="center">Enter new value</h3>
 
@@ -15,12 +15,12 @@
         <tr>
             <td colspan="2">
                 <input class="mdl-textfield__input" type="text" name="name" placeholder="Name"
-                       ng-model="department.name" ng-maxlength="30" ng-required="true"
-                       ng-pattern="scriptPattern">
-                <span class="error" ng-show="hasError('name', 'maxlength')">Too long!</span>
-                <span class="error" ng-show="hasError('name', 'required')">Required!</span>
-                <span class="error" ng-show="hasError('name', 'pattern')">Please enter valid name!</span>
-                <label class="error">{{errorName}}</label>
+                       ng-model="dsc.department.name" ng-maxlength="30" ng-required="true"
+                       ng-pattern="dsc.scriptPattern">
+                <span class="error" ng-show="dsc.hasError('name', 'maxlength')">Too long!</span>
+                <span class="error" ng-show="dsc.hasError('name', 'required')">Required!</span>
+                <span class="error" ng-show="dsc.hasError('name', 'pattern')">Please enter valid name!</span>
+                <label class="error">{{dsc.errorName}}</label>
             </td>
         </tr>
 
@@ -29,7 +29,7 @@
                    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
             </td>
             <td>
-                <button type="submit" ng-click="saveDepartment()" ng-disabled="form.$invalid"
+                <button type="submit" ng-click="dsc.saveDepartment()" ng-disabled="form.$invalid"
                         class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                     Save
                 </button>
@@ -39,8 +39,5 @@
     </table>
 
 </form>
-
-<input type="hidden" name="departmentId" value="{{department.departmentId}}">
-
 </body>
 </html>

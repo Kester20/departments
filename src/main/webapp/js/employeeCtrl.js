@@ -1,58 +1,60 @@
-
 let mainApp = angular.module('mainApp');
 
-mainApp.directive('date', function (dateFilter) {
+mainApp.directive('date', DateFilter);
+mainApp.controller('employeeSaveController', EmployeeSaveController);
+mainApp.controller('employeeController', EmployeeController);
+
+function DateFilter (dateFilter) {
     return {
         require:'ngModel',
         link:function (scope, elm, attrs, ctrl) {
-
             let dateFormat = attrs['date'] || 'yyyy-MM-dd';
-
             ctrl.$formatters.unshift(function (modelValue) {
                 return dateFilter(modelValue, dateFormat);
             });
         }
     };
-});
+}
 
-mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http, $filter, employee, employeeService, config) {
+function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeService, config) {
+    let vm = this;
+    vm.employee = employee;
+    vm.hasError = hasError;
+    vm.datePattern = datePattern();
+    vm.scriptPattern = scriptPattern();
+    vm.saveEmployee = saveEmployee;
 
-    $scope.employee = employee;
-
-    $scope.hasError = function(field, validation){
+    function hasError(field, validation){
         if(validation){
             return ($scope.form[field].$dirty && $scope.form[field].$error[validation]);
         }
         return ($scope.form[field].$dirty && $scope.form[field].$invalid);
-    };
+    }
 
-    $scope.datePattern = (function() {
+    function datePattern() {
         let regexp = /^\d\d\d\d-\d\d?-\d\d$/;
         return {
             test: function(value) {
                 return regexp.test(value);
             }
         };
-    })();
+    }
 
-    $scope.scriptPattern = (function() {
+    function scriptPattern() {
         let regexp = /^(<script|<script>).*(\/>|<\/script>)$/;
         return {
             test: function(value) {
-                if(regexp.test(value)){
-                    return false;
-                }
-                return true;
+                return !(regexp.test(value));
             }
         };
-    })();
+    }
 
-    $scope.saveEmployee = function () {
-        let employeeId = $scope.employee.employeeId;
-        let name = $scope.employee.name;
-        let age = $scope.employee.age;
-        let dateOfBirth = $filter('date')($scope.employee.dateOfBirth, 'yyyy-MM-dd');
-        let email = $scope.employee.email;
+    function saveEmployee() {
+        let employeeId = vm.employee.employeeId;
+        let name = vm.employee.name;
+        let age = vm.employee.age;
+        let dateOfBirth = $filter('date')(vm.employee.dateOfBirth, 'yyyy-MM-dd');
+        let email = vm.employee.email;
         let departmentId = $rootScope.departmentId;
         let params = "";
 
@@ -65,16 +67,17 @@ mainApp.controller('employeeSaveController', function ($rootScope, $scope, $http
             "&" + config.ns + "dateOfBirth=" + dateOfBirth +
             "&" + config.ns + "email=" + email +
             "&" + config.ns + "departmentId=" + departmentId;
-        return employeeService.saveEmployee(params, departmentId, $scope);
-    };
-});
+        return employeeService.saveEmployee(params, departmentId, vm);
+    }
+}
 
-mainApp.controller('employeeController', function ($rootScope, $scope, $http, employees, departmentId, employeeService) {
-
-    $scope.employees = employees;
+function EmployeeController($rootScope, employees, departmentId, employeeService) {
+    let vm = this;
+    vm.employees = employees;
+    vm.deleteEmployee = deleteEmployee;
     $rootScope.departmentId = departmentId;
 
-    $scope.deleteEmployee = function (employeeId, departmentId) {
-        return employeeService.deleteEmployee($scope, employeeId, departmentId);
-    };
-});
+    function deleteEmployee(employeeId, departmentId) {
+        return employeeService.deleteEmployee(employeeId, departmentId);
+    }
+}
