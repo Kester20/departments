@@ -15,14 +15,25 @@
         <url-pattern>/js/*</url-pattern>
     </servlet-mapping>
 
-    <context-param>
+    <!--<context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/spring.xml</param-value>
+        <param-value>classpath:/departments-portlet.xml</param-value>
     </context-param>
 
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener
         </listener-class>
-    </listener>
+    </listener>-->
+
+    <servlet>
+        <servlet-name>view-servlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>view-servlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 </web-app>

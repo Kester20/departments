@@ -7,7 +7,11 @@
 	<portlet>
 		<portlet-name>departments</portlet-name>
 		<display-name>Departments</display-name>
-		<portlet-class>com.aimprosoft.noormal.controller.Portlet</portlet-class>
+		<portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+		<init-param>
+			<name>contextConfigLocation</name>
+			<value>classpath:/departments-portlet.xml</value>
+		</init-param>
 		<init-param>
 			<name>index-jsp</name>
 			<value>/WEB-INF/index.jsp</value>

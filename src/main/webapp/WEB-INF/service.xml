@@ -12,7 +12,7 @@
             data-source="anotherDataSource"
             session-factory="anotherSessionFactory">
         <column name="departmentId" type="long" primary="true" id-type="increment" />
-        <column name="name" type="String" />
+        <column name="name" type="String" convert-null="false" />
 
         <finder name="Name" return-type="Department">
             <finder-column name="name" />

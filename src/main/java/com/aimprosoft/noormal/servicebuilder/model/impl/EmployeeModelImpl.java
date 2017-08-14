@@ -19,7 +19,10 @@ import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 
 import java.sql.Types;
@@ -29,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.aimprosoft.noormal.util.Constants.Messages.MUST_BE_LESS_THEN_30;
+import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DATE_FORMAT;
 
 /**
  * The base model implementation for the Employee service. Represents a row in the &quot;employee&quot; database table, with each column mapped to a property of this class.
@@ -96,6 +100,8 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
 
     @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
+    @DateTimeFormat(pattern = DATE_FORMAT)
+    @Temporal(TemporalType.DATE)
     private Date _dateOfBirth;
 
     @CheckWith(value = EmployeeUniqueEmailValidator.class, message = Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)

@@ -66,7 +66,7 @@ function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeS
             "&" + config.ns + "age=" + age +
             "&" + config.ns + "dateOfBirth=" + dateOfBirth +
             "&" + config.ns + "email=" + email +
-            "&" + config.ns + "departmentId=" + departmentId;
+            "&" + config.ns + "department=" + departmentId;
         return employeeService.saveEmployee(params, departmentId, vm);
     }
 }
