@@ -31,7 +31,7 @@ function EmployeeService($http, $state, config) {
         deleteEmployee: function (employeeId, departmentId) {
             $http.post(config.deleteEmployee +
                 '&' + config.ns +  'employeeId=' + employeeId +
-                '&' + config.ns + 'departmentId=' + departmentId)
+                '&' + config.ns + 'department=' + departmentId)
                 .then(function () {
                 $state.reload();
             });

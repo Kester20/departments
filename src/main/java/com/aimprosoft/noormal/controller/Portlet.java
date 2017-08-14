@@ -53,19 +53,15 @@ public class Portlet {
 
     @ResourceMapping("getAllDepartments")
     public void getAllDepartments(ResourceResponse response) throws SystemException, IOException {
-        PrintWriter writer = response.getWriter();
-        JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         List<Department> departments = DepartmentLocalServiceUtil.getDepartments(0, Integer.MAX_VALUE);
-        writer.write(jsonSerializer.serialize(departments));
+        sendResponse(response, departments);
     }
 
     @ResourceMapping("saveDepartment")
     public void saveDepartment(ResourceRequest request, ResourceResponse response, DepartmentImpl department) throws SystemException, PortalException, IOException {
         if (request.getMethod().equals("GET")) {
-            PrintWriter writer = response.getWriter();
-            JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
             Department existedDepartment = DepartmentLocalServiceUtil.getDepartment(department.getDepartmentId());
-            writer.write(jsonSerializer.serialize(existedDepartment));
+            sendResponse(response, existedDepartment);
         } else {
             DepartmentLocalServiceUtil.updateDepartment(department);
         }
@@ -76,41 +72,40 @@ public class Portlet {
         DepartmentLocalServiceUtil.deleteDepartment(department.getDepartmentId());
     }
 
-    @ExceptionHandler(SystemException.class)
-    public void handleValidationException(SystemException exception, ResourceResponse response) throws IOException {
-        if (exception.getCause() instanceof ValidationException) {
-            ValidationException validationException = (ValidationException) exception.getCause();
-            PrintWriter writer = response.getWriter();
-            Map<String, String> errors = validationException.getErrorMap();
-            JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
-            response.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(HttpServletResponse.SC_BAD_REQUEST));
-            writer.write(jsonSerializer.serialize(errors));
-        }
-    }
-
     @ResourceMapping("getAllEmployees")
     public void getAllEmployees(ResourceResponse response, DepartmentImpl department) throws IOException, SystemException {
-        PrintWriter writer = response.getWriter();
-        JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
         List<Employee> employees = EmployeeLocalServiceUtil.findByDepartment(department.getDepartmentId());
-        writer.write(jsonSerializer.serialize(employees));
+        sendResponse(response, employees);
     }
 
     @ResourceMapping("saveEmployee")
     public void saveEmployee(ResourceRequest request, ResourceResponse response, EmployeeImpl employee) throws IOException, SystemException, PortalException {
         if (request.getMethod().equals("GET")) {
-            PrintWriter writer = response.getWriter();
-            JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
             Employee existedEmployee = EmployeeLocalServiceUtil.getEmployee(employee.getEmployeeId());
-            writer.write(jsonSerializer.serialize(existedEmployee));
+            sendResponse(response, existedEmployee);
         } else {
             EmployeeLocalServiceUtil.updateEmployee(employee);
         }
     }
 
     @ResourceMapping("deleteEmployee")
-    public void deleteEmployee(DepartmentImpl department, EmployeeImpl employee) throws SystemException {
-        employee.setDepartment(department.getDepartmentId());
+    public void deleteEmployee(EmployeeImpl employee) throws SystemException {
         EmployeeLocalServiceUtil.deleteEmployee(employee);
+    }
+
+    @ExceptionHandler(SystemException.class)
+    public void handleValidationException(SystemException exception, ResourceResponse response) throws IOException {
+        if (exception.getCause() instanceof ValidationException) {
+            ValidationException validationException = (ValidationException) exception.getCause();
+            Map<String, String> errors = validationException.getErrorMap();
+            response.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(HttpServletResponse.SC_BAD_REQUEST));
+            sendResponse(response, errors);
+        }
+    }
+
+    private void sendResponse(ResourceResponse response, Object result) throws IOException {
+        PrintWriter writer = response.getWriter();
+        JSONSerializer jsonSerializer = JSONFactoryUtil.createJSONSerializer();
+        writer.write(jsonSerializer.serialize(result));
     }
 }
