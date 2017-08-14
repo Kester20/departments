@@ -10,10 +10,12 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
+
         .state('root', {
             url: "/",
             template: departments,
             controller: 'departmentController',
+            controllerAs: 'dc',
             resolve: {
                 'departments': function (departmentService) {
                     return departmentService.getAllDepartments().then(function (response) {
@@ -27,6 +29,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             url: "/department/save/?departmentId",
             template: departmentSave,
             controller: 'departmentSaveController',
+            controllerAs: 'dsc',
             resolve: {
                 'department': function (departmentService, $stateParams) {
                     if ($stateParams.departmentId != null) {
@@ -42,6 +45,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             url: "/employee/getByDepartment/:departmentId",
             template: employees,
             controller: 'employeeController',
+            controllerAs: 'ec',
             resolve: {
                 'employees': function (employeeService, $stateParams) {
                     return employeeService.getByDepartment($stateParams.departmentId).then(function (response) {
@@ -58,6 +62,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             url: "/employee/save/?employeeId",
             template: employeeSave,
             controller: 'employeeSaveController',
+            controllerAs: 'esc',
             resolve: {
                 'employee': function (employeeService, $stateParams) {
                     if ($stateParams.employeeId != null) {

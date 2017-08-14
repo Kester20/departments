@@ -1,43 +1,43 @@
-
 let mainApp = angular.module('mainApp');
 
-mainApp.controller('departmentSaveController', function ($scope, department, departmentService) {
+mainApp.controller('departmentSaveController', DepartmentSaveController);
+mainApp.controller('departmentController', DepartmentController);
 
-    $scope.department = department;
+function DepartmentSaveController($scope, department, departmentService) {
+    let vm = this;
+    vm.department = department;
+    vm.hasError = hasError;
+    vm.scriptPattern = scriptPattern();
+    vm.saveDepartment = saveDepartment;
 
-    $scope.hasError = function(field, validation){
+    function hasError(field, validation){
         if(validation){
             return ($scope.form[field].$dirty && $scope.form[field].$error[validation]);
         }
         return ($scope.form[field].$dirty && $scope.form[field].$invalid);
-    };
-
-    $scope.scriptPattern = (function() {
+    }
+    function scriptPattern() {
         let regexp = /^(<script|<script>).*(\/>|<\/script>)$/;
         return {
             test: function(value) {
-                if(regexp.test(value)){
-                    return false;
-                }
-                return true;
+                return !(regexp.test(value));
             }
         };
-    })();
-
-    $scope.saveDepartment = function () {
-        let name = $scope.department.name;
-        let id = $scope.department.departmentId;
+    }
+    function saveDepartment() {
+        let name = vm.department.name;
+        let id = vm.department.departmentId;
         let params;
         id == null ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
-        return departmentService.saveDepartment(params, $scope);
+        return departmentService.saveDepartment(params, vm);
     };
-});
+}
 
-mainApp.controller('departmentController', function ($scope, departments, departmentService) {
-
-    $scope.departments = departments;
-
-    $scope.deleteDepartment = function (id) {
-        return departmentService.deleteDepartment($scope, id);
-    };
-});
+function DepartmentController(departments, departmentService) {
+    let vm = this;
+    vm.departments = departments;
+    vm.deleteDepartment = deleteDepartment;
+    function deleteDepartment(id) {
+        return departmentService.deleteDepartment(id);
+    }
+}

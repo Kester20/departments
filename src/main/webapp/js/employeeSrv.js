@@ -1,7 +1,8 @@
-
 let mainApp = angular.module('mainApp');
 
-mainApp.service('employeeService', function ($http, $location, $state) {
+mainApp.service('employeeService', EmployeeService);
+
+function EmployeeService($http, $state) {
     return {
 
         getByDepartment: function (id) {
@@ -12,7 +13,7 @@ mainApp.service('employeeService', function ($http, $location, $state) {
             return $http.get('/employee/save?employeeId=' + id);
         },
 
-        saveEmployee: function (params, departmentId, $scope) {
+        saveEmployee: function (params, departmentId, vm) {
             let promise = $http.post('/employee/save?' + params);
             promise.then(fulfilled, rejected);
 
@@ -21,19 +22,17 @@ mainApp.service('employeeService', function ($http, $location, $state) {
             }
 
             function rejected(error) {
-                console.error(error.status);
-                console.error(error.statusText);
-                $scope.errorName = error.data.name;
-                $scope.errorAge = error.data.age;
-                $scope.errorDateOfBirth = error.data.dateOfBirth;
-                $scope.errorEmail = error.data.email;
+                vm.errorName = error.data.name;
+                vm.errorAge = error.data.age;
+                vm.errorDateOfBirth = error.data.dateOfBirth;
+                vm.errorEmail = error.data.email;
             }
         },
 
-        deleteEmployee: function ($scope, employeeId, departmentId) {
+        deleteEmployee: function (employeeId, departmentId) {
             $http.post('/employee/delete?employeeId=' + employeeId + '&departmentId=' + departmentId).then(function () {
                 $state.reload();
             });
         }
     };
-});
+}

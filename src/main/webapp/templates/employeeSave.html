@@ -4,55 +4,47 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body ng-controller="employeeSaveController">
-
+<body>
 <h3 align="center">Enter new value</h3>
-
 <form name="form">
-
     <table class="mdl-data-table" align="center" cellpadding="10">
-
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="text" name="name" placeholder="Name"
-                                   ng-model="employee.name" ng-maxlength="30"
-                                   ng-required="true" ng-pattern="scriptPattern">
-                <span class="error" ng-show="hasError('name', 'maxlength')">Too long!</span>
-                <span class="error" ng-show="hasError('name', 'required')">Required!</span>
-                <span class="error" ng-show="hasError('name', 'pattern')">Please enter valid name!</span>
-                <label class="error">{{errorName}}</label>
+                                   ng-model="esc.employee.name" ng-maxlength="30"
+                                   ng-required="true" ng-pattern="esc.scriptPattern">
+                <span class="error" ng-show="esc.hasError('name', 'maxlength')">Too long!</span>
+                <span class="error" ng-show="esc.hasError('name', 'required')">Required!</span>
+                <span class="error" ng-show="esc.hasError('name', 'pattern')">Please enter valid name!</span>
+                <label class="error">{{esc.errorName}}</label>
             </td>
         </tr>
-
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="number" name="age" placeholder="Age"
-                                   ng-model="employee.age" ng-required="true" ng-maxlength="2">
-                <span class="error" ng-show="hasError('age', 'maxlength')">Too long!</span>
-                <span class="error" ng-show="hasError('age', 'required')">Required!</span>
-                <label class="error">{{errorAge}}</label>
+                                   ng-model="esc.employee.age" ng-required="true" ng-maxlength="2">
+                <span class="error" ng-show="esc.hasError('age', 'maxlength')">Too long!</span>
+                <span class="error" ng-show="esc.hasError('age', 'required')">Required!</span>
+                <label class="error">{{esc.errorAge}}</label>
             </td>
         </tr>
-
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="text" name="dateOfBirth"
-                                   ng-model="employee.dateOfBirth" date='yyyy-MM-dd'
+                                   ng-model="esc.employee.dateOfBirth" date='yyyy-MM-dd'
                                    placeholder="Date of Birth"
-                                   ng-required="true" ng-pattern="datePattern">
-                <span class="error" ng-show="hasError('dateOfBirth', 'required')">Required!</span>
-                <span class="error" ng-show="hasError('dateOfBirth', 'pattern')">Please enter a date in the format yyyy-dd-mm!</span>
-                <label class="error">{{errorDateOfBirth}}</label>
+                                   ng-required="true" ng-pattern="esc.datePattern">
+                <span class="error" ng-show="esc.hasError('dateOfBirth', 'required')">Required!</span>
+                <span class="error" ng-show="esc.hasError('dateOfBirth', 'pattern')">Please enter a date in the format yyyy-dd-mm!</span>
+                <label class="error">{{esc.errorDateOfBirth}}</label>
             </td>
         </tr>
-
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="email" name="email" placeholder="Email"
-                                   ng-model="employee.email"
+                                   ng-model="esc.employee.email"
                                    ng-required="true">
-                <span class="error" ng-show="hasError('email', 'required')">Required!</span>
-                <span class="error" ng-show="hasError('email', 'email')">Not valid email!</span>
-                <label class="error">{{errorEmail}}</label>
+                <span class="error" ng-show="esc.hasError('email', 'required')">Required!</span>
+                <span class="error" ng-show="esc.hasError('email', 'email')">Not valid email!</span>
+                <label class="error">{{esc.errorEmail}}</label>
             </td>
         </tr>
-
         <tr>
             <td>
                 <a ui-sref="employees({departmentId: departmentId})"
@@ -61,18 +53,13 @@
                 </a>
             </td>
             <td>
-                <button type="submit" ng-click="saveEmployee()" ng-disabled="form.$invalid"
+                <button type="submit" ng-click="esc.saveEmployee()" ng-disabled="form.$invalid"
                         class="event event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                     Save
                 </button>
             </td>
         </tr>
-
     </table>
 </form>
-
-<input type="hidden" name="employeeId" value="{{employee.employeeId}}">
-<input type="hidden" name="departmentId" value="{{departmentId}}">
-
 </body>
 </html>

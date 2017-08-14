@@ -1,7 +1,8 @@
-
 let mainApp = angular.module('mainApp');
 
-mainApp.service('departmentService', function ($http, $state) {
+mainApp.service('departmentService', DepartmentService);
+
+function DepartmentService($http, $state) {
     return {
 
         getAllDepartments: function () {
@@ -12,7 +13,7 @@ mainApp.service('departmentService', function ($http, $state) {
             return $http.get('/department/save?departmentId=' + id);
         },
 
-        saveDepartment: function (params, $scope) {
+        saveDepartment: function (params, vm) {
             let promise = $http.post('/department/save?' + params);
             promise.then(fulfilled, rejected);
 
@@ -23,15 +24,15 @@ mainApp.service('departmentService', function ($http, $state) {
             function rejected(error) {
                 console.error(error.status);
                 console.error(error.statusText);
-                $scope.errorName = error.data.name;
+                vm.errorName = error.data.name;
             }
         },
 
-        deleteDepartment: function ($scope, id) {
+        deleteDepartment: function (id) {
             $http.post('/department/delete?departmentId=' + id).then(function () {
                 $state.reload();
             });
         }
     };
-});
+}
 
