@@ -11,5 +11,7 @@
 
     <div ui-view ></div>
 
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-center'}"></toaster-container>
+
 </body>
 </html>

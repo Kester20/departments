@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "angular-animate": "^1.6.5",
+    "angularjs-toaster": "^2.1.0",
     "css-loader": "^0.28.4",
     "style-loader": "^0.18.2",
     "webpack": "^2.6.1"

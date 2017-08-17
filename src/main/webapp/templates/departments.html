@@ -6,8 +6,8 @@
 </head>
 <body>
 
-<h3 align="center">Departments</h3>
-<table class="mdl-data-table" align="center">
+<h3 align="center" class="label">Departments</h3>
+<table class="mdl-data-table table" align="center">
 
     <tr>
         <th class="mdl-data-table__cell--non-numeric">#</th>
@@ -17,7 +17,7 @@
         <th class="mdl-data-table__cell--non-numeric">Employees</th>
     </tr>
 
-    <tr ng-repeat="department in dc.departments">
+    <tr ng-repeat="department in dc.departments | orderBy:'name'">
         <td>{{$index + 1}}</td>
         <td>{{department.name}}</td>
         <td><a ui-sref="departmentSave({departmentId: department.departmentId})"

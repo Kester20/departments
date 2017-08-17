@@ -60,8 +60,7 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping("/delete")
-    public void deleteEmployee(Employee employee,
-                                 @RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException {
+    public void deleteEmployee(Employee employee) throws DaoException {
         employeeService.deleteEmployee(employee);
     }
 }

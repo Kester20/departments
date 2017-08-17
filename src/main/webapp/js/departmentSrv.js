@@ -2,7 +2,7 @@ let mainApp = angular.module('mainApp');
 
 mainApp.service('departmentService', DepartmentService);
 
-function DepartmentService($http, $state) {
+function DepartmentService($http, $state, toaster) {
     return {
 
         getAllDepartments: function () {
@@ -22,9 +22,7 @@ function DepartmentService($http, $state) {
             }
 
             function rejected(error) {
-                console.error(error.status);
-                console.error(error.statusText);
-                vm.errorName = error.data.name;
+                toaster.pop('error', 'Error', error.data.name, null, 'trustedHtml');
             }
         },
 

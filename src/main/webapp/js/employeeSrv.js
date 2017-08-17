@@ -2,7 +2,7 @@ let mainApp = angular.module('mainApp');
 
 mainApp.service('employeeService', EmployeeService);
 
-function EmployeeService($http, $state) {
+function EmployeeService($http, $state, toaster) {
     return {
 
         getByDepartment: function (id) {
@@ -25,7 +25,7 @@ function EmployeeService($http, $state) {
                 vm.errorName = error.data.name;
                 vm.errorAge = error.data.age;
                 vm.errorDateOfBirth = error.data.dateOfBirth;
-                vm.errorEmail = error.data.email;
+                toaster.pop('error', 'Error', error.data.email, null, 'trustedHtml');
             }
         },
 

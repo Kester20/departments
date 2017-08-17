@@ -3,7 +3,7 @@ import departmentSave from "../templates/departmentSave.html";
 import employeeSave from "../templates/employeeSave.html";
 import employees from "../templates/employees.html";
 
-let mainApp = angular.module('mainApp', ['ui.router']);
+let mainApp = angular.module('mainApp', ['ui.router', 'toaster']);
 
 mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 

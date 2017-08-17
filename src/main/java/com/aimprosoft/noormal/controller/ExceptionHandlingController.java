@@ -26,14 +26,11 @@ import static com.aimprosoft.noormal.util.Constants.ServiceConstants.ERROR_MAP;
 @ControllerAdvice
 public class ExceptionHandlingController {
 
+    @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleError(Exception exception) {
-        String errorMessage = exception.getMessage();
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject(ERROR_MESSAGE, errorMessage);
-        modelAndView.setViewName(ERROR_PAGE_PATH);
-        return modelAndView;
+    public String handleError(Exception exception) {
+        return exception.getMessage();
     }
 
     @ResponseBody
