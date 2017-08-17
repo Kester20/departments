@@ -18,6 +18,7 @@ import java.util.EnumSet;
  */
 public class WebInitializer implements WebApplicationInitializer {
 
+    @Override
     public void onStartup(ServletContext container) throws ServletException {
         WebApplicationContext webApplicationContext = initApplicationConfig(container);
         initDispatcherServlet(container, webApplicationContext);
