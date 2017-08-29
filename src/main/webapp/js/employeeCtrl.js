@@ -68,8 +68,13 @@ function EmployeeController($rootScope, employees, departmentId, employeeService
     let vm = this;
     vm.employees = employees;
     vm.deleteEmployee = deleteEmployee;
+    vm.orderBy = orderBy;
     $rootScope.departmentId = departmentId;
+
     function deleteEmployee(employeeId, departmentId) {
         return employeeService.deleteEmployee(employeeId, departmentId);
+    }
+    function orderBy(criteria) {
+        vm.criteria = criteria;
     }
 }

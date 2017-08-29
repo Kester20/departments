@@ -9,14 +9,14 @@
 <table class="mdl-data-table table" align="center">
     <tr>
         <th class="mdl-data-table__cell--non-numeric">#</th>
-        <th class="mdl-data-table__cell--non-numeric">Name</th>
-        <th class="mdl-data-table__cell--non-numeric">Age</th>
-        <th class="mdl-data-table__cell--non-numeric">Birthday</th>
-        <th class="mdl-data-table__cell--non-numeric">Email</th>
+        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('name')">Name</th>
+        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('age')">Age</th>
+        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('dateOfBirth')">Birthday</th>
+        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('email')">Email</th>
         <th class="mdl-data-table__cell--non-numeric">Edit</th>
         <th class="mdl-data-table__cell--non-numeric">Delete</th>
     </tr>
-    <tr ng-repeat="employee in ec.employees">
+    <tr ng-repeat="employee in ec.employees | orderBy:ec.criteria">
         <td>{{$index + 1}}</td>
         <td>{{employee.name}}</td>
         <td>{{employee.age}}</td>
