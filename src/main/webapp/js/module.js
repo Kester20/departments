@@ -47,9 +47,14 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'employeeController',
             controllerAs: 'ec',
             resolve: {
-                'employees': function (employeeService, $stateParams) {
+                'employees': function (employeeService, $stateParams, toaster, $q) {
                     return employeeService.getByDepartment($stateParams.departmentId).then(function (response) {
-                        return response.data;
+                        if(response.data.length === 0){
+                            toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
+                            return $q.reject("There are not employees in this department");
+                        }else{
+                            return response.data;
+                        }
                     });
                 },
                 'departmentId': function ($stateParams) {

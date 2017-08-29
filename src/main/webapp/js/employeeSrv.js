@@ -2,7 +2,7 @@ let mainApp = angular.module('mainApp');
 
 mainApp.service('employeeService', EmployeeService);
 
-function EmployeeService($http, $state, toaster) {
+function EmployeeService($http, $state, $window, toaster) {
     return {
 
         getByDepartment: function (id) {
@@ -18,6 +18,7 @@ function EmployeeService($http, $state, toaster) {
             promise.then(fulfilled, rejected);
 
             function fulfilled() {
+                toaster.pop('success', 'Info', 'Employee successfully saved', null, 'trustedHtml');
                 $state.go('employees', {departmentId:departmentId});
             }
 
@@ -30,9 +31,12 @@ function EmployeeService($http, $state, toaster) {
         },
 
         deleteEmployee: function (employeeId, departmentId) {
-            $http.post('/employee/delete?employeeId=' + employeeId + '&departmentId=' + departmentId).then(function () {
-                $state.reload();
-            });
+            if ($window.confirm('Are you sure you want to delete this department?')) {
+                $http.post('/employee/delete?employeeId=' + employeeId + '&departmentId=' + departmentId).then(function () {
+                    $state.reload();
+                    toaster.pop('success', 'Info', 'Employee successfully deleted', null, 'trustedHtml');
+                });
+            }
         }
     };
 }
