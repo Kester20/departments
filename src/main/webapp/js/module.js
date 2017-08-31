@@ -17,10 +17,14 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'departmentController',
             controllerAs: 'dc',
             resolve: {
-                'departments': function (departmentService) {
-                    return departmentService.getAllDepartments().then(function (response) {
-                        return response.data;
-                    });
+                'departments': function (departmentService, $timeout) {
+                    angular.element(document.querySelector('#loading')).addClass('loading');
+                    return $timeout(function () {
+                        return departmentService.getAllDepartments().then(function (response) {
+                            angular.element(document.querySelector('#loading')).removeClass('loading');
+                            return response.data;
+                        });
+                    }, 300);
                 }
             }
         })
@@ -31,12 +35,17 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'departmentSaveController',
             controllerAs: 'dsc',
             resolve: {
-                'department': function (departmentService, $stateParams) {
-                    if ($stateParams.departmentId != null) {
-                        return departmentService.getDepartmentSavePage($stateParams.departmentId).then(function (response) {
-                            return response.data;
-                        });
-                    }
+                'department': function (departmentService, $stateParams, $timeout) {
+                    angular.element(document.querySelector('#loading')).addClass('loading');
+                    return $timeout(function () {
+                        if ($stateParams.departmentId != null) {
+                            return departmentService.getDepartmentSavePage($stateParams.departmentId).then(function (response) {
+                                angular.element(document.querySelector('#loading')).removeClass('loading');
+                                return response.data;
+                            });
+                        }
+                        angular.element(document.querySelector('#loading')).removeClass('loading');
+                    }, 300);
                 }
             }
         })
@@ -47,15 +56,19 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'employeeController',
             controllerAs: 'ec',
             resolve: {
-                'employees': function (employeeService, $stateParams, toaster, $q) {
-                    return employeeService.getByDepartment($stateParams.departmentId).then(function (response) {
-                        if(response.data.length === 0){
-                            toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
-                            return $q.reject("There are not employees in this department");
-                        }else{
-                            return response.data;
-                        }
-                    });
+                'employees': function (employeeService, $stateParams, toaster, $q, $timeout) {
+                    angular.element(document.querySelector('#loading')).addClass('loading');
+                    return $timeout(function () {
+                        return employeeService.getByDepartment($stateParams.departmentId).then(function (response) {
+                            angular.element(document.querySelector('#loading')).removeClass('loading');
+                            if(response.data.length === 0){
+                                toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
+                                return $q.reject("There are not employees in this department");
+                            }else{
+                                return response.data;
+                            }
+                        });
+                    }, 300);
                 },
                 'departmentId': function ($stateParams) {
                     return $stateParams.departmentId;
@@ -69,12 +82,17 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'employeeSaveController',
             controllerAs: 'esc',
             resolve: {
-                'employee': function (employeeService, $stateParams) {
-                    if ($stateParams.employeeId != null) {
-                        return employeeService.getEmployeeSavePage($stateParams.employeeId).then(function (response) {
-                            return response.data;
-                        });
-                    }
+                'employee': function (employeeService, $stateParams, $timeout) {
+                    angular.element(document.querySelector('#loading')).addClass('loading');
+                    return $timeout(function () {
+                        if ($stateParams.employeeId != null) {
+                            return employeeService.getEmployeeSavePage($stateParams.employeeId).then(function (response) {
+                                angular.element(document.querySelector('#loading')).removeClass('loading');
+                                return response.data;
+                            });
+                        }
+                        angular.element(document.querySelector('#loading')).removeClass('loading');
+                    }, 300);
                 }
             }
         });
