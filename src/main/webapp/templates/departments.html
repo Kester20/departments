@@ -17,7 +17,7 @@
         <th class="mdl-data-table__cell--non-numeric">Employees</th>
     </tr>
 
-    <tr ng-repeat="department in dc.items | orderBy:'name'">
+    <tr ng-repeat="department in dc.departments | orderBy:'name'">
         <td>{{$index + 1}}</td>
         <td>{{department.name}}</td>
         <td><a ui-sref="departmentSave({departmentId: department.departmentId})"
@@ -47,23 +47,13 @@
 
     <tr>
         <td colspan="5" style="text-align: center">
-            <ul ng-if="dc.pager.pages.length" class="pagination">
-                <li ng-class="{disabled:dc.pager.currentPage === 1}">
-                    <a ng-click="dc.setPage(1)">First</a>
-                </li>
-                <li ng-class="{disabled:dc.pager.currentPage === 1}">
-                    <a ng-click="dc.setPage(dc.pager.currentPage - 1)">Previous</a>
-                </li>
-                <li ng-repeat="page in dc.pager.pages" ng-class="{active:dc.pager.currentPage === page}">
-                    <a ng-click="dc.setPage(page)">{{page}}</a>
-                </li>
-                <li ng-class="{disabled:dc.pager.currentPage === dc.pager.totalPages}">
-                    <a ng-click="dc.setPage(dc.pager.currentPage + 1)">Next</a>
-                </li>
-                <li ng-class="{disabled:dc.pager.currentPage === dc.pager.totalPages}">
-                    <a ng-click="dc.setPage(dc.pager.totalPages)">Last</a>
-                </li>
-            </ul>
+            <ul class="pagination-sm"
+                uib-pagination
+                boundary-links="true"
+                total-items="dc.totalDepartments"
+                ng-model="dc.currentPage"
+                items-per-page = 5
+                ng-change="dc.selectPage(dc.currentPage)"></ul>
         </td>
     </tr>
 

@@ -7,6 +7,7 @@ import com.aimprosoft.noormal.service.DepartmentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,9 +37,9 @@ public class DepartmentController {
     }
 
     @ResponseBody
-    @RequestMapping("/getAll")
-    public List<Department> getAllDepartments() throws DaoException, JsonProcessingException {
-        return departmentService.findDepartments();
+    @RequestMapping("/getAll/{page}")
+    public List<Department> getAllDepartments(@PathVariable Integer page) throws DaoException, JsonProcessingException {
+        return departmentService.findDepartments(page);
     }
 
     @ResponseBody
@@ -57,5 +58,11 @@ public class DepartmentController {
     @RequestMapping("/delete")
     public void deleteDepartment(Department department) throws DaoException {
         departmentService.deleteDepartment(department);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getTotal")
+    public Integer getTotalDepartments() throws DaoException {
+        return departmentService.getTotalDepartments();
     }
 }

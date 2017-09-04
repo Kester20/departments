@@ -5,8 +5,8 @@ mainApp.service('departmentService', DepartmentService);
 function DepartmentService($http, $state, $window, toaster) {
     return {
 
-        getAllDepartments: function () {
-            return $http.get('/department/getAll');
+        getAllDepartments: function (page) {
+            return $http.get('/department/getAll/' + page);
         },
 
         getDepartmentSavePage: function (id) {
@@ -34,6 +34,10 @@ function DepartmentService($http, $state, $window, toaster) {
                     toaster.pop('success', 'Info', 'Department successfully deleted', null, 'trustedHtml');
                 });
             }
+        },
+
+        getTotalDepartments: function () {
+            return $http.get('/department/getTotal');
         }
     };
 }

@@ -1,6 +1,6 @@
 package com.aimprosoft.noormal.validator;
 
-import com.aimprosoft.noormal.dao.impl.DepartmentDao;
+import com.aimprosoft.noormal.dao.DepartmentDao;
 import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.model.Department;
 import net.sf.oval.constraint.CheckWithCheck;

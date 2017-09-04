@@ -3,7 +3,7 @@ import departmentSave from "../templates/departmentSave.html";
 import employeeSave from "../templates/employeeSave.html";
 import employees from "../templates/employees.html";
 
-let mainApp = angular.module('mainApp', ['ui.router', 'toaster']);
+let mainApp = angular.module('mainApp', ['ui.router', 'toaster', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 
 mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -12,19 +12,38 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
     $stateProvider
 
         .state('root', {
-            url: "/",
+            url: "/?page",
             template: departments,
             controller: 'departmentController',
             controllerAs: 'dc',
             resolve: {
-                'departments': function (departmentService, $timeout) {
+                'totalDepartments': function (departmentService) {
+                    return departmentService.getTotalDepartments().then(function (response) {
+                        return response.data;
+                    })
+                },
+                'departments': function (departmentService, $timeout, $stateParams) {
                     angular.element(document.querySelector('#loading')).addClass('loading');
                     return $timeout(function () {
-                        return departmentService.getAllDepartments().then(function (response) {
-                            angular.element(document.querySelector('#loading')).removeClass('loading');
-                            return response.data;
-                        });
+                        if($stateParams.page){
+                            return departmentService.getAllDepartments($stateParams.page).then(function (response) {
+                                angular.element(document.querySelector('#loading')).removeClass('loading');
+                                return response.data;
+                            });
+                        }else{
+                            return departmentService.getAllDepartments(1).then(function (response) {
+                                angular.element(document.querySelector('#loading')).removeClass('loading');
+                                return response.data;
+                            });
+                        }
                     }, 300);
+                },
+                'currentPage': function ($stateParams) {
+                    if($stateParams.page){
+                        return $stateParams.page;
+                    }else{
+                        return 1;
+                    }
                 }
             }
         })
@@ -38,7 +57,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
                 'department': function (departmentService, $stateParams, $timeout) {
                     angular.element(document.querySelector('#loading')).addClass('loading');
                     return $timeout(function () {
-                        if ($stateParams.departmentId != null) {
+                        if ($stateParams.departmentId) {
                             return departmentService.getDepartmentSavePage($stateParams.departmentId).then(function (response) {
                                 angular.element(document.querySelector('#loading')).removeClass('loading');
                                 return response.data;
@@ -85,7 +104,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
                 'employee': function (employeeService, $stateParams, $timeout) {
                     angular.element(document.querySelector('#loading')).addClass('loading');
                     return $timeout(function () {
-                        if ($stateParams.employeeId != null) {
+                        if ($stateParams.employeeId) {
                             return employeeService.getEmployeeSavePage($stateParams.employeeId).then(function (response) {
                                 angular.element(document.querySelector('#loading')).removeClass('loading');
                                 return response.data;

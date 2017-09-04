@@ -1,6 +1,6 @@
 package com.aimprosoft.noormal.service.impl;
 
-import com.aimprosoft.noormal.dao.impl.DepartmentDao;
+import com.aimprosoft.noormal.dao.DepartmentDao;
 import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
 import com.aimprosoft.noormal.model.Department;
@@ -38,13 +38,21 @@ public class DepartmentServiceImpl implements DepartmentService {
         departmentDao.deleteEntity(department);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Department findOne(Long departmentId) throws DaoException {
         return departmentDao.findOne(departmentId);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<Department> findDepartments() throws DaoException {
-        return departmentDao.findAllEntities();
+    public List<Department> findDepartments(Integer page) throws DaoException {
+        return departmentDao.findAllEntities(page);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Integer getTotalDepartments() throws DaoException {
+        return departmentDao.getTotalItems();
     }
 }

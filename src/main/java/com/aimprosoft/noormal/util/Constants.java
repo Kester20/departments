@@ -17,20 +17,7 @@ public class Constants {
         public static final String NAME = "name";
         public static final String AGE = "age";
         public static final String DATE_OF_BIRTH = "dateOfBirth";
-        public static final String DEPARTMENTS = "departments";
-        public static final String EMPLOYEES = "employees";
-        public static final String ERROR_MAP = "errorMap";
         public static final String DATE_FORMAT = "yyyy-MM-dd";
-        public static final String EMPLOYEE_FORM = "employeeForm";
-    }
-
-    public static class Pathways {
-        public static final String SAVE_DEPARTMENT_PATH = "/saveDepartment";
-        public static final String GET_EMPLOYEES_BY_DEPARTMENT = "/employee/getByDepartment";
-        public static final String SAVE_EMPLOYEE_PATH = "/saveEmployee";
-        public static final String DEPARTMENTS_PATH = "/departments";
-        public static final String EMPLOYEES_PATH = "/employees";
-        public static final String ERROR_PAGE_PATH = "/errorPage";
     }
 
     public static class Messages {
@@ -41,7 +28,7 @@ public class Constants {
         public static final String CAN_NOT_FIND_ENTITIES = "Can't find entities";
         public static final String CAN_NOT_FIND_ENTITY = "Can't find entity";
         public static final String MUST_NOT_BE_EMPTY = "Must not be empty";
-        public static final String ERROR_MESSAGE = "errorMessage";
         public static final String MUST_BE_LESS_THEN_30 = "Must be less then 30 characters";
+        public static final String CAN_NOT_COUNT_ENTITIES = "Can't count entities";
     }
 }

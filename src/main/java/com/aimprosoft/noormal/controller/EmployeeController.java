@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-import static com.aimprosoft.noormal.util.Constants.Pathways.GET_EMPLOYEES_BY_DEPARTMENT;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DEPARTMENT_ID;
 import static com.aimprosoft.noormal.util.Constants.ServiceConstants.EMPLOYEE_ID;
 
@@ -49,8 +48,7 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public void saveEmployee(Employee employee,
-                               @RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException, ValidationException {
+    public void saveEmployee(Employee employee, @RequestParam(DEPARTMENT_ID) Long departmentId) throws DaoException, ValidationException {
         Department department = departmentService.findOne(departmentId);
         if (department != null) {
             employee.setDepartment(department);

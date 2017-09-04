@@ -1,6 +1,6 @@
 package com.aimprosoft.noormal.service.impl;
 
-import com.aimprosoft.noormal.dao.impl.EmployeeDao;
+import com.aimprosoft.noormal.dao.EmployeeDao;
 import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.exception.ValidationException;
 import com.aimprosoft.noormal.model.Department;
@@ -39,11 +39,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDao.deleteEntity(employee);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Employee> findEmployeesByDepartment(Department department) throws DaoException {
         return employeeDao.findEmployeesByDepartment(department);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Employee findOne(Long employeeId) throws DaoException {
         return employeeDao.findOne(employeeId);
