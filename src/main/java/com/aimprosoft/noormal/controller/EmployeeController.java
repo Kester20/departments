@@ -36,8 +36,8 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping("/getByDepartment")
-    public List<Employee> getByDepartment(Department department) throws DaoException {
-        return employeeService.findEmployeesByDepartment(department);
+    public List<Employee> getByDepartment(Department department, @RequestParam Integer page) throws DaoException {
+        return employeeService.findEmployeesByDepartment(department, page);
     }
 
     @ResponseBody
@@ -60,5 +60,11 @@ public class EmployeeController {
     @RequestMapping("/delete")
     public void deleteEmployee(Employee employee) throws DaoException {
         employeeService.deleteEmployee(employee);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getTotal")
+    public Integer getTotalEmployees(Department department) throws DaoException {
+        return employeeService.getTotalEmployees(department);
     }
 }

@@ -56,7 +56,7 @@ function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeS
         let departmentId = $rootScope.departmentId;
         let params = "";
 
-        if (employeeId != null) {
+        if (employeeId) {
             params = "employeeId=" + employeeId + "&";
         }
         params += "name=" + name + "&age=" + age + "&dateOfBirth=" + dateOfBirth + "&email=" + email + "&departmentId=" + departmentId;
@@ -64,13 +64,19 @@ function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeS
     }
 }
 
-function EmployeeController($rootScope, employees, departmentId, employeeService) {
+function EmployeeController($rootScope, employees, totalEmployees, departmentId, employeeService, $state, currentPage) {
     let vm = this;
     vm.employees = employees;
+    vm.totalEmployees = totalEmployees;
+    vm.currentPage = currentPage;
+    vm.selectPage = selectPage;
     vm.deleteEmployee = deleteEmployee;
     vm.orderBy = orderBy;
     $rootScope.departmentId = departmentId;
 
+    function selectPage(page) {
+        $state.go("employees", { page: page });
+    }
     function deleteEmployee(employeeId, departmentId) {
         return employeeService.deleteEmployee(employeeId, departmentId);
     }

@@ -20,7 +20,7 @@ function DepartmentSaveController($scope, department, departmentService) {
         let name = vm.department.name;
         let id = vm.department.departmentId;
         let params;
-        id == null ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
+        !id ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
         return departmentService.saveDepartment(params, vm);
     }
 }
@@ -36,7 +36,6 @@ function DepartmentController(departments, totalDepartments, departmentService, 
     function selectPage(page) {
         $state.go("root", { page: page });
     }
-
     function deleteDepartment(id) {
         return departmentService.deleteDepartment(id);
     }

@@ -41,13 +41,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Employee> findEmployeesByDepartment(Department department) throws DaoException {
-        return employeeDao.findEmployeesByDepartment(department);
+    public List<Employee> findEmployeesByDepartment(Department department, Integer page) throws DaoException {
+        return employeeDao.findEmployeesByDepartment(department, page);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Employee findOne(Long employeeId) throws DaoException {
         return employeeDao.findOne(employeeId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Integer getTotalEmployees(Department department) throws DaoException {
+        return employeeDao.getTotalEmployeesInDepartment(department);
     }
 }

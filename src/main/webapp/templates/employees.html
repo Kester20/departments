@@ -7,6 +7,7 @@
 <body>
 <h3 align="center" class="label">Employees</h3>
 <table class="mdl-data-table table" align="center">
+
     <tr>
         <th class="mdl-data-table__cell--non-numeric">#</th>
         <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('name')">Name</th>
@@ -16,6 +17,7 @@
         <th class="mdl-data-table__cell--non-numeric">Edit</th>
         <th class="mdl-data-table__cell--non-numeric">Delete</th>
     </tr>
+
     <tr ng-repeat="employee in ec.employees | orderBy:ec.criteria">
         <td>{{$index + 1}}</td>
         <td>{{employee.name}}</td>
@@ -31,6 +33,7 @@
             </button>
         </td>
     </tr>
+
     <tr>
         <td colspan="2"><a ui-sref="root"
                            class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
@@ -41,6 +44,18 @@
                class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                 Add new employee
             </a>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="7" style="text-align: center">
+            <ul class="pagination-sm"
+                uib-pagination
+                boundary-links="true"
+                total-items="ec.totalEmployees"
+                ng-model="ec.currentPage"
+                items-per-page = 5
+                ng-change="ec.selectPage(ec.currentPage)"></ul>
         </td>
     </tr>
 </table>

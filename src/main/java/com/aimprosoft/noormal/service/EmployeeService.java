@@ -16,7 +16,9 @@ public interface EmployeeService {
 
     void deleteEmployee(Employee employee) throws DaoException;
 
-    List<Employee> findEmployeesByDepartment(Department department) throws DaoException;
+    List<Employee> findEmployeesByDepartment(Department department, Integer page) throws DaoException;
 
     Employee findOne(Long employeeId) throws DaoException;
+
+    Integer getTotalEmployees(Department department) throws DaoException;
 }

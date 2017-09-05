@@ -70,27 +70,47 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
         })
 
         .state('employees', {
-            url: "/employee/getByDepartment/:departmentId",
+            url: "/employee/getByDepartment/:departmentId/?page",
             template: employees,
             controller: 'employeeController',
             controllerAs: 'ec',
             resolve: {
-                'employees': function (employeeService, $stateParams, toaster, $q, $timeout) {
+                'totalEmployees': function (employeeService, $stateParams) {
+                    return employeeService.getTotalEmployees($stateParams.departmentId).then(function (response) {
+                        return response.data;
+                    })
+                },
+                'employees': function (employeeService, $stateParams, toaster, $timeout) {
                     angular.element(document.querySelector('#loading')).addClass('loading');
                     return $timeout(function () {
-                        return employeeService.getByDepartment($stateParams.departmentId).then(function (response) {
-                            angular.element(document.querySelector('#loading')).removeClass('loading');
-                            if(response.data.length === 0){
-                                toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
-                                return $q.reject("There are not employees in this department");
-                            }else{
+                        if($stateParams.page){
+                            return employeeService.getByDepartment($stateParams.departmentId, $stateParams.page).then(function (response) {
+                                angular.element(document.querySelector('#loading')).removeClass('loading');
+                                if(response.data.length === 0){
+                                    toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
+                                }
                                 return response.data;
-                            }
-                        });
+                            });
+                        }else {
+                            return employeeService.getByDepartment($stateParams.departmentId, 1).then(function (response) {
+                                angular.element(document.querySelector('#loading')).removeClass('loading');
+                                if(response.data.length === 0){
+                                    toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
+                                }
+                                return response.data;
+                            });
+                        }
                     }, 300);
                 },
                 'departmentId': function ($stateParams) {
                     return $stateParams.departmentId;
+                },
+                'currentPage': function ($stateParams) {
+                    if($stateParams.page){
+                        return $stateParams.page;
+                    }else{
+                        return 1;
+                    }
                 }
             }
         })

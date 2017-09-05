@@ -96,7 +96,7 @@ public abstract class CrudDao<T> implements Dao<T> {
         }
     }
 
-    private Session getCurrentSession(){
+    protected Session getCurrentSession(){
         Session session = sessionFactory.getCurrentSession();
         session.clear();
         return session;

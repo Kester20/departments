@@ -5,8 +5,8 @@ mainApp.service('employeeService', EmployeeService);
 function EmployeeService($http, $state, $window, toaster) {
     return {
 
-        getByDepartment: function (id) {
-            return $http.get('/employee/getByDepartment?departmentId=' + id);
+        getByDepartment: function (id, page) {
+            return $http.get('/employee/getByDepartment?departmentId=' + id + "&page=" + page);
         },
 
         getEmployeeSavePage: function (id) {
@@ -37,6 +37,10 @@ function EmployeeService($http, $state, $window, toaster) {
                     toaster.pop('success', 'Info', 'Employee successfully deleted', null, 'trustedHtml');
                 });
             }
+        },
+
+        getTotalEmployees: function (departmentId) {
+            return $http.get('/employee/getTotal?departmentId=' + departmentId);
         }
     };
 }
