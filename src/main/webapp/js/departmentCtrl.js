@@ -7,7 +7,6 @@ function DepartmentSaveController($scope, department, departmentService) {
     let vm = this;
     vm.department = department;
     vm.hasError = hasError;
-    vm.scriptPattern = scriptPattern();
     vm.saveDepartment = saveDepartment;
 
     function hasError(field, validation) {

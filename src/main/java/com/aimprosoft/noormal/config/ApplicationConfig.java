@@ -2,12 +2,12 @@ package com.aimprosoft.noormal.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -30,8 +30,26 @@ import java.util.Properties;
 @ComponentScan({"com.aimprosoft.noormal", "net.sf.oval.integration.spring"})
 public class ApplicationConfig {
 
-    @Autowired
-    private Environment environment;
+    @Value("${jdbc.driverClassName}")
+    private String driverClassName;
+    @Value("${jdbc.url}")
+    private String url;
+    @Value("${jdbc.user}")
+    private String user;
+    @Value("${jdbc.pass}")
+    private String pass;
+    @Value("${hibernate.hbm2ddl.auto}")
+    private String hibernateMode;
+    @Value("${hibernate.show_sql}")
+    private String hibernateShowSql;
+    @Value("${hibernate.dialect}")
+    private String hibernateDialect;
+    @Value("${hibernate.connection.CharSet}")
+    private String hibernateConnectionCharSet;
+    @Value("${hibernate.connection.characterEncoding}")
+    private String hibernateConnectionCharacterEncoding;
+    @Value("${hibernate.connection.useUnicode}")
+    private String hibernateConnectionUseUnicode;
 
     @Bean
     public ViewResolver getViewResolver() {
@@ -54,15 +72,14 @@ public class ApplicationConfig {
     @Bean
     public DataSource restDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(environment.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getProperty("jdbc.url"));
-        dataSource.setUsername(environment.getProperty("jdbc.user"));
-        dataSource.setPassword(environment.getProperty("jdbc.pass"));
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUrl(url);
+        dataSource.setUsername(user);
+        dataSource.setPassword(pass);
         return dataSource;
     }
 
     @Bean
-    @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(sessionFactory);
@@ -74,15 +91,20 @@ public class ApplicationConfig {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
     Properties hibernateProperties() {
         return new Properties() {
             {
-                setProperty("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
-                setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-                setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-                setProperty("hibernate.connection.CharSet", environment.getProperty("hibernate.connection.CharSet"));
-                setProperty("hibernate.connection.characterEncoding", environment.getProperty("hibernate.connection.characterEncoding"));
-                setProperty("hibernate.connection.useUnicode", environment.getProperty("hibernate.connection.useUnicode"));
+                setProperty("hibernate.hbm2ddl.auto", hibernateMode);
+                setProperty("hibernate.show_sql", hibernateShowSql);
+                setProperty("hibernate.dialect", hibernateDialect);
+                setProperty("hibernate.connection.CharSet", hibernateConnectionCharSet);
+                setProperty("hibernate.connection.characterEncoding", hibernateConnectionCharacterEncoding);
+                setProperty("hibernate.connection.useUnicode", hibernateConnectionUseUnicode);
                 setProperty("hibernate.globally_quoted_identifiers", "true");
             }
         };

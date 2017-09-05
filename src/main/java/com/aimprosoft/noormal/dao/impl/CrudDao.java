@@ -36,7 +36,7 @@ public abstract class CrudDao<T> implements Dao<T> {
     @Override
     public void saveEntity(T entity) throws DaoException {
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = getCurrentSession();
             session.saveOrUpdate(entity);
         } catch (Exception e) {
             throw new DaoException(Constants.Messages.CAN_NOT_SAVE_ENTITY);
@@ -46,7 +46,7 @@ public abstract class CrudDao<T> implements Dao<T> {
     @Override
     public void deleteEntity(T entity) throws DaoException {
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = getCurrentSession();
             session.delete(entity);
         } catch (Exception e) {
             throw new DaoException(Constants.Messages.CAN_NOT_DELETE_ENTITY);
@@ -57,7 +57,7 @@ public abstract class CrudDao<T> implements Dao<T> {
     public List<T> findAllEntities(Integer page) throws DaoException {
         String hql = "FROM " + type.getSimpleName();
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = getCurrentSession();
             Query query = session.createQuery(hql).setFirstResult((page - 1) * 5).setMaxResults(5);
             return query.list();
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public abstract class CrudDao<T> implements Dao<T> {
     @Override
     public T findOne(Long id) throws DaoException {
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = getCurrentSession();
             return session.get(type, id);
         } catch (Exception e) {
             throw new DaoException(Constants.Messages.CAN_NOT_FIND_ENTITY);
@@ -78,7 +78,7 @@ public abstract class CrudDao<T> implements Dao<T> {
     @Override
     public T findOneByCriteria(String criteriaName, String criteriaValue) throws DaoException {
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = getCurrentSession();
             Criteria criteria = session.createCriteria(type);
             return (T) criteria.add(Restrictions.eq(criteriaName, criteriaValue)).uniqueResult();
         } catch (Exception e) {
@@ -89,10 +89,16 @@ public abstract class CrudDao<T> implements Dao<T> {
     @Override
     public Integer getTotalItems() throws DaoException {
         try {
-            Session session = sessionFactory.getCurrentSession();
+            Session session = getCurrentSession();
             return ((Long) session.createQuery("select count(*) from " + type.getSimpleName()).uniqueResult()).intValue();
         } catch (Exception e) {
             throw new DaoException(Constants.Messages.CAN_NOT_COUNT_ENTITIES);
         }
+    }
+
+    private Session getCurrentSession(){
+        Session session = sessionFactory.getCurrentSession();
+        session.clear();
+        return session;
     }
 }
