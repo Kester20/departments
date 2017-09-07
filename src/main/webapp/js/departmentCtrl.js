@@ -25,16 +25,17 @@ function DepartmentSaveController($scope, department, departmentService) {
     }
 }
 
-function DepartmentController(departments, totalDepartments, departmentService, $state, currentPage) {
+function DepartmentController(departments, totalDepartments, departmentService, $state, currentPage, itemsPerPage) {
     let vm = this;
     vm.departments = departments;
     vm.totalDepartments = totalDepartments;
     vm.currentPage = currentPage;
+    vm.itemsPerPage = itemsPerPage;
     vm.selectPage = selectPage;
     vm.deleteDepartment = deleteDepartment;
 
-    function selectPage(page) {
-        $state.go("root", { page: page });
+    function selectPage(page, itemsPerPage) {
+        $state.go("root", { page: page, itemsPerPage: itemsPerPage });
     }
     function deleteDepartment(id) {
         return departmentService.deleteDepartment(id);

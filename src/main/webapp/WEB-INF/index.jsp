@@ -5,6 +5,7 @@
 <head>
     <title>Main page</title>
     <script src="/js/bundle.js"></script>
+    <%--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--%>
     <base href="/">
 </head>
 <body>

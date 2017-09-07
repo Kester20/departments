@@ -46,8 +46,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Department> findDepartments(Integer page) throws DaoException {
-        return departmentDao.findAllEntities(page);
+    public List<Department> findDepartments(Integer page, Integer itemsPerPage) throws DaoException {
+        return departmentDao.findAllEntities(page, itemsPerPage);
     }
 
     @Transactional(readOnly = true)

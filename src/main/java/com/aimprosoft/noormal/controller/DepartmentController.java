@@ -37,9 +37,9 @@ public class DepartmentController {
     }
 
     @ResponseBody
-    @RequestMapping("/getAll/{page}")
-    public List<Department> getAllDepartments(@PathVariable Integer page) throws DaoException, JsonProcessingException {
-        return departmentService.findDepartments(page);
+    @RequestMapping("/getAll/{page}/{itemsPerPage}")
+    public List<Department> getAllDepartments(@PathVariable Integer page, @PathVariable Integer itemsPerPage) throws DaoException, JsonProcessingException {
+        return departmentService.findDepartments(page, itemsPerPage);
     }
 
     @ResponseBody

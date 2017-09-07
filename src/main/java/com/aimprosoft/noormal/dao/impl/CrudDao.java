@@ -54,11 +54,11 @@ public abstract class CrudDao<T> implements Dao<T> {
     }
 
     @Override
-    public List<T> findAllEntities(Integer page) throws DaoException {
+    public List<T> findAllEntities(Integer page, Integer itemsPerPage) throws DaoException {
         String hql = "FROM " + type.getSimpleName();
         try {
             Session session = getCurrentSession();
-            Query query = session.createQuery(hql).setFirstResult((page - 1) * 5).setMaxResults(5);
+            Query query = session.createQuery(hql).setFirstResult((page - 1) * itemsPerPage).setMaxResults(itemsPerPage);
             return query.list();
         } catch (Exception e) {
             throw new DaoException(Constants.Messages.CAN_NOT_FIND_ENTITIES);

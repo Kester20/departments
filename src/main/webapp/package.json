@@ -15,9 +15,13 @@
   },
   "devDependencies": {
     "angular": "^1.6.5",
+    "angular-aria": "^1.6.6",
+    "angular-material-source": "^1.0.10",
+    "angular-messages": "^1.6.6",
     "angular-route": "^1.6.5",
     "angular-ui-router": "^1.0.3",
     "css-loader": "^0.28.4",
+    "getmdl-select": "^1.1.0",
     "html-loader": "^0.4.5",
     "imports-loader": "^0.7.1",
     "jquery": "^3.2.1",

@@ -5,8 +5,8 @@ mainApp.service('departmentService', DepartmentService);
 function DepartmentService($http, $state, $window, toaster) {
     return {
 
-        getAllDepartments: function (page) {
-            return $http.get('/department/getAll/' + page);
+        getAllDepartments: function (page, itemsPerPage) {
+            return $http.get('/department/getAll/' + page + "/" + itemsPerPage);
         },
 
         getDepartmentSavePage: function (id) {

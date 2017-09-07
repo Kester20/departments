@@ -13,7 +13,7 @@ public interface Dao<T> {
 
     void deleteEntity(T entity) throws DaoException;
 
-    List<T> findAllEntities(Integer page) throws DaoException;
+    List<T> findAllEntities(Integer page, Integer itemsPerPage) throws DaoException;
 
     T findOne(Long id) throws DaoException;
 

@@ -3,16 +3,16 @@ import departmentSave from "../templates/departmentSave.html";
 import employeeSave from "../templates/employeeSave.html";
 import employees from "../templates/employees.html";
 
-let mainApp = angular.module('mainApp', ['ui.router', 'toaster', 'ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+let mainApp = angular.module('mainApp', ['ui.router', 'toaster', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngMaterial']);
 
 mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("root");
 
     $stateProvider
 
         .state('root', {
-            url: "/?page",
+            url: "/?page/?itemsPerPage",
             template: departments,
             controller: 'departmentController',
             controllerAs: 'dc',
@@ -25,25 +25,19 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
                 'departments': function (departmentService, $timeout, $stateParams) {
                     angular.element(document.querySelector('#loading')).addClass('loading');
                     return $timeout(function () {
-                        if($stateParams.page){
-                            return departmentService.getAllDepartments($stateParams.page).then(function (response) {
-                                angular.element(document.querySelector('#loading')).removeClass('loading');
-                                return response.data;
-                            });
-                        }else{
-                            return departmentService.getAllDepartments(1).then(function (response) {
-                                angular.element(document.querySelector('#loading')).removeClass('loading');
-                                return response.data;
-                            });
-                        }
+                        let page = $stateParams.page ? $stateParams.page : 1;
+                        let itemsPerPage = $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
+                        return departmentService.getAllDepartments(page, itemsPerPage).then(function (response) {
+                            angular.element(document.querySelector('#loading')).removeClass('loading');
+                            return response.data;
+                        });
                     }, 300);
                 },
                 'currentPage': function ($stateParams) {
-                    if($stateParams.page){
-                        return $stateParams.page;
-                    }else{
-                        return 1;
-                    }
+                    return $stateParams.page ? $stateParams.page : 1;
+                },
+                'itemsPerPage': function ($stateParams) {
+                    return $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
                 }
             }
         })
@@ -83,34 +77,21 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
                 'employees': function (employeeService, $stateParams, toaster, $timeout) {
                     angular.element(document.querySelector('#loading')).addClass('loading');
                     return $timeout(function () {
-                        if($stateParams.page){
-                            return employeeService.getByDepartment($stateParams.departmentId, $stateParams.page).then(function (response) {
-                                angular.element(document.querySelector('#loading')).removeClass('loading');
-                                if(response.data.length === 0){
-                                    toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
-                                }
-                                return response.data;
-                            });
-                        }else {
-                            return employeeService.getByDepartment($stateParams.departmentId, 1).then(function (response) {
-                                angular.element(document.querySelector('#loading')).removeClass('loading');
-                                if(response.data.length === 0){
-                                    toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
-                                }
-                                return response.data;
-                            });
-                        }
+                        let page = $stateParams.page ? $stateParams.page : 1;
+                        return employeeService.getByDepartment($stateParams.departmentId, page).then(function (response) {
+                            angular.element(document.querySelector('#loading')).removeClass('loading');
+                            if (response.data.length === 0) {
+                                toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
+                            }
+                            return response.data;
+                        });
                     }, 300);
                 },
                 'departmentId': function ($stateParams) {
                     return $stateParams.departmentId;
                 },
                 'currentPage': function ($stateParams) {
-                    if($stateParams.page){
-                        return $stateParams.page;
-                    }else{
-                        return 1;
-                    }
+                    return $stateParams.page ? $stateParams.page : 1;
                 }
             }
         })

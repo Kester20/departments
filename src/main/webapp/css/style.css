@@ -1,10 +1,16 @@
+#content {
+    width: 50%;
+    margin-left: 25%;
+}
+
 .table {
-    margin-top:50px;
+    margin-top:5px;
     text-align:center;
+    margin-left: 21.5%;
 }
 
 .label {
-    margin-top:130px;
+    margin-top:0;
 }
 
 .noBorder td {
@@ -18,6 +24,17 @@ tr.hide > td, td.hide{
 .error {
     color:red;
     font-size: 14pt;
+}
+
+#item_per_page_div {
+    width: 57%;
+    height: 10%;
+    margin-left: 21.5%;
+    font-size: 14pt;
+}
+
+#md-select {
+    width: 200px;
 }
 
 .loading {
