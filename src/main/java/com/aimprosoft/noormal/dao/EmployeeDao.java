@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface EmployeeDao extends Dao<Employee> {
 
-    List<Employee> findEmployeesByDepartment(Department department, Integer page) throws DaoException;
+    List<Employee> findEmployeesByDepartment(Department department, Integer page, Integer itemsPerPage) throws DaoException;
 
     Integer getTotalEmployeesInDepartment(Department department) throws DaoException;
 }

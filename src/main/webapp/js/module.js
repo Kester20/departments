@@ -64,7 +64,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
         })
 
         .state('employees', {
-            url: "/employee/getByDepartment/:departmentId/?page",
+            url: "/employee/getByDepartment/:departmentId/?page/?itemsPerPage",
             template: employees,
             controller: 'employeeController',
             controllerAs: 'ec',
@@ -78,7 +78,8 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
                     angular.element(document.querySelector('#loading')).addClass('loading');
                     return $timeout(function () {
                         let page = $stateParams.page ? $stateParams.page : 1;
-                        return employeeService.getByDepartment($stateParams.departmentId, page).then(function (response) {
+                        let itemsPerPage = $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
+                        return employeeService.getByDepartment($stateParams.departmentId, page, itemsPerPage).then(function (response) {
                             angular.element(document.querySelector('#loading')).removeClass('loading');
                             if (response.data.length === 0) {
                                 toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
@@ -92,6 +93,9 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
                 },
                 'currentPage': function ($stateParams) {
                     return $stateParams.page ? $stateParams.page : 1;
+                },
+                'itemsPerPage': function ($stateParams) {
+                    return $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
                 }
             }
         })

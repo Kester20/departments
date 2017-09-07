@@ -6,58 +6,75 @@
 </head>
 <body>
 <h3 align="center" class="label">Employees</h3>
-<table class="mdl-data-table table" align="center">
 
-    <tr>
-        <th class="mdl-data-table__cell--non-numeric">#</th>
-        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('name')">Name</th>
-        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('age')">Age</th>
-        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('dateOfBirth')">Birthday</th>
-        <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('email')">Email</th>
-        <th class="mdl-data-table__cell--non-numeric">Edit</th>
-        <th class="mdl-data-table__cell--non-numeric">Delete</th>
-    </tr>
+<div id="employeesContent">
 
-    <tr ng-repeat="employee in ec.employees | orderBy:ec.criteria">
-        <td>{{$index + 1}}</td>
-        <td>{{employee.name}}</td>
-        <td>{{employee.age}}</td>
-        <td>{{employee.dateOfBirth | date:'yyyy-MM-dd'}}</td>
-        <td>{{employee.email}}</td>
-        <td><a ui-sref="employeeSave({employeeId: employee.employeeId})"
-               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
-        </td>
-        <td>
-            <button ng-click="ec.deleteEmployee(employee.employeeId, departmentId)"
-                    class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
-            </button>
-        </td>
-    </tr>
+    <div layout="row" layout-align="space-between center" id="item_per_page_div">
+        <md-input-container>
+            <label>Item per page</label>
+            <md-select id="md-select" ng-model="ec.itemsPerPage" ng-change="ec.selectPage(ec.currentPage, ec.itemsPerPage)">
+                <md-option value="5">5</md-option>
+                <md-option value="8">8</md-option>
+                <md-option value="10">10</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
 
-    <tr>
-        <td colspan="2"><a ui-sref="root"
-                           class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
-        </td>
-        <td colspan="3"></td>
-        <td colspan="2">
-            <a ui-sref="employeeSave"
-               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                Add new employee
-            </a>
-        </td>
-    </tr>
+    <table class="mdl-data-table table">
 
-    <tr>
-        <td colspan="7" style="text-align: center">
-            <ul class="pagination-sm"
-                uib-pagination
-                boundary-links="true"
-                total-items="ec.totalEmployees"
-                ng-model="ec.currentPage"
-                items-per-page = 5
-                ng-change="ec.selectPage(ec.currentPage)"></ul>
-        </td>
-    </tr>
-</table>
+        <tr>
+            <th class="mdl-data-table__cell--non-numeric">#</th>
+            <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('name')">Name</th>
+            <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('age')">Age</th>
+            <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('dateOfBirth')">Birthday</th>
+            <th class="mdl-data-table__cell--non-numeric" ng-click="ec.orderBy('email')">Email</th>
+            <th class="mdl-data-table__cell--non-numeric">Edit</th>
+            <th class="mdl-data-table__cell--non-numeric">Delete</th>
+        </tr>
+
+        <tr ng-repeat="employee in ec.employees | orderBy:ec.criteria">
+            <td>{{$index + 1}}</td>
+            <td>{{employee.name}}</td>
+            <td>{{employee.age}}</td>
+            <td>{{employee.dateOfBirth | date:'yyyy-MM-dd'}}</td>
+            <td>{{employee.email}}</td>
+            <td><a ui-sref="employeeSave({employeeId: employee.employeeId})"
+                   class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
+            </td>
+            <td>
+                <button ng-click="ec.deleteEmployee(employee.employeeId, departmentId)"
+                        class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
+                </button>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><a ui-sref="root"
+                               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
+            </td>
+            <td colspan="3"></td>
+            <td colspan="2">
+                <a ui-sref="employeeSave"
+                   class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    Add new employee
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="7" style="text-align: center">
+                <ul class="pagination-sm"
+                    uib-pagination
+                    boundary-links="true"
+                    total-items="ec.totalEmployees"
+                    ng-model="ec.currentPage"
+                    items-per-page=ec.itemsPerPage
+                    ng-change="ec.selectPage(ec.currentPage, ec.itemsPerPage)"></ul>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
 </body>
 </html>

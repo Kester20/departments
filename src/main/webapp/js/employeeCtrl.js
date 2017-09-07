@@ -64,18 +64,19 @@ function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeS
     }
 }
 
-function EmployeeController($rootScope, employees, totalEmployees, departmentId, employeeService, $state, currentPage) {
+function EmployeeController($rootScope, employees, totalEmployees, departmentId, employeeService, $state, currentPage, itemsPerPage) {
     let vm = this;
     vm.employees = employees;
     vm.totalEmployees = totalEmployees;
     vm.currentPage = currentPage;
+    vm.itemsPerPage = itemsPerPage;
     vm.selectPage = selectPage;
     vm.deleteEmployee = deleteEmployee;
     vm.orderBy = orderBy;
     $rootScope.departmentId = departmentId;
 
-    function selectPage(page) {
-        $state.go("employees", { page: page });
+    function selectPage(page, itemsPerPage) {
+        $state.go("employees", { page: page, itemsPerPage: itemsPerPage });
     }
     function deleteEmployee(employeeId, departmentId) {
         return employeeService.deleteEmployee(employeeId, departmentId);

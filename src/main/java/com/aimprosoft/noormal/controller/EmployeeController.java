@@ -36,8 +36,8 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping("/getByDepartment")
-    public List<Employee> getByDepartment(Department department, @RequestParam Integer page) throws DaoException {
-        return employeeService.findEmployeesByDepartment(department, page);
+    public List<Employee> getByDepartment(Department department, @RequestParam Integer page, @RequestParam Integer itemsPerPage) throws DaoException {
+        return employeeService.findEmployeesByDepartment(department, page, itemsPerPage);
     }
 
     @ResponseBody

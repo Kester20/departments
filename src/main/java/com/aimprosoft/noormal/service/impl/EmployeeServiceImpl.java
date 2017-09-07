@@ -41,8 +41,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Employee> findEmployeesByDepartment(Department department, Integer page) throws DaoException {
-        return employeeDao.findEmployeesByDepartment(department, page);
+    public List<Employee> findEmployeesByDepartment(Department department, Integer page, Integer itemsPerPage) throws DaoException {
+        return employeeDao.findEmployeesByDepartment(department, page, itemsPerPage);
     }
 
     @Transactional(readOnly = true)

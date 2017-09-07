@@ -5,8 +5,8 @@ mainApp.service('employeeService', EmployeeService);
 function EmployeeService($http, $state, $window, toaster) {
     return {
 
-        getByDepartment: function (id, page) {
-            return $http.get('/employee/getByDepartment?departmentId=' + id + "&page=" + page);
+        getByDepartment: function (id, page, itemsPerPage) {
+            return $http.get('/employee/getByDepartment?departmentId=' + id + "&page=" + page + "&itemsPerPage=" + itemsPerPage);
         },
 
         getEmployeeSavePage: function (id) {

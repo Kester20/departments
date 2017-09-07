@@ -22,11 +22,11 @@ import static com.aimprosoft.noormal.util.Constants.DbConstants.DEPARTMENT;
 public class EmployeeDaoImpl extends CrudDao<Employee> implements EmployeeDao {
 
     @Override
-    public List<Employee> findEmployeesByDepartment(Department department, Integer page) throws DaoException {
+    public List<Employee> findEmployeesByDepartment(Department department, Integer page, Integer itemsPerPage) throws DaoException {
         try {
             Session session = getCurrentSession();
             Criteria criteria = session.createCriteria(Employee.class);
-            return criteria.add(Restrictions.eq(DEPARTMENT, department)).setFirstResult((page - 1) * 5).setMaxResults(5).list();
+            return criteria.add(Restrictions.eq(DEPARTMENT, department)).setFirstResult((page - 1) * itemsPerPage).setMaxResults(itemsPerPage).list();
         } catch (Exception e) {
             throw new DaoException(e.getMessage());
         }

@@ -1,6 +1,17 @@
-#content {
+#departmentsContent {
     width: 50%;
     margin-left: 25%;
+}
+
+#employeesContent{
+    width: 30%;
+    margin-left: 25%;
+}
+
+#departmentSaveContent {
+    width: 30%;
+    margin-left: 37%;
+    margin-top: 5%;
 }
 
 .table {
