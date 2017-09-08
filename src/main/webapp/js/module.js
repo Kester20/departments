@@ -5,7 +5,24 @@ import employees from "../templates/employees.html";
 
 let mainApp = angular.module('mainApp', ['ui.router', 'toaster', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngMaterial']);
 
-mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+    $httpProvider.interceptors.push(function($q, $timeout) {
+        return {
+            request: function (config) {
+                angular.element(document.querySelector('#loading')).addClass('loading');
+                return config || $q.when(config);
+            },
+            response: function (response) {
+                angular.element(document.querySelector('#loading')).removeClass('loading');
+                return response || $q.when(response);
+            },
+            responseError: function (response) {
+                angular.element(document.querySelector('#loading')).removeClass('loading');
+                return $q.reject(response);
+            }
+        }
+    });
 
     $urlRouterProvider.otherwise("root");
 
@@ -17,16 +34,12 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'departmentController',
             controllerAs: 'dc',
             resolve: {
-                departments: function (departmentService, $timeout, $stateParams) {
-                    angular.element(document.querySelector('#loading')).addClass('loading');
-                    return $timeout(function () {
-                        let page = $stateParams.page ? $stateParams.page : 1;
-                        let itemsPerPage = $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
-                        return departmentService.getAllDepartments(page, itemsPerPage).then(function (response) {
-                            angular.element(document.querySelector('#loading')).removeClass('loading');
-                            return response.data;
-                        });
-                    }, 300);
+                departments: function (departmentService, $stateParams) {
+                    let page = $stateParams.page ? $stateParams.page : 1;
+                    let itemsPerPage = $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
+                    return departmentService.getAllDepartments(page, itemsPerPage).then(function (response) {
+                        return response.data;
+                    });
                 },
                 totalDepartments: function (departmentService) {
                     return departmentService.getTotalDepartments().then(function (response) {
@@ -48,17 +61,12 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'departmentSaveController',
             controllerAs: 'dsc',
             resolve: {
-                department: function (departmentService, $stateParams, $timeout) {
-                    angular.element(document.querySelector('#loading')).addClass('loading');
-                    return $timeout(function () {
-                        if ($stateParams.departmentId) {
-                            return departmentService.getDepartmentSavePage($stateParams.departmentId).then(function (response) {
-                                angular.element(document.querySelector('#loading')).removeClass('loading');
-                                return response.data;
-                            });
-                        }
-                        angular.element(document.querySelector('#loading')).removeClass('loading');
-                    }, 300);
+                department: function (departmentService, $stateParams) {
+                    if ($stateParams.departmentId) {
+                        return departmentService.getDepartmentSavePage($stateParams.departmentId).then(function (response) {
+                            return response.data;
+                        });
+                    }
                 }
             }
         })
@@ -69,19 +77,15 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'employeeController',
             controllerAs: 'ec',
             resolve: {
-                employees: function (employeeService, $stateParams, toaster, $timeout) {
-                    angular.element(document.querySelector('#loading')).addClass('loading');
-                    return $timeout(function () {
-                        let page = $stateParams.page ? $stateParams.page : 1;
-                        let itemsPerPage = $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
-                        return employeeService.getByDepartment($stateParams.departmentId, page, itemsPerPage).then(function (response) {
-                            angular.element(document.querySelector('#loading')).removeClass('loading');
-                            if (response.data.length === 0) {
-                                toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
-                            }
-                            return response.data;
-                        });
-                    }, 300);
+                employees: function (employeeService, $stateParams, toaster) {
+                    let page = $stateParams.page ? $stateParams.page : 1;
+                    let itemsPerPage = $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
+                    return employeeService.getByDepartment($stateParams.departmentId, page, itemsPerPage).then(function (response) {
+                        if (response.data.length === 0) {
+                            toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
+                        }
+                        return response.data;
+                    });
                 },
                 totalEmployees: function (employeeService, $stateParams) {
                     return employeeService.getTotalEmployees($stateParams.departmentId).then(function (response) {
@@ -106,17 +110,12 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) 
             controller: 'employeeSaveController',
             controllerAs: 'esc',
             resolve: {
-                employee: function (employeeService, $stateParams, $timeout) {
-                    angular.element(document.querySelector('#loading')).addClass('loading');
-                    return $timeout(function () {
-                        if ($stateParams.employeeId) {
-                            return employeeService.getEmployeeSavePage($stateParams.employeeId).then(function (response) {
-                                angular.element(document.querySelector('#loading')).removeClass('loading');
-                                return response.data;
-                            });
-                        }
-                        angular.element(document.querySelector('#loading')).removeClass('loading');
-                    }, 300);
+                employee: function (employeeService, $stateParams) {
+                    if ($stateParams.employeeId) {
+                        return employeeService.getEmployeeSavePage($stateParams.employeeId).then(function (response) {
+                            return response.data;
+                        });
+                    }
                 }
             }
         });
