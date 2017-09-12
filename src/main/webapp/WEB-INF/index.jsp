@@ -5,10 +5,10 @@
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
 <portlet:defineObjects/>
 
-
-
 <div ng-app="mainApp">
     <div ui-view ></div>
+    <div id="loading"></div>
+    <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'position-class': 'toast-top-right'}"></toaster-container>
 </div>
 
 <script type="text/javascript">
@@ -19,7 +19,9 @@
         deleteDepartment : '<portlet:resourceURL id="deleteDepartment"/>',
         getAllEmployees : '<portlet:resourceURL id="getAllEmployees"/>',
         saveEmployee : '<portlet:resourceURL id="saveEmployee"/>',
-        deleteEmployee : '<portlet:resourceURL id="deleteEmployee"/>'
+        deleteEmployee : '<portlet:resourceURL id="deleteEmployee"/>',
+        getTotalDepartments : '<portlet:resourceURL id="getTotalDepartments"/>',
+        getTotalEmployees : '<portlet:resourceURL id="getTotalEmployees"/>'
     });
 </script>
 

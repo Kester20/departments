@@ -5,14 +5,12 @@
 	<import class="com.aimprosoft.noormal.servicebuilder.model.Department" />
 	<import class="com.aimprosoft.noormal.servicebuilder.model.Employee" />
 	<class name="com.aimprosoft.noormal.servicebuilder.model.impl.DepartmentImpl" table="department">
-		<cache usage="read-write" />
 		<id name="departmentId" type="long">
 			<generator class="increment" />
 		</id>
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.aimprosoft.noormal.servicebuilder.model.impl.EmployeeImpl" table="employee">
-		<cache usage="read-write" />
 		<id name="employeeId" type="long">
 			<generator class="increment" />
 		</id>

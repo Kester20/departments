@@ -5,13 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-
 <h3 align="center">Enter new value</h3>
 
+<div id="saveContent">
+
 <form name="form">
-
-    <table class="mdl-data-table" align="center" cellpadding="10">
-
+    <table class="mdl-data-table" cellpadding="10">
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="text" name="name" placeholder="Name"
                                    ng-model="esc.employee.name" ng-maxlength="30"
@@ -22,7 +21,6 @@
                 <label class="error">{{esc.errorName}}</label>
             </td>
         </tr>
-
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="number" name="age" placeholder="Age"
                                    ng-model="esc.employee.age" ng-required="true" ng-maxlength="2">
@@ -31,7 +29,6 @@
                 <label class="error">{{esc.errorAge}}</label>
             </td>
         </tr>
-
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="text" name="dateOfBirth"
                                    ng-model="esc.employee.dateOfBirth" date='yyyy-MM-dd'
@@ -42,7 +39,6 @@
                 <label class="error">{{esc.errorDateOfBirth}}</label>
             </td>
         </tr>
-
         <tr>
             <td colspan="2"><input class="mdl-textfield__input" type="email" name="email" placeholder="Email"
                                    ng-model="esc.employee.email"
@@ -52,7 +48,6 @@
                 <label class="error">{{esc.errorEmail}}</label>
             </td>
         </tr>
-
         <tr>
             <td>
                 <a ui-sref="employees({departmentId: departmentId})"
@@ -67,8 +62,9 @@
                 </button>
             </td>
         </tr>
-
     </table>
 </form>
+
+</div>
 </body>
 </html>

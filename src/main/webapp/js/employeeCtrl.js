@@ -58,7 +58,7 @@ function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeS
         let departmentId = $rootScope.departmentId;
         let params = "";
 
-        if (employeeId != null) {
+        if (employeeId) {
             params = "&" + config.ns + "employeeId=" + employeeId;
         }
         params +=
@@ -71,13 +71,24 @@ function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeS
     }
 }
 
-function EmployeeController($rootScope, employees, departmentId, employeeService) {
+function EmployeeController($rootScope, employees, totalEmployees, departmentId, employeeService, $state, currentPage, itemsPerPage) {
     let vm = this;
     vm.employees = employees;
+    vm.totalEmployees = totalEmployees;
+    vm.currentPage = currentPage;
+    vm.itemsPerPage = itemsPerPage;
+    vm.selectPage = selectPage;
     vm.deleteEmployee = deleteEmployee;
+    vm.orderBy = orderBy;
     $rootScope.departmentId = departmentId;
 
+    function selectPage(page, itemsPerPage) {
+        $state.go("employees", { page: page, itemsPerPage: itemsPerPage });
+    }
     function deleteEmployee(employeeId, departmentId) {
         return employeeService.deleteEmployee(employeeId, departmentId);
+    }
+    function orderBy(criteria) {
+        vm.criteria = criteria;
     }
 }

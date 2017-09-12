@@ -8,46 +8,71 @@
 
 <h3 align="center">Departments</h3>
 
-<table class="mdl-data-table" align="center">
+<div id="departmentsContent">
 
-    <tr>
-        <th class="mdl-data-table__cell--non-numeric">#</th>
-        <th class="mdl-data-table__cell--non-numeric">Name</th>
-        <th class="mdl-data-table__cell--non-numeric">Edit</th>
-        <th class="mdl-data-table__cell--non-numeric">Delete</th>
-        <th class="mdl-data-table__cell--non-numeric">Employees</th>
-    </tr>
+    <div layout="row" layout-align="space-between center" id="item_per_page_div">
+        <md-input-container>
+            <label>Item per page</label>
+            <md-select id="md-select" ng-model="dc.itemsPerPage" ng-change="dc.selectPage(dc.currentPage, dc.itemsPerPage)">
+                <md-option value="5">5</md-option>
+                <md-option value="8">8</md-option>
+                <md-option value="10">10</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
 
-    <tr ng-repeat="department in dc.departments">
-        <td>{{$index + 1}}</td>
-        <td>{{department.name}}</td>
-        <td><a ui-sref="departmentSave({departmentId: department.departmentId})"
-               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
-        </td>
-        <td>
-            <button ng-click="dc.deleteDepartment(department.departmentId)"
-                    class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
-            </button>
-        </td>
-        <td>
-            <a ui-sref="employees({departmentId: department.departmentId})"
-               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                Employees
-            </a>
-        </td>
-    </tr>
+    <table class="mdl-data-table table">
 
-    <tr>
-        <td colspan="3"></td>
-        <td colspan="2">
-            <a ui-sref="departmentSave"
-               class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-                Add new department
-            </a>
-        </td>
-    </tr>
+        <tr>
+            <th class="mdl-data-table__cell--non-numeric">#</th>
+            <th class="mdl-data-table__cell--non-numeric">Name</th>
+            <th class="mdl-data-table__cell--non-numeric">Edit</th>
+            <th class="mdl-data-table__cell--non-numeric">Delete</th>
+            <th class="mdl-data-table__cell--non-numeric">Employees</th>
+        </tr>
 
-</table>
+        <tr ng-repeat="department in dc.departments | orderBy:'name'">
+            <td>{{$index + 1}}</td>
+            <td>{{department.name}}</td>
+            <td><a ui-sref="departmentSave({departmentId: department.departmentId})"
+                   class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
+            </td>
+            <td>
+                <button ng-click="dc.deleteDepartment(department.departmentId)"
+                        class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
+                </button>
+            </td>
+            <td>
+                <a ui-sref="employees({departmentId: department.departmentId})"
+                   class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    Employees
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="5" style="text-align: center">
+                <a ui-sref="departmentSave"
+                   class="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                    Add new department
+                </a>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="5" style="text-align: center">
+                <ul class="pagination-sm"
+                    uib-pagination
+                    boundary-links="true"
+                    total-items="dc.totalDepartments"
+                    ng-model="dc.currentPage"
+                    items-per-page="dc.itemsPerPage"
+                    ng-change="dc.selectPage(dc.currentPage, dc.itemsPerPage)"></ul>
+            </td>
+        </tr>
+
+    </table>
+</div>
 
 </body>
 </html>

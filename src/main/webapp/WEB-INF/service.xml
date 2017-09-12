@@ -7,10 +7,14 @@
     <author>Arsalan</author>
     <namespace>departments</namespace>
 
-    <entity name="Department" local-service="true" remote-service="false"
+    <entity name="Department"
+            local-service="true"
+            remote-service="false"
+            cache-enabled="false"
             table="department"
             data-source="anotherDataSource"
             session-factory="anotherSessionFactory">
+
         <column name="departmentId" type="long" primary="true" id-type="increment" />
         <column name="name" type="String" convert-null="false" />
 
@@ -19,10 +23,14 @@
         </finder>
     </entity>
 
-    <entity name="Employee" local-service="true" remote-service="false"
+    <entity name="Employee"
+            local-service="true"
+            cache-enabled="false"
+            remote-service="false"
             table="employee"
             data-source="anotherDataSource"
             session-factory="anotherSessionFactory">
+
         <column name="employeeId" type="long" primary="true" id-type="increment" />
         <column name="name" type="String" convert-null="false" />
         <column name="age" type="int" />

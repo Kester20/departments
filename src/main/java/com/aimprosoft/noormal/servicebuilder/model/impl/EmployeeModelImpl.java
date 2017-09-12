@@ -3,8 +3,6 @@ package com.aimprosoft.noormal.servicebuilder.model.impl;
 import com.aimprosoft.noormal.servicebuilder.model.Employee;
 import com.aimprosoft.noormal.servicebuilder.model.EmployeeModel;
 
-import com.aimprosoft.noormal.util.Constants;
-import com.aimprosoft.noormal.validator.EmployeeUniqueEmailValidator;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -15,14 +13,7 @@ import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
-import net.sf.oval.constraint.CheckWith;
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotEmpty;
-import net.sf.oval.constraint.NotNull;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
 
 import java.sql.Types;
@@ -30,9 +21,6 @@ import java.sql.Types;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.aimprosoft.noormal.util.Constants.Messages.MUST_BE_LESS_THEN_30;
-import static com.aimprosoft.noormal.util.Constants.ServiceConstants.DATE_FORMAT;
 
 /**
  * The base model implementation for the Employee service. Represents a row in the &quot;employee&quot; database table, with each column mapped to a property of this class.
@@ -72,10 +60,10 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
     public static final String TX_MANAGER = "liferayTransactionManager";
     public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
                 "value.object.entity.cache.enabled.com.aimprosoft.noormal.servicebuilder.model.Employee"),
-            true);
+            false);
     public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
                 "value.object.finder.cache.enabled.com.aimprosoft.noormal.servicebuilder.model.Employee"),
-            true);
+            false);
     public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
                 "value.object.column.bitmask.enabled.com.aimprosoft.noormal.servicebuilder.model.Employee"),
             true);
@@ -89,25 +77,9 @@ public class EmployeeModelImpl extends BaseModelImpl<Employee>
             Employee.class
         };
     private long _employeeId;
-
-    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
-    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     private String _name;
-
-    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
-    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
     private int _age;
-
-    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
-    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
-    @DateTimeFormat(pattern = DATE_FORMAT)
-    @Temporal(TemporalType.DATE)
     private Date _dateOfBirth;
-
-    @CheckWith(value = EmployeeUniqueEmailValidator.class, message = Constants.Messages.EMPLOYEE_WITH_THIS_EMAIL_IS_ALREADY_EXIST)
-    @NotEmpty(message = Constants.Messages.MUST_NOT_BE_EMPTY)
-    @NotNull(message = Constants.Messages.MUST_NOT_BE_EMPTY)
-    @Length(max = 30, message = MUST_BE_LESS_THEN_30)
     private String _email;
     private String _originalEmail;
     private long _department;

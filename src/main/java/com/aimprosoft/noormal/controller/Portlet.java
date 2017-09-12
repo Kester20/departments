@@ -17,6 +17,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
@@ -52,8 +53,12 @@ public class Portlet {
     }
 
     @ResourceMapping("getAllDepartments")
-    public void getAllDepartments(ResourceResponse response) throws SystemException, IOException {
-        List<Department> departments = DepartmentLocalServiceUtil.getDepartments(0, Integer.MAX_VALUE);
+    public void getAllDepartments(ResourceResponse response,
+                                  @RequestParam Integer page,
+                                  @RequestParam Integer itemsPerPage) throws SystemException, IOException {
+        int first = (page - 1) * itemsPerPage;
+        int second = first + itemsPerPage;
+        List<Department> departments = DepartmentLocalServiceUtil.getDepartments(first, second);
         sendResponse(response, departments);
     }
 
@@ -73,7 +78,9 @@ public class Portlet {
     }
 
     @ResourceMapping("getAllEmployees")
-    public void getAllEmployees(ResourceResponse response, DepartmentImpl department) throws IOException, SystemException {
+    public void getAllEmployees(ResourceResponse response, DepartmentImpl department,
+                                @RequestParam Integer page,
+                                @RequestParam Integer itemsPerPage) throws IOException, SystemException {
         List<Employee> employees = EmployeeLocalServiceUtil.findByDepartment(department.getDepartmentId());
         sendResponse(response, employees);
     }
@@ -91,6 +98,16 @@ public class Portlet {
     @ResourceMapping("deleteEmployee")
     public void deleteEmployee(EmployeeImpl employee) throws SystemException {
         EmployeeLocalServiceUtil.deleteEmployee(employee);
+    }
+
+    @ResourceMapping("getTotalDepartments")
+    public void getTotalDepartments(ResourceResponse response) throws IOException, SystemException {
+        sendResponse(response, DepartmentLocalServiceUtil.getDepartmentsCount());
+    }
+
+    @ResourceMapping("getTotalEmployees")
+    public void getTotalEmployees(ResourceResponse response, DepartmentImpl department) throws IOException {
+        sendResponse(response, 9);
     }
 
     @ExceptionHandler(SystemException.class)

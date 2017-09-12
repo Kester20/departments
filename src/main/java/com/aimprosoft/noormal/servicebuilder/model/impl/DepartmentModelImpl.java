@@ -2,17 +2,14 @@ package com.aimprosoft.noormal.servicebuilder.model.impl;
 
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.DepartmentModel;
-
 import com.aimprosoft.noormal.validator.DepartmentUniqueNameValidator;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
-
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 import net.sf.oval.constraint.CheckWith;
@@ -21,9 +18,7 @@ import net.sf.oval.constraint.NotEmpty;
 import net.sf.oval.constraint.NotNull;
 
 import java.io.Serializable;
-
 import java.sql.Types;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,10 +60,10 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
     public static final String TX_MANAGER = "liferayTransactionManager";
     public static final boolean ENTITY_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
                 "value.object.entity.cache.enabled.com.aimprosoft.noormal.servicebuilder.model.Department"),
-            true);
+            false);
     public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
                 "value.object.finder.cache.enabled.com.aimprosoft.noormal.servicebuilder.model.Department"),
-            true);
+            false);
     public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
                 "value.object.column.bitmask.enabled.com.aimprosoft.noormal.servicebuilder.model.Department"),
             true);
@@ -161,11 +156,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
 
     @Override
     public String getName() {
-        if (_name == null) {
-            return StringPool.BLANK;
-        } else {
-            return _name;
-        }
+        return _name;
     }
 
     @Override
@@ -180,7 +171,7 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
     }
 
     public String getOriginalName() {
-        return GetterUtil.getString(_originalName);
+        return _originalName;
     }
 
     public long getColumnBitmask() {
