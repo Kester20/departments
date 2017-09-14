@@ -17,6 +17,11 @@
         <action name="getAllDepartments" class="com.aimprosoft.noormal.action.GetAllDepartmentsAction">
             <result type="json" />
         </action>
+
+        <action name="getTotalDepartments" class="com.aimprosoft.noormal.action.GetAllDepartmentsAction" method="getTotal">
+            <result type="json" />
+        </action>
+
     </package>
 
 </struts>
