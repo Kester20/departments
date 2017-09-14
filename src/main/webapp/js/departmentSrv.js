@@ -6,7 +6,7 @@ function DepartmentService($http, $state, $window, toaster) {
     return {
 
         getAllDepartments: function (page, itemsPerPage) {
-            return $http.get('getAllDepartments.action');
+            return $http.get('getAllDepartments.action?page=' + page + '&itemsPerPage=' + itemsPerPage);
         },
 
         getDepartmentSavePage: function (id) {
@@ -37,7 +37,7 @@ function DepartmentService($http, $state, $window, toaster) {
         },
 
         getTotalDepartments: function () {
-            return $http.get('/department/getTotal');
+            return $http.get('getTotalDepartments.action');
         }
     };
 }

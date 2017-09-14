@@ -43,7 +43,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, 
                 },
                 totalDepartments: function (departmentService) {
                     return departmentService.getTotalDepartments().then(function (response) {
-                        return response.data;
+                        return response.data.totalDepartments;
                     })
                 },
                 currentPage: function ($stateParams) {
