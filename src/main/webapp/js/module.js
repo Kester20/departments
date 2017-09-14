@@ -38,7 +38,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, 
                     let page = $stateParams.page ? $stateParams.page : 1;
                     let itemsPerPage = $stateParams.itemsPerPage ? $stateParams.itemsPerPage : 5;
                     return departmentService.getAllDepartments(page, itemsPerPage).then(function (response) {
-                        return response.data;
+                        return response.data.departments;
                     });
                 },
                 totalDepartments: function (departmentService) {

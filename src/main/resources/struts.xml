@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <!--<constant name="struts.serve.static" value="false" />-->
+    <constant name="struts.devMode" value="true" />
+    <!--<constant name="struts.action.excludePattern" value="/js/*" />-->
+
+    <package name="home" extends="struts-default,json-default" namespace="/">
+        <action name="" class="" method="">
+            <result name="success">/WEB-INF/index.jsp</result>
+        </action>
+
+        <action name="getAllDepartments" class="com.aimprosoft.noormal.action.GetAllDepartmentsAction">
+            <result type="json" />
+        </action>
+    </package>
+
+</struts>
