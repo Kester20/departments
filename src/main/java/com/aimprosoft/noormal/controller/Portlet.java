@@ -81,7 +81,9 @@ public class Portlet {
     public void getAllEmployees(ResourceResponse response, DepartmentImpl department,
                                 @RequestParam Integer page,
                                 @RequestParam Integer itemsPerPage) throws IOException, SystemException {
-        List<Employee> employees = EmployeeLocalServiceUtil.findByDepartment(department.getDepartmentId());
+        int first = (page - 1) * itemsPerPage;
+        int second = first + itemsPerPage;
+        List<Employee> employees = EmployeeLocalServiceUtil.findByDepartment(department, first, second);
         sendResponse(response, employees);
     }
 
@@ -107,7 +109,7 @@ public class Portlet {
 
     @ResourceMapping("getTotalEmployees")
     public void getTotalEmployees(ResourceResponse response, DepartmentImpl department) throws IOException {
-        sendResponse(response, 9);
+        sendResponse(response, EmployeeLocalServiceUtil.getCountByDepartment(department));
     }
 
     @ExceptionHandler(SystemException.class)

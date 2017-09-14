@@ -1,8 +1,10 @@
 package com.aimprosoft.noormal.servicebuilder.service.impl;
 
 import com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException;
+import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.Employee;
 import com.aimprosoft.noormal.servicebuilder.service.base.EmployeeLocalServiceBaseImpl;
+import com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeeFinderUtil;
 import com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeePersistenceImpl;
 import com.liferay.portal.kernel.exception.SystemException;
 
@@ -34,5 +36,13 @@ public class EmployeeLocalServiceImpl extends EmployeeLocalServiceBaseImpl {
 
     public Employee findByEmail(String email) throws NoSuchEmployeeException, SystemException {
         return employeePersistence.findByEmail(email);
+    }
+
+    public List<Employee> findByDepartment(Department department, int start, int end) throws SystemException {
+        return EmployeeFinderUtil.findByDepartment(department, start, end);
+    }
+
+    public Integer getCountByDepartment(Department department){
+        return EmployeeFinderUtil.getCountByDepartment(department);
     }
 }

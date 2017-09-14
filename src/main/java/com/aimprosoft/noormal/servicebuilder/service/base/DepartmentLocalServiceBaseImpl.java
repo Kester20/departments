@@ -3,6 +3,7 @@ package com.aimprosoft.noormal.servicebuilder.service.base;
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.service.DepartmentLocalService;
 import com.aimprosoft.noormal.servicebuilder.service.persistence.DepartmentPersistence;
+import com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeeFinder;
 import com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeePersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
@@ -51,6 +52,8 @@ public abstract class DepartmentLocalServiceBaseImpl
     protected com.aimprosoft.noormal.servicebuilder.service.EmployeeLocalService employeeLocalService;
     @BeanReference(type = EmployeePersistence.class)
     protected EmployeePersistence employeePersistence;
+    @BeanReference(type = EmployeeFinder.class)
+    protected EmployeeFinder employeeFinder;
     @BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
     protected com.liferay.counter.service.CounterLocalService counterLocalService;
     @BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
@@ -362,6 +365,24 @@ public abstract class DepartmentLocalServiceBaseImpl
      */
     public void setEmployeePersistence(EmployeePersistence employeePersistence) {
         this.employeePersistence = employeePersistence;
+    }
+
+    /**
+     * Returns the employee finder.
+     *
+     * @return the employee finder
+     */
+    public EmployeeFinder getEmployeeFinder() {
+        return employeeFinder;
+    }
+
+    /**
+     * Sets the employee finder.
+     *
+     * @param employeeFinder the employee finder
+     */
+    public void setEmployeeFinder(EmployeeFinder employeeFinder) {
+        this.employeeFinder = employeeFinder;
     }
 
     /**

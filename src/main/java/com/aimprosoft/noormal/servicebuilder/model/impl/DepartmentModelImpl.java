@@ -2,7 +2,7 @@ package com.aimprosoft.noormal.servicebuilder.model.impl;
 
 import com.aimprosoft.noormal.servicebuilder.model.Department;
 import com.aimprosoft.noormal.servicebuilder.model.DepartmentModel;
-import com.aimprosoft.noormal.validator.DepartmentUniqueNameValidator;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -10,21 +10,16 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
+
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
-import net.sf.oval.constraint.CheckWith;
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotEmpty;
-import net.sf.oval.constraint.NotNull;
 
 import java.io.Serializable;
+
 import java.sql.Types;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.aimprosoft.noormal.util.Constants.Messages.DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST;
-import static com.aimprosoft.noormal.util.Constants.Messages.MUST_BE_LESS_THEN_30;
-import static com.aimprosoft.noormal.util.Constants.Messages.MUST_NOT_BE_EMPTY;
 
 /**
  * The base model implementation for the Department service. Represents a row in the &quot;department&quot; database table, with each column mapped to a property of this class.
@@ -76,11 +71,6 @@ public class DepartmentModelImpl extends BaseModelImpl<Department>
             Department.class
         };
     private long _departmentId;
-
-    @CheckWith(value = DepartmentUniqueNameValidator.class, message = DEPARTMENT_WITH_THIS_NAME_IS_ALREADY_EXIST)
-    @NotEmpty(message = MUST_NOT_BE_EMPTY)
-    @NotNull(message = MUST_NOT_BE_EMPTY)
-    @Length(max = 30, message = MUST_BE_LESS_THEN_30)
     private String _name;
     private String _originalName;
     private long _columnBitmask;

@@ -11,4 +11,8 @@
 		<property name="dataSource" ref="anotherDataSource" />
 		<property name="sessionFactory" ref="anotherSessionFactory" />
 	</bean>
+	<bean id="com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeeFinder" class="com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeeFinderImpl" parent="basePersistence">
+		<property name="dataSource" ref="anotherDataSource" />
+		<property name="sessionFactory" ref="anotherSessionFactory" />
+	</bean>
 </beans>

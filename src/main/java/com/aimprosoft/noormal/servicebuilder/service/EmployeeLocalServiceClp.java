@@ -48,6 +48,10 @@ public class EmployeeLocalServiceClp implements EmployeeLocalService {
     private String[] _methodParameterTypes19;
     private String _methodName20;
     private String[] _methodParameterTypes20;
+    private String _methodName21;
+    private String[] _methodParameterTypes21;
+    private String _methodName22;
+    private String[] _methodParameterTypes22;
 
     public EmployeeLocalServiceClp(InvokableLocalService invokableLocalService) {
         _invokableLocalService = invokableLocalService;
@@ -149,6 +153,19 @@ public class EmployeeLocalServiceClp implements EmployeeLocalService {
         _methodName20 = "findByEmail";
 
         _methodParameterTypes20 = new String[] { "java.lang.String" };
+
+        _methodName21 = "findByDepartment";
+
+        _methodParameterTypes21 = new String[] {
+                "com.aimprosoft.noormal.servicebuilder.model.Department", "int",
+                "int"
+            };
+
+        _methodName22 = "getCountByDepartment";
+
+        _methodParameterTypes22 = new String[] {
+                "com.aimprosoft.noormal.servicebuilder.model.Department"
+            };
     }
 
     @Override
@@ -723,5 +740,63 @@ public class EmployeeLocalServiceClp implements EmployeeLocalService {
         }
 
         return (com.aimprosoft.noormal.servicebuilder.model.Employee) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findByDepartment(
+        com.aimprosoft.noormal.servicebuilder.model.Department department,
+        int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName21,
+                    _methodParameterTypes21,
+                    new Object[] {
+                        ClpSerializer.translateInput(department),
+                        
+                    start,
+                        
+                    end
+                    });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+                throw (com.liferay.portal.kernel.exception.SystemException) t;
+            }
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee>) ClpSerializer.translateOutput(returnObj);
+    }
+
+    @Override
+    public java.lang.Integer getCountByDepartment(
+        com.aimprosoft.noormal.servicebuilder.model.Department department) {
+        Object returnObj = null;
+
+        try {
+            returnObj = _invokableLocalService.invokeMethod(_methodName22,
+                    _methodParameterTypes22,
+                    new Object[] { ClpSerializer.translateInput(department) });
+        } catch (Throwable t) {
+            t = ClpSerializer.translateThrowable(t);
+
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            } else {
+                throw new RuntimeException(t.getClass().getName() +
+                    " is not a valid exception");
+            }
+        }
+
+        return (java.lang.Integer) ClpSerializer.translateOutput(returnObj);
     }
 }

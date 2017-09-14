@@ -289,6 +289,20 @@ public class EmployeeLocalServiceWrapper implements EmployeeLocalService,
         return _employeeLocalService.findByEmail(email);
     }
 
+    @Override
+    public java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findByDepartment(
+        com.aimprosoft.noormal.servicebuilder.model.Department department,
+        int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException {
+        return _employeeLocalService.findByDepartment(department, start, end);
+    }
+
+    @Override
+    public java.lang.Integer getCountByDepartment(
+        com.aimprosoft.noormal.servicebuilder.model.Department department) {
+        return _employeeLocalService.getCountByDepartment(department);
+    }
+
     /**
      * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
      */

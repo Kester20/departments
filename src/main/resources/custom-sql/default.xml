@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+    <sql id="com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeeFinderImpl.findByDepartment">
+
+        <![CDATA[
+                SELECT * FROM employee WHERE employee.department = ?
+            ]]>
+    </sql>
+
+    <sql id="com.aimprosoft.noormal.servicebuilder.service.persistence.EmployeeFinderImpl.getCountByDepartment">
+
+        <![CDATA[
+                SELECT count(*) FROM employee WHERE employee.department = ?
+            ]]>
+    </sql>
+</custom-sql>

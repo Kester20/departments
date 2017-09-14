@@ -41,14 +41,18 @@ public class EmployeeLocalServiceClpInvoker {
     private String[] _methodParameterTypes14;
     private String _methodName15;
     private String[] _methodParameterTypes15;
-    private String _methodName36;
-    private String[] _methodParameterTypes36;
-    private String _methodName37;
-    private String[] _methodParameterTypes37;
-    private String _methodName42;
-    private String[] _methodParameterTypes42;
-    private String _methodName43;
-    private String[] _methodParameterTypes43;
+    private String _methodName38;
+    private String[] _methodParameterTypes38;
+    private String _methodName39;
+    private String[] _methodParameterTypes39;
+    private String _methodName44;
+    private String[] _methodParameterTypes44;
+    private String _methodName45;
+    private String[] _methodParameterTypes45;
+    private String _methodName46;
+    private String[] _methodParameterTypes46;
+    private String _methodName47;
+    private String[] _methodParameterTypes47;
 
     public EmployeeLocalServiceClpInvoker() {
         _methodName0 = "addEmployee";
@@ -133,21 +137,34 @@ public class EmployeeLocalServiceClpInvoker {
                 "com.aimprosoft.noormal.servicebuilder.model.Employee"
             };
 
-        _methodName36 = "getBeanIdentifier";
+        _methodName38 = "getBeanIdentifier";
 
-        _methodParameterTypes36 = new String[] {  };
+        _methodParameterTypes38 = new String[] {  };
 
-        _methodName37 = "setBeanIdentifier";
+        _methodName39 = "setBeanIdentifier";
 
-        _methodParameterTypes37 = new String[] { "java.lang.String" };
+        _methodParameterTypes39 = new String[] { "java.lang.String" };
 
-        _methodName42 = "findByDepartment";
+        _methodName44 = "findByDepartment";
 
-        _methodParameterTypes42 = new String[] { "long" };
+        _methodParameterTypes44 = new String[] { "long" };
 
-        _methodName43 = "findByEmail";
+        _methodName45 = "findByEmail";
 
-        _methodParameterTypes43 = new String[] { "java.lang.String" };
+        _methodParameterTypes45 = new String[] { "java.lang.String" };
+
+        _methodName46 = "findByDepartment";
+
+        _methodParameterTypes46 = new String[] {
+                "com.aimprosoft.noormal.servicebuilder.model.Department", "int",
+                "int"
+            };
+
+        _methodName47 = "getCountByDepartment";
+
+        _methodParameterTypes47 = new String[] {
+                "com.aimprosoft.noormal.servicebuilder.model.Department"
+            };
     }
 
     public Object invokeMethod(String name, String[] parameterTypes,
@@ -239,26 +256,38 @@ public class EmployeeLocalServiceClpInvoker {
             return EmployeeLocalServiceUtil.updateEmployee((com.aimprosoft.noormal.servicebuilder.model.Employee) arguments[0]);
         }
 
-        if (_methodName36.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+        if (_methodName38.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
             return EmployeeLocalServiceUtil.getBeanIdentifier();
         }
 
-        if (_methodName37.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+        if (_methodName39.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
             EmployeeLocalServiceUtil.setBeanIdentifier((java.lang.String) arguments[0]);
 
             return null;
         }
 
-        if (_methodName42.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+        if (_methodName44.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
             return EmployeeLocalServiceUtil.findByDepartment(((Long) arguments[0]).longValue());
         }
 
-        if (_methodName43.equals(name) &&
-                Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+        if (_methodName45.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
             return EmployeeLocalServiceUtil.findByEmail((java.lang.String) arguments[0]);
+        }
+
+        if (_methodName46.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+            return EmployeeLocalServiceUtil.findByDepartment((com.aimprosoft.noormal.servicebuilder.model.Department) arguments[0],
+                ((Integer) arguments[1]).intValue(),
+                ((Integer) arguments[2]).intValue());
+        }
+
+        if (_methodName47.equals(name) &&
+                Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+            return EmployeeLocalServiceUtil.getCountByDepartment((com.aimprosoft.noormal.servicebuilder.model.Department) arguments[0]);
         }
 
         throw new UnsupportedOperationException();

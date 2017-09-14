@@ -249,4 +249,13 @@ public interface EmployeeLocalService extends BaseLocalService,
         java.lang.String email)
         throws com.aimprosoft.noormal.servicebuilder.NoSuchEmployeeException,
             com.liferay.portal.kernel.exception.SystemException;
+
+    public java.util.List<com.aimprosoft.noormal.servicebuilder.model.Employee> findByDepartment(
+        com.aimprosoft.noormal.servicebuilder.model.Department department,
+        int start, int end)
+        throws com.liferay.portal.kernel.exception.SystemException;
+
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public java.lang.Integer getCountByDepartment(
+        com.aimprosoft.noormal.servicebuilder.model.Department department);
 }
