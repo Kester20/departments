@@ -1,6 +1,5 @@
-package com.aimprosoft.noormal.action;
+package com.aimprosoft.noormal.action.department;
 
-import com.aimprosoft.noormal.exception.DaoException;
 import com.aimprosoft.noormal.model.Department;
 import com.aimprosoft.noormal.service.DepartmentService;
 import com.opensymphony.xwork2.Action;
@@ -19,17 +18,11 @@ public class GetAllDepartmentsAction extends ActionSupport {
     private List<Department> departments;
     private int page;
     private int itemsPerPage;
-    private int totalDepartments;
 
     @Override
     public String execute() throws Exception {
         //TODO session
         departments = departmentService.findDepartments(page, itemsPerPage);
-        return Action.SUCCESS;
-    }
-
-    public String getTotal() throws DaoException {
-        totalDepartments = departmentService.getTotalDepartments();
         return Action.SUCCESS;
     }
 
@@ -51,13 +44,5 @@ public class GetAllDepartmentsAction extends ActionSupport {
 
     public void setItemsPerPage(int itemsPerPage) {
         this.itemsPerPage = itemsPerPage;
-    }
-
-    public int getTotalDepartments() {
-        return totalDepartments;
-    }
-
-    public void setTotalDepartments(int totalDepartments) {
-        this.totalDepartments = totalDepartments;
     }
 }

@@ -14,11 +14,11 @@
             <result name="success">/WEB-INF/index.jsp</result>
         </action>
 
-        <action name="getAllDepartments" class="com.aimprosoft.noormal.action.GetAllDepartmentsAction">
+        <action name="getAllDepartments" class="com.aimprosoft.noormal.action.department.GetAllDepartmentsAction">
             <result type="json" />
         </action>
 
-        <action name="getTotalDepartments" class="com.aimprosoft.noormal.action.GetAllDepartmentsAction" method="getTotal">
+        <action name="getTotalDepartments" class="com.aimprosoft.noormal.action.department.GetTotalDepartments">
             <result type="json" />
         </action>
 
