@@ -64,7 +64,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, 
                 department: function (departmentService, $stateParams) {
                     if ($stateParams.departmentId) {
                         return departmentService.getDepartmentSavePage($stateParams.departmentId).then(function (response) {
-                            return response.data;
+                            return response.data.department;
                         });
                     }
                 }

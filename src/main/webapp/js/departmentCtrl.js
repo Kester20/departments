@@ -20,7 +20,7 @@ function DepartmentSaveController($scope, department, departmentService) {
         let name = vm.department.name;
         let id = vm.department.departmentId;
         let params;
-        !id ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
+        !id ? (params = "department.name=" + name) : (params = "department.name=" + name + "&department.departmentId=" + id);
         return departmentService.saveDepartment(params, vm);
     }
 }

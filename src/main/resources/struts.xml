@@ -5,11 +5,22 @@
 
 <struts>
 
-    <!--<constant name="struts.serve.static" value="false" />-->
     <constant name="struts.devMode" value="true" />
-    <!--<constant name="struts.action.excludePattern" value="/js/*" />-->
 
     <package name="home" extends="struts-default,json-default" namespace="/">
+        <global-results>
+            <result name="error" type="json">
+                <param name="statusCode">409</param>
+                <param name="errorCode">40924</param>
+                <param name="ignoreHierarchy">false</param>
+                <param name="includeProperties">^actionErrors.*,^fieldErrors.*</param>
+            </result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="com.aimprosoft.noormal.exception.ValidationException" result="error"/>
+        </global-exception-mappings>
+
         <action name="" class="" method="">
             <result name="success">/WEB-INF/index.jsp</result>
         </action>
@@ -22,6 +33,13 @@
             <result type="json" />
         </action>
 
+        <action name="saveDepartment" class="com.aimprosoft.noormal.action.department.SaveDepartmentAction">
+            <result type="json" />
+        </action>
+
+        <action name="deleteDepartment" class="com.aimprosoft.noormal.action.department.DeleteDepartment">
+            <result type="json" />
+        </action>
     </package>
 
 </struts>

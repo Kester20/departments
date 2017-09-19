@@ -10,11 +10,11 @@ function DepartmentService($http, $state, $window, toaster) {
         },
 
         getDepartmentSavePage: function (id) {
-            return $http.get('/department/save?departmentId=' + id);
+            return $http.get('saveDepartment.action?department.departmentId=' + id);
         },
 
         saveDepartment: function (params) {
-            let promise = $http.post('/department/save?' + params);
+            let promise = $http.post('saveDepartment.action?' + params);
             promise.then(fulfilled, rejected);
 
             function fulfilled() {
@@ -23,13 +23,13 @@ function DepartmentService($http, $state, $window, toaster) {
             }
 
             function rejected(error) {
-                toaster.pop('error', 'Error', error.data.name, null, 'trustedHtml');
+                toaster.pop('error', 'Error', error.data.fieldErrors.name.toString(), null, 'trustedHtml');
             }
         },
 
         deleteDepartment: function (id) {
             if ($window.confirm('Are you sure you want to delete this department?')) {
-                $http.post('/department/delete?departmentId=' + id).then(function () {
+                $http.post('deleteDepartment.action?department.departmentId=' + id).then(function () {
                     $state.reload();
                     toaster.pop('success', 'Info', 'Department successfully deleted', null, 'trustedHtml');
                 });
