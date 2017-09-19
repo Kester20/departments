@@ -84,12 +84,12 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, 
                         if (response.data.length === 0) {
                             toaster.pop('note', 'Info', 'There are not employees in this department', null, 'trustedHtml');
                         }
-                        return response.data;
+                        return response.data.employees;
                     });
                 },
                 totalEmployees: function (employeeService, $stateParams) {
                     return employeeService.getTotalEmployees($stateParams.departmentId).then(function (response) {
-                        return response.data;
+                        return response.data.totalEmployees;
                     })
                 },
                 departmentId: function ($stateParams) {
@@ -113,7 +113,7 @@ mainApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider, 
                 employee: function (employeeService, $stateParams) {
                     if ($stateParams.employeeId) {
                         return employeeService.getEmployeeSavePage($stateParams.employeeId).then(function (response) {
-                            return response.data;
+                            return response.data.employee;
                         });
                     }
                 }

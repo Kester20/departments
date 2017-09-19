@@ -40,6 +40,22 @@
         <action name="deleteDepartment" class="com.aimprosoft.noormal.action.department.DeleteDepartment">
             <result type="json" />
         </action>
+
+        <action name="getEmployeesByDepartment" class="com.aimprosoft.noormal.action.employee.GetEmployeesByDepartmentAction">
+            <result type="json" />
+        </action>
+
+        <action name="getTotalEmployees" class="com.aimprosoft.noormal.action.employee.GetTotalEmployees">
+            <result type="json" />
+        </action>
+
+        <action name="saveEmployee" class="com.aimprosoft.noormal.action.employee.SaveEmployeeAction">
+            <result type="json" />
+        </action>
+
+        <action name="deleteEmployee" class="com.aimprosoft.noormal.action.employee.DeleteEmployee">
+            <result type="json" />
+        </action>
     </package>
 
 </struts>

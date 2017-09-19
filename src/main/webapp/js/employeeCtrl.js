@@ -57,9 +57,9 @@ function EmployeeSaveController($rootScope, $scope, $filter, employee, employeeS
         let params = "";
 
         if (employeeId) {
-            params = "employeeId=" + employeeId + "&";
+            params = "employee.employeeId=" + employeeId + "&";
         }
-        params += "name=" + name + "&age=" + age + "&dateOfBirth=" + dateOfBirth + "&email=" + email + "&departmentId=" + departmentId;
+        params += "employee.name=" + name + "&employee.age=" + age + "&employee.dateOfBirth=" + dateOfBirth + "&employee.email=" + email + "&employee.department.departmentId=" + departmentId;
         return employeeService.saveEmployee(params, departmentId, vm);
     }
 }
