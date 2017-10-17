@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -16,10 +17,12 @@ export default class Home extends Component {
             itemsPerPage: 5,
             totalItemsCount: 0,
         };
+        this.mapDepartments = this.mapDepartments.bind(this);
         this.getDepartments = this.getDepartments.bind(this);
         this.getCountOfDepartments = this.getCountOfDepartments.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.deleteDepartment = this.deleteDepartment.bind(this);
     }
 
     componentDidMount() {
@@ -51,7 +54,38 @@ export default class Home extends Component {
         this.getDepartments(this.state.page, value);
     }
 
+    deleteDepartment(){
+        //TODO
+        alert("DELETE");
+    }
+
+    mapDepartments() {
+        return this.state.departments.map((department, $index) =>
+            <tr key={department.departmentId}>
+
+                <td>{$index + 1}</td>
+                <td>{department.name}</td>
+                <td><Link to={'/department/save/' + department.departmentId}
+                          className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit
+                    </Link>
+                </td>
+                <td>
+                    <button onClick={this.deleteDepartment}
+                            className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
+                    </button>
+                </td>
+                <td>
+                    <a href="employees({departmentId: department.departmentId})"
+                       className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Employees
+                    </a>
+                </td>
+
+            </tr>
+        );
+    }
+
     render() {
+
         return (
             <div id="departmentsContent">
 
@@ -81,37 +115,15 @@ export default class Home extends Component {
                         <th className="mdl-data-table__cell--non-numeric">Delete</th>
                         <th className="mdl-data-table__cell--non-numeric">Employees</th>
                     </tr>
-                    {
-                        this.state.departments.map((department, $index) =>
-                            <tr key={department.departmentId}>
-                                <td>{$index + 1}</td>
-                                <td>{department.name}</td>
-                                <td><a href="departmentSave({departmentId: department.departmentId})"
-                                       className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                                    Edit</a>
-                                </td>
-                                <td>
-                                    <button onClick={this.deleteDepartment}
-                                            className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                                        Delete
-                                    </button>
-                                </td>
-                                <td>
-                                    <a href="employees({departmentId: department.departmentId})"
-                                       className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                                        Employees
-                                    </a>
-                                </td>
-                            </tr>
-                        )
-                    }
+
+                    {this.mapDepartments()}
 
                     <tr>
                         <td colSpan="5" id="centerTd">
-                            <a href="departmentSave"
+                            <Link to={'/department/save/'}
                                className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                                 Add new department
-                            </a>
+                            </Link>
                         </td>
                     </tr>
 
