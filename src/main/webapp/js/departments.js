@@ -54,9 +54,15 @@ export default class Home extends Component {
         this.getDepartments(this.state.page, value);
     }
 
-    deleteDepartment(){
-        //TODO
-        alert("DELETE");
+    deleteDepartment(id){
+        axios
+            .post('/department/delete?departmentId=' + id)
+            .then( () => {
+                this.getDepartments(1, this.state.itemsPerPage);
+                this.getCountOfDepartments();
+                this.setState({page: 1});
+            })
+            .catch(err => console.log(err));
     }
 
     mapDepartments() {
@@ -70,7 +76,7 @@ export default class Home extends Component {
                     </Link>
                 </td>
                 <td>
-                    <button onClick={this.deleteDepartment}
+                    <button onClick={() => this.deleteDepartment(department.departmentId)}
                             className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
                     </button>
                 </td>

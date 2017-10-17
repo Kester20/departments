@@ -10,7 +10,7 @@ ReactDOM.render((
     <BrowserRouter>
         <div>
             <Route exact path="/" component={Home}/>
-            <Route path="/department/save" component={DepartmentSave}/>
+            <Route path="/department/save/:id?" component={DepartmentSave}/>
             <Route path="/contact" component={Contact}/>
         </div>
     </BrowserRouter>
