@@ -1,5 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import Pagination from "react-js-pagination";
 
 export default class Home extends Component {
 
@@ -9,29 +14,65 @@ export default class Home extends Component {
             departments: [],
             page: 1,
             itemsPerPage: 5,
-            /*itemsPerPageOptions: [
-                {value: '5', label: '5'},
-                {value: '8', label: '8'},
-                {value: '10', label: '10'}
-            ]*/
+            totalItemsCount: 0,
         };
-        this.logChange = this.logChange.bind(this);
+        this.getDepartments = this.getDepartments.bind(this);
+        this.getCountOfDepartments = this.getCountOfDepartments.bind(this);
+        this.handlePageChange = this.handlePageChange.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
     componentDidMount() {
+        this.getDepartments(this.state.page, this.state.itemsPerPage);
+        this.getCountOfDepartments();
+    }
+
+    getDepartments(pageNumber, itemsPerPage) {
         axios
-            .get('/department/getAll/' + this.state.page + '/' + this.state.itemsPerPage)
+            .get('/department/getAll/' + pageNumber + '/' + itemsPerPage)
             .then(response => this.setState({departments: response.data}))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+    }
+
+    getCountOfDepartments() {
+        axios
+            .get('/department/getTotal/')
+            .then(response => this.setState({totalItemsCount: response.data}))
+            .catch(err => console.log(err));
+    }
+
+    handlePageChange(pageNumber) {
+        this.setState({page: pageNumber});
+        this.getDepartments(pageNumber, this.state.itemsPerPage);
+    }
+
+    handleSelectChange(event, index, value) {
+        this.setState({itemsPerPage: value});
+        this.getDepartments(this.state.page, value);
     }
 
     render() {
         return (
             <div id="departmentsContent">
 
+                <h3 align="center" className="label">Departments</h3>
 
+                <MuiThemeProvider muiTheme={getMuiTheme()}>
+                    <div id="item_per_page_div">
+                        <SelectField
+                            floatingLabelText="Item per page"
+                            value={this.state.itemsPerPage}
+                            onChange={this.handleSelectChange}>
+                            <MenuItem value={5} primaryText="5"/>
+                            <MenuItem value={8} primaryText="8"/>
+                            <MenuItem value={10} primaryText="10"/>
+                        </SelectField>
+                    </div>
+                </MuiThemeProvider>
 
                 <table className="mdl-data-table table">
+
+                    <tbody>
 
                     <tr>
                         <th className="mdl-data-table__cell--non-numeric">#</th>
@@ -50,7 +91,7 @@ export default class Home extends Component {
                                     Edit</a>
                                 </td>
                                 <td>
-                                    <button onClick="dc.deleteDepartment(department.departmentId)"
+                                    <button onClick={this.deleteDepartment}
                                             className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
                                         Delete
                                     </button>
@@ -65,9 +106,32 @@ export default class Home extends Component {
                         )
                     }
 
+                    <tr>
+                        <td colSpan="5" id="centerTd">
+                            <a href="departmentSave"
+                               className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                                Add new department
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colSpan="5" id="centerTd">
+                            <Pagination
+                                activePage={this.state.page}
+                                itemsCountPerPage={this.state.itemsPerPage}
+                                totalItemsCount={this.state.totalItemsCount}
+                                onChange={this.handlePageChange}
+                            />
+                        </td>
+                    </tr>
+
+                    </tbody>
+
                 </table>
             </div>
         )
     }
 }
+
 
