@@ -24,6 +24,10 @@
     margin-top:0;
 }
 
+#centerTd {
+    text-align: center;
+}
+
 .noBorder td {
     border: 0;
 }
