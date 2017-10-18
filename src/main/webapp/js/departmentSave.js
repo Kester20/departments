@@ -36,10 +36,9 @@ export default class DepartmentSave extends Component {
     }
 
     saveDepartment(){
-        let name = this.state.department.name;
-        let id = this.state.department.departmentId;
-        let params;
-        !this.state.department.departmentId ? (params = "name=" + name) : (params = "name=" + name + "&departmentId=" + id);
+        const {department} = this.state;
+        const params= !department.departmentId ?  `name=${department.name}` :
+            `name=${department.name}&departmentId=${department.departmentId}`;
         axios
             .post('/department/save?' + params)
             .then( () => { this.props.history.push("/"); })
