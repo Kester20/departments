@@ -7,7 +7,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Pagination from "react-js-pagination";
 
-export default class Home extends Component {
+export default class Departments extends Component {
 
     constructor(props) {
         super(props);
