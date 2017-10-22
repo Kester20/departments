@@ -1,12 +1,14 @@
 import {fromJS} from 'immutable';
 
-const initialState = fromJS({});
+const initialState = {};
 
-export default function reducer(state = initialState, action) {
+export default (state = [], action) => {
     switch (action.type){
-        case 'GET_DEPARTMENTS':
+        case 'GET_DEPARTMENTS_SUCCESS':
             return {
-                departments: action.departments
+                list: action.departments,
+                pageNumber: action.pageNumber,
+                itemsPerPage: action.itemsPerPage
             };
 
         default:

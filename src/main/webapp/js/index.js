@@ -6,11 +6,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Route} from "react-router-dom";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
-import Departments from "./departments";
+import {createStore, applyMiddleware} from "redux";
+import thunk from 'redux-thunk';
+import rootReducer from './reducers/reducers';
+import * as departmentActions from './actions/actions';
+import Departments from "./containers/departments";
 import DepartmentSave from "./departmentSave";
 
-const store = createStore({});
+const store = createStore(rootReducer, applyMiddleware(thunk));
+store.dispatch(departmentActions.getDepartments());
 
 ReactDOM.render((
     <Provider store={store}>
