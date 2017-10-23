@@ -7,6 +7,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Pagination from "react-js-pagination";
 import * as departmentActions from '../actions/departmentsActions';
+import Department from '../components/department';
 
 @connect(
     state => ({
@@ -46,24 +47,7 @@ export default class Departments extends Component {
 
     mapDepartments(departments) {
         return departments.map((value, key) =>
-            <tr key={key}>
-                <td>{key + 1}</td>
-                <td>{value.get('name')}</td>
-                <td><Link to={'/department/save/' + value.get('departmentId')}
-                          className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit
-                </Link>
-                </td>
-                <td>
-                    <button onClick={() => this.deleteDepartment(value.get('departmentId'))}
-                        className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
-                    </button>
-                </td>
-                <td>
-                    <a href="employees({departmentId: department.departmentId})"
-                       className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Employees
-                    </a>
-                </td>
-            </tr>
+            <Department value={value} key={key}/>
         );
     }
 
