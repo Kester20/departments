@@ -6,78 +6,56 @@ import MenuItem from "material-ui/MenuItem";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Pagination from "react-js-pagination";
+import * as departmentActions from '../actions/departmentsActions';
 
-export class Departments extends Component {
+@connect(
+    state => ({
+        departments: state.departments.get('list'),
+        pageNumber: state.departments.get('pageNumber'),
+        itemsPerPage: state.departments.get('itemsPerPage'),
+        countOfDepartments: state.departments.get('countOfDepartments')
+    }),
+    dispatch => ({
+        dispatch
+    }))
+export default class Departments extends Component {
 
     constructor(props) {
         super(props);
-        /*this.state = {
-            departments: [],
-            page: 1,
-            itemsPerPage: 5,
-            totalItemsCount: 0,
-        };
-        this.mapDepartments = this.mapDepartments.bind(this);
-        this.getDepartments = this.getDepartments.bind(this);
-        this.getCountOfDepartments = this.getCountOfDepartments.bind(this);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.deleteDepartment = this.deleteDepartment.bind(this);*/
+        this.deleteDepartment = this.deleteDepartment.bind(this);
     }
 
-    /*componentDidMount() {
-        this.getDepartments(this.state.page, this.state.itemsPerPage);
-        this.getCountOfDepartments();
-    }
-
-    getDepartments(pageNumber, itemsPerPage) {
-        axios
-            .get('/department/getAll/' + pageNumber + '/' + itemsPerPage)
-            .then(response => this.setState({departments: response.data}))
-            .catch(err => console.log(err));
-    }
-
-    getCountOfDepartments() {
-        axios
-            .get('/department/getTotal/')
-            .then(response => this.setState({totalItemsCount: response.data}))
-            .catch(err => console.log(err));
+    componentDidMount() {
+        this.props.dispatch(departmentActions.getDepartments());
+        this.props.dispatch(departmentActions.getCountOfDepartments());
     }
 
     handlePageChange(pageNumber) {
-        this.setState({page: pageNumber});
-        this.getDepartments(pageNumber, this.state.itemsPerPage);
+        this.props.dispatch(departmentActions.getDepartments(pageNumber, this.props.itemsPerPage));
     }
 
     handleSelectChange(event, index, value) {
-        this.setState({itemsPerPage: value});
-        this.getDepartments(this.state.page, value);
+        this.props.dispatch(departmentActions.getDepartments(this.props.pageNumber, value));
     }
 
     deleteDepartment(id){
-        axios
-            .post('/department/delete?departmentId=' + id)
-            .then( () => {
-                this.getDepartments(1, this.state.itemsPerPage);
-                this.getCountOfDepartments();
-                this.setState({page: 1});
-            })
-            .catch(err => console.log(err));
-    }*/
+        this.props.dispatch(departmentActions.deleteDepartment(id));
+    }
 
-    mapDepartments() {
-        return this.props.departments.map((department, $index) =>
-            <tr key={department.departmentId}>
-
-                <td>{$index + 1}</td>
-                <td>{department.name}</td>
-                <td><Link to={'/department/save/' + department.departmentId}
+    mapDepartments(departments) {
+        return departments.map((value, key) =>
+            <tr key={key}>
+                <td>{key + 1}</td>
+                <td>{value.get('name')}</td>
+                <td><Link to={'/department/save/' + value.get('departmentId')}
                           className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit
-                    </Link>
+                </Link>
                 </td>
                 <td>
-                    <button //onClick={() => this.deleteDepartment(department.departmentId)}
-                            className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
+                    <button onClick={() => this.deleteDepartment(value.get('departmentId'))}
+                        className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
                     </button>
                 </td>
                 <td>
@@ -85,13 +63,16 @@ export class Departments extends Component {
                        className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Employees
                     </a>
                 </td>
-
             </tr>
         );
     }
 
     render() {
-
+        const {departments, pageNumber, itemsPerPage, countOfDepartments} = this.props;
+        if (!departments) {
+            return null;
+        }
+        const departmentsView = this.mapDepartments(departments);
         return (
             <div id="departmentsContent">
 
@@ -101,9 +82,8 @@ export class Departments extends Component {
                     <div id="item_per_page_div">
                         <SelectField
                             floatingLabelText="Item per page"
-                            value={this.props.itemsPerPage}
-                            //onChange={this.handleSelectChange}
-                            >
+                            value={itemsPerPage}
+                            onChange={this.handleSelectChange}>
                             <MenuItem value={5} primaryText="5"/>
                             <MenuItem value={8} primaryText="8"/>
                             <MenuItem value={10} primaryText="10"/>
@@ -123,12 +103,12 @@ export class Departments extends Component {
                         <th className="mdl-data-table__cell--non-numeric">Employees</th>
                     </tr>
 
-                    {this.mapDepartments()}
+                    {departmentsView}
 
                     <tr>
                         <td colSpan="5" id="centerTd">
                             <Link to={'/department/save/'}
-                               className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                                  className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                                 Add new department
                             </Link>
                         </td>
@@ -137,10 +117,10 @@ export class Departments extends Component {
                     <tr>
                         <td colSpan="5" id="centerTd">
                             <Pagination
-                                activePage={this.props.pageNumber}
-                                itemsCountPerPage={this.props.itemsPerPage}
-                                totalItemsCount={this.props.totalItemsCount}
-                                //onChange={this.handlePageChange}
+                                activePage={pageNumber}
+                                itemsCountPerPage={itemsPerPage}
+                                totalItemsCount={countOfDepartments}
+                                onChange={this.handlePageChange}
                             />
                         </td>
                     </tr>
@@ -152,21 +132,5 @@ export class Departments extends Component {
         )
     }
 }
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        departments: state.departments.list ? state.departments.list : [],
-        pageNumber: state.departments.pageNumber,
-        itemsPerPage: state.departments.itemsPerPage
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        //createBook: book => dispatch(bookActions.createBook(book))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Departments);
 
 
