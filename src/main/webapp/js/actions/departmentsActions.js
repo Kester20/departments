@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from '../history';
 
 export const getDepartments = (pageNumber = 1, itemsPerPage = 5) => {
     return (dispatch) => {
@@ -42,7 +43,7 @@ export const saveDepartment = (params) => {
         axios
             .post('/department/save?' + params)
             .then( () => {
-
+                history.push('/');
             })
             .catch(err => console.log(err));
     }

@@ -26,8 +26,9 @@ export default class DepartmentSave extends Component {
     }
 
     handleNameChange(event) {
+        const id = this.props.department.departmentId;
         this.props.dispatch(departmentActions.getDepartmentSuccess({department: {
-            departmentId: this.props.department.departmentId,
+            departmentId: id,
             name: event.target.value
         }}));
     }
@@ -37,7 +38,6 @@ export default class DepartmentSave extends Component {
         const params= !department.departmentId ?  `name=${department.name}` :
             `name=${department.name}&departmentId=${department.departmentId}`;
         this.props.dispatch(departmentActions.saveDepartment(params));
-        this.props.history.push('/');
     }
 
     render() {
