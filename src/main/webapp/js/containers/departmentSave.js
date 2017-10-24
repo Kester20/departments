@@ -1,16 +1,19 @@
 import React, {Component} from "react";
-import axios from "axios";
+import * as departmentActions from '../actions/departmentsActions';
+import {connect} from 'react-redux';
 
+@connect(
+    state => ({
+        department: state.departments.get('department')
+    }),
+    dispatch => ({
+        dispatch
+    })
+)
 export default class DepartmentSave extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            department: {
-                departmentId: null,
-                name: null
-            },
-        };
         this.handleNameChange = this.handleNameChange.bind(this);
         this.saveDepartment = this.saveDepartment.bind(this);
     }
@@ -18,31 +21,23 @@ export default class DepartmentSave extends Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         if(id){
-            axios
-                .get('/department/save?departmentId=' + id)
-                .then(response => this.setState({department: response.data}))
-                .catch(err => console.log(err));
-            this.setState({department: {
-                departmentId: id
-            }});
+            this.props.dispatch(departmentActions.getDepartment(id));
         }
     }
 
     handleNameChange(event) {
-        this.setState({department: {
-            departmentId: this.state.department.departmentId,
+        this.props.dispatch(departmentActions.getDepartmentSuccess({department: {
+            departmentId: this.props.department.departmentId,
             name: event.target.value
-        }});
+        }}));
     }
 
     saveDepartment(){
-        const {department} = this.state;
+        const {department} = this.props.department;
         const params= !department.departmentId ?  `name=${department.name}` :
             `name=${department.name}&departmentId=${department.departmentId}`;
-        axios
-            .post('/department/save?' + params)
-            .then( () => { this.props.history.push("/"); })
-            .catch(err => console.log(err));
+        this.props.dispatch(departmentActions.saveDepartment(params));
+        this.props.history.push('/');
     }
 
     render() {
@@ -56,7 +51,7 @@ export default class DepartmentSave extends Component {
                         <tbody>
                         <tr>
                             <td colSpan="2">
-                                <input className="mdl-textfield__input" type="text" name="name" placeholder="Name" value={this.state.department.name} onChange={this.handleNameChange}/>
+                                <input className="mdl-textfield__input" type="text" name="name" placeholder="Name" value={this.props.department.name} onChange={this.handleNameChange}/>
                                 <label className="error"/>
                             </td>
                         </tr>

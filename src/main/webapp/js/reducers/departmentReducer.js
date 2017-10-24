@@ -4,7 +4,11 @@ const initialState = fromJS({
     list: [],
     pageNumber: 1,
     itemsPerPage: 5,
-    countOfDepartments: 0
+    countOfDepartments: 0,
+    department: {
+        departmentId: null,
+        name: null
+    }
 });
 
 export default (state = initialState, action) => {
@@ -16,8 +20,10 @@ export default (state = initialState, action) => {
                 .set('itemsPerPage', action.itemsPerPage);
 
         case 'GET_COUNT_OF_DEPARTMENTS_SUCCESS':
-            return state
-                .set('countOfDepartments', action.countOfDepartments);
+            return state.set('countOfDepartments', action.countOfDepartments);
+
+        case 'GET_DEPARTMENT_SUCCESS':
+            return state.set('department', action.department);
 
         default:
             return state

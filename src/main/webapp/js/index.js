@@ -10,7 +10,7 @@ import {createStore, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/reducers';
 import Departments from "./containers/departments";
-import DepartmentSave from "./departmentSave";
+import DepartmentSave from "./containers/departmentSave";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
