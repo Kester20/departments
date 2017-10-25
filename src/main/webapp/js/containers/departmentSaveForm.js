@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import * as departmentActions from '../actions/departmentsActions';
+import * as departmentActions from '../actions/departmentActions';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 @connect(
     state => ({
@@ -10,7 +11,7 @@ import {connect} from 'react-redux';
         dispatch
     })
 )
-export default class DepartmentSave extends Component {
+export default class DepartmentSaveForm extends Component {
 
     constructor(props) {
         super(props);
@@ -25,22 +26,30 @@ export default class DepartmentSave extends Component {
         }
     }
 
+    componentWillUnmount(){
+        this.props.dispatch(departmentActions.getDepartmentSuccess({
+            departmentId: null,
+            name: null
+        }));
+    }
+
     handleNameChange(event) {
         const id = this.props.department.departmentId;
-        this.props.dispatch(departmentActions.getDepartmentSuccess({department: {
+        this.props.dispatch(departmentActions.getDepartmentSuccess({
             departmentId: id,
             name: event.target.value
-        }}));
+        }));
     }
 
     saveDepartment(){
-        const {department} = this.props.department;
+        const {department} = this.props;
         const params= !department.departmentId ?  `name=${department.name}` :
             `name=${department.name}&departmentId=${department.departmentId}`;
         this.props.dispatch(departmentActions.saveDepartment(params));
     }
 
     render() {
+        const name = this.props.department.name ? this.props.department.name : '';
         return (
             <div id="saveContent">
 
@@ -51,13 +60,13 @@ export default class DepartmentSave extends Component {
                         <tbody>
                         <tr>
                             <td colSpan="2">
-                                <input className="mdl-textfield__input" type="text" name="name" placeholder="Name" value={this.props.department.name} onChange={this.handleNameChange}/>
+                                <input className="mdl-textfield__input" type="text" name="name" placeholder="Name" value={name} onChange={this.handleNameChange}/>
                                 <label className="error"/>
                             </td>
                         </tr>
                         <tr>
-                            <td><a href="/"
-                                   className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</a>
+                            <td><Link to={'/'}
+                                      className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</Link>
                             </td>
                             <td>
                                 <button type="button" onClick={this.saveDepartment}

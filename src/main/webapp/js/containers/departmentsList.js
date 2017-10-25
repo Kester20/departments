@@ -6,7 +6,7 @@ import MenuItem from "material-ui/MenuItem";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Pagination from "react-js-pagination";
-import * as departmentActions from '../actions/departmentsActions';
+import * as departmentActions from '../actions/departmentActions';
 import Department from '../components/department';
 
 @connect(
@@ -19,7 +19,7 @@ import Department from '../components/department';
     dispatch => ({
         dispatch
     }))
-export default class Departments extends Component {
+export default class DepartmentsList extends Component {
 
     constructor(props) {
         super(props);

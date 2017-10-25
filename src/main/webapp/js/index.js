@@ -9,18 +9,18 @@ import {Provider} from "react-redux";
 import {createStore, applyMiddleware} from "redux";
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/reducers';
-import Departments from "./containers/departments";
-import DepartmentSave from "./containers/departmentSave";
+import DepartmentsList from "./containers/departmentsList";
+import DepartmentSaveForm from "./containers/departmentSaveForm";
 import history from './history';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk));
 
 ReactDOM.render((
     <Provider store={store}>
         <Router history={history}>
             <div>
-                <Route exact path="/" component={Departments}/>
-                <Route path="/department/save/:id?" component={DepartmentSave}/>
+                <Route exact path="/" component={DepartmentsList}/>
+                <Route path="/department/save/:id?" component={DepartmentSaveForm}/>
             </div>
         </Router>
     </Provider>
