@@ -18,10 +18,11 @@ export const getCountOfDepartments = () => {
 };
 
 export const deleteDepartment = (id) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        const state = getState();
         return axios.post('/department/delete?departmentId=' + id)
             .then(() => {
-                dispatch(getDepartments());
+                dispatch(getDepartments(state.departments.get('pageNumber'), state.departments.get('itemsPerPage')));
                 dispatch(getCountOfDepartments());
             })
             .catch(error => {console.log(error);});
@@ -38,14 +39,13 @@ export const getDepartment = (id) => {
 };
 
 export const saveDepartment = (params) => {
-    return (dispatch, getState) => {
-        const state = getState();
+    return (dispatch) => {
         axios
             .post('/department/save?' + params)
             .then( () => {
                 history.push('/');
             })
-            .catch(err => console.log(err));
+            .catch(err => dispatch(handleError(err.response.data.name)));
     }
 };
 
@@ -69,5 +69,12 @@ export const getDepartmentSuccess = (department) => {
     return {
         type: 'GET_DEPARTMENT_SUCCESS',
         department
+    }
+};
+
+export const handleError = (errorMessage) => {
+    return {
+        type: 'GET_VALIDATION_ERROR',
+        errorMessage
     }
 };

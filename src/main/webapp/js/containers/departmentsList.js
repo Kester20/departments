@@ -29,7 +29,7 @@ export default class DepartmentsList extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(departmentActions.getDepartments());
+        this.props.dispatch(departmentActions.getDepartments(this.props.pageNumber, this.props.itemsPerPage));
         this.props.dispatch(departmentActions.getCountOfDepartments());
     }
 

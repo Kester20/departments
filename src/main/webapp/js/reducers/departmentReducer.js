@@ -8,7 +8,8 @@ const initialState = fromJS({
     department: {
         departmentId: null,
         name: null
-    }
+    },
+    errorMessage: null
 });
 
 export default (state = initialState, action) => {
@@ -24,6 +25,9 @@ export default (state = initialState, action) => {
 
         case 'GET_DEPARTMENT_SUCCESS':
             return state.set('department', action.department);
+
+        case 'GET_VALIDATION_ERROR':
+            return state.set('errorMessage', action.errorMessage);
 
         default:
             return state

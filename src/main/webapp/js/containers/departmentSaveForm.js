@@ -5,7 +5,8 @@ import {Link} from 'react-router-dom';
 
 @connect(
     state => ({
-        department: state.departments.get('department')
+        department: state.departments.get('department'),
+        errorMessage: state.departments.get('errorMessage')
     }),
     dispatch => ({
         dispatch
@@ -27,18 +28,13 @@ export default class DepartmentSaveForm extends Component {
     }
 
     componentWillUnmount(){
-        this.props.dispatch(departmentActions.getDepartmentSuccess({
-            departmentId: null,
-            name: null
-        }));
+        this.props.dispatch(departmentActions.getDepartmentSuccess({departmentId: null, name: null}));
+        this.props.dispatch(departmentActions.handleError(null));
     }
 
     handleNameChange(event) {
         const id = this.props.department.departmentId;
-        this.props.dispatch(departmentActions.getDepartmentSuccess({
-            departmentId: id,
-            name: event.target.value
-        }));
+        this.props.dispatch(departmentActions.getDepartmentSuccess({departmentId: id, name: event.target.value}));
     }
 
     saveDepartment(){
@@ -46,6 +42,15 @@ export default class DepartmentSaveForm extends Component {
         const params= !department.departmentId ?  `name=${department.name}` :
             `name=${department.name}&departmentId=${department.departmentId}`;
         this.props.dispatch(departmentActions.saveDepartment(params));
+    }
+
+    validate(value){
+        if(!value){
+            this.props.dispatch(departmentActions.handleError('Required!'));
+        }
+        if(value.length > 30){
+            this.props.dispatch(departmentActions.handleError('Must be less then 30 characters'));
+        }
     }
 
     render() {
@@ -60,17 +65,29 @@ export default class DepartmentSaveForm extends Component {
                         <tbody>
                         <tr>
                             <td colSpan="2">
-                                <input className="mdl-textfield__input" type="text" name="name" placeholder="Name" value={name} onChange={this.handleNameChange}/>
-                                <label className="error"/>
+                                <input
+                                    className="mdl-textfield__input"
+                                    type="text"
+                                    name="name"
+                                    placeholder="Name"
+                                    value={name}
+                                    onChange={this.handleNameChange}
+                                    onBlur={this.validate.bind(this, name)}
+                                />
+                                <label className="error">{this.props.errorMessage}</label>
                             </td>
                         </tr>
                         <tr>
-                            <td><Link to={'/'}
-                                      className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Back</Link>
+                            <td><Link
+                                    to={'/'}
+                                    className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Back</Link>
                             </td>
                             <td>
-                                <button type="button" onClick={this.saveDepartment}
-                                        className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+                                <button
+                                    type="button"
+                                    onClick={this.saveDepartment}
+                                    className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                                     Save
                                 </button>
                             </td>
