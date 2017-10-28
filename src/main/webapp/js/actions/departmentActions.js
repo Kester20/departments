@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from '../history';
+import {change} from 'redux-form';
 
 export const getDepartments = (pageNumber = 1, itemsPerPage = 5) => {
     return (dispatch) => {
@@ -33,7 +34,10 @@ export const getDepartment = (id) => {
     return (dispatch) => {
         axios
             .get('/department/save?departmentId=' + id)
-            .then(response => {dispatch(getDepartmentSuccess(response.data))})
+            .then(response => {
+                dispatch(getDepartmentSuccess(response.data));
+                dispatch(change('departmentSaveForm', 'name', response.data.name));
+            })
             .catch(err => console.log(err));
     }
 };
