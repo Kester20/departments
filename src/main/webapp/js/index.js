@@ -1,7 +1,7 @@
 import '../css/style.css';
 import '../node_modules/material-design-lite/material.min.css';
 import '../node_modules/material-design-lite/material.min';
-import '../node_modules/lodash/lodash.min'
+import '../node_modules/lodash/lodash.min';
 import React from "react";
 import ReactDOM from "react-dom";
 import {Router, Route} from "react-router-dom";
@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/reducers';
 import DepartmentsList from "./containers/departmentsList";
 import DepartmentSaveForm from "./containers/departmentSaveForm";
-import history from './history';
+import history from './util/history';
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     applyMiddleware(thunk));

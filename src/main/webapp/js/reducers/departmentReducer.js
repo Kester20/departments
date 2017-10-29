@@ -1,4 +1,5 @@
 import {fromJS} from 'immutable';
+import * as constants from '../util/constants';
 
 const initialState = fromJS({
     list: [],
@@ -14,19 +15,19 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_DEPARTMENTS_SUCCESS':
+        case constants.GET_DEPARTMENTS_SUCCESS:
             return state
                 .set('list', fromJS(action.departments))
                 .set('pageNumber', action.pageNumber)
                 .set('itemsPerPage', action.itemsPerPage);
 
-        case 'GET_COUNT_OF_DEPARTMENTS_SUCCESS':
+        case constants.GET_COUNT_OF_DEPARTMENTS_SUCCESS:
             return state.set('countOfDepartments', action.countOfDepartments);
 
-        case 'GET_DEPARTMENT_SUCCESS':
+        case constants.GET_DEPARTMENT_SUCCESS:
             return state.set('department', action.department);
 
-        case 'GET_VALIDATION_ERROR':
+        case constants.GET_VALIDATION_ERROR:
             return state.set('errorMessage', action.errorMessage);
 
         default:

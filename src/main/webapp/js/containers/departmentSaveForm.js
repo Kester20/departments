@@ -3,6 +3,8 @@ import * as departmentActions from '../actions/departmentActions';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
+import {renderField} from '../util/util';
+import * as constants from '../util/constants';
 
 const validate = values => {
     const errors = {};
@@ -14,19 +16,8 @@ const validate = values => {
     return errors
 };
 
-const renderField = ({input, label, type, meta: {touched, error, warning}}) => (
-    <div>
-        <div>
-            <input {...input} placeholder={label} type={type} className="mdl-textfield__input"/>
-            <label className="error">
-                {touched && ((error && <span>{error}</span>))}
-            </label>
-        </div>
-    </div>
-);
-
 @reduxForm({
-    form: 'departmentSaveForm',
+    form: constants.DEPARTMENT_SAVE_FORM,
     validate
 })
 @connect(

@@ -1,6 +1,7 @@
 import axios from "axios";
-import history from '../history';
+import history from '../util/history';
 import {change} from 'redux-form';
+import * as constants from '../util/constants';
 
 export const getDepartments = (pageNumber = 1, itemsPerPage = 5) => {
     return (dispatch) => {
@@ -36,7 +37,7 @@ export const getDepartment = (id) => {
             .get('/department/save?departmentId=' + id)
             .then(response => {
                 dispatch(getDepartmentSuccess(response.data));
-                dispatch(change('departmentSaveForm', 'name', response.data.name));
+                dispatch(change(constants.DEPARTMENT_SAVE_FORM, 'name', response.data.name));
             })
             .catch(err => console.log(err));
     }
@@ -55,7 +56,7 @@ export const saveDepartment = (params) => {
 
 export const getDepartmentsSuccess = (departments, pageNumber, itemsPerPage) => {
     return {
-        type: 'GET_DEPARTMENTS_SUCCESS',
+        type: constants.GET_DEPARTMENTS_SUCCESS,
         departments,
         pageNumber,
         itemsPerPage
@@ -64,21 +65,21 @@ export const getDepartmentsSuccess = (departments, pageNumber, itemsPerPage) => 
 
 export const getCountOfDepartmentsSuccess = (countOfDepartments) => {
     return {
-        type: 'GET_COUNT_OF_DEPARTMENTS_SUCCESS',
+        type: constants.GET_COUNT_OF_DEPARTMENTS_SUCCESS,
         countOfDepartments
     }
 };
 
 export const getDepartmentSuccess = (department) => {
     return {
-        type: 'GET_DEPARTMENT_SUCCESS',
+        type: constants.GET_DEPARTMENT_SUCCESS,
         department
     }
 };
 
 export const handleError = (errorMessage) => {
     return {
-        type: 'GET_VALIDATION_ERROR',
+        type: constants.GET_VALIDATION_ERROR,
         errorMessage
     }
 };

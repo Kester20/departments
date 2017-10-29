@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom';
-import * as departmentActions from '../actions/departmentActions';
 
 export default class Department extends Component {
 
@@ -11,7 +10,7 @@ export default class Department extends Component {
     render(){
         const key = this.props.index;
         const value = this.props.value;
-        const dispatch = this.props.dispatch;
+        const deleteDepartment = this.props.deleteDepartment;
         const id = value.get('departmentId');
         const name = value.get('name');
         return (
@@ -24,7 +23,7 @@ export default class Department extends Component {
                     </Link>
                 </td>
                 <td>
-                    <button onClick={ () => dispatch(departmentActions.deleteDepartment(id))}
+                    <button onClick={deleteDepartment.bind(this, id)}
                             className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
                     </button>
                 </td>

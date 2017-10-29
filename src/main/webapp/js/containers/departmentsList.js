@@ -25,6 +25,7 @@ export default class DepartmentsList extends Component {
         super(props);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.deleteDepartment = this.deleteDepartment.bind(this);
         this.mapDepartments = this.mapDepartments.bind(this);
     }
 
@@ -41,9 +42,13 @@ export default class DepartmentsList extends Component {
         this.props.dispatch(departmentActions.getDepartments(this.props.pageNumber, value));
     }
 
+    deleteDepartment(id) {
+        this.props.dispatch(departmentActions.deleteDepartment(id));
+    }
+
     mapDepartments(departments) {
         return departments.map((value, key) =>
-            <Department value={value} key={key} index={key} dispatch={this.props.dispatch}/>
+            <Department value={value} key={key} index={key} deleteDepartment={this.deleteDepartment}/>
         );
     }
 
