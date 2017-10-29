@@ -1,11 +1,18 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class Department extends Component {
 
     constructor(props){
         super(props);
     }
+
+    static propTypes = {
+        index: PropTypes.number.isRequired,
+        value: PropTypes.object.isRequired,
+        deleteDepartment: PropTypes.func.isRequired
+    };
 
     render(){
         const key = this.props.index;

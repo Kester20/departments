@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {Field, reduxForm} from 'redux-form';
 import {renderField} from '../util/util';
 import * as constants from '../util/constants';
+import PropTypes from 'prop-types';
 
 const validate = values => {
     const errors = {};
@@ -36,6 +37,11 @@ export default class DepartmentSaveForm extends Component {
         this.handleNameChange = this.handleNameChange.bind(this);
         this.saveDepartment = this.saveDepartment.bind(this);
     }
+
+    static propTypes = {
+        department: PropTypes.object,
+        errorMessage: PropTypes.string
+    };
 
     componentDidMount() {
         let id = this.props.match.params.id;

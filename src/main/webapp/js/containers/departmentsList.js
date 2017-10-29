@@ -8,6 +8,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Pagination from "react-js-pagination";
 import * as departmentActions from '../actions/departmentActions';
 import Department from '../components/department';
+import PropTypes from 'prop-types';
 
 @connect(
     state => ({
@@ -28,6 +29,13 @@ export default class DepartmentsList extends Component {
         this.deleteDepartment = this.deleteDepartment.bind(this);
         this.mapDepartments = this.mapDepartments.bind(this);
     }
+
+    static propTypes = {
+        departments: PropTypes.object.isRequired,
+        pageNumber: PropTypes.number.isRequired,
+        itemsPerPage: PropTypes.number.isRequired,
+        countOfDepartments: PropTypes.number.isRequired,
+    };
 
     componentDidMount() {
         this.props.dispatch(departmentActions.getDepartments(this.props.pageNumber, this.props.itemsPerPage));
