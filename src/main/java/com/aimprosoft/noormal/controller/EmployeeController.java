@@ -8,10 +8,7 @@ import com.aimprosoft.noormal.service.DepartmentService;
 import com.aimprosoft.noormal.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,8 +32,8 @@ public class EmployeeController {
     }
 
     @ResponseBody
-    @RequestMapping("/getByDepartment")
-    public List<Employee> getByDepartment(Department department, @RequestParam Integer page, @RequestParam Integer itemsPerPage) throws DaoException {
+    @RequestMapping("/getByDepartment/{departmentId}/{page}/{itemsPerPage}")
+    public List<Employee> getByDepartment(Department department, @PathVariable Integer page, @PathVariable Integer itemsPerPage) throws DaoException {
         return employeeService.findEmployeesByDepartment(department, page, itemsPerPage);
     }
 
@@ -63,7 +60,7 @@ public class EmployeeController {
     }
 
     @ResponseBody
-    @RequestMapping("/getTotal")
+    @RequestMapping("/getTotal/{departmentId}")
     public Integer getTotalEmployees(Department department) throws DaoException {
         return employeeService.getTotalEmployees(department);
     }

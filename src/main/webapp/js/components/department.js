@@ -35,9 +35,9 @@ export default class Department extends Component {
                     </button>
                 </td>
                 <td>
-                    <a href="employees({departmentId: department.departmentId})"
+                    <Link to={'employee/getByDepartment/' + id}
                        className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Employees
-                    </a>
+                    </Link>
                 </td>
             </tr>
         );

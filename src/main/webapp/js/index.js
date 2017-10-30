@@ -11,6 +11,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/reducers';
 import DepartmentsList from "./containers/departmentsList";
 import DepartmentSaveForm from "./containers/departmentSaveForm";
+import EmployeeList from "./containers/employeeList";
 import history from './util/history';
 
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
@@ -22,6 +23,7 @@ ReactDOM.render((
             <div>
                 <Route exact path="/" component={DepartmentsList}/>
                 <Route path="/department/save/:id?" component={DepartmentSaveForm}/>
+                <Route path="/employee/getByDepartment/:departmentId" component={EmployeeList}/>
             </div>
         </Router>
     </Provider>
