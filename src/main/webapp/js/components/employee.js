@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class Employee extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
@@ -14,7 +14,7 @@ export default class Employee extends Component {
         deleteEmployee: PropTypes.func.isRequired
     };
 
-    render(){
+    render() {
         const key = this.props.index;
         const value = this.props.value;
         const deleteDepartment = this.props.deleteDepartment;
@@ -30,8 +30,10 @@ export default class Employee extends Component {
                 <td>{age}</td>
                 <td>{dateOfBirth}</td>
                 <td>{email}</td>
-                <td><a
-                    className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit</a>
+                <td><Link to={'/employee/save/' + id}
+                    className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                    Edit
+                </Link>
                 </td>
                 <td>
                     <button

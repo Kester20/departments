@@ -7,8 +7,15 @@ const initialState = fromJS({
     itemsPerPage: 5,
     countOfEmployees: 0,
     employee: {
-        departmentId: null,
-        name: null
+        employeeId: null,
+        name: null,
+        age: null,
+        dateOfBirth: null,
+        email: null,
+        department: {
+            departmentId: null,
+            name: null
+        }
     },
     errorMessage: null
 });
@@ -25,7 +32,7 @@ export default (state = initialState, action) => {
             return state.set('countOfEmployees', action.countOfEmployees);
 
         case constants.GET_EMPLOYEE_SUCCESS:
-            return state.set('department', action.department);
+            return state.set('employee', action.employee);
 
         default:
             return state

@@ -95,7 +95,7 @@ export default class EmployeeList extends Component {
                         </td>
                         <td colSpan="3"/>
                         <td colSpan="2">
-                            <Link to="employeeSave"
+                            <Link to={'/employee/save/'}
                                   className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                                 Add new employee
                             </Link>
