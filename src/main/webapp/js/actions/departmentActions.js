@@ -22,9 +22,10 @@ export const getCountOfDepartments = () => {
 export const deleteDepartment = (id) => {
     return (dispatch, getState) => {
         const state = getState();
+        const departments = state.departments;
         return axios.post('/department/delete?departmentId=' + id)
             .then(() => {
-                dispatch(getDepartments(state.departments.get('pageNumber'), state.departments.get('itemsPerPage')));
+                dispatch(getDepartments(departments.get('pageNumber'), departments.get('itemsPerPage')));
                 dispatch(getCountOfDepartments());
             })
             .catch(error => {console.log(error);});
@@ -36,8 +37,9 @@ export const getDepartment = (id) => {
         axios
             .get('/department/save?departmentId=' + id)
             .then(response => {
-                dispatch(getDepartmentSuccess(response.data));
-                dispatch(change(constants.DEPARTMENT_SAVE_FORM, 'name', response.data.name));
+                const data = response.data;
+                dispatch(getDepartmentSuccess(data));
+                dispatch(change(constants.DEPARTMENT_SAVE_FORM, 'name', data.name));
             })
             .catch(err => console.log(err));
     }

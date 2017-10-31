@@ -10,3 +10,8 @@ export const renderField = ({input, label, type, meta: {touched, error, warning}
         </div>
     </div>
 );
+
+export const getDate = (date) => {
+    let inputDate = new Date(date);
+    return `${inputDate.getFullYear()}-${inputDate.getMonth()}-${inputDate.getDate()}`;
+};

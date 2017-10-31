@@ -6,6 +6,7 @@ import {Field, reduxForm} from 'redux-form';
 import {renderField} from '../util/util';
 import * as constants from '../util/constants';
 import PropTypes from 'prop-types';
+import {getDate} from '../util/util';
 
 const validate = values => {
     const errors = {};
@@ -13,6 +14,11 @@ const validate = values => {
         errors.name = 'Required!'
     } else if (values.name.length > 15) {
         errors.name = 'Must be 15 characters or less'
+    }
+    if(!values.age) {
+        errors.name = 'Required'
+    } else if(values.age.length > 2) {
+        errors.age = 'Too long!'
     }
     return errors
 };
@@ -34,10 +40,7 @@ export default class EmployeeSaveForm extends Component {
 
     constructor(props) {
         super(props);
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleAgeChange = this.handleAgeChange.bind(this);
-        this.handleDateOfBirthChange = this.handleDateOfBirthChange.bind(this);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.saveEmployee = this.saveEmployee.bind(this);
     }
 
@@ -54,56 +57,26 @@ export default class EmployeeSaveForm extends Component {
     }
 
     componentWillUnmount() {
-        this.props.dispatch(employeeActions.getEmployeeSuccess({employeeId: null, name: null}));
+        this.props.dispatch(employeeActions.getEmployeeSuccess({
+            employee: {
+                employeeId: null,
+                name: null,
+                age: null,
+                dateOfBirth: null,
+                email: null,
+                department: {
+                    departmentId: null,
+                    name: null
+                }
+            }
+        }));
         this.props.dispatch(employeeActions.handleError(null));
     }
 
-    handleNameChange(event) {
-        let employee = this.props;
-        this.props.dispatch(employeeActions.getEmployeeSuccess({
-            employeeId: employee.employeeId,
-            name: event.target.value,
-            age: employee.age,
-            dateOfBirth: employee.dateOfBirth,
-            email: employee.email,
-            department: employee.department
-        }));
-    }
-
-    handleAgeChange(event) {
-        let employee = this.props;
-        this.props.dispatch(employeeActions.getEmployeeSuccess({
-            employeeId: employee.employeeId,
-            name: employee.name,
-            age: event.target.value,
-            dateOfBirth: employee.dateOfBirth,
-            email: employee.email,
-            department: employee.department
-        }));
-    }
-
-    handleDateOfBirthChange(event) {
-        let employee = this.props;
-        this.props.dispatch(employeeActions.getEmployeeSuccess({
-            employeeId: employee.employeeId,
-            name: employee.name,
-            age: employee.age,
-            dateOfBirth: event.target.value,
-            email: employee.email,
-            department: employee.department
-        }));
-    }
-
-    handleEmailChange(event) {
-        let employee = this.props;
-        this.props.dispatch(employeeActions.getEmployeeSuccess({
-            employeeId: employee.employeeId,
-            name: employee.name,
-            age: employee.age,
-            dateOfBirth: employee.dateOfBirth,
-            email: event.target.value,
-            department: employee.department
-        }));
+    handleChange(event) {
+        let employee = this.props.employee;
+        employee[event.target.name] = event.target.value;
+        this.props.dispatch(employeeActions.getEmployeeSuccess(employee));
     }
 
     saveEmployee() {
@@ -112,13 +85,9 @@ export default class EmployeeSaveForm extends Component {
         if (employee.employeeId) {
             params = `employeeId=${employee.employeeId}&`;
         }
-        params += `name=${employee.name}&age=${employee.age}&dateOfBirth=${employee.dateOfBirth}
-        &email=${employee.email}&departmentId=${employee.departmentId}`;
-        this.props.dispatch(employeeActions.saveEmployee(params, employee.departmentId));
-    }
-
-    getDepartmentId() {
-        return this.props.employee.department ? this.props.employee.department.departmentId : 0;
+        params += `name=${employee.name}&age=${employee.age}&dateOfBirth=${getDate(employee.dateOfBirth)}
+        &email=${employee.email}&departmentId=${this.props.match.params.departmentId}`;
+        this.props.dispatch(employeeActions.saveEmployee(params, this.props.match.params.departmentId));
     }
 
     render() {
@@ -137,7 +106,7 @@ export default class EmployeeSaveForm extends Component {
                                     type="text"
                                     component={renderField}
                                     label="Name"
-                                    onChange={this.handleNameChange}
+                                    onChange={this.handleChange}
                                 />
                             </td>
                         </tr>
@@ -148,7 +117,7 @@ export default class EmployeeSaveForm extends Component {
                                     type="number"
                                     component={renderField}
                                     label="Age"
-                                    onChange={this.handleAgeChange}
+                                    onChange={this.handleChange}
                                 />
                             </td>
                         </tr>
@@ -159,7 +128,7 @@ export default class EmployeeSaveForm extends Component {
                                     type="text"
                                     component={renderField}
                                     label="Date of birth"
-                                    onChange={this.handleDateOfBirthChange}
+                                    onChange={this.handleChange}
                                 />
                             </td>
                         </tr>
@@ -170,13 +139,13 @@ export default class EmployeeSaveForm extends Component {
                                     type="text"
                                     component={renderField}
                                     label="Email"
-                                    onChange={this.handleEmailChange}
+                                    onChange={this.handleChange}
                                 />
                             </td>
                         </tr>
                         <tr>
                             <td><Link
-                                to={'/employee/getByDepartment/' + this.getDepartmentId()}
+                                to={'/employee/getByDepartment/' + this.props.match.params.departmentId}
                                 className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                                 Back
                             </Link>

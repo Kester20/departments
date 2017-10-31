@@ -15,27 +15,28 @@ export default class Department extends Component {
     };
 
     render(){
-        const key = this.props.index;
-        const value = this.props.value;
-        const deleteDepartment = this.props.deleteDepartment;
-        const id = value.get('departmentId');
-        const name = value.get('name');
+        const props = this.props;
+        const index = props.index;
+        const value = props.value;
+        if(!value) {
+            return null;
+        }
         return (
-            <tr key={id}>
-                <td>{key + 1}</td>
-                <td>{name}</td>
+            <tr key={value.get('departmentId')}>
+                <td>{index}</td>
+                <td>{value.get('name')}</td>
                 <td>
-                    <Link to={'/department/save/' + id}
+                    <Link to={'/department/save/' + value.get('departmentId')}
                           className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Edit
                     </Link>
                 </td>
                 <td>
-                    <button onClick={deleteDepartment.bind(this, id)}
+                    <button onClick={props.deleteDepartment.bind(this, value.get('departmentId'))}
                             className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
                     </button>
                 </td>
                 <td>
-                    <Link to={'employee/getByDepartment/' + id}
+                    <Link to={'employee/getByDepartment/' + value.get('departmentId')}
                        className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Employees
                     </Link>
                 </td>

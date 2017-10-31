@@ -25,7 +25,7 @@ ReactDOM.render((
                 <Route exact path="/" component={DepartmentsList}/>
                 <Route path="/department/save/:id?" component={DepartmentSaveForm}/>
                 <Route path="/employee/getByDepartment/:departmentId" component={EmployeeList}/>
-                <Route path="/employee/save/:id?" component={EmployeeSaveForm}/>
+                <Route path="/employee/save/:departmentId/:id?" component={EmployeeSaveForm}/>
             </div>
         </Router>
     </Provider>

@@ -2,6 +2,7 @@ import axios from "axios";
 import history from '../util/history';
 import {change} from 'redux-form';
 import * as constants from '../util/constants';
+import {getDate} from '../util/util';
 
 export const getEmployees = (departmentId, pageNumber = 1, itemsPerPage = 5) => {
     return (dispatch) => {
@@ -24,11 +25,12 @@ export const getEmployee = (id) => {
         axios
             .get('/employee/save?employeeId=' + id)
             .then(response => {
+                const data = response.data;
                 dispatch(getEmployeeSuccess(response.data));
-                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'name', response.data.name));
-                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'age', response.data.age));
-                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'dateOfBirth', response.data.dateOfBirth));
-                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'email', response.data.email));
+                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'name', data.name));
+                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'age', data.age));
+                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'dateOfBirth', getDate(data.dateOfBirth)));
+                dispatch(change(constants.EMPLOYEE_SAVE_FORM, 'email', data.email));
             })
             .catch(err => console.log(err));
     }
@@ -43,6 +45,20 @@ export const saveEmployee = (params, departmentId) => {
             })
             .catch(err => dispatch(handleError(err.response.data.email)));
     }
+};
+
+export const deleteEmployee = (id) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const employees = state.employees;
+        const departmentId = employees.get('list').get(0).get('department').get('departmentId');
+        return axios.post('/employee/delete?employeeId=' + id)
+            .then( () => {
+                dispatch(getEmployees(departmentId, employees.get('pageNumber'), employees.get('itemsPerPage')));
+                dispatch(getCountOfEmployees(departmentId));
+            })
+            .catch(error => {console.log(error);});
+    };
 };
 
 export const getEmployeesSuccess = (employees, pageNumber, itemsPerPage) => {

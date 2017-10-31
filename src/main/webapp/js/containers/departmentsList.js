@@ -56,7 +56,7 @@ export default class DepartmentsList extends Component {
 
     mapDepartments(departments) {
         return departments.map((value, key) =>
-            <Department value={value} key={key} index={key} deleteDepartment={this.deleteDepartment}/>
+            <Department value={value} key={key} index={key + 1} deleteDepartment={this.deleteDepartment}/>
         );
     }
 

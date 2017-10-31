@@ -25,6 +25,7 @@ export default class EmployeeList extends Component {
         super(props);
         this.handlePageChange = this.handlePageChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.deleteEmployee = this.deleteEmployee.bind(this);
     }
 
     componentDidMount() {
@@ -40,9 +41,13 @@ export default class EmployeeList extends Component {
         this.props.dispatch(employeeActions.getEmployees(this.props.match.params.departmentId, this.props.pageNumber, value));
     }
 
+    deleteEmployee(id) {
+        this.props.dispatch(employeeActions.deleteEmployee(id));
+    }
+
     mapEmployees(employees) {
         return employees.map((value, key) =>
-            <Employee value={value} key={key} index={key} deleteEmployee={this.deleteEmployee}/>
+            <Employee value={value} key={key} index={key + 1} deleteEmployee={this.deleteEmployee}/>
         );
     }
 
@@ -95,7 +100,7 @@ export default class EmployeeList extends Component {
                         </td>
                         <td colSpan="3"/>
                         <td colSpan="2">
-                            <Link to={'/employee/save/'}
+                            <Link to={'/employee/save/' + this.props.match.params.departmentId}
                                   className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                                 Add new employee
                             </Link>
