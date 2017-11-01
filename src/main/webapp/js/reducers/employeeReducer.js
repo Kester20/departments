@@ -34,6 +34,9 @@ export default (state = initialState, action) => {
         case constants.GET_EMPLOYEE_SUCCESS:
             return state.set('employee', action.employee);
 
+        case constants.GET_VALIDATION_ERROR:
+            return state.set('errorMessage', action.errorMessage);
+
         default:
             return state
     }

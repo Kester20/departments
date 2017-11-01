@@ -15,9 +15,7 @@ export default class Department extends Component {
     };
 
     render(){
-        const props = this.props;
-        const index = props.index;
-        const value = props.value;
+        const {index, value, deleteDepartment} = this.props;
         if(!value) {
             return null;
         }
@@ -31,7 +29,7 @@ export default class Department extends Component {
                     </Link>
                 </td>
                 <td>
-                    <button onClick={props.deleteDepartment.bind(this, value.get('departmentId'))}
+                    <button onClick={deleteDepartment.bind(this, value.get('departmentId'))}
                             className="event mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete
                     </button>
                 </td>

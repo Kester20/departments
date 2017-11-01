@@ -10,15 +10,17 @@ import {getDate} from '../util/util';
 
 const validate = values => {
     const errors = {};
-    if (!values.name) {
-        errors.name = 'Required!'
-    } else if (values.name.length > 15) {
-        errors.name = 'Must be 15 characters or less'
+    if (!values.name || values.name.length > 15) {
+        errors.name = 'Required and must be 15 characters or less'
     }
-    if(!values.age) {
-        errors.name = 'Required'
-    } else if(values.age.length > 2) {
-        errors.age = 'Too long!'
+    if(!values.age || values.age.length > 2) {
+        errors.age = 'Required and must be less then 100 years old'
+    }
+    if(!values.dateOfBirth || !/^\d\d\d\d-\d\d?-\d\d$/.test(values.dateOfBirth)){
+        errors.dateOfBirth = 'Required and must be match to YYYY-MM-DD pattern';
+    }
+    if(!values.email || !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,4}$/.test(values.email)){
+        errors.email = 'Required and must be match to email pattern';
     }
     return errors
 };
@@ -141,6 +143,9 @@ export default class EmployeeSaveForm extends Component {
                                     label="Email"
                                     onChange={this.handleChange}
                                 />
+                                <label className="error">
+                                    {this.props.errorMessage}
+                                </label>
                             </td>
                         </tr>
                         <tr>
