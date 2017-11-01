@@ -59,20 +59,7 @@ export default class EmployeeSaveForm extends Component {
     }
 
     componentWillUnmount() {
-        this.props.dispatch(employeeActions.getEmployeeSuccess({
-            employee: {
-                employeeId: null,
-                name: null,
-                age: null,
-                dateOfBirth: null,
-                email: null,
-                department: {
-                    departmentId: null,
-                    name: null
-                }
-            }
-        }));
-        this.props.dispatch(employeeActions.handleError(null));
+        this.props.dispatch(employeeActions.cleanState());
     }
 
     handleChange(event) {

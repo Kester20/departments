@@ -37,6 +37,9 @@ export default (state = initialState, action) => {
         case constants.GET_VALIDATION_ERROR:
             return state.set('errorMessage', action.errorMessage);
 
+        case constants.CLEAN_STATE:
+            return initialState;
+
         default:
             return state
     }

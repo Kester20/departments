@@ -85,3 +85,9 @@ export const handleError = (errorMessage) => {
         errorMessage
     }
 };
+
+export const cleanState = () => {
+    return {
+        type: constants.CLEAN_STATE
+    }
+};

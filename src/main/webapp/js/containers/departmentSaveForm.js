@@ -49,8 +49,7 @@ export default class DepartmentSaveForm extends Component {
     }
 
     componentWillUnmount() {
-        this.props.dispatch(departmentActions.getDepartmentSuccess({departmentId: null, name: null}));
-        this.props.dispatch(departmentActions.handleError(null));
+        this.props.dispatch(departmentActions.cleanState());
     }
 
     handleNameChange(event) {
