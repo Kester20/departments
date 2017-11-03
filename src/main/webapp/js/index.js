@@ -16,7 +16,7 @@ import EmployeeList from "./containers/employeeList";
 import EmployeeSaveForm from './containers/employeeSaveForm';
 import history from './util/history';
 import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas/sagas';
+import rootSaga from './sagas/rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
