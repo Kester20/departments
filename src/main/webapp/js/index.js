@@ -2,6 +2,7 @@ import '../css/style.css';
 import '../node_modules/material-design-lite/material.min.css';
 import '../node_modules/material-design-lite/material.min';
 import '../node_modules/lodash/lodash.min';
+import 'regenerator-runtime/runtime'
 import React from "react";
 import ReactDOM from "react-dom";
 import {Router, Route} from "react-router-dom";
@@ -14,9 +15,13 @@ import DepartmentSaveForm from "./containers/departmentSaveForm";
 import EmployeeList from "./containers/employeeList";
 import EmployeeSaveForm from './containers/employeeSaveForm';
 import history from './util/history';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas/sagas';
 
+const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(thunk));
+    applyMiddleware(thunk, sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render((
     <Provider store={store}>
