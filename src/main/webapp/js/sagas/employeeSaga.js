@@ -5,6 +5,7 @@ import * as constants from '../util/constants'
 import * as employeeActions from '../actions/employeeActions';
 import {getDate} from '../util/util';
 import history from '../util/history';
+import {toastr} from 'react-redux-toastr';
 
 export function* getEmployees(action) {
     try {
@@ -12,7 +13,7 @@ export function* getEmployees(action) {
             `/employee/getByDepartment/${action.departmentId}/${action.pageNumber}/${action.itemsPerPage}`, 'get');
         yield put(employeeActions.getEmployeesSuccess(employees, action.pageNumber, action.itemsPerPage));
     } catch (e) {
-        yield put({type: '', message: e.message});
+        toastr.error('Error', e.message);
     }
 }
 
@@ -21,7 +22,7 @@ export function* getCountOfEmployees(action) {
         const count = yield call(API, `/employee/getTotal/${action.id}`, 'get');
         yield put(employeeActions.getCountOfEmployeesSuccess(count));
     } catch (e) {
-        yield put({type: '', message: e.message});
+        toastr.error('Error', e.message);
     }
 }
 
@@ -34,7 +35,7 @@ export function* getEmployee(action) {
         yield put(change(constants.EMPLOYEE_SAVE_FORM, 'dateOfBirth', getDate(employee.dateOfBirth)));
         yield put(change(constants.EMPLOYEE_SAVE_FORM, 'email', employee.email));
     } catch (e) {
-        yield put({type: '', message: e.message});
+        toastr.error('Error', e.message);
     }
 }
 
@@ -42,8 +43,10 @@ export function* saveEmployee(action) {
     try {
         yield call(API, `/employee/save?${action.params}`, 'post');
         history.push(`/employee/getByDepartment/${action.departmentId}`);
+        toastr.success('Success', 'Employee was successfully saved');
     } catch (e) {
         yield put(employeeActions.handleError(e.response.data.email));
+        toastr.error('Error', 'Choose another email');
     }
 }
 
@@ -55,7 +58,8 @@ export function* deleteEmployee(action) {
         yield call(API, `/employee/delete?employeeId=${action.id}`, 'post');
         yield put(employeeActions.getEmployees(departmentId, employees.get('pageNumber'), employees.get('itemsPerPage')));
         yield put(employeeActions.getCountOfEmployees(departmentId));
+        toastr.success('Success', 'Employee was successfully deleted');
     } catch (e) {
-        yield put({type: '', message: e.message});
+        toastr.error('Error', e.message);
     }
 }

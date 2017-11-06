@@ -1,8 +1,7 @@
 "use strict";
 
 const path = require("path");
-let webpack = require("webpack");
-
+const webpack = require("webpack");
 const PATHS = {
     source: path.join(__dirname, '/')
 }
@@ -27,7 +26,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.css$/,
-                loader: "style-loader!css-loader"
+                loader: "style-loader!css-loader!sass-loader"
             },
             {
                 test: /\.html$/,
@@ -36,7 +35,17 @@ module.exports = {
             {
                 test : /\.jsx?/,
                 loader : 'babel-loader'
-            }
+            },
+            {
+                test: /\.scss$/,
+                use: [{
+                    loader: "style-loader" // creates style nodes from JS strings
+                }, {
+                    loader: "css-loader" // translates CSS into CommonJS
+                }, {
+                    loader: "sass-loader" // compiles Sass to CSS
+                }]
+            },
         ]
     },
 

@@ -1,4 +1,5 @@
 import '../css/style.css';
+import '../node_modules/react-redux-toastr/src/styles/index.scss';
 import '../node_modules/material-design-lite/material.min.css';
 import '../node_modules/material-design-lite/material.min';
 import '../node_modules/lodash/lodash.min';
@@ -17,6 +18,7 @@ import EmployeeSaveForm from './containers/employeeSaveForm';
 import history from './util/history';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas/rootSaga';
+import ReduxToastr from 'react-redux-toastr';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
@@ -31,6 +33,15 @@ ReactDOM.render((
                 <Route path="/department/save/:id?" component={DepartmentSaveForm}/>
                 <Route path="/employee/getByDepartment/:departmentId" component={EmployeeList}/>
                 <Route path="/employee/save/:departmentId/:id?" component={EmployeeSaveForm}/>
+                <ReduxToastr
+                    timeOut={4000}
+                    newestOnTop={false}
+                    preventDuplicates
+                    position="top-right"
+                    transitionIn="fadeIn"
+                    transitionOut="fadeOut"
+                    progressBar
+                />
             </div>
         </Router>
     </Provider>
